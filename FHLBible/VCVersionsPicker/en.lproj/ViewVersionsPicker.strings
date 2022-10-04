@@ -1,0 +1,51 @@
+
+/* Class = "UIButton"; normalTitle = "分類"; ObjectID = "5oy-k7-0ws"; */
+"5oy-k7-0ws.normalTitle" = "分類";
+
+/* Class = "UIButton"; normalTitle = "1919-60"; ObjectID = "8h3-Lh-Xch"; */
+"8h3-Lh-Xch.normalTitle" = "1919-60";
+
+/* Class = "UIButton"; normalTitle = "1800-50"; ObjectID = "Bbu-Pf-nIu"; */
+"Bbu-Pf-nIu.normalTitle" = "1800-50";
+
+/* Class = "UIButton"; normalTitle = "官話(白話文)"; ObjectID = "DGe-5S-YpH"; */
+"DGe-5S-YpH.normalTitle" = "官話(白話文)";
+
+/* Class = "UIButton"; normalTitle = "常用"; ObjectID = "DKk-X9-sgx"; */
+"DKk-X9-sgx.normalTitle" = "常用";
+
+/* Class = "UIButton"; normalTitle = "1800 前"; ObjectID = "EvO-67-5A0"; */
+"EvO-67-5A0.normalTitle" = "1800 前";
+
+/* Class = "UISwitch"; title = "次分類"; ObjectID = "GTJ-r6-HCO"; */
+"GTJ-r6-HCO.title" = "次分類";
+
+/* Class = "UIButton"; normalTitle = "已選取"; ObjectID = "Kit-oK-YDy"; */
+"Kit-oK-YDy.normalTitle" = "已選取";
+
+/* Class = "UIButton"; normalTitle = "研讀本"; ObjectID = "LeD-5k-Nrp"; */
+"LeD-5k-Nrp.normalTitle" = "研讀本";
+
+/* Class = "UIButton"; normalTitle = "次分類"; ObjectID = "N5U-PC-Z7A"; */
+"N5U-PC-Z7A.normalTitle" = "次分類";
+
+/* Class = "UIButton"; normalTitle = "套件"; ObjectID = "PhI-dM-nYz"; */
+"PhI-dM-nYz.normalTitle" = "套件";
+
+/* Class = "UIButton"; normalTitle = "俄羅斯正教"; ObjectID = "U6A-fc-LOM"; */
+"U6A-fc-LOM.normalTitle" = "俄羅斯正教";
+
+/* Class = "UIButton"; normalTitle = "文理(文言文)"; ObjectID = "UPm-hJ-ouh"; */
+"UPm-hJ-ouh.normalTitle" = "文理(文言文)";
+
+/* Class = "UIButton"; normalTitle = "羅馬天主教"; ObjectID = "VUb-vZ-aFV"; */
+"VUb-vZ-aFV.normalTitle" = "羅馬天主教";
+
+/* Class = "UIButton"; normalTitle = "近代"; ObjectID = "ZOR-4y-SJ1"; */
+"ZOR-4y-SJ1.normalTitle" = "近代";
+
+/* Class = "UIButton"; normalTitle = "1850-1918"; ObjectID = "cNC-SH-1TO"; */
+"cNC-SH-1TO.normalTitle" = "1850-1918";
+
+/* Class = "UIButton"; normalTitle = "基督新教"; ObjectID = "h84-u8-6Mn"; */
+"h84-u8-6Mn.normalTitle" = "基督新教";

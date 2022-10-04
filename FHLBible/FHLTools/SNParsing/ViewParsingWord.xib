@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewParsingWord" customModule="FHLBible" customModuleProvider="target">
+            <connections>
+                <outlet property="viewBase" destination="iN0-l3-epB" id="OFP-TU-gX6"/>
+                <outlet property="viewCellChineses" destination="xMW-28-hye" id="1PB-St-rdC"/>
+                <outlet property="viewCellOrig" destination="Yc1-Qk-GgV" id="eDd-Va-NJt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="695" height="168"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YaS-hf-Taa" userLabel="Scroll View Orig">
+                    <rect key="frame" x="0.0" y="0.0" width="695" height="67"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yc1-Qk-GgV" customClass="ViewDisplayCell" customModule="FHLBible" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="695" height="67"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="JuS-1H-Qy7"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="11" id="Uzn-V0-zJr"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Yc1-Qk-GgV" firstAttribute="leading" secondItem="u1N-Te-rcb" secondAttribute="leading" id="QpR-go-HHk"/>
+                        <constraint firstItem="Yc1-Qk-GgV" firstAttribute="trailing" secondItem="u1N-Te-rcb" secondAttribute="trailing" id="Tcj-8f-35V"/>
+                        <constraint firstItem="Yc1-Qk-GgV" firstAttribute="height" secondItem="Vtc-AB-9FP" secondAttribute="height" id="suF-XB-kcw"/>
+                        <constraint firstItem="Yc1-Qk-GgV" firstAttribute="width" relation="greaterThanOrEqual" secondItem="Vtc-AB-9FP" secondAttribute="width" id="xbI-js-ycy"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="u1N-Te-rcb"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="Vtc-AB-9FP"/>
+                </scrollView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5qg-XE-t4o" userLabel="Scroll View Chinese">
+                    <rect key="frame" x="0.0" y="70" width="695" height="98"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xMW-28-hye" customClass="ViewDisplayCell" customModule="FHLBible" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="695" height="98"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="1dR-Mw-3Af"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="11" id="1mq-lz-7cp"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="xMW-28-hye" firstAttribute="height" secondItem="7ir-NI-Y5C" secondAttribute="height" id="FUB-GA-LBP"/>
+                        <constraint firstItem="xMW-28-hye" firstAttribute="width" relation="greaterThanOrEqual" secondItem="7ir-NI-Y5C" secondAttribute="width" id="HSd-gH-kqT"/>
+                        <constraint firstItem="xMW-28-hye" firstAttribute="leading" secondItem="aSz-Nj-gV9" secondAttribute="leading" id="c0j-MM-v6I"/>
+                        <constraint firstItem="xMW-28-hye" firstAttribute="trailing" secondItem="aSz-Nj-gV9" secondAttribute="trailing" id="pWb-Sx-66A"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="aSz-Nj-gV9"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="7ir-NI-Y5C"/>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="YaS-hf-Taa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="39U-AY-7wg"/>
+                <constraint firstItem="5qg-XE-t4o" firstAttribute="top" secondItem="YaS-hf-Taa" secondAttribute="bottom" id="6HS-WV-0rl"/>
+                <constraint firstAttribute="trailing" secondItem="YaS-hf-Taa" secondAttribute="trailing" id="A9u-hE-xHZ"/>
+                <constraint firstAttribute="bottom" secondItem="5qg-XE-t4o" secondAttribute="bottom" id="CPA-gH-Czx"/>
+                <constraint firstItem="5qg-XE-t4o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aZy-BQ-HAq"/>
+                <constraint firstAttribute="trailing" secondItem="5qg-XE-t4o" secondAttribute="trailing" id="c7X-li-Fbs"/>
+                <constraint firstItem="YaS-hf-Taa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="oG4-cj-ZOW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="335.50724637681162" y="-131.25"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="SQUiabv" representedClassName=".SQUiabv" syncable="YES">
+        <attribute name="book" optional="YES" attributeType="String"/>
+        <attribute name="cname" optional="YES" attributeType="String"/>
+        <attribute name="cnameGB" optional="YES" attributeType="String"/>
+        <attribute name="version" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="SQUiabv" positionX="-63" positionY="-18" width="128" height="103"/>
+    </elements>
+</model>

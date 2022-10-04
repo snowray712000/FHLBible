@@ -1,0 +1,112 @@
+/* Class = "UIButton"; configuration.title = "設定"; ObjectID = "0BG-Hx-oRT"; */
+"0BG-Hx-oRT.configuration.title" = "设定";
+
+/* Class = "UINavigationItem"; title = "字典"; ObjectID = "0vP-iP-wrq"; */
+"0vP-iP-wrq.title" = "字典";
+
+/* Class = "UIButton"; normalTitle = "完整名稱"; ObjectID = "1Kz-GG-2eO"; */
+"1Kz-GG-2eO.normalTitle" = "完整名称";
+
+/* Class = "UINavigationItem"; title = "閱讀"; ObjectID = "5z0-93-CVj"; */
+"5z0-93-CVj.title" = "阅读";
+
+/* Class = "UINavigationItem"; title = "注釋"; ObjectID = "7eq-zL-c2n"; */
+"7eq-zL-c2n.title" = "注释";
+
+/* Class = "UIButton"; normalTitle = "SN"; ObjectID = "45Q-qC-E3c"; */
+"45Q-qC-E3c.normalTitle" = "SN";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "78o-52-YRe"; */
+"78o-52-YRe.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "A3s-hN-77r"; */
+"A3s-hN-77r.title" = "Item";
+
+/* Class = "UIButton"; normalTitle = "彙編"; ObjectID = "bdH-Xf-63A"; */
+"bdH-Xf-63A.normalTitle" = "彙编";
+
+/* Class = "UIButton"; normalTitle = "章"; ObjectID = "bO6-h0-nfu"; */
+"bO6-h0-nfu.normalTitle" = "章";
+
+/* Class = "UIButton"; normalTitle = "舊約"; ObjectID = "cNg-CC-9nk"; */
+"cNg-CC-9nk.normalTitle" = "旧约";
+
+/* Class = "UIButton"; configuration.title = "閱讀"; ObjectID = "cQp-ZZ-HZV"; */
+"cQp-ZZ-HZV.configuration.title" = "阅读";
+
+/* Class = "UINavigationItem"; title = "書卷選擇"; ObjectID = "eBx-nJ-ndg"; */
+"eBx-nJ-ndg.title" = "书卷选择";
+
+/* Class = "UINavigationItem"; title = "注腳"; ObjectID = "ejc-Si-cJq"; */
+"ejc-Si-cJq.title" = "注脚";
+
+/* Class = "UIButton"; normalTitle = "羅1:1 "; ObjectID = "FhJ-Ph-xk7"; */
+"FhJ-Ph-xk7.normalTitle" = "罗1:1 ";
+
+/* Class = "UINavigationItem"; title = "串珠"; ObjectID = "gpP-no-PTh"; */
+"gpP-no-PTh.title" = "串珠";
+
+/* Class = "UIButton"; normalTitle = "SN"; ObjectID = "JKg-L4-5rQ"; */
+"JKg-L4-5rQ.normalTitle" = "SN";
+
+/* Class = "UINavigationItem"; title = "閱讀記錄"; ObjectID = "KkQ-jI-AOE"; */
+"KkQ-jI-AOE.title" = "阅读记录";
+
+/* Class = "UINavigationItem"; title = "譯本選擇"; ObjectID = "LEr-kf-SpF"; */
+"LEr-kf-SpF.title" = "译本选择";
+
+/* Class = "UIButton"; normalTitle = "新約"; ObjectID = "LHg-Ea-1Lv"; */
+"LHg-Ea-1Lv.normalTitle" = "新约";
+
+/* Class = "UIButton"; ibShadowedToolTip = "Search"; ObjectID = "mRq-YC-MRF"; */
+"mRq-YC-MRF.ibShadowedToolTip" = "Search";
+
+/* Class = "UIButton"; normalTitle = "希伯來順序"; ObjectID = "Of4-B8-jSJ"; */
+"Of4-B8-jSJ.normalTitle" = "希伯来顺序";
+
+/* Class = "UILabel"; text = "信望愛聖經工具"; ObjectID = "Oke-au-QTe"; */
+"Oke-au-QTe.text" = "信望爱圣经工具";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "qEE-8F-g9L"; */
+"qEE-8F-g9L.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "ButtonButtonButtonButtonButtonButtonButtonButtonButtonButton"; ObjectID = "sRN-1K-oGO"; */
+"sRN-1K-oGO.normalTitle" = "ButtonButtonButtonButtonButtonButtonButtonButtonButtonButton";
+
+/* Class = "UINavigationItem"; title = "搜尋結果"; ObjectID = "tYV-Dm-MWI"; */
+"tYV-Dm-MWI.title" = "搜寻结果";
+
+/* Class = "UINavigationItem"; title = "搜尋ing"; ObjectID = "Udp-LO-4sa"; */
+"Udp-LO-4sa.title" = "搜寻ing";
+
+/* Class = "UILabel"; text = "1.0.2"; ObjectID = "vYz-Zn-qjI"; */
+"vYz-Zn-qjI.text" = "1.0.2";
+
+/* Class = "UILabel"; text = "2021.12.02a"; ObjectID = "yAR-wf-KDl"; */
+"yAR-wf-KDl.text" = "2021.12.02a";
+
+/* Class = "UINavigationItem"; title = "版本比較"; ObjectID = "yyd-62-yyW"; */
+"yyd-62-yyW.title" = "版本比较";
+
+// VCIndex
+"3TA-NI-0KA.normalTitle" = "信望爱圣经工具";
+"cQp-ZZ-HZV.configuration.title" = "阅读";
+"cQp-ZZ-HZV.normalTitle" = "阅读";
+"0BG-Hx-oRT.configuration.title" = "设定";
+"0BG-Hx-oRT.normalTitle" = "设定";
+"kRA-tR-I8q.title" = "首页";
+
+"5z0-93-CVj.title" = "阅读";
+
+// 书卷选择相关
+"eBx-nJ-ndg.title" = "书卷选择";
+"cNg-CC-9nk.normalTitle" = "旧约";
+"cNg-CC-9nk.configuration.title" = "旧约";
+"LHg-Ea-1Lv.normalTitle" = "新约";
+"LHg-Ea-1Lv.configuration.title" = "新约";
+"Of4-B8-jSJ.normalTitle" = "希伯来顺序";
+"Of4-B8-jSJ.configuration.title" = "希伯来顺序";
+"1Kz-GG-2eO.normalTitle" = "完整名称";
+"1Kz-GG-2eO.configuration.title" = "完整名称";
+
+"LEr-kf-SpF.title" = "译本选择";

@@ -1,0 +1,3 @@
+/* Bundle display name */
+// "CFBundleDisplayName" = "信望爱圣经工具";
+"CFBundleDisplayName" = "聖經工具"; // 不能太長

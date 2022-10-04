@@ -1,0 +1,83 @@
+/* No comment provided by engineer. */
+"上一頁" = "上一页";
+
+/* No comment provided by engineer. */
+"上一章" = "上一章";
+
+/* No comment provided by engineer. */
+"下一章" = "下一章";
+
+/* No comment provided by engineer. */
+"小技巧: 2隻手指向右滑" = "小技巧: 2隻手指向右滑";
+
+/* No comment provided by engineer. */
+"小技巧: 3隻手指向右滑" = "小技巧: 3隻手指向右滑";
+
+/* No comment provided by engineer. */
+"小技巧: 手指向右滑" = "小技巧: 手指向右滑";
+
+/* No comment provided by engineer. */
+"小技巧: 手指向左滑" = "小技巧: 手指向左滑";
+
+/* No comment provided by engineer. */
+"中文線上聖經計畫 (Chinese bible on-line project) CBOL" = "中文线上圣经计画 (Chinese bible on-line project) CBOL";
+
+/* No comment provided by engineer. */
+"同時顯示 CBOL、浸宣、CBOL(En)的字典" = "同时显示 CBOL、浸宣、CBOL(En)的字典";
+
+/* No comment provided by engineer. */
+"字典(全)" = "字典(全)";
+
+/* No comment provided by engineer. */
+"此節，比較多個版本" = "此节，比较多个版本";
+
+/* No comment provided by engineer. */
+"串珠" = "串珠";
+
+/* No comment provided by engineer. */
+"串珠聖經工具。每一節經文旁，標注相關經文，它也是一種注釋，不是聖經本身" = "串珠圣经工具。每一节经文旁，标注相关经文，它也是一种注释，不是圣经本身";
+
+/* No comment provided by engineer. */
+"取得資料中..." = "取得资料中...";
+
+/* No comment provided by engineer. */
+"注釋" = "注释";
+"註釋" = "註释";
+
+/* No comment provided by engineer. */
+"版本比較" = "版本比较";
+
+/* No comment provided by engineer. */
+"查經班查經後資料整理，完整可見 https://a2z.fhl.net/bible/，或 google 'a2z fhl' 即可。" = "查经班查经后资料整理，完整可见 https://a2z.fhl.net/bible/，或 google 'a2z fhl' 即可。";
+
+/* No comment provided by engineer. */
+"原文分析工具；時態、單複數、陽性、陰性等原文分析" = "原文分析工具；时态、单複数、阳性、阴性等原文分析";
+
+/* No comment provided by engineer. */
+"浸宣" = "浸宣";
+
+/* No comment provided by engineer. */
+"浸宣出版社原文字典" = "浸宣出版社原文字典";
+
+/* No comment provided by engineer. */
+"彙編" = "彙编";
+
+/* No comment provided by engineer. */
+"閱讀記錄" = "阅读记录";
+
+// 中文 英文 希伯来、希腊文 其它外语 台语 客家语 台湾原住民语 其它
+// 中文 英文 希伯來、希臘文 其它外語 台語 客家語 台灣原住民語 其它
+"希伯來、希臘文" = "希伯来、希腊文";
+"其它外語" = "其它外语";
+"台語" = "台语";
+"客家語" = "客家语";
+"台灣原住民語" = "台湾原住民语";
+
+"程式總是有Bug，當「閱讀」總是閃退，可能是某譯本、某章、某節、我沒處理好。按此功能，嘗試重置為「和合本，創世記1」" = "程式总是有Bug，当「阅读」总是闪退，可能是某译本、某章、某节、我没处理好。按此功能，尝试重置为「和合本，创世记1」";
+"請至 support urls 回報{或觀看}目前已提出的問題與回饋。" = "请至 support urls 回报{或观看}目前已提出的问题与回馈。";
+"當機重置" = "当机重置";
+"已重置，可再嘗試使用(1秒後繼續)" = "已重置，可再尝试使用(1秒后继续)";
+"訊息" = "讯息";
+"打開到 support urls嗎？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)" = "打开到 support urls吗？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)";
+
+

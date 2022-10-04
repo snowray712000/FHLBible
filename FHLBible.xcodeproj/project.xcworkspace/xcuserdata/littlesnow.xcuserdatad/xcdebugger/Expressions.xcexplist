@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "closure #1 in FhlScTests.test01():FhlScTests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(String?)(*( (Swift.Optional&lt;Swift.String&gt; *)0x600001eac3b0))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "VCVersionsPicker.setInitData(_:):VCVersionsPicker.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GlobalVariableBase.updateCur(_:):ManagerAddress.swift">
+      </ContextState>
+      <ContextState
+         contextName = "VCVersionsPicker.viewDidLoad():VCVersionsPicker.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ijnSubString(_:pos:to:):ijnRegex.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in AutoLoadDuiAbv.getDuiAbvAndUpdateIt(_:):uiabv.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ReadDataQ.qDataForReadAsync(_:_:):VCRead.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in VCIndex.goRead():VCIndex.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in VCRead.viewDidLoad():VCRead.swift">
+      </ContextState>
+      <ContextState
+         contextName = "VCReadHistory.viewDidLoad():VCReadHistory.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewVersionsPicker.initedFromXib():ViewVersionsPicker.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

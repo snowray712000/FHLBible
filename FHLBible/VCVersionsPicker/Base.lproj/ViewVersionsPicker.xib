@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewVersionsPicker" customModule="FHLBible" customModuleProvider="target">
+            <connections>
+                <outlet property="btnDirectionImage" destination="Tek-Y5-AOv" id="xfb-f8-Thr"/>
+                <outlet property="btnOnOff" destination="GTJ-r6-HCO" id="p31-7U-pkF"/>
+                <outlet property="btnRecently" destination="DKk-X9-sgx" id="fJE-x6-Dfj"/>
+                <outlet property="btnSelection" destination="Kit-oK-YDy" id="8lA-xl-aNt"/>
+                <outlet property="btnSets" destination="PhI-dM-nYz" id="jN1-t6-Rkd"/>
+                <outlet property="scrollSet" destination="cDP-Hp-kc8" id="crn-6q-75u"/>
+                <outlet property="stackRecently" destination="PcN-IT-OPl" id="tx2-zn-gDp"/>
+                <outlet property="stackSelection" destination="Sxj-sd-LqX" id="KMP-6r-4hs"/>
+                <outlet property="stackSets" destination="TOy-zq-9Xl" id="CDM-G5-nqC"/>
+                <outlet property="stackSub1" destination="9GG-Mc-YQm" id="Tbo-Fn-nSf"/>
+                <outlet property="viewBase" destination="iN0-l3-epB" id="fEA-Zi-1Nc"/>
+                <outlet property="viewCollectionItems" destination="AaL-Zk-UYY" id="fxl-HN-ZCm"/>
+                <outletCollection property="_btnsSub" destination="h84-u8-6Mn" collectionClass="NSMutableArray" id="4ol-f6-ImX"/>
+                <outletCollection property="_btnsSub" destination="VUb-vZ-aFV" collectionClass="NSMutableArray" id="44Y-0f-Dbr"/>
+                <outletCollection property="_btnsSub" destination="U6A-fc-LOM" collectionClass="NSMutableArray" id="6KO-5e-tXS"/>
+                <outletCollection property="_btnsSub" destination="DGe-5S-YpH" collectionClass="NSMutableArray" id="JyK-yv-9rE"/>
+                <outletCollection property="_btnsSub" destination="UPm-hJ-ouh" collectionClass="NSMutableArray" id="NFR-Ul-JaP"/>
+                <outletCollection property="_btnsSub" destination="LeD-5k-Nrp" collectionClass="NSMutableArray" id="e2p-2U-drF"/>
+                <outletCollection property="_btnsSub" destination="EvO-67-5A0" collectionClass="NSMutableArray" id="aL5-Bb-l6Q"/>
+                <outletCollection property="_btnsSub" destination="Bbu-Pf-nIu" collectionClass="NSMutableArray" id="clM-0t-Wme"/>
+                <outletCollection property="_btnsSub" destination="cNC-SH-1TO" collectionClass="NSMutableArray" id="RSe-Nc-kWO"/>
+                <outletCollection property="_btnsSub" destination="8h3-Lh-Xch" collectionClass="NSMutableArray" id="XGw-bL-Fjv"/>
+                <outletCollection property="_btnsSub" destination="ZOR-4y-SJ1" collectionClass="NSMutableArray" id="Mdf-D8-bMc"/>
+                <outletCollection property="scrollsSub2" destination="Mxn-V5-VLj" collectionClass="NSMutableArray" id="5cH-Ay-7kC"/>
+                <outletCollection property="scrollsSub2" destination="VvC-tW-DdP" collectionClass="NSMutableArray" id="TaK-E6-WaC"/>
+                <outletCollection property="scrollsSub2" destination="wqy-5d-yq4" collectionClass="NSMutableArray" id="103-eE-LIb"/>
+                <outletCollection property="scrollsSub2" destination="wcN-c5-O9O" collectionClass="NSMutableArray" id="POj-R0-9KZ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="329" height="362"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BUi-aS-FWY">
+                    <rect key="frame" x="0.0" y="0.0" width="329" height="362"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="nMS-Qk-buu">
+                            <rect key="frame" x="0.0" y="0.0" width="329" height="830"/>
+                            <subviews>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yWi-wp-hSU">
+                                    <rect key="frame" x="0.0" y="0.0" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Sxj-sd-LqX">
+                                            <rect key="frame" x="0.0" y="0.0" width="70.5" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kit-oK-YDy">
+                                                    <rect key="frame" x="0.0" y="12.5" width="70.5" height="25.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="751" constant="60" id="L07-8w-Pwg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="已選取" image="cursorarrow.rays" catalog="system">
+                                                        <color key="titleColor" systemColor="systemGreenColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="clickClearSelections" destination="-1" eventType="primaryActionTriggered" id="qn3-mp-fiu"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Sxj-sd-LqX" firstAttribute="height" secondItem="V7J-Tr-QtT" secondAttribute="height" id="Fg5-xk-Jvc"/>
+                                        <constraint firstItem="Sxj-sd-LqX" firstAttribute="trailing" secondItem="qXW-2b-ruP" secondAttribute="trailing" constant="20" id="IAv-mV-2Vt"/>
+                                        <constraint firstItem="Sxj-sd-LqX" firstAttribute="bottom" secondItem="qXW-2b-ruP" secondAttribute="bottom" id="Xpd-g3-Y3a"/>
+                                        <constraint firstItem="Sxj-sd-LqX" firstAttribute="leading" secondItem="qXW-2b-ruP" secondAttribute="leading" id="d81-Q6-4oA"/>
+                                        <constraint firstItem="Sxj-sd-LqX" firstAttribute="top" secondItem="qXW-2b-ruP" secondAttribute="top" id="mXT-Vn-GZI"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="qXW-2b-ruP"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="V7J-Tr-QtT"/>
+                                </scrollView>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZb-rc-LML">
+                                    <rect key="frame" x="0.0" y="52" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PcN-IT-OPl">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DKk-X9-sgx">
+                                                    <rect key="frame" x="0.0" y="12.5" width="60" height="25.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="751" constant="60" id="OvN-OT-Suh"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="常用" image="cursorarrow.rays" catalog="system">
+                                                        <color key="titleColor" systemColor="systemGreenColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="clickClearRecently" destination="-1" eventType="primaryActionTriggered" id="nys-ob-vkY"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="PcN-IT-OPl" firstAttribute="height" secondItem="jq7-5E-LOP" secondAttribute="height" id="LEm-gC-uie"/>
+                                        <constraint firstItem="PcN-IT-OPl" firstAttribute="leading" secondItem="M0Q-O5-foA" secondAttribute="leading" id="SmF-Un-s0e"/>
+                                        <constraint firstItem="PcN-IT-OPl" firstAttribute="trailing" secondItem="M0Q-O5-foA" secondAttribute="trailing" id="fjp-bC-CYa"/>
+                                        <constraint firstItem="PcN-IT-OPl" firstAttribute="bottom" secondItem="M0Q-O5-foA" secondAttribute="bottom" id="lL4-hj-FND"/>
+                                        <constraint firstItem="PcN-IT-OPl" firstAttribute="top" secondItem="M0Q-O5-foA" secondAttribute="top" id="n3B-JA-UgP"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="M0Q-O5-foA"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="jq7-5E-LOP"/>
+                                </scrollView>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDP-Hp-kc8">
+                                    <rect key="frame" x="0.0" y="104" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TOy-zq-9Xl">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PhI-dM-nYz">
+                                                    <rect key="frame" x="0.0" y="12.5" width="60" height="25.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="751" constant="60" id="BH5-aa-IOm"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="套件" image="cursorarrow.rays" catalog="system">
+                                                        <color key="titleColor" systemColor="systemGreenColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="clickClearSets" destination="-1" eventType="primaryActionTriggered" id="8Hf-Sl-lBe"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="TOy-zq-9Xl" firstAttribute="top" secondItem="EV9-hv-hSu" secondAttribute="top" id="8qE-ob-jUW"/>
+                                        <constraint firstItem="TOy-zq-9Xl" firstAttribute="leading" secondItem="EV9-hv-hSu" secondAttribute="leading" id="A2N-sT-ZLp"/>
+                                        <constraint firstItem="TOy-zq-9Xl" firstAttribute="height" secondItem="nbD-vP-Und" secondAttribute="height" id="Iax-C3-nNO"/>
+                                        <constraint firstItem="TOy-zq-9Xl" firstAttribute="trailing" secondItem="EV9-hv-hSu" secondAttribute="trailing" id="Szi-Du-EKk"/>
+                                        <constraint firstItem="TOy-zq-9Xl" firstAttribute="bottom" secondItem="EV9-hv-hSu" secondAttribute="bottom" id="hsZ-D9-PiF"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="EV9-hv-hSu"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="nbD-vP-Und"/>
+                                </scrollView>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRh-99-LgF" userLabel="Scroll View 分類">
+                                    <rect key="frame" x="0.0" y="156" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="9GG-Mc-YQm">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oy-k7-0ws">
+                                                    <rect key="frame" x="0.0" y="13.5" width="60" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="751" constant="60" id="OCa-0x-6pe"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="分類">
+                                                        <color key="titleColor" systemColor="systemGreenColor"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="9GG-Mc-YQm" firstAttribute="top" secondItem="u9O-GU-ix3" secondAttribute="top" id="Cy3-bZ-aUv"/>
+                                        <constraint firstItem="9GG-Mc-YQm" firstAttribute="trailing" secondItem="u9O-GU-ix3" secondAttribute="trailing" id="VAh-ma-Yk1"/>
+                                        <constraint firstItem="9GG-Mc-YQm" firstAttribute="bottom" secondItem="u9O-GU-ix3" secondAttribute="bottom" id="dwB-ca-xpB"/>
+                                        <constraint firstItem="9GG-Mc-YQm" firstAttribute="leading" secondItem="u9O-GU-ix3" secondAttribute="leading" id="kfF-ix-13F"/>
+                                        <constraint firstItem="9GG-Mc-YQm" firstAttribute="height" secondItem="3ni-8z-9uM" secondAttribute="height" id="srl-ej-PAL"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="u9O-GU-ix3"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="3ni-8z-9uM"/>
+                                </scrollView>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mxn-V5-VLj" userLabel="Scroll View 次分類開關">
+                                    <rect key="frame" x="0.0" y="208" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wdc-Wl-tbf">
+                                            <rect key="frame" x="0.0" y="0.0" width="109" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N5U-PC-Z7A">
+                                                    <rect key="frame" x="0.0" y="13.5" width="60" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="751" constant="60" id="K66-t0-sPv"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="次分類">
+                                                        <color key="titleColor" systemColor="systemGreenColor"/>
+                                                    </state>
+                                                </button>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" title="次分類" translatesAutoresizingMaskIntoConstraints="NO" id="GTJ-r6-HCO">
+                                                    <rect key="frame" x="60" y="9.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="clickSwitchOnOff:" destination="-1" eventType="primaryActionTriggered" id="CX3-oh-S0O"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Wdc-Wl-tbf" firstAttribute="trailing" secondItem="4rY-Wn-h17" secondAttribute="trailing" id="6ee-b6-qKG"/>
+                                        <constraint firstItem="Wdc-Wl-tbf" firstAttribute="bottom" secondItem="4rY-Wn-h17" secondAttribute="bottom" id="Ahn-0g-tjP"/>
+                                        <constraint firstItem="Wdc-Wl-tbf" firstAttribute="leading" secondItem="4rY-Wn-h17" secondAttribute="leading" id="ODJ-fp-zDE"/>
+                                        <constraint firstItem="Wdc-Wl-tbf" firstAttribute="top" secondItem="4rY-Wn-h17" secondAttribute="top" id="uUH-HJ-WB9"/>
+                                        <constraint firstItem="Wdc-Wl-tbf" firstAttribute="height" secondItem="cRg-Q4-Mfu" secondAttribute="height" id="wIH-UF-G44"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="4rY-Wn-h17"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="cRg-Q4-Mfu"/>
+                                </scrollView>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VvC-tW-DdP" userLabel="Scroll View 次分類1">
+                                    <rect key="frame" x="0.0" y="260" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="cOi-Kh-Sl2">
+                                            <rect key="frame" x="0.0" y="0.0" width="258" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h84-u8-6Mn" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="8" width="74" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="基督新教">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUb-vZ-aFV" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="74" y="8" width="92" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="羅馬天主教">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6A-fc-LOM" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="166" y="8" width="92" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="俄羅斯正教">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="cOi-Kh-Sl2" firstAttribute="leading" secondItem="rAy-Sj-YPW" secondAttribute="leading" id="0G0-C3-9Yy"/>
+                                        <constraint firstItem="cOi-Kh-Sl2" firstAttribute="top" secondItem="rAy-Sj-YPW" secondAttribute="top" id="AWh-VL-rlQ"/>
+                                        <constraint firstItem="cOi-Kh-Sl2" firstAttribute="trailing" secondItem="rAy-Sj-YPW" secondAttribute="trailing" id="EcT-xD-B5K"/>
+                                        <constraint firstItem="cOi-Kh-Sl2" firstAttribute="bottom" secondItem="rAy-Sj-YPW" secondAttribute="bottom" id="cuw-F4-4c8"/>
+                                        <constraint firstItem="cOi-Kh-Sl2" firstAttribute="height" secondItem="SB1-P1-0fE" secondAttribute="height" id="gQf-ve-4JV"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="rAy-Sj-YPW"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="SB1-P1-0fE"/>
+                                </scrollView>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqy-5d-yq4">
+                                    <rect key="frame" x="0.0" y="312" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="-27" translatesAutoresizingMaskIntoConstraints="NO" id="L4P-WD-2ja">
+                                            <rect key="frame" x="0.0" y="0.0" width="266" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="11" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGe-5S-YpH" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="8" width="105" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="官話(白話文)">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPm-hJ-ouh" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="105" y="8" width="105" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="文理(文言文)">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeD-5k-Nrp" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="210" y="8" width="56" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="研讀本">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="L4P-WD-2ja" firstAttribute="bottom" secondItem="XiW-2Y-Piu" secondAttribute="bottom" id="L49-6v-t02"/>
+                                        <constraint firstItem="L4P-WD-2ja" firstAttribute="trailing" secondItem="XiW-2Y-Piu" secondAttribute="trailing" id="aoP-02-YdX"/>
+                                        <constraint firstItem="L4P-WD-2ja" firstAttribute="leading" secondItem="XiW-2Y-Piu" secondAttribute="leading" id="mjD-AB-bg1"/>
+                                        <constraint firstItem="L4P-WD-2ja" firstAttribute="top" secondItem="XiW-2Y-Piu" secondAttribute="top" id="qba-ZN-Tds"/>
+                                        <constraint firstItem="L4P-WD-2ja" firstAttribute="height" secondItem="D1y-re-MIE" secondAttribute="height" id="tj2-iZ-Rbw"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="XiW-2Y-Piu"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="D1y-re-MIE"/>
+                                </scrollView>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcN-c5-O9O" userLabel="Scroll View 次分類3年代">
+                                    <rect key="frame" x="0.0" y="364" width="329" height="50"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="-25" translatesAutoresizingMaskIntoConstraints="NO" id="Pfs-2m-hKX">
+                                            <rect key="frame" x="0.0" y="0.0" width="327" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvO-67-5A0" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="8" width="64" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="1800 前">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bbu-Pf-nIu" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="64" y="8" width="71" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="1800-50">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNC-SH-1TO" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="135" y="8" width="87" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="1850-1918">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="24" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8h3-Lh-Xch" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="222" y="8" width="68" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="1919-60">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" tag="25" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOR-4y-SJ1" customClass="ViewVersionsPickerButtonSub2" customModule="FHLBible" customModuleProvider="target">
+                                                    <rect key="frame" x="290" y="8" width="37" height="34"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="近代">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Pfs-2m-hKX" firstAttribute="height" secondItem="M3h-sk-PK6" secondAttribute="height" id="UWR-c1-HKp"/>
+                                        <constraint firstItem="Pfs-2m-hKX" firstAttribute="leading" secondItem="pZI-Yy-bwl" secondAttribute="leading" id="WAR-FR-j8B"/>
+                                        <constraint firstItem="Pfs-2m-hKX" firstAttribute="top" secondItem="pZI-Yy-bwl" secondAttribute="top" id="e4A-x5-DdL"/>
+                                        <constraint firstItem="Pfs-2m-hKX" firstAttribute="bottom" secondItem="pZI-Yy-bwl" secondAttribute="bottom" id="gow-mn-23a"/>
+                                        <constraint firstItem="Pfs-2m-hKX" firstAttribute="trailing" secondItem="pZI-Yy-bwl" secondAttribute="trailing" id="k7s-ie-2AT"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="pZI-Yy-bwl"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="M3h-sk-PK6"/>
+                                </scrollView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Neo-Pu-quO">
+                                    <rect key="frame" x="0.0" y="416" width="329" height="50"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tek-Y5-AOv">
+                                            <rect key="frame" x="155" y="14" width="19.5" height="22"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="arrow.right.arrow.left.square" catalog="system"/>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="4K4-Qf-ivD"/>
+                                        <constraint firstItem="Tek-Y5-AOv" firstAttribute="centerX" secondItem="Neo-Pu-quO" secondAttribute="centerX" id="VPX-aV-1bJ"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="Tek-Y5-AOv" secondAttribute="height" id="bbv-AV-eGZ"/>
+                                    </constraints>
+                                </view>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="AaL-Zk-UYY" userLabel="Collection View Items">
+                                    <rect key="frame" x="0.0" y="468" width="329" height="362"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="2" minimumInteritemSpacing="2" id="9FM-Jw-kKb">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="5" minY="10" maxX="5" maxY="10"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="jEN-ZX-dqy"/>
+                    <constraints>
+                        <constraint firstItem="nMS-Qk-buu" firstAttribute="bottom" secondItem="NSP-gE-Duf" secondAttribute="bottom" id="Oun-65-NK7"/>
+                        <constraint firstItem="nMS-Qk-buu" firstAttribute="top" secondItem="NSP-gE-Duf" secondAttribute="top" id="bWh-xO-nRW"/>
+                        <constraint firstItem="nMS-Qk-buu" firstAttribute="width" secondItem="B8j-Uj-AvD" secondAttribute="width" id="cRt-Bt-lfe"/>
+                        <constraint firstItem="nMS-Qk-buu" firstAttribute="leading" secondItem="NSP-gE-Duf" secondAttribute="leading" id="f1a-S6-GYc"/>
+                        <constraint firstItem="nMS-Qk-buu" firstAttribute="trailing" secondItem="NSP-gE-Duf" secondAttribute="trailing" id="hYb-3f-wSU"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="NSP-gE-Duf"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="B8j-Uj-AvD"/>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="BUi-aS-FWY" secondAttribute="bottom" id="ENK-sx-ecX"/>
+                <constraint firstItem="BUi-aS-FWY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hte-zy-J5N"/>
+                <constraint firstItem="BUi-aS-FWY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="daR-PF-a9f"/>
+                <constraint firstItem="AaL-Zk-UYY" firstAttribute="height" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.5" id="myG-oO-YRp"/>
+                <constraint firstAttribute="trailing" secondItem="BUi-aS-FWY" secondAttribute="trailing" id="rrV-OY-P0K"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="51.5625" y="-257.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow.right.arrow.left.square" catalog="system" width="128" height="114"/>
+        <image name="cursorarrow.rays" catalog="system" width="128" height="116"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

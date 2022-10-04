@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewParsing" customModule="FHLBible" customModuleProvider="target">
+            <connections>
+                <outlet property="stack" destination="r8a-kb-nTK" id="nfM-xc-aye"/>
+                <outlet property="viewBase" destination="iN0-l3-epB" id="0Z6-kF-GuY"/>
+                <outlet property="viewEnd" destination="GLo-mc-Ngk" id="49s-af-2S3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="294" height="430"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mit-2H-04d">
+                    <rect key="frame" x="0.0" y="0.0" width="294" height="430"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="r8a-kb-nTK">
+                            <rect key="frame" x="0.0" y="0.0" width="294" height="1910"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EQo-BJ-kjB" customClass="ViewParsingWord" customModule="FHLBible" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="294" height="270"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IvT-PW-VQF" customClass="ViewParsingDict" customModule="FHLBible" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="270" width="294" height="675"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5fw-xz-Qny" customClass="ViewParsingWord" customModule="FHLBible" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="945" width="294" height="270"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJD-VC-JjP" customClass="ViewParsingDict" customModule="FHLBible" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="1215" width="294" height="675"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLo-mc-Ngk">
+                                    <rect key="frame" x="0.0" y="1890" width="294" height="20"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDT-OI-z33">
+                                            <rect key="frame" x="107" y="-6" width="81" height="22"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="the end" image="arrow.up.square" catalog="system">
+                                                <color key="titleColor" systemColor="systemGrayColor"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                                    <constraints>
+                                        <constraint firstItem="TDT-OI-z33" firstAttribute="centerX" secondItem="GLo-mc-Ngk" secondAttribute="centerX" id="GXx-jb-IPj"/>
+                                        <constraint firstAttribute="height" constant="20" id="OPZ-YW-LU2"/>
+                                        <constraint firstItem="TDT-OI-z33" firstAttribute="centerY" secondItem="GLo-mc-Ngk" secondAttribute="centerY" id="le7-JL-jnk"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="IvT-PW-VQF" firstAttribute="height" secondItem="EQo-BJ-kjB" secondAttribute="height" multiplier="2.5" id="c2u-e0-lwH"/>
+                                <constraint firstItem="WJD-VC-JjP" firstAttribute="height" secondItem="5fw-xz-Qny" secondAttribute="height" multiplier="2.5" id="sXD-Ci-ije"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="r8a-kb-nTK" firstAttribute="top" secondItem="R6N-l6-ccp" secondAttribute="top" id="IRI-RE-eQQ"/>
+                        <constraint firstItem="r8a-kb-nTK" firstAttribute="trailing" secondItem="R6N-l6-ccp" secondAttribute="trailing" id="TUt-I5-hCe"/>
+                        <constraint firstItem="r8a-kb-nTK" firstAttribute="bottom" secondItem="R6N-l6-ccp" secondAttribute="bottom" id="h3U-W4-tTR"/>
+                        <constraint firstItem="r8a-kb-nTK" firstAttribute="width" secondItem="VQw-5Y-hil" secondAttribute="width" id="lQe-O2-oyJ"/>
+                        <constraint firstItem="r8a-kb-nTK" firstAttribute="centerX" secondItem="VQw-5Y-hil" secondAttribute="centerX" id="yIP-BW-JdK"/>
+                        <constraint firstItem="r8a-kb-nTK" firstAttribute="leading" secondItem="R6N-l6-ccp" secondAttribute="leading" id="zk2-x9-vKJ"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="R6N-l6-ccp"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="VQw-5Y-hil"/>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Mit-2H-04d" secondAttribute="trailing" id="GDL-vf-NI8"/>
+                <constraint firstAttribute="bottom" secondItem="Mit-2H-04d" secondAttribute="bottom" id="Lr7-xK-Iux"/>
+                <constraint firstItem="Mit-2H-04d" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gOu-S3-yAw"/>
+                <constraint firstItem="Mit-2H-04d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="sKw-Wg-43b"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="16.875" y="-205"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow.up.square" catalog="system" width="128" height="114"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
