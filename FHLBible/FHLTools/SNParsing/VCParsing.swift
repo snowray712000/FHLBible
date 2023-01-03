@@ -25,7 +25,7 @@ class VCParsing : UIViewController {
         super.viewDidLoad()
         
         if _cur != nil {
-            testCallAtInit(toParamString(_cur!))
+            self.reloadDataAsync(self._cur!)
         }
         
         _swipeHelp.addSwipe(dir: .left)
@@ -37,21 +37,18 @@ class VCParsing : UIViewController {
                 self.goNext()
             }
         }
-        // _prev = DAddress(book: 1, chap: 2, verse: 1, ver: nil)
-        // testCallAtInit("engs=Judg&chap=7&sec=1&gb=0")
-        // testCallAtInit("engs=1%20Pet&chap=2&sec=1&gb=0")
     }
     lazy var _swipeHelp = SwipeHelp(view: self.view)
     @IBAction func goNext(){
         if _next != nil {
             _cur = _next
-            testCallAtInit(toParamString(_next!))
+            self.reloadDataAsync(_next!)
         }
     }
     @IBAction func goPrev(){
         if _prev != nil {
             _cur = _prev
-            testCallAtInit(toParamString(_prev!))
+            self.reloadDataAsync(_prev!)
         }
     }
     @IBAction func goSelectBook(){
@@ -60,7 +57,7 @@ class VCParsing : UIViewController {
             vc2.initBeforePushVC(_cur!.book, _cur!.chap)
             vc2.onClick$.addCallback { sender, pData in
                 self._cur = DAddress(book: pData!.idBook, chap: pData!.idChap, verse: 1, ver: nil)
-                self.testCallAtInit(self.toParamString(self._cur!))
+                self.reloadDataAsync(self._cur!)
             }
             self.navigationController?.pushViewController(vc2, animated: false)
         }
@@ -77,39 +74,29 @@ class VCParsing : UIViewController {
     var _prev: DAddress? = nil
     var _next: DAddress? = nil
 
-    private func toParamString(_ addr: DAddress)->String{
-        let r1 = BibleBookNames.getBookName(addr.book, .Matt)
-        return "engs=\(r1)&chap=\(addr.chap)&sec=\(addr.verse)&\(ManagerLangSet.s.curQueryParamGb)"
-    }
+
     
-    private func updateNextPrevWhenGetQpResult(_ data: DApiQp){
-        func cvt(_ pn: DApiQp.PrevNext)->DAddress {
-            let idBook = BibleBookNameToId().main1based(.Matt, pn.engs! )
-            return DAddress(book: idBook, chap: pn.chap!, verse: pn.sec!, ver: nil)
-        }
-        
-        if data.prev == nil {
-            self._prev = nil
-        } else {
-            self._prev = cvt(data.prev!)
-        }
-        if data.next == nil {
-            self._next = nil
-        } else {
-            self._next = cvt(data.next!)
-        }
+    private func updateNextPrevWhenGetQpResult(_ data: DReloadData){
+        self._prev = data.addrPrev
+        self._next = data.addrNext
     }
-    func testCallAtInit(_ param: String){
-        fhlQp(param) { data in
-            if data.isSuccess() {
-                let re = ConvertorQp2VCParsingData(data).main()
+    func reloadDataAsync(_ addr: DAddress){
+        //let reloader: IReloadData = ReloadDataViaScApi()
+        let reloader: IReloadData = ReloadDataViaOfflineDatabase()
+        
+        reloader.apiFinished$.addCallback { sender, pData in
+            if sender != nil {
+                // error message. show sender message.
+            } else {
+                let re = ConvertorQp2VCParsingData(pData!.data!).main()
                 DispatchQueue.main.async {
                     self.viewParsing._isRightToLeft = re.isHebrew
                     self.viewParsing._datas = re.0
                     
-                    self.updateNextPrevWhenGetQpResult(data)
+                    self.updateNextPrevWhenGetQpResult(pData!)
                 }
             }
         }
+        reloader.reloadAsync(addr)
     }
 }

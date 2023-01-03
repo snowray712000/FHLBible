@@ -277,7 +277,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     @IBAction func doSearching(){
         let vc2 = self.gVCSearching()
         vc2.onClickSearching$.addCallback { sender, pData in
-            let vc3 = self.gVCSearchResult()
+            let vc3 = self.gVCSearchResult() // pData '天使'
             vc3.setInitData(pData!.w!, self._vers, self._addrsCurFirst!)
             self.navigationController?.pushViewController(vc3, animated: false)
         }

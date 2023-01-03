@@ -82,6 +82,18 @@ class AutoLoadDUiabv {
         _reApiGb = _reFromApiGb
     }
     
+    func dateOfComment(isGb:Bool)-> Date? {
+        if isGb{
+            return _reApiGb?.getComment()
+        }
+        return _reApi?.getComment()
+    }
+    func dataOfParsing(isGb:Bool)->Date? {
+        if isGb {
+            return _reApiGb?.getParsing()
+        }
+        return _reApi?.getParsing()
+    }
     var record: [DUiAbvRecord] { recordcore(gb: false) }
     var recordGb: [DUiAbvRecord] { recordcore(gb: true) }
     private func recordcore(gb:Bool)->[DUiAbvRecord]{

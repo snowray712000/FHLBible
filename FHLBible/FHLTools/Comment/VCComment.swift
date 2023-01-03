@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import IJNSwift
+import FMDB
 
 class VCComment : UIViewController {
     func setInitData(_ addr: DAddress){
@@ -25,7 +27,8 @@ class VCComment : UIViewController {
             if self.apiErrorMsg != nil {
                 self.v2.set(self.apiErrorMsg!, true)
             } else {
-                let com_text = self.apiResult!.record.first!.com_text ?? ""
+                let com_text = self.apiResult!.com_text ?? ""
+                // let com_text = self.apiResult!.record.first!.com_text ?? ""
                 self.datas = CommentDataStrToDText().main(com_text)
                 self.draw()
             }
@@ -83,12 +86,12 @@ class VCComment : UIViewController {
     
     var datas: [DText] = []
     var apiErrorMsg: [DText]?
-    var apiResult: DApiSc?
+    var apiResult: DReloadData? // DApiSc?
     var apiResultChanged$: IjnEventAny = IjnEvent()
     // reload data 關鍵是，完成後，會 trigger ResultChanged$
     // 關鍵資料 apiResult
     func reloadDatas(){
-        let r1 = FhlScCore()
+        let r1:IReloadData = ReloadDataAutoUseOfflineOrScApi()
         r1.apiFinished$.addCallback { sender, pData in
             self.apiErrorMsg = nil
             self.apiResult = nil
@@ -99,7 +102,7 @@ class VCComment : UIViewController {
             }
             self.apiResultChanged$.trigger()
         }
-        r1.main(self.addr, .comment)
+        r1.reloadAsync(self.addr)
     }
     func draw(){
         v2.set(datas, true, false, .left)
@@ -107,16 +110,10 @@ class VCComment : UIViewController {
     }
     var v2: ViewDisplayCell { viewCell as! ViewDisplayCell }
     var addrNext: DAddress? {
-        if apiResult == nil || apiResult!.next == nil {
-            return nil
-        }
-        return apiResult!.next!.toAddress()
+        return apiResult?.addrNext
     }
     var addrPrev: DAddress? {
-        if apiResult == nil || apiResult!.prev == nil {
-            return nil
-        }
-        return apiResult!.prev!.toAddress()
+        return apiResult?.addrPrev
     }
     var titleComment: String? {
         let prev = addrPrev

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="af8-WA-ZHp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="af8-WA-ZHp">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment version="4640" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -34,7 +34,7 @@
                                 <rect key="frame" x="40" y="176" width="240" height="128"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BG-Hx-oRT">
-                                        <rect key="frame" x="130" y="48.5" width="74" height="31"/>
+                                        <rect key="frame" x="130" y="43.5" width="75" height="31"/>
                                         <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
                                         <buttonConfiguration key="configuration" style="gray" image="gearshape" catalog="system" title="設定">
                                             <backgroundConfiguration key="background" cornerRadius="10"/>
@@ -44,7 +44,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQp-ZZ-HZV">
-                                        <rect key="frame" x="34" y="48.5" width="76" height="31"/>
+                                        <rect key="frame" x="32.5" y="43.5" width="77.5" height="31"/>
                                         <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
                                         <buttonConfiguration key="configuration" style="gray" image="book" catalog="system" title="閱讀">
                                             <backgroundConfiguration key="background" cornerRadius="10"/>
@@ -53,12 +53,24 @@
                                             <action selector="goRead" destination="FDS-c9-8MC" eventType="primaryActionTriggered" id="uxp-b1-9vM"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UbB-IG-Nbd">
+                                        <rect key="frame" x="32" y="82" width="77" height="31"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                        <buttonConfiguration key="configuration" style="gray" image="internaldrive" catalog="system" title="資料">
+                                            <backgroundConfiguration key="background" cornerRadius="10"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="goData" destination="FDS-c9-8MC" eventType="primaryActionTriggered" id="lka-Dw-uof"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="0BG-Hx-oRT" firstAttribute="leading" secondItem="deR-mV-edV" secondAttribute="centerX" constant="10" id="3dU-d7-vfY"/>
                                     <constraint firstItem="cQp-ZZ-HZV" firstAttribute="trailing" secondItem="deR-mV-edV" secondAttribute="centerX" constant="-10" id="5lF-hp-nTF"/>
-                                    <constraint firstItem="0BG-Hx-oRT" firstAttribute="centerY" secondItem="deR-mV-edV" secondAttribute="centerY" id="7b0-dZ-pvA"/>
-                                    <constraint firstItem="cQp-ZZ-HZV" firstAttribute="centerY" secondItem="deR-mV-edV" secondAttribute="centerY" id="a1K-5V-emj"/>
+                                    <constraint firstItem="0BG-Hx-oRT" firstAttribute="centerY" secondItem="deR-mV-edV" secondAttribute="centerY" constant="-5" id="7b0-dZ-pvA"/>
+                                    <constraint firstItem="UbB-IG-Nbd" firstAttribute="top" secondItem="cQp-ZZ-HZV" secondAttribute="bottom" constant="5" id="UpY-bD-Jte"/>
+                                    <constraint firstItem="cQp-ZZ-HZV" firstAttribute="centerY" secondItem="deR-mV-edV" secondAttribute="centerY" constant="-5" id="a1K-5V-emj"/>
+                                    <constraint firstItem="UbB-IG-Nbd" firstAttribute="trailing" secondItem="deR-mV-edV" secondAttribute="centerX" constant="-10" id="dkb-PK-sy1"/>
                                     <constraint firstAttribute="height" constant="128" id="ecu-MA-Wcm"/>
                                     <constraint firstAttribute="width" constant="240" id="xd2-Jg-oA8"/>
                                 </constraints>
@@ -119,7 +131,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="閱讀" id="5z0-93-CVj">
                         <view key="titleView" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zyi-xf-G14">
-                            <rect key="frame" x="20" y="3" width="130" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="130" height="44"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-o0-Xkb">
                                     <rect key="frame" x="0.0" y="0.0" width="130" height="44"/>
@@ -677,7 +689,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="2th-Il-9Ca">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gkc-mB-3SZ" userLabel="okay">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="0.0" width="44" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="checkmark.square" catalog="system"/>
@@ -688,7 +700,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="Gj4-1V-tgI">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6Ns-kE-haf" userLabel="cancel">
-                                    <rect key="frame" x="208" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="0.0" width="44" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="xmark.app" catalog="system"/>
@@ -886,7 +898,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="af8-WA-ZHp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="erk-sj-I4I">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -896,7 +908,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="em1-5e-MCv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4002.4000000000001" y="-3377.3613193403303"/>
+            <point key="canvasLocation" x="-4084" y="-3425"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DtT-SN-xBq">
@@ -973,7 +985,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="crX-yb-ZsZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4848.75" y="-2640"/>
+            <point key="canvasLocation" x="-4881" y="-2659"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yfb-LW-4rL">
@@ -981,7 +993,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YqI-gA-HbX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJv-FV-Tab">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -999,7 +1011,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MFP-n2-CgU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ity-Ry-Crd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1035,7 +1047,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pZx-UM-cBc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2DY-j4-Qju">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1072,7 +1084,7 @@
                     <navigationItem key="navigationItem" id="vuC-1w-qOO">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K17-Hd-CFp">
-                            <rect key="frame" x="120" y="8.5" width="80" height="33"/>
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="33"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8os-Dm-TXd">
                                     <rect key="frame" x="0.0" y="0.0" width="80" height="33"/>
@@ -1202,7 +1214,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Toe-22-VZU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rto-dU-36n">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1220,7 +1232,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fNQ-1A-QQc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ioB-BH-zv5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1238,7 +1250,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="El4-jf-gkn" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="h8I-5E-sq6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1259,6 +1271,7 @@
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="internaldrive" catalog="system" width="128" height="88"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

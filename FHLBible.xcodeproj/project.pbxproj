@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57055732295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift */; };
 		570A64AB273A6D4B00B5EC11 /* DAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570A64AA273A6D4B00B5EC11 /* DAddress.swift */; };
 		570A64AE273A9C8600B5EC11 /* VerseRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570A64AD273A9C8600B5EC11 /* VerseRange.swift */; };
 		570A64B0273A9CD400B5EC11 /* NextPrevChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570A64AF273A9CD400B5EC11 /* NextPrevChapter.swift */; };
@@ -69,7 +70,6 @@
 		573CB9012744A35600AEEC9B /* DataForDrawTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB9002744A35600AEEC9B /* DataForDrawTable.swift */; };
 		573CB9032744FB3F00AEEC9B /* ManagerSearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB9022744FB3F00AEEC9B /* ManagerSearchHistory.swift */; };
 		573CB90527454A7300AEEC9B /* SnHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB90427454A7300AEEC9B /* SnHelper.swift */; };
-		574599A6273BE2C0005635D0 /* TskDataQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599A5273BE2C0005635D0 /* TskDataQ.swift */; };
 		574599A8273BF203005635D0 /* TskDataStrToDText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599A7273BF203005635D0 /* TskDataStrToDText.swift */; };
 		574599AB273C1B05005635D0 /* VCComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599AA273C1B05005635D0 /* VCComment.swift */; };
 		574599AE273C2482005635D0 /* FhlScCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599AD273C2482005635D0 /* FhlScCore.swift */; };
@@ -90,8 +90,12 @@
 		574BE54927577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BE54827577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift */; };
 		574BE54D2757A37500F5DC85 /* DIosBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BE54C2757A37500F5DC85 /* DIosBase.swift */; };
 		57543DAE2779A2DC00587B40 /* SplitByNewLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */; };
+		575574042933062300CC0560 /* DoOneDownload_bible_comm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */; };
+		5768196728EC8B330049C728 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 5768196628EC8B330049C728 /* ZIPFoundation */; };
+		5768196C28EC8C9D0049C728 /* IJNSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5768196B28EC8C9D0049C728 /* IJNSwift */; };
 		576992BC274BB60B00717E8C /* FooterConvertorDTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576992BB274BB60B00717E8C /* FooterConvertorDTexts.swift */; };
 		576992BF274BB84D00717E8C /* VCFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576992BE274BB84D00717E8C /* VCFooter.swift */; };
+		576F7240292B8C6000ED4D04 /* IjnString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F723F292B8C6000ED4D04 /* IjnString.swift */; };
 		577CEF9A27513FC6003014A8 /* RefDTextClickFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CEF9927513FC6003014A8 /* RefDTextClickFlow.swift */; };
 		577CEF9C27514337003014A8 /* FooterDTextClickFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CEF9B27514337003014A8 /* FooterDTextClickFlow.swift */; };
 		577CEF9E2751CC31003014A8 /* HttpFtpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CEF9D2751CC31003014A8 /* HttpFtpTests.swift */; };
@@ -132,6 +136,47 @@
 		57AD73C727509D2F00CA9BA8 /* BibleVersionFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73C627509D2F00CA9BA8 /* BibleVersionFonts.swift */; };
 		57AD73C92750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73C82750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift */; };
 		57B818E627741EC100ACC891 /* Icon-App-40x40@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B818E527741EC000ACC891 /* Icon-App-40x40@1x.png */; };
+		57BBC7502901E22A001DC3FE /* SINQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC74F2901E22A001DC3FE /* SINQ.swift */; };
+		57BBC7532902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7522902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift */; };
+		57BBC7552902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7542902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift */; };
+		57BBC7582907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7572907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift */; };
+		57BBC75A2909747F001DC3FE /* SQLNameOfFileAndTableRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7592909747F001DC3FE /* SQLNameOfFileAndTableRuler.swift */; };
+		57BBC75D290BC64F001DC3FE /* SQLNormalize_unv_gb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC75C290BC64F001DC3FE /* SQLNormalize_unv_gb.swift */; };
+		57BBC75F290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC75E290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift */; };
+		57BBC761290BC6E5001DC3FE /* SQLNormalize_unv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC760290BC6E5001DC3FE /* SQLNormalize_unv.swift */; };
+		57BBC763290BC72D001DC3FE /* SQLNormalize_sn_unv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC762290BC72D001DC3FE /* SQLNormalize_sn_unv.swift */; };
+		57BBC765290BC7F2001DC3FE /* SQLBibleTextTransfor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC764290BC7F2001DC3FE /* SQLBibleTextTransfor.swift */; };
+		57BBC76A290BCB33001DC3FE /* FHLZipFileDownloador.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC769290BCB33001DC3FE /* FHLZipFileDownloador.swift */; };
+		57BBC76C290BCB45001DC3FE /* Download_unv_gb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC76B290BCB45001DC3FE /* Download_unv_gb.swift */; };
+		57BBC76E290BCBA1001DC3FE /* UrlsOfBibleFromFHL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC76D290BCBA1001DC3FE /* UrlsOfBibleFromFHL.swift */; };
+		57BBC772290BCC1C001DC3FE /* Download_unv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC771290BCC1C001DC3FE /* Download_unv.swift */; };
+		57BBC775290BCC5E001DC3FE /* Unzipor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC774290BCC5E001DC3FE /* Unzipor.swift */; };
+		57BBC777290C1B30001DC3FE /* IDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC776290C1B30001DC3FE /* IDownload.swift */; };
+		57BBC77B290C43FD001DC3FE /* VCData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC77A290C43FD001DC3FE /* VCData.swift */; };
+		57BBC77D290C44C6001DC3FE /* DoOneDownload_bible_little.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC77C290C44C6001DC3FE /* DoOneDownload_bible_little.swift */; };
+		57BBC77F290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC77E290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift */; };
+		57BBC781290C4602001DC3FE /* Download_kjv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC780290C4601001DC3FE /* Download_kjv.swift */; };
+		57BBC783290C4654001DC3FE /* SQLNormalize_kjv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC782290C4654001DC3FE /* SQLNormalize_kjv.swift */; };
+		57BBC785290C468F001DC3FE /* SQLNormalize_sn_kjv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC784290C468F001DC3FE /* SQLNormalize_sn_kjv.swift */; };
+		57BBC787290C46B5001DC3FE /* DoOneDownload_bible_kjv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC786290C46B5001DC3FE /* DoOneDownload_bible_kjv.swift */; };
+		57BBC789290F745E001DC3FE /* BibleGetterViaSQLiteOrApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC788290F745E001DC3FE /* BibleGetterViaSQLiteOrApi.swift */; };
+		57BBC78B290FE357001DC3FE /* Download_asv_darby_bbe_erv_web_esv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC78A290FE357001DC3FE /* Download_asv_darby_bbe_erv_web_esv.swift */; };
+		57BBC78D290FE4D6001DC3FE /* SQLNormalize_asv_darby_bbe_erv_web_esv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC78C290FE4D6001DC3FE /* SQLNormalize_asv_darby_bbe_erv_web_esv.swift */; };
+		57BBC78F29128EDF001DC3FE /* SwiftFileManager_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC78E29128EDF001DC3FE /* SwiftFileManager_Extensions.swift */; };
+		57BBC7912912AE4E001DC3FE /* messageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7902912AE4E001DC3FE /* messageBox.swift */; };
+		57D4928A2935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D492892935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift */; };
+		57D4928C2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4928B2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift */; };
+		57D4928E2939FFFF0099DC86 /* VCCommentIReloadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4928D2939FFFF0099DC86 /* VCCommentIReloadData.swift */; };
+		57D49290293A00360099DC86 /* VCCommentIReloadDataViaScApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4928F293A00360099DC86 /* VCCommentIReloadDataViaScApi.swift */; };
+		57D49292293A00640099DC86 /* VCCommentIReloadDataViaOfflineDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D49291293A00640099DC86 /* VCCommentIReloadDataViaOfflineDatabase.swift */; };
+		57D49294293A008C0099DC86 /* VCCommentIReloadDataAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D49293293A008C0099DC86 /* VCCommentIReloadDataAuto.swift */; };
+		57D49296293A00D90099DC86 /* VCTskIReloadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D49295293A00D90099DC86 /* VCTskIReloadData.swift */; };
+		57D49298293A08A70099DC86 /* VCTskIReloadDataViaOfflineDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D49297293A08A70099DC86 /* VCTskIReloadDataViaOfflineDatabase.swift */; };
+		57D4929A293A1E2A0099DC86 /* VCTskIReloadDataAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D49299293A1E2A0099DC86 /* VCTskIReloadDataAuto.swift */; };
+		57D4929C293A2A4F0099DC86 /* DoOneDownload_bible_parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4929B293A2A4F0099DC86 /* DoOneDownload_bible_parsing.swift */; };
+		57D4929E29407F2B0099DC86 /* VCParsingIReloadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4929D29407F2B0099DC86 /* VCParsingIReloadData.swift */; };
+		57D492A0294087980099DC86 /* VCParsingIReloadDataViaQpApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4929F294087980099DC86 /* VCParsingIReloadDataViaQpApi.swift */; };
+		57D492A229408E540099DC86 /* VCParsingIReloadDataViaOfflineDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D492A129408E540099DC86 /* VCParsingIReloadDataViaOfflineDatabase.swift */; };
 		57D7EB612723E13E003D2557 /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D7EB602723E13E003D2557 /* SearchData.swift */; };
 		57D7EB632723FE33003D2557 /* ViewSearchFilter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57D7EB622723FE33003D2557 /* ViewSearchFilter.xib */; };
 		57D7EB652723FE49003D2557 /* ViewSearchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D7EB642723FE49003D2557 /* ViewSearchFilter.swift */; };
@@ -235,6 +280,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		57055732295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_cbol_dict.swift; sourceTree = "<group>"; };
 		570A64AA273A6D4B00B5EC11 /* DAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAddress.swift; sourceTree = "<group>"; };
 		570A64AD273A9C8600B5EC11 /* VerseRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseRange.swift; sourceTree = "<group>"; };
 		570A64AF273A9CD400B5EC11 /* NextPrevChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPrevChapter.swift; sourceTree = "<group>"; };
@@ -297,7 +343,6 @@
 		573CB9002744A35600AEEC9B /* DataForDrawTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataForDrawTable.swift; sourceTree = "<group>"; };
 		573CB9022744FB3F00AEEC9B /* ManagerSearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSearchHistory.swift; sourceTree = "<group>"; };
 		573CB90427454A7300AEEC9B /* SnHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnHelper.swift; sourceTree = "<group>"; };
-		574599A5273BE2C0005635D0 /* TskDataQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TskDataQ.swift; sourceTree = "<group>"; };
 		574599A7273BF203005635D0 /* TskDataStrToDText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TskDataStrToDText.swift; sourceTree = "<group>"; };
 		574599AA273C1B05005635D0 /* VCComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCComment.swift; sourceTree = "<group>"; };
 		574599AD273C2482005635D0 /* FhlScCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FhlScCore.swift; sourceTree = "<group>"; };
@@ -318,8 +363,12 @@
 		574BE54827577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneVerseFunctionsClickFlow.swift; sourceTree = "<group>"; };
 		574BE54C2757A37500F5DC85 /* DIosBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIosBase.swift; sourceTree = "<group>"; };
 		57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitByNewLines.swift; sourceTree = "<group>"; };
+		575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_comm.swift; sourceTree = "<group>"; };
+		5768196928EC8C3C0049C728 /* IJNSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IJNSwift; path = ../IJNSwift; sourceTree = "<group>"; };
+		5768196D28EE3B100049C728 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		576992BB274BB60B00717E8C /* FooterConvertorDTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterConvertorDTexts.swift; sourceTree = "<group>"; };
 		576992BE274BB84D00717E8C /* VCFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCFooter.swift; sourceTree = "<group>"; };
+		576F723F292B8C6000ED4D04 /* IjnString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IjnString.swift; sourceTree = "<group>"; };
 		577CEF9927513FC6003014A8 /* RefDTextClickFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefDTextClickFlow.swift; sourceTree = "<group>"; };
 		577CEF9B27514337003014A8 /* FooterDTextClickFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterDTextClickFlow.swift; sourceTree = "<group>"; };
 		577CEF9D2751CC31003014A8 /* HttpFtpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpFtpTests.swift; sourceTree = "<group>"; };
@@ -358,6 +407,47 @@
 		57AD73C627509D2F00CA9BA8 /* BibleVersionFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleVersionFonts.swift; sourceTree = "<group>"; };
 		57AD73C82750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBibleVersionsForCompare.swift; sourceTree = "<group>"; };
 		57B818E527741EC000ACC891 /* Icon-App-40x40@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@1x.png"; sourceTree = "<group>"; };
+		57BBC74F2901E22A001DC3FE /* SINQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SINQ.swift; sourceTree = "<group>"; };
+		57BBC7522902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleTextGenerator.swift; sourceTree = "<group>"; };
+		57BBC7542902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleTextGeneratorTests.swift; sourceTree = "<group>"; };
+		57BBC7572907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleGetterViaSQLiteFile.swift; sourceTree = "<group>"; };
+		57BBC7592909747F001DC3FE /* SQLNameOfFileAndTableRuler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNameOfFileAndTableRuler.swift; sourceTree = "<group>"; };
+		57BBC75C290BC64F001DC3FE /* SQLNormalize_unv_gb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNormalize_unv_gb.swift; sourceTree = "<group>"; };
+		57BBC75E290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNormalize_sn_unv_gb.swift; sourceTree = "<group>"; };
+		57BBC760290BC6E5001DC3FE /* SQLNormalize_unv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNormalize_unv.swift; sourceTree = "<group>"; };
+		57BBC762290BC72D001DC3FE /* SQLNormalize_sn_unv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNormalize_sn_unv.swift; sourceTree = "<group>"; };
+		57BBC764290BC7F2001DC3FE /* SQLBibleTextTransfor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLBibleTextTransfor.swift; sourceTree = "<group>"; };
+		57BBC769290BCB33001DC3FE /* FHLZipFileDownloador.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FHLZipFileDownloador.swift; sourceTree = "<group>"; };
+		57BBC76B290BCB45001DC3FE /* Download_unv_gb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download_unv_gb.swift; sourceTree = "<group>"; };
+		57BBC76D290BCBA1001DC3FE /* UrlsOfBibleFromFHL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlsOfBibleFromFHL.swift; sourceTree = "<group>"; };
+		57BBC771290BCC1C001DC3FE /* Download_unv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download_unv.swift; sourceTree = "<group>"; };
+		57BBC774290BCC5E001DC3FE /* Unzipor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unzipor.swift; sourceTree = "<group>"; };
+		57BBC776290C1B30001DC3FE /* IDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDownload.swift; sourceTree = "<group>"; };
+		57BBC77A290C43FD001DC3FE /* VCData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCData.swift; sourceTree = "<group>"; };
+		57BBC77C290C44C6001DC3FE /* DoOneDownload_bible_little.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_little.swift; sourceTree = "<group>"; };
+		57BBC77E290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_gb_little.swift; sourceTree = "<group>"; };
+		57BBC780290C4601001DC3FE /* Download_kjv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download_kjv.swift; sourceTree = "<group>"; };
+		57BBC782290C4654001DC3FE /* SQLNormalize_kjv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNormalize_kjv.swift; sourceTree = "<group>"; };
+		57BBC784290C468F001DC3FE /* SQLNormalize_sn_kjv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNormalize_sn_kjv.swift; sourceTree = "<group>"; };
+		57BBC786290C46B5001DC3FE /* DoOneDownload_bible_kjv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_kjv.swift; sourceTree = "<group>"; };
+		57BBC788290F745E001DC3FE /* BibleGetterViaSQLiteOrApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleGetterViaSQLiteOrApi.swift; sourceTree = "<group>"; };
+		57BBC78A290FE357001DC3FE /* Download_asv_darby_bbe_erv_web_esv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download_asv_darby_bbe_erv_web_esv.swift; sourceTree = "<group>"; };
+		57BBC78C290FE4D6001DC3FE /* SQLNormalize_asv_darby_bbe_erv_web_esv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLNormalize_asv_darby_bbe_erv_web_esv.swift; sourceTree = "<group>"; };
+		57BBC78E29128EDF001DC3FE /* SwiftFileManager_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFileManager_Extensions.swift; sourceTree = "<group>"; };
+		57BBC7902912AE4E001DC3FE /* messageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageBox.swift; sourceTree = "<group>"; };
+		57D492892935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleCommentsGenerator.swift; sourceTree = "<group>"; };
+		57D4928B2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleCommentsGeneratorTests.swift; sourceTree = "<group>"; };
+		57D4928D2939FFFF0099DC86 /* VCCommentIReloadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCCommentIReloadData.swift; sourceTree = "<group>"; };
+		57D4928F293A00360099DC86 /* VCCommentIReloadDataViaScApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCCommentIReloadDataViaScApi.swift; sourceTree = "<group>"; };
+		57D49291293A00640099DC86 /* VCCommentIReloadDataViaOfflineDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCCommentIReloadDataViaOfflineDatabase.swift; sourceTree = "<group>"; };
+		57D49293293A008C0099DC86 /* VCCommentIReloadDataAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCCommentIReloadDataAuto.swift; sourceTree = "<group>"; };
+		57D49295293A00D90099DC86 /* VCTskIReloadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCTskIReloadData.swift; sourceTree = "<group>"; };
+		57D49297293A08A70099DC86 /* VCTskIReloadDataViaOfflineDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCTskIReloadDataViaOfflineDatabase.swift; sourceTree = "<group>"; };
+		57D49299293A1E2A0099DC86 /* VCTskIReloadDataAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCTskIReloadDataAuto.swift; sourceTree = "<group>"; };
+		57D4929B293A2A4F0099DC86 /* DoOneDownload_bible_parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_parsing.swift; sourceTree = "<group>"; };
+		57D4929D29407F2B0099DC86 /* VCParsingIReloadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCParsingIReloadData.swift; sourceTree = "<group>"; };
+		57D4929F294087980099DC86 /* VCParsingIReloadDataViaQpApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCParsingIReloadDataViaQpApi.swift; sourceTree = "<group>"; };
+		57D492A129408E540099DC86 /* VCParsingIReloadDataViaOfflineDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCParsingIReloadDataViaOfflineDatabase.swift; sourceTree = "<group>"; };
 		57D7EB602723E13E003D2557 /* SearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchData.swift; sourceTree = "<group>"; };
 		57D7EB622723FE33003D2557 /* ViewSearchFilter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewSearchFilter.xib; sourceTree = "<group>"; };
 		57D7EB642723FE49003D2557 /* ViewSearchFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSearchFilter.swift; sourceTree = "<group>"; };
@@ -462,6 +552,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5768196C28EC8C9D0049C728 /* IJNSwift in Frameworks */,
+				5768196728EC8B330049C728 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +623,9 @@
 			isa = PBXGroup;
 			children = (
 				570A64CA273BAAE000B5EC11 /* VCTsk.swift */,
-				574599A5273BE2C0005635D0 /* TskDataQ.swift */,
+				57D49295293A00D90099DC86 /* VCTskIReloadData.swift */,
+				57D49297293A08A70099DC86 /* VCTskIReloadDataViaOfflineDatabase.swift */,
+				57D49299293A1E2A0099DC86 /* VCTskIReloadDataAuto.swift */,
 				574599A7273BF203005635D0 /* TskDataStrToDText.swift */,
 			);
 			path = Tsk;
@@ -560,6 +654,9 @@
 				571120772730C68B00D64A6E /* ViewParsingDict.xib */,
 				5711207B27323B7900D64A6E /* ViewSNDictCell.xib */,
 				5725896D2732675500E42DEF /* ViewSNDictCell.swift */,
+				57D4929D29407F2B0099DC86 /* VCParsingIReloadData.swift */,
+				57D4929F294087980099DC86 /* VCParsingIReloadDataViaQpApi.swift */,
+				57D492A129408E540099DC86 /* VCParsingIReloadDataViaOfflineDatabase.swift */,
 			);
 			path = SNParsing;
 			sourceTree = "<group>";
@@ -605,6 +702,10 @@
 			isa = PBXGroup;
 			children = (
 				574599AA273C1B05005635D0 /* VCComment.swift */,
+				57D4928D2939FFFF0099DC86 /* VCCommentIReloadData.swift */,
+				57D4928F293A00360099DC86 /* VCCommentIReloadDataViaScApi.swift */,
+				57D49291293A00640099DC86 /* VCCommentIReloadDataViaOfflineDatabase.swift */,
+				57D49293293A008C0099DC86 /* VCCommentIReloadDataAuto.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -634,6 +735,21 @@
 				574599BE273D288C005635D0 /* _EmptyFileA.swift */,
 			);
 			path = SNDict;
+			sourceTree = "<group>";
+		};
+		5768196828EC8C3C0049C728 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				5768196928EC8C3C0049C728 /* IJNSwift */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		5768196A28EC8C9D0049C728 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		576992BD274BB84000717E8C /* Footer */ = {
@@ -721,6 +837,73 @@
 				57AD73C427508BAE00CA9BA8 /* VCVersionsCompareInOneVerse.swift */,
 			);
 			path = VCVersionsCompareInOneVerse;
+			sourceTree = "<group>";
+		};
+		57BBC74E2901E213001DC3FE /* SINQ */ = {
+			isa = PBXGroup;
+			children = (
+				57BBC74F2901E22A001DC3FE /* SINQ.swift */,
+			);
+			path = SINQ;
+			sourceTree = "<group>";
+		};
+		57BBC7512902CD33001DC3FE /* SQLiteFHL */ = {
+			isa = PBXGroup;
+			children = (
+				57BBC766290BC8C6001DC3FE /* SQLDownload */,
+				57BBC773290BCC47001DC3FE /* SQLUnzip */,
+				57BBC75B290BC638001DC3FE /* SQLNormalize */,
+				57BBC7522902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift */,
+				57D492892935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift */,
+				57BBC7592909747F001DC3FE /* SQLNameOfFileAndTableRuler.swift */,
+			);
+			path = SQLiteFHL;
+			sourceTree = "<group>";
+		};
+		57BBC7562903D695001DC3FE /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				57D4928B2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift */,
+				57BBC7542902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift */,
+			);
+			path = SQLite;
+			sourceTree = "<group>";
+		};
+		57BBC75B290BC638001DC3FE /* SQLNormalize */ = {
+			isa = PBXGroup;
+			children = (
+				57BBC760290BC6E5001DC3FE /* SQLNormalize_unv.swift */,
+				57BBC762290BC72D001DC3FE /* SQLNormalize_sn_unv.swift */,
+				57BBC75C290BC64F001DC3FE /* SQLNormalize_unv_gb.swift */,
+				57BBC75E290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift */,
+				57BBC782290C4654001DC3FE /* SQLNormalize_kjv.swift */,
+				57BBC784290C468F001DC3FE /* SQLNormalize_sn_kjv.swift */,
+				57BBC78C290FE4D6001DC3FE /* SQLNormalize_asv_darby_bbe_erv_web_esv.swift */,
+				57BBC764290BC7F2001DC3FE /* SQLBibleTextTransfor.swift */,
+			);
+			path = SQLNormalize;
+			sourceTree = "<group>";
+		};
+		57BBC766290BC8C6001DC3FE /* SQLDownload */ = {
+			isa = PBXGroup;
+			children = (
+				57BBC776290C1B30001DC3FE /* IDownload.swift */,
+				57BBC771290BCC1C001DC3FE /* Download_unv.swift */,
+				57BBC76B290BCB45001DC3FE /* Download_unv_gb.swift */,
+				57BBC780290C4601001DC3FE /* Download_kjv.swift */,
+				57BBC78A290FE357001DC3FE /* Download_asv_darby_bbe_erv_web_esv.swift */,
+				57BBC76D290BCBA1001DC3FE /* UrlsOfBibleFromFHL.swift */,
+				57BBC769290BCB33001DC3FE /* FHLZipFileDownloador.swift */,
+			);
+			path = SQLDownload;
+			sourceTree = "<group>";
+		};
+		57BBC773290BCC47001DC3FE /* SQLUnzip */ = {
+			isa = PBXGroup;
+			children = (
+				57BBC774290BCC5E001DC3FE /* Unzipor.swift */,
+			);
+			path = SQLUnzip;
 			sourceTree = "<group>";
 		};
 		57D7EB5B2723CF35003D2557 /* Search */ = {
@@ -820,6 +1003,8 @@
 				C88D234126EB070C0088BCF5 /* _index.swift */,
 				C88D234C26EB084A0088BCF5 /* DataGetterUsingBibleReader.swift */,
 				C88D235726EB08630088BCF5 /* BibleReadDataGetter.swift */,
+				57BBC788290F745E001DC3FE /* BibleGetterViaSQLiteOrApi.swift */,
+				57BBC7572907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift */,
 				C88D235F26EB0D110088BCF5 /* BibleGetterViaFhlApiQsb.swift */,
 				C88D236F26EB10530088BCF5 /* QsbRecords2DOneLines01.swift */,
 				C88D236426EB0D130088BCF5 /* BibleText2DText.swift */,
@@ -831,12 +1016,14 @@
 		C8AD1D3F2624243C0046C8EE = {
 			isa = PBXGroup;
 			children = (
+				5768196828EC8C3C0049C728 /* Packages */,
 				577CEFAA27547676003014A8 /* SQUiabv+CoreDataClass.swift */,
 				577CEFAB27547676003014A8 /* SQUiabv+CoreDataProperties.swift */,
 				C8AD1D4A2624243C0046C8EE /* FHLBible */,
 				C8AD1D642624243D0046C8EE /* FHLBibleTests */,
 				C8AD1D6F2624243D0046C8EE /* FHLBibleUITests */,
 				C8AD1D492624243C0046C8EE /* Products */,
+				5768196A28EC8C9D0049C728 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -853,6 +1040,8 @@
 		C8AD1D4A2624243C0046C8EE /* FHLBible */ = {
 			isa = PBXGroup;
 			children = (
+				57BBC7512902CD33001DC3FE /* SQLiteFHL */,
+				57BBC74E2901E213001DC3FE /* SINQ */,
 				57073CBE275633D100B08F2F /* VCSetting */,
 				57AD73C327508B9A00CA9BA8 /* VCVersionsCompareInOneVerse */,
 				578B253E2746280800EF2705 /* NoUse */,
@@ -882,6 +1071,7 @@
 				57395B4D272A73C70067F699 /* VCIndex.swift */,
 				571A7540272A7F3A00C65902 /* VCEasyFunctions.swift */,
 				57B818E527741EC000ACC891 /* Icon-App-40x40@1x.png */,
+				5768196D28EE3B100049C728 /* README.md */,
 			);
 			path = FHLBible;
 			sourceTree = "<group>";
@@ -889,6 +1079,7 @@
 		C8AD1D642624243D0046C8EE /* FHLBibleTests */ = {
 			isa = PBXGroup;
 			children = (
+				57BBC7562903D695001DC3FE /* SQLite */,
 				573CB8F4273F44B800AEEC9B /* FhlApi */,
 				C8AD1D652624243D0046C8EE /* FHLBibleTests.swift */,
 				C85A0F5C268C4A560020CD94 /* BibleReadDataGetterTests.swift */,
@@ -920,6 +1111,13 @@
 				C8AD1D9F2628A9A90046C8EE /* JobFlag2Starter_ObDownloadGetter.swift */,
 				C8AD1DA42628AA470046C8EE /* JobFlag2Starter.swift */,
 				C8AD1DAC262961E20046C8EE /* MyButtonForDownload.swift */,
+				57BBC77A290C43FD001DC3FE /* VCData.swift */,
+				57BBC77C290C44C6001DC3FE /* DoOneDownload_bible_little.swift */,
+				57BBC77E290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift */,
+				57BBC786290C46B5001DC3FE /* DoOneDownload_bible_kjv.swift */,
+				575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */,
+				57D4929B293A2A4F0099DC86 /* DoOneDownload_bible_parsing.swift */,
+				57055732295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -943,6 +1141,9 @@
 				574BE53F27570B7300F5DC85 /* VCOptionListViaTableViewControllerBase.swift */,
 				574BE544275724EE00F5DC85 /* JsonFileGetter.swift */,
 				57A21A85276A61280022212D /* SwipeHelp.swift */,
+				57BBC78E29128EDF001DC3FE /* SwiftFileManager_Extensions.swift */,
+				57BBC7902912AE4E001DC3FE /* messageBox.swift */,
+				576F723F292B8C6000ED4D04 /* IjnString.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -981,6 +1182,10 @@
 			dependencies = (
 			);
 			name = FHLBible;
+			packageProductDependencies = (
+				5768196628EC8B330049C728 /* ZIPFoundation */,
+				5768196B28EC8C9D0049C728 /* IJNSwift */,
+			);
 			productName = FHLBible;
 			productReference = C8AD1D482624243C0046C8EE /* FHLBible.app */;
 			productType = "com.apple.product-type.application";
@@ -1054,6 +1259,9 @@
 				"zh-Hans",
 			);
 			mainGroup = C8AD1D3F2624243C0046C8EE;
+			packageReferences = (
+				5768196528EC8B330049C728 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			productRefGroup = C8AD1D492624243C0046C8EE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1116,22 +1324,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				5711207A2732365300D64A6E /* ViewParsingWord.swift in Sources */,
+				57BBC777290C1B30001DC3FE /* IDownload.swift in Sources */,
 				C8F79A16262D715300811978 /* PrintNotImplementYet.swift in Sources */,
 				C8089F4B2670894E004FA377 /* setConstraints.swift in Sources */,
 				C8AD1DA02628A9A90046C8EE /* JobFlag2Starter_ObDownloadGetter.swift in Sources */,
+				57D49294293A008C0099DC86 /* VCCommentIReloadDataAuto.swift in Sources */,
+				57BBC785290C468F001DC3FE /* SQLNormalize_sn_kjv.swift in Sources */,
 				C89F76612672090000953F4B /* BookNameConstants.swift in Sources */,
 				57F22C6B272BF60100526631 /* ViewDisplayTable2.swift in Sources */,
+				57D4929A293A1E2A0099DC86 /* VCTskIReloadDataAuto.swift in Sources */,
 				C8AD1D902624397E0046C8EE /* DownloadManagerView.swift in Sources */,
 				574599BA273D03B0005635D0 /* DApiSbdag.swift in Sources */,
 				57D7EB672724023D003D2557 /* ViewFromXibBase.swift in Sources */,
 				C85A0F372689D4E10020CD94 /* UIReadBibleController.swift in Sources */,
 				570A64C6273BA89B00B5EC11 /* DApiSc.swift in Sources */,
 				C8089F362670314E004FA377 /* IjnEvent.swift in Sources */,
+				576F7240292B8C6000ED4D04 /* IjnString.swift in Sources */,
 				574BE54927577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift in Sources */,
 				C8AD1D9B262819060046C8EE /* IjnObservableObject.swift in Sources */,
 				C8AD1D8A26242B340046C8EE /* SetupPageController.swift in Sources */,
 				57F22C6F272C3A4B00526631 /* VCSnDict.swift in Sources */,
+				57D492A229408E540099DC86 /* VCParsingIReloadDataViaOfflineDatabase.swift in Sources */,
 				C84564E12674BC850034940F /* BibleGetNextOrPrevChap.swift in Sources */,
+				57BBC781290C4602001DC3FE /* Download_kjv.swift in Sources */,
 				C8A7083A2636DEE500B9175D /* IjnDTextTextView.swift in Sources */,
 				573CB90527454A7300AEEC9B /* SnHelper.swift in Sources */,
 				570A64B0273A9CD400B5EC11 /* NextPrevChapter.swift in Sources */,
@@ -1142,11 +1357,14 @@
 				573CB8F7273F889200AEEC9B /* SearchQ.swift in Sources */,
 				57395B3A2728FA350067F699 /* ViewDisplayRow.swift in Sources */,
 				578B254A2747449500EF2705 /* SSParentheses.swift in Sources */,
+				57BBC7582907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift in Sources */,
 				C85A0F222689D4130020CD94 /* IDataGetter.swift in Sources */,
 				573CB8EF273E81BF00AEEC9B /* SplitStringDTextCore.swift in Sources */,
 				578B255C2747FB1C00EF2705 /* SSSNH0430.swift in Sources */,
 				C8AD1DA52628AA470046C8EE /* JobFlag2Starter.swift in Sources */,
+				57BBC787290C46B5001DC3FE /* DoOneDownload_bible_kjv.swift in Sources */,
 				C87F194026846D140083C647 /* VerseRangeToString.swift in Sources */,
+				57BBC76E290BCBA1001DC3FE /* UrlsOfBibleFromFHL.swift in Sources */,
 				571A7541272A7F3A00C65902 /* VCEasyFunctions.swift in Sources */,
 				C85A0F17268969840020CD94 /* ReUseAtPageController.swift in Sources */,
 				5725896E2732675500E42DEF /* ViewSNDictCell.swift in Sources */,
@@ -1156,27 +1374,36 @@
 				C8089F3B26703182004FA377 /* OneRowForDText.swift in Sources */,
 				C88D236026EB0D110088BCF5 /* BibleGetterViaFhlApiQsb.swift in Sources */,
 				C8A7084A263940B800B9175D /* IjnColor.swift in Sources */,
+				57BBC78B290FE357001DC3FE /* Download_asv_darby_bbe_erv_web_esv.swift in Sources */,
 				577CEF9C27514337003014A8 /* FooterDTextClickFlow.swift in Sources */,
 				C87F196B2687DC660083C647 /* BookNameAndId.swift in Sources */,
+				57D49290293A00360099DC86 /* VCCommentIReloadDataViaScApi.swift in Sources */,
 				C8AD1DB82629C9430046C8EE /* uiabv.swift in Sources */,
 				57395B46272A36290067F699 /* VCSnActionPicker.swift in Sources */,
 				572589742732E95200E42DEF /* DApiQp.swift in Sources */,
 				C85A0F272689D4280020CD94 /* _EmptyFile.swift in Sources */,
+				57BBC75A2909747F001DC3FE /* SQLNameOfFileAndTableRuler.swift in Sources */,
 				574599C3273D28BD005635D0 /* SnDictDataCbolQ.swift in Sources */,
 				570A64AE273A9C8600B5EC11 /* VerseRange.swift in Sources */,
+				57BBC783290C4654001DC3FE /* SQLNormalize_kjv.swift in Sources */,
+				57BBC7912912AE4E001DC3FE /* messageBox.swift in Sources */,
 				572589722732D23D00E42DEF /* ViewParsing.swift in Sources */,
 				577CEFAD27547676003014A8 /* SQUiabv+CoreDataProperties.swift in Sources */,
 				C87F191F268434650083C647 /* SplitByRegex.swift in Sources */,
+				57BBC77F290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift in Sources */,
 				57A21A84276A59D70022212D /* VCSnDictMore.swift in Sources */,
 				57F22C60272B6C8D00526631 /* FindIndexOfCharInTextView.swift in Sources */,
 				574599AE273C2482005635D0 /* FhlScCore.swift in Sources */,
 				57AD73C527508BAE00CA9BA8 /* VCVersionsCompareInOneVerse.swift in Sources */,
 				57F22C71272C50CB00526631 /* VCReadImplementEvents.swift in Sources */,
 				57F22C64272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift in Sources */,
+				57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */,
+				57BBC761290BC6E5001DC3FE /* SQLNormalize_unv.swift in Sources */,
 				C88D235826EB08640088BCF5 /* BibleReadDataGetter.swift in Sources */,
 				C88D234D26EB084A0088BCF5 /* DataGetterUsingBibleReader.swift in Sources */,
 				C8AD1DAD262961E20046C8EE /* MyButtonForDownload.swift in Sources */,
 				5725896C273254B900E42DEF /* ViewParsingDict.swift in Sources */,
+				57D49292293A00640099DC86 /* VCCommentIReloadDataViaOfflineDatabase.swift in Sources */,
 				C85A0F2C2689D4720020CD94 /* IAddressManager.swift in Sources */,
 				570A64B5273AA47700B5EC11 /* FHLUserDefaults.swift in Sources */,
 				578B2543274635C400EF2705 /* ManagerIsSnVisible.swift in Sources */,
@@ -1185,6 +1412,7 @@
 				570A64B7273AA49200B5EC11 /* ManagerAddress.swift in Sources */,
 				C876EA6026E30CBB00ACE13D /* testThenDo.swift in Sources */,
 				57395B48272A45EA0067F699 /* VCVerseActionPicker.swift in Sources */,
+				57BBC76A290BCB33001DC3FE /* FHLZipFileDownloador.swift in Sources */,
 				578B25522747A4F600EF2705 /* SSDivIdt.swift in Sources */,
 				570A64CB273BAAE000B5EC11 /* VCTsk.swift in Sources */,
 				573CB8ED273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift in Sources */,
@@ -1192,25 +1420,33 @@
 				57395B3E27296A8E0067F699 /* ViewDisplayCell.swift in Sources */,
 				578B255A2747F9E600EF2705 /* SSSNG0430.swift in Sources */,
 				578B25562747F94500EF2705 /* SSSpanBibtext.swift in Sources */,
+				575574042933062300CC0560 /* DoOneDownload_bible_comm.swift in Sources */,
 				C87F194826846D490083C647 /* StringToVerseRange.swift in Sources */,
 				574BE54D2757A37500F5DC85 /* DIosBase.swift in Sources */,
 				C87F19242684348A0083C647 /* ijnRegex.swift in Sources */,
+				57D4929E29407F2B0099DC86 /* VCParsingIReloadData.swift in Sources */,
 				571413482733592F00CD206E /* ViewVersionsPicker.swift in Sources */,
 				573CB8FD2742691B00AEEC9B /* VCSearching.swift in Sources */,
 				C8AD1D4C2624243C0046C8EE /* AppDelegate.swift in Sources */,
 				57F22C62272B6E2700526631 /* FindWhichDTextFromIndexOfChar.swift in Sources */,
 				C84564DC26749DA40034940F /* BibleVerseCount.swift in Sources */,
 				570A64C2273B75E800B5EC11 /* ManagerHistoryOfRead.swift in Sources */,
+				57D492A0294087980099DC86 /* VCParsingIReloadDataViaQpApi.swift in Sources */,
 				573CB9032744FB3F00AEEC9B /* ManagerSearchHistory.swift in Sources */,
 				577CEFB02754C8D2003014A8 /* SSGreekPlusPlushPlsu.swift in Sources */,
 				577CEF9A27513FC6003014A8 /* RefDTextClickFlow.swift in Sources */,
 				578B25462747419900EF2705 /* _EmptyFileB.swift in Sources */,
 				578B25502747A0F800EF2705 /* SSUnderLineU.swift in Sources */,
+				57BBC76C290BCB45001DC3FE /* Download_unv_gb.swift in Sources */,
+				57BBC789290F745E001DC3FE /* BibleGetterViaSQLiteOrApi.swift in Sources */,
 				573CB8FF27427E7900AEEC9B /* ManagerLangSet.swift in Sources */,
 				570A64BB273B5FD900B5EC11 /* GlobalVariableBase.swift in Sources */,
 				57AD73B7274D292300CA9BA8 /* SSSpanGodSay.swift in Sources */,
+				57BBC765290BC7F2001DC3FE /* SQLBibleTextTransfor.swift in Sources */,
 				C844020B2631586900AD0CE9 /* UIReadPageController.swift in Sources */,
+				57BBC772290BCC1C001DC3FE /* Download_unv.swift in Sources */,
 				5711206F2730305800D64A6E /* BibleConstants.swift in Sources */,
+				57BBC78D290FE4D6001DC3FE /* SQLNormalize_asv_darby_bbe_erv_web_esv.swift in Sources */,
 				578B25582747F97C00EF2705 /* SSSpanExp.swift in Sources */,
 				574599B0273C38E7005635D0 /* NextPrevVerse.swift in Sources */,
 				C8A7083026369FE100B9175D /* IjnTestTime.swift in Sources */,
@@ -1221,9 +1457,11 @@
 				578B25642748227E00EF2705 /* DApiRt.swift in Sources */,
 				57AD73C2274FB58600CA9BA8 /* SnDTextClickFlow.swift in Sources */,
 				C88D236526EB0D140088BCF5 /* BibleText2DText.swift in Sources */,
+				57BBC7532902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift in Sources */,
 				573CB8EB273D6C2700AEEC9B /* DictTwcbNewConvertor.swift in Sources */,
 				578B254C27479DC300EF2705 /* SSNewLine.swift in Sources */,
 				C85A0F47268C04FC0020CD94 /* FhlJson.swift in Sources */,
+				57BBC78F29128EDF001DC3FE /* SwiftFileManager_Extensions.swift in Sources */,
 				574599C1273D28A6005635D0 /* SnDictDataTwcbQ.swift in Sources */,
 				C8089F22267030A5004FA377 /* DTextDraw.swift in Sources */,
 				577CEFAE2754BDAA003014A8 /* FHLBible.xcdatamodeld in Sources */,
@@ -1235,12 +1473,14 @@
 				C8089F4026703188004FA377 /* UIBibleTextRendor.swift in Sources */,
 				570A64AB273A6D4B00B5EC11 /* DAddress.swift in Sources */,
 				576992BF274BB84D00717E8C /* VCFooter.swift in Sources */,
+				57D4928A2935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift in Sources */,
 				C8AD1D962626D6790046C8EE /* ArrayExtensionLinq.swift in Sources */,
 				C88D237026EB10530088BCF5 /* QsbRecords2DOneLines01.swift in Sources */,
 				574BE54227570E8800F5DC85 /* VCSettings.swift in Sources */,
 				576992BC274BB60B00717E8C /* FooterConvertorDTexts.swift in Sources */,
 				578B25622747FCEB00EF2705 /* SSFoot.swift in Sources */,
 				574599B8273D02B3005635D0 /* DApiStwcbhdic.swift in Sources */,
+				57BBC75F290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift in Sources */,
 				C8089F27267030D9004FA377 /* DTextString.swift in Sources */,
 				574599B4273CBFFA005635D0 /* DApiSd.swift in Sources */,
 				572589702732D20900E42DEF /* ConvertorQp2VCParsingData.swift in Sources */,
@@ -1250,11 +1490,13 @@
 				57395B4E272A73C70067F699 /* VCIndex.swift in Sources */,
 				574599B2273CAEAE005635D0 /* EventsHelperOfTableOfRead.swift in Sources */,
 				57395B4A272A4C980067F699 /* VCPickerBaseOnTableView.swift in Sources */,
+				57BBC77B290C43FD001DC3FE /* VCData.swift in Sources */,
 				57395B362728E3B70067F699 /* ViewDisplayTable.swift in Sources */,
 				574599A8273BF203005635D0 /* TskDataStrToDText.swift in Sources */,
 				C876EA6526E836A500ACE13D /* SplitStringBtwBase.swift in Sources */,
 				574BE545275724EE00F5DC85 /* JsonFileGetter.swift in Sources */,
 				574BE54027570B7300F5DC85 /* VCOptionListViaTableViewControllerBase.swift in Sources */,
+				57D49296293A00D90099DC86 /* VCTskIReloadData.swift in Sources */,
 				5711206D272FCD3400D64A6E /* ViewButtons.swift in Sources */,
 				578B2548274741A700EF2705 /* SSH1H2H3H4Title.swift in Sources */,
 				C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */,
@@ -1268,21 +1510,28 @@
 				573CB8F9273F905600AEEC9B /* BookClassor.swift in Sources */,
 				570A64C0273B662000B5EC11 /* VCReadHistory.swift in Sources */,
 				57AD73C92750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift in Sources */,
+				57D4929C293A2A4F0099DC86 /* DoOneDownload_bible_parsing.swift in Sources */,
 				570A64B2273AA44300B5EC11 /* FhlParameters.swift in Sources */,
 				C8AD1D4E2624243C0046C8EE /* SceneDelegate.swift in Sources */,
+				57BBC75D290BC64F001DC3FE /* SQLNormalize_unv_gb.swift in Sources */,
 				5714134C2734C49200CD206E /* InfoButtonBase.swift in Sources */,
+				57BBC775290BCC5E001DC3FE /* Unzipor.swift in Sources */,
 				574599BF273D288C005635D0 /* _EmptyFileA.swift in Sources */,
 				57112069272FCC8400D64A6E /* VCBookChapPicker.swift in Sources */,
+				57BBC7502901E22A001DC3FE /* SINQ.swift in Sources */,
+				57D49298293A08A70099DC86 /* VCTskIReloadDataViaOfflineDatabase.swift in Sources */,
+				57D4928E2939FFFF0099DC86 /* VCCommentIReloadData.swift in Sources */,
 				57395B322728D4350067F699 /* VCRead.swift in Sources */,
 				578B255E2747FB5600EF2705 /* SSGreek.swift in Sources */,
 				57D7EB6A27255A16003D2557 /* VCSearchKeywordViewController.swift in Sources */,
+				57BBC763290BC72D001DC3FE /* SQLNormalize_sn_unv.swift in Sources */,
 				574BE5472757673400F5DC85 /* ReadDataQ.swift in Sources */,
 				573CB9012744A35600AEEC9B /* DataForDrawTable.swift in Sources */,
 				578B25542747A52200EF2705 /* SSBold.swift in Sources */,
 				57AD73C727509D2F00CA9BA8 /* BibleVersionFonts.swift in Sources */,
 				C8AD1DB22629AF2F0046C8EE /* ijnDate.swift in Sources */,
-				574599A6273BE2C0005635D0 /* TskDataQ.swift in Sources */,
 				C88D233C26EB05A10088BCF5 /* SplitStringBtwHWFW.swift in Sources */,
+				57BBC77D290C44C6001DC3FE /* DoOneDownload_bible_little.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1299,6 +1548,7 @@
 				573CB8F3273F418700AEEC9B /* FhlSeTests.swift in Sources */,
 				C87F1938268460C50083C647 /* VerseRangeToStringTests.swift in Sources */,
 				570A64C4273BA3EA00B5EC11 /* FhlScTests.swift in Sources */,
+				57BBC7552902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift in Sources */,
 				57AD73B5274CFA7500CA9BA8 /* SSForFooter.swift in Sources */,
 				C87F192C268460990083C647 /* StringToVerseRangeTests.swift in Sources */,
 				C876EA6A26E8372C00ACE13D /* SplitStringBtwBaseTests.swift in Sources */,
@@ -1307,6 +1557,7 @@
 				573CB8FB273F96BC00AEEC9B /* SearchQTests.swift in Sources */,
 				574599B6273D01B8005635D0 /* FhlSdTests.swift in Sources */,
 				577CEFA02753C3E2003014A8 /* FhlAbvTests.swift in Sources */,
+				57D4928C2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift in Sources */,
 				C87F191526833BFF0083C647 /* RegexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1508,6 +1759,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VYVKTHK4E5;
@@ -1517,9 +1769,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1530,6 +1783,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VYVKTHK4E5;
@@ -1539,9 +1793,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1553,8 +1808,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VYVKTHK4E5;
 				INFOPLIST_FILE = FHLBibleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1574,8 +1830,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VYVKTHK4E5;
 				INFOPLIST_FILE = FHLBibleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1594,6 +1851,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VYVKTHK4E5;
 				INFOPLIST_FILE = FHLBibleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1613,6 +1871,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VYVKTHK4E5;
 				INFOPLIST_FILE = FHLBibleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1667,6 +1926,29 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5768196528EC8B330049C728 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				branch = development;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5768196628EC8B330049C728 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5768196528EC8B330049C728 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		5768196B28EC8C9D0049C728 /* IJNSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IJNSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C8AD1D542624243C0046C8EE /* FHLBible.xcdatamodeld */ = {

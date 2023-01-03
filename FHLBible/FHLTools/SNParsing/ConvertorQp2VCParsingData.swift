@@ -9,10 +9,10 @@ import Foundation
 
 
 class ConvertorQp2VCParsingData {
-    init(_ data: DApiQp){
+    init(_ data: DData){
         self.data = data
     }
-    var data: DApiQp
+    var data: DData
     
     func main() -> ([ViewParsing.OneSet],isHebrew:Bool){
         if data.isOldTestment() {
@@ -131,4 +131,24 @@ class ConvertorQp2VCParsingData {
     var words: [[DText]]? = nil
     var exps: [[DText]]? = nil
     var dicts: [[ViewParsingDict.OneData]]? = nil
+}
+extension ConvertorQp2VCParsingData {
+    class DData {
+        func isOldTestment()->Bool { return true }
+        var record: [DApiQpRecord]! { get { return [] } }
+    }
+    class DDataViaQpApi : DData {
+        override func isOldTestment() -> Bool {
+            return _reApi.isOldTestment()
+        }
+        override var record: [DApiQpRecord]! {
+            get {
+                return _reApi.record
+            }
+        }
+        init(_ resultApi: DApiQp){
+            _reApi = resultApi
+        }
+        var _reApi: DApiQp!
+    }
 }

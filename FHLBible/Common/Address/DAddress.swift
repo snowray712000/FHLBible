@@ -15,6 +15,10 @@ open class DAddress {
         self.verse = verse
         self.ver = ver
     }
+    /// for SQLite 
+    convenience init(_ book:Int32,_ chap:Int32,_ verse:Int32) {
+        self.init(Int(book),Int(chap),Int(verse))
+    }
     internal init(book: Int = 0, chap: Int = 0, verse: Int = 0, ver: String? = nil) {
         self.book = book
         self.chap = chap

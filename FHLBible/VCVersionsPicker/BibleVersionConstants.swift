@@ -241,3 +241,32 @@ class BibleVersionConstants {
         case yrnow = "近代"
     }
 }
+
+extension BibleVersionConstants {
+    /// 有些譯本需要 `_gb` 但有些不用
+    /// 外文，英文，希臘文，希伯來文，原住民語都不用
+    /// 客家語，閩南語有些需要
+    /// 其它都要
+    func getBiblesHaveGb()->[String]{
+        let r1:[BibleVersionConstants.TpGroup] = [.en, .fo, .ind, .hg]
+        
+        var r2:[BibleVersionConstants.TpGroup:[String]] = [:]
+        r2[.ha] = ["thv12h"] // 聖經公會現代漢語客語漢字 (3個裡，就這個不是羅馬拚音)
+        r2[.mi] = [ "apskhl", "ttvh", "bklhl", "tghg", "sgebklhl","ttvhl2021" ]
+        
+        let r3 = from(BibleVersionConstants.s.datas).whereTrue({ a1 in
+            return from(r1).contains(a1.na) == false
+        })
+        
+        var re:[String] = []
+        r3.forEach({a1 in
+            if a1.na == .ha || a1.na == .mi {
+                re.append(contentsOf: r2[a1.na] ?? [] )
+            } else {
+                re.append(contentsOf: from(a1.vers ?? []).select({$0.na}).toArray())
+            }
+        })
+        return re
+        
+    }
+}

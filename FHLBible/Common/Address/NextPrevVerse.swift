@@ -8,9 +8,13 @@
 import Foundation
 
 extension DAddress {
+    /// 若到最後一節，會自動切換為下一個 book
+    /// 若到啟示錄最後一節，會自動切換為 創 1 1 1
     func goNextVerse()->DAddress{
         return NextPrevVerse().goNext(self)
     }
+    /// 若到第1章，第1節，會自動切換為上一個 book，而不會到 0 章 0 節
+    /// 若是創世記，則會切換到啟示錄
     func goPrevVerse()->DAddress{
         return NextPrevVerse().goPrev(self)
     }

@@ -57,10 +57,10 @@
 "浸宣" = "浸宣";
 
 /* No comment provided by engineer. */
-"浸宣出版社原文字典" = "浸宣出版社原文字典";
+"浸宣出版社原文字典(無法提供離線版)" = "浸宣出版社原文字典(无法提供离线版)";
 
 /* No comment provided by engineer. */
-"彙編" = "彙编";
+"彙編" = "汇编";
 
 /* No comment provided by engineer. */
 "閱讀記錄" = "阅读记录";
@@ -81,3 +81,10 @@
 "打開到 support urls嗎？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)" = "打开到 support urls吗？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)";
 
 
+"版本比較 註釋 Parsing 串珠" = "版本比较 注释 Parsing 串珠";
+"說明: 點擊藍色字眼，例如 '太1:1'。因為其它功能是不是以一章為單位，而是節為單位。" = "说明: 点击蓝色字眼，例如 '太1:1'。因为其它功能是不是以一章为单位，而是节为单位。";
+"Parsing 原文字典" = "Parsing 原文字典";
+"說明: 點擊 SN 字眼，例如 '<G3767>'。" = "说明: 点击 SN 字眼，例如 '<G3767>'。";
+
+"此章節的原文分析" = "此章节的原文分析";
+"此原文出現在哪些章節." = "此原文出现在哪些章节.";

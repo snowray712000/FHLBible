@@ -1,5 +1,6 @@
 import Foundation
-
+import IJNSwift
+import FMDB
 /// 很多其實都需要這個, 但這個是在寫 SnDictDataQ 定義的
 /// SnDictDataQ 需要 CBOL 與 Twcb 版本的轉換器
 protocol IStr2DTextArray {
@@ -21,6 +22,7 @@ class SnDictDataQ {
     /// 最終繪圖資料 resultContent
     /// 其它資料 resultTwcb resultCBOL
     var onFinishedQ$: IjnEventOnceAny = IjnEventOnce()
+    /// dtext: 要查詢的 sn. 例子 tp: G sn:2532a.
     func main(_ dtext:DText){
         _icvtTWCBOld = DictTwcbOldConvertor()
         _icvtTWCBNew = DictTwcbNewConvertor()
@@ -28,7 +30,6 @@ class SnDictDataQ {
         _icvtCBOLNew = DictCbolNewConvertor()
         _icvtCBOLOldEn = DictCbolOldEnConvertor()
         _icvtCBOLNewEn = DictCbolNewEnConvertor()
-        
         
         _dtext = dtext
         
@@ -68,16 +69,19 @@ class SnDictDataQ {
     private var _isOldTestment: Bool {
         return _dtext.tp == "H"
     }
+    
     fileprivate func step1_startGroupEvents(_ group: DispatchGroup) {
         if self._isCbol {
             group.enter()
-            let r1 = SnDictDataCbolQ()
+            //let r1 = SnDictDataCbolQOffline()
+            //let r1 = SnDictDataCbolQ()
+            let r1 = SnDictDataCbolQAuto()
             r1.onApiFinished$.addCallback { sender, pData in
-                self.errorCBOL = sender
-                self.resultCBOL = pData
+                self.errorCBOL = sender // nil 表示沒資料
+                self.resultCBOL = pData //
                 group.leave()
             }
-            r1.main(_dtext)
+            r1.mainAsync(_dtext)
         }
         if self._isTwcb {
             group.enter()

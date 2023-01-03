@@ -6,9 +6,11 @@
 //
 
 import Foundation
-
+import IJNSwift
+import FMDB
 /// 為了 BibleReadDataGetter
 protocol IBibleGetter {
+    /// ver: unv
     func queryAsync(_ ver: String,_ addr: String,_ fn: @escaping (_ datas:[DOneLine])->Void )
 }
 
@@ -33,6 +35,8 @@ class BibleGetter01 : IBibleGetter{
     }
 }
 
+
+
 /// 為了 IDataGetter 開發,
 /// 最主要 protocol 有
 /// 1. 將 qsb 的結果, 轉為 DOneLine (用在第3)
@@ -48,7 +52,9 @@ class BibleReadDataGetter {
     private var bibleG: IBibleGetter
     init (){
         // self.bibleG = BibleGetter01()
-        self.bibleG = BibleGetterViaFhlApiQsb()
+        // self.bibleG = BibleGetterViaFhlApiQsb()
+        // self.bibleG = BibleGetterViaSQLiteFile()
+        self.bibleG = BibleGetterViaSQLiteOrApi()
     }
     func queryAsync(_ vers: [String],_ addr: String,_ fn: @escaping FnCallback){
         

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+
 @testable import FHLBible
 
 
@@ -18,3 +19,5 @@ class LinqTests : XCTestCase {
         XCTAssert( [0,-2,-4] == ijnRange(0, 3, -2) )
     }
 }
+
+

@@ -7,6 +7,9 @@
 
 import Foundation
 import UIKit
+import ZIPFoundation
+import IJNSwift
+import zlib
 
 class VCIndex : UIViewController {
     @IBOutlet var viewDisplay: UIView!
@@ -14,8 +17,8 @@ class VCIndex : UIViewController {
         super.viewDidLoad()
         _ = AutoLoadDUiabv.s // lazy var
         
-        labelDate.text = "2022.01.10a"
-        labelVer.text = "1.4.1"
+        labelDate.text = "2023.01.01a"
+        labelVer.text = "2.0.1" //version
     }
     
     @IBAction func goRead(){
@@ -40,7 +43,15 @@ class VCIndex : UIViewController {
         let vc = VCSettings()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    @IBAction func goData(){
+        let vc = VCData()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @IBOutlet var labelDate: UILabel!
     @IBOutlet var labelVer: UILabel!
 }
+
+
+
+
 

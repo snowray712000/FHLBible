@@ -69,37 +69,27 @@ class VCTsk : UIViewController {
     fileprivate func _draw(){ v2.set(self._data, self._isVisibleSn) }
     /// 用 addr 再重抓一次資料，並觸發 dataChanged$
     fileprivate func _reloadData(){
-        let dataQ = TskDataQ()
         let fnTriggerAtMainThread = {
             DispatchQueue.main.async {
                 self._dataChanged$.trigger()
             }
         }
-        dataQ.dataQ$.addCallback { sender, pData in
-            if pData == nil || false == pData!.isSuccess() {
-                let re = [DText("取得資料失敗,發生於 \(self._addrTitle)")]
-                self._data = re
+        
+        let dataQ: IReloadData = ReloadDataAutoUseOfflineOrScApi()
+        dataQ.apiFinished$.addCallback { sender, pData in
+            if sender != nil {
+                self._data = sender!
                 fnTriggerAtMainThread()
             } else {
-                if pData!.record.count == 0 {
-                    let re = [DText("無資料 \(self._addrTitle)")]
-                    self._data = re
-                    fnTriggerAtMainThread()
-                } else {
-                    // data
-                    let com_text = pData!.record.first!.com_text ?? ""
-                    let dtexts = TskDataStrToDText().main(com_text, self._addr)
-                    self._data = dtexts
-                    // prev next
-                    self._addrNext = pData!.next?.toAddress()
-                    self._addrPrev = pData!.prev?.toAddress()
-                    
-                    // trigger
-                    fnTriggerAtMainThread()
-                }
+                let com_text = pData!.com_text!
+                let dtexts = TskDataStrToDText().main(com_text, self._addr)
+                self._data = dtexts
+                self._addrNext = pData!.addrNext
+                self._addrPrev = pData!.addrPrev
+                fnTriggerAtMainThread()
             }
         }
-        dataQ.main(self._addr)
+        dataQ.reloadAsync(self._addr)
     }
     lazy var _swipeHelp = SwipeHelp(view:self.view)
     /// 方便用參數
@@ -127,3 +117,4 @@ class VCTsk : UIViewController {
         self.navigationController?.pushViewController(vc1, animated: false)
     }
 }
+
