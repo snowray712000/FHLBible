@@ -82,7 +82,8 @@ class VCParsing : UIViewController {
     }
     func reloadDataAsync(_ addr: DAddress){
         //let reloader: IReloadData = ReloadDataViaScApi()
-        let reloader: IReloadData = ReloadDataViaOfflineDatabase()
+        //let reloader: IReloadData = ReloadDataViaOfflineDatabase()
+        let reloader: IReloadData = ReloadDataAutoUseOfflineOrScApi()
         
         reloader.apiFinished$.addCallback { sender, pData in
             if sender != nil {
