@@ -2168,7 +2168,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B04434B8-CD19-45A8-9F3A-2F463BA45F4F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FHLBibleTests/FhlApi/HttpFtpTests.swift"
@@ -2203,6 +2203,21 @@
                   moduleName = "FHLBibleTests"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Shared/coding/FHLBible/FHLBibleTests/FhlApi/HttpFtpTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "588">
+               </Location>
+               <Location
+                  uuid = "B04434B8-CD19-45A8-9F3A-2F463BA45F4F - dd8bbb2add0ea0dd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FHLBibleTests.FHLFtpTests.test02a() throws -&gt; ()"
+                  moduleName = "FHLBibleTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBibleTests/FhlApi/HttpFtpTests.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "49"
@@ -2910,8 +2925,8 @@
             filePath = "FHLBible/FHLTools/SNParsing/VCParsingIReloadDataViaOfflineDatabase.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "queryParsingAsync(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3233,6 +3248,162 @@
             startingLineNumber = "280"
             endingLineNumber = "280"
             landmarkName = "doSearching()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CA6F6E60-2076-44F9-9A04-27B9A1E557DF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FHLBibleTests/FhlApi/HttpFtpTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "test02a()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6D5D7F61-E21B-4461-ABCE-DC20EACB4E43"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FHLBibleTests/SNParsingOffLineTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "testBasic01()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6D5D7F61-E21B-4461-ABCE-DC20EACB4E43 - b3e2980fd64fa211"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FHLBibleTests.SNParsingOfflineTests.testBasic01() -&gt; ()"
+                  moduleName = "FHLBibleTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBibleTests/SNParsingOffLineTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "1288">
+               </Location>
+               <Location
+                  uuid = "6D5D7F61-E21B-4461-ABCE-DC20EACB4E43 - b3e2980fd64fa2d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FHLBibleTests.SNParsingOfflineTests.testBasic01() -&gt; ()"
+                  moduleName = "FHLBibleTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBibleTests/SNParsingOffLineTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "1820">
+               </Location>
+               <Location
+                  uuid = "6D5D7F61-E21B-4461-ABCE-DC20EACB4E43 - b3e2980fd64fa2d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FHLBibleTests.SNParsingOfflineTests.testBasic01() -&gt; ()"
+                  moduleName = "FHLBibleTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBibleTests/SNParsingOffLineTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "1832">
+               </Location>
+               <Location
+                  uuid = "6D5D7F61-E21B-4461-ABCE-DC20EACB4E43 - b3e2980fd64fbcc4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FHLBibleTests.SNParsingOfflineTests.testBasic01() -&gt; ()"
+                  moduleName = "FHLBibleTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBibleTests/SNParsingOffLineTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "3908">
+               </Location>
+               <Location
+                  uuid = "6D5D7F61-E21B-4461-ABCE-DC20EACB4E43 - b3e2980fd64fbf27"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FHLBibleTests.SNParsingOfflineTests.testBasic01() -&gt; ()"
+                  moduleName = "FHLBibleTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBibleTests/SNParsingOffLineTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "3968">
+               </Location>
+               <Location
+                  uuid = "6D5D7F61-E21B-4461-ABCE-DC20EACB4E43 - b3e2980fd64fbf06"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FHLBibleTests.SNParsingOfflineTests.testBasic01() -&gt; ()"
+                  moduleName = "FHLBibleTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBibleTests/SNParsingOffLineTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "4500">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "57A9994B-3502-411E-BD5B-C1BF8BF50E09"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FHLBibleTests/SNParsingOffLineTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "testBasic01()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EF57AE16-F6F4-440F-8F43-03EC2494BF27"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FHLBible/FHLTools/SNParsing/VCParsingIReloadDataViaOfflineDatabase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "reloadAsync(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

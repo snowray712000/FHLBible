@@ -37,6 +37,8 @@
 		5714134A2733891F00CD206E /* BibleVersionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571413492733891F00CD206E /* BibleVersionConstants.swift */; };
 		5714134C2734C49200CD206E /* InfoButtonBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5714134B2734C49200CD206E /* InfoButtonBase.swift */; };
 		571A7541272A7F3A00C65902 /* VCEasyFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571A7540272A7F3A00C65902 /* VCEasyFunctions.swift */; };
+		571F95B729BF2B91007A9268 /* SNParsingOffLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571F95B629BF2B91007A9268 /* SNParsingOffLineTests.swift */; };
+		571F95BA29C38F09007A9268 /* SNParsingDealProXForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571F95B929C38F09007A9268 /* SNParsingDealProXForm.swift */; };
 		5725896C273254B900E42DEF /* ViewParsingDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5725896B273254B900E42DEF /* ViewParsingDict.swift */; };
 		5725896E2732675500E42DEF /* ViewSNDictCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5725896D2732675500E42DEF /* ViewSNDictCell.swift */; };
 		572589702732D20900E42DEF /* ConvertorQp2VCParsingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5725896F2732D20900E42DEF /* ConvertorQp2VCParsingData.swift */; };
@@ -310,6 +312,8 @@
 		571413492733891F00CD206E /* BibleVersionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleVersionConstants.swift; sourceTree = "<group>"; };
 		5714134B2734C49200CD206E /* InfoButtonBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButtonBase.swift; sourceTree = "<group>"; };
 		571A7540272A7F3A00C65902 /* VCEasyFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCEasyFunctions.swift; sourceTree = "<group>"; };
+		571F95B629BF2B91007A9268 /* SNParsingOffLineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNParsingOffLineTests.swift; sourceTree = "<group>"; };
+		571F95B929C38F09007A9268 /* SNParsingDealProXForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNParsingDealProXForm.swift; sourceTree = "<group>"; };
 		5725896B273254B900E42DEF /* ViewParsingDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewParsingDict.swift; sourceTree = "<group>"; };
 		5725896D2732675500E42DEF /* ViewSNDictCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSNDictCell.swift; sourceTree = "<group>"; };
 		5725896F2732D20900E42DEF /* ConvertorQp2VCParsingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertorQp2VCParsingData.swift; sourceTree = "<group>"; };
@@ -644,6 +648,7 @@
 		571120702730BC8200D64A6E /* SNParsing */ = {
 			isa = PBXGroup;
 			children = (
+				571F95B829C38EC5007A9268 /* SNParsingDealProXForm */,
 				571120712730BC9800D64A6E /* VCParsing.swift */,
 				5725896F2732D20900E42DEF /* ConvertorQp2VCParsingData.swift */,
 				572589712732D23D00E42DEF /* ViewParsing.swift */,
@@ -671,6 +676,14 @@
 				57AD73C627509D2F00CA9BA8 /* BibleVersionFonts.swift */,
 			);
 			path = VCVersionsPicker;
+			sourceTree = "<group>";
+		};
+		571F95B829C38EC5007A9268 /* SNParsingDealProXForm */ = {
+			isa = PBXGroup;
+			children = (
+				571F95B929C38F09007A9268 /* SNParsingDealProXForm.swift */,
+			);
+			path = SNParsingDealProXForm;
 			sourceTree = "<group>";
 		};
 		573CB8F4273F44B800AEEC9B /* FhlApi */ = {
@@ -1086,6 +1099,7 @@
 				C87F194F2686472D0083C647 /* LinqTests.swift */,
 				C8AD1D672624243D0046C8EE /* Info.plist */,
 				C87F191426833BFF0083C647 /* RegexTests.swift */,
+				571F95B629BF2B91007A9268 /* SNParsingOffLineTests.swift */,
 				C87F1919268418FD0083C647 /* SplitByRegexTests.swift */,
 				C87F1933268460C30083C647 /* VerseRangeToStringTests.swift */,
 				C87F192B268460980083C647 /* StringToVerseRangeTests.swift */,
@@ -1396,6 +1410,7 @@
 				574599AE273C2482005635D0 /* FhlScCore.swift in Sources */,
 				57AD73C527508BAE00CA9BA8 /* VCVersionsCompareInOneVerse.swift in Sources */,
 				57F22C71272C50CB00526631 /* VCReadImplementEvents.swift in Sources */,
+				571F95BA29C38F09007A9268 /* SNParsingDealProXForm.swift in Sources */,
 				57F22C64272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift in Sources */,
 				57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */,
 				57BBC761290BC6E5001DC3FE /* SQLNormalize_unv.swift in Sources */,
@@ -1555,6 +1570,7 @@
 				C8AD1D662624243D0046C8EE /* FHLBibleTests.swift in Sources */,
 				C85A0F42268A93CD0020CD94 /* FhlQsbTests.swift in Sources */,
 				573CB8FB273F96BC00AEEC9B /* SearchQTests.swift in Sources */,
+				571F95B729BF2B91007A9268 /* SNParsingOffLineTests.swift in Sources */,
 				574599B6273D01B8005635D0 /* FhlSdTests.swift in Sources */,
 				577CEFA02753C3E2003014A8 /* FhlAbvTests.swift in Sources */,
 				57D4928C2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift in Sources */,
@@ -1769,7 +1785,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1793,7 +1809,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
