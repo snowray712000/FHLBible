@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5700345D29DF066E0007E6F3 /* VCAudioVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700345C29DF066E0007E6F3 /* VCAudioVersion.swift */; };
+		5700345F29DFA15F0007E6F3 /* DApiAu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700345E29DFA15F0007E6F3 /* DApiAu.swift */; };
+		5700346129E03C190007E6F3 /* AudioBibleNextPrevGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700346029E03C190007E6F3 /* AudioBibleNextPrevGetter.swift */; };
+		5700346329E03C380007E6F3 /* VCPlayrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700346229E03C380007E6F3 /* VCPlayrate.swift */; };
 		57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57055732295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift */; };
 		570A64AB273A6D4B00B5EC11 /* DAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570A64AA273A6D4B00B5EC11 /* DAddress.swift */; };
 		570A64AE273A9C8600B5EC11 /* VerseRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570A64AD273A9C8600B5EC11 /* VerseRange.swift */; };
@@ -44,6 +48,7 @@
 		572589702732D20900E42DEF /* ConvertorQp2VCParsingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5725896F2732D20900E42DEF /* ConvertorQp2VCParsingData.swift */; };
 		572589722732D23D00E42DEF /* ViewParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572589712732D23D00E42DEF /* ViewParsing.swift */; };
 		572589742732E95200E42DEF /* DApiQp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572589732732E95200E42DEF /* DApiQp.swift */; };
+		572D9A9C29CAD912008DF7BF /* VCAudioBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572D9A9B29CAD912008DF7BF /* VCAudioBible.swift */; };
 		57395B322728D4350067F699 /* VCRead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57395B312728D4350067F699 /* VCRead.swift */; };
 		57395B342728E37A0067F699 /* ViewDisplayTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57395B332728E37A0067F699 /* ViewDisplayTable.xib */; };
 		57395B362728E3B70067F699 /* ViewDisplayTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57395B352728E3B70067F699 /* ViewDisplayTable.swift */; };
@@ -282,6 +287,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5700345C29DF066E0007E6F3 /* VCAudioVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioVersion.swift; sourceTree = "<group>"; };
+		5700345E29DFA15F0007E6F3 /* DApiAu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DApiAu.swift; sourceTree = "<group>"; };
+		5700346029E03C190007E6F3 /* AudioBibleNextPrevGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBibleNextPrevGetter.swift; sourceTree = "<group>"; };
+		5700346229E03C380007E6F3 /* VCPlayrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCPlayrate.swift; sourceTree = "<group>"; };
 		57055732295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_cbol_dict.swift; sourceTree = "<group>"; };
 		570A64AA273A6D4B00B5EC11 /* DAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAddress.swift; sourceTree = "<group>"; };
 		570A64AD273A9C8600B5EC11 /* VerseRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseRange.swift; sourceTree = "<group>"; };
@@ -319,6 +328,7 @@
 		5725896F2732D20900E42DEF /* ConvertorQp2VCParsingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertorQp2VCParsingData.swift; sourceTree = "<group>"; };
 		572589712732D23D00E42DEF /* ViewParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewParsing.swift; sourceTree = "<group>"; };
 		572589732732E95200E42DEF /* DApiQp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DApiQp.swift; sourceTree = "<group>"; };
+		572D9A9B29CAD912008DF7BF /* VCAudioBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioBible.swift; sourceTree = "<group>"; };
 		57395B312728D4350067F699 /* VCRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCRead.swift; sourceTree = "<group>"; };
 		57395B332728E37A0067F699 /* ViewDisplayTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewDisplayTable.xib; sourceTree = "<group>"; };
 		57395B352728E3B70067F699 /* ViewDisplayTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDisplayTable.swift; sourceTree = "<group>"; };
@@ -684,6 +694,17 @@
 				571F95B929C38F09007A9268 /* SNParsingDealProXForm.swift */,
 			);
 			path = SNParsingDealProXForm;
+			sourceTree = "<group>";
+		};
+		572D9A9A29CAD67C008DF7BF /* VCAudioBible */ = {
+			isa = PBXGroup;
+			children = (
+				572D9A9B29CAD912008DF7BF /* VCAudioBible.swift */,
+				5700345C29DF066E0007E6F3 /* VCAudioVersion.swift */,
+				5700346229E03C380007E6F3 /* VCPlayrate.swift */,
+				5700346029E03C190007E6F3 /* AudioBibleNextPrevGetter.swift */,
+			);
+			path = VCAudioBible;
 			sourceTree = "<group>";
 		};
 		573CB8F4273F44B800AEEC9B /* FhlApi */ = {
@@ -1053,6 +1074,7 @@
 		C8AD1D4A2624243C0046C8EE /* FHLBible */ = {
 			isa = PBXGroup;
 			children = (
+				572D9A9A29CAD67C008DF7BF /* VCAudioBible */,
 				57BBC7512902CD33001DC3FE /* SQLiteFHL */,
 				57BBC74E2901E213001DC3FE /* SINQ */,
 				57073CBE275633D100B08F2F /* VCSetting */,
@@ -1176,6 +1198,7 @@
 				578B25632748227E00EF2705 /* DApiRt.swift */,
 				C8AD1DB72629C9420046C8EE /* uiabv.swift */,
 				570A64C7273BAA1E00B5EC11 /* fhlCore.swift */,
+				5700345E29DFA15F0007E6F3 /* DApiAu.swift */,
 			);
 			path = fhlApi;
 			sourceTree = "<group>";
@@ -1345,6 +1368,7 @@
 				57D49294293A008C0099DC86 /* VCCommentIReloadDataAuto.swift in Sources */,
 				57BBC785290C468F001DC3FE /* SQLNormalize_sn_kjv.swift in Sources */,
 				C89F76612672090000953F4B /* BookNameConstants.swift in Sources */,
+				5700346129E03C190007E6F3 /* AudioBibleNextPrevGetter.swift in Sources */,
 				57F22C6B272BF60100526631 /* ViewDisplayTable2.swift in Sources */,
 				57D4929A293A1E2A0099DC86 /* VCTskIReloadDataAuto.swift in Sources */,
 				C8AD1D902624397E0046C8EE /* DownloadManagerView.swift in Sources */,
@@ -1410,6 +1434,7 @@
 				574599AE273C2482005635D0 /* FhlScCore.swift in Sources */,
 				57AD73C527508BAE00CA9BA8 /* VCVersionsCompareInOneVerse.swift in Sources */,
 				57F22C71272C50CB00526631 /* VCReadImplementEvents.swift in Sources */,
+				572D9A9C29CAD912008DF7BF /* VCAudioBible.swift in Sources */,
 				571F95BA29C38F09007A9268 /* SNParsingDealProXForm.swift in Sources */,
 				57F22C64272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift in Sources */,
 				57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */,
@@ -1430,6 +1455,7 @@
 				57BBC76A290BCB33001DC3FE /* FHLZipFileDownloador.swift in Sources */,
 				578B25522747A4F600EF2705 /* SSDivIdt.swift in Sources */,
 				570A64CB273BAAE000B5EC11 /* VCTsk.swift in Sources */,
+				5700346329E03C380007E6F3 /* VCPlayrate.swift in Sources */,
 				573CB8ED273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift in Sources */,
 				573CB8F1273F3A3F00AEEC9B /* DApiSe.swift in Sources */,
 				57395B3E27296A8E0067F699 /* ViewDisplayCell.swift in Sources */,
@@ -1464,6 +1490,7 @@
 				57BBC78D290FE4D6001DC3FE /* SQLNormalize_asv_darby_bbe_erv_web_esv.swift in Sources */,
 				578B25582747F97C00EF2705 /* SSSpanExp.swift in Sources */,
 				574599B0273C38E7005635D0 /* NextPrevVerse.swift in Sources */,
+				5700345D29DF066E0007E6F3 /* VCAudioVersion.swift in Sources */,
 				C8A7083026369FE100B9175D /* IjnTestTime.swift in Sources */,
 				57AD73B9274D3DF900CA9BA8 /* SSKjv.swift in Sources */,
 				57D7EB652723FE49003D2557 /* ViewSearchFilter.swift in Sources */,
@@ -1475,6 +1502,7 @@
 				57BBC7532902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift in Sources */,
 				573CB8EB273D6C2700AEEC9B /* DictTwcbNewConvertor.swift in Sources */,
 				578B254C27479DC300EF2705 /* SSNewLine.swift in Sources */,
+				5700345F29DFA15F0007E6F3 /* DApiAu.swift in Sources */,
 				C85A0F47268C04FC0020CD94 /* FhlJson.swift in Sources */,
 				57BBC78F29128EDF001DC3FE /* SwiftFileManager_Extensions.swift in Sources */,
 				574599C1273D28A6005635D0 /* SnDictDataTwcbQ.swift in Sources */,
@@ -1785,7 +1813,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1809,7 +1837,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

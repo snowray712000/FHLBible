@@ -129,6 +129,12 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
                 self.clickGoBack()
             } else if pData == "history" {
                 self.pickFromHistory()
+            } else if pData == "audiobible" {
+                let vc = self.gVCAudioBible()
+                let addr = self._addrsCurFirst!
+                vc.book = addr.book
+                vc.chap = addr.chap
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
         

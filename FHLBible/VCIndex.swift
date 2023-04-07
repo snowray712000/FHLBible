@@ -10,6 +10,8 @@ import UIKit
 import ZIPFoundation
 import IJNSwift
 import zlib
+import AVFoundation
+
 
 class VCIndex : UIViewController {
     @IBOutlet var viewDisplay: UIView!
@@ -17,8 +19,9 @@ class VCIndex : UIViewController {
         super.viewDidLoad()
         _ = AutoLoadDUiabv.s // lazy var
         
-        labelDate.text = "2023.03.17a"
-        labelVer.text = "2.3.1" //version
+        labelDate.text = "2023.04.07a"
+        labelVer.text = "2.4.1" //version
+     
     }
     
     @IBAction func goRead(){

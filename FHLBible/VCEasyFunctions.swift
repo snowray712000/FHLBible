@@ -38,4 +38,5 @@ extension UIViewController {
     func gVCVerseActionPicker() -> VCVerseActionPicker { self.gEasyGetViewCtrlFromXibCore("VCVerseActionPicker")}
     /// Footer (閱讀過程，某些版本 cnet csb，會有【23】這種注腳。
     func gVCFooter() -> VCFooter { self.gEasyGetViewCtrlFromXibCore("VCFooter")}
+    func gVCAudioBible() -> VCAudioBible { self.gEasyGetViewCtrlFromXibCore("VCAudioBible")}
 }

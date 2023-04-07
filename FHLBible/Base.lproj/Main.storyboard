@@ -131,7 +131,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="閱讀" id="5z0-93-CVj">
                         <view key="titleView" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zyi-xf-G14">
-                            <rect key="frame" x="0.0" y="0.0" width="130" height="44"/>
+                            <rect key="frame" x="8" y="0.0" width="142" height="44"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-o0-Xkb">
                                     <rect key="frame" x="0.0" y="0.0" width="130" height="44"/>
@@ -166,7 +166,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="SL4-m2-lvx">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2kc-dz-nO0" userLabel="more">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="ellipsis" catalog="system"/>
@@ -177,7 +177,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="0q7-jn-LI3">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="JKg-L4-5rQ">
-                                    <rect key="frame" x="208" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="5.5" width="44" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -191,7 +191,7 @@
                             </barButtonItem>
                             <barButtonItem title="Item" style="plain" id="A3s-hN-77r">
                                 <button key="customView" toolTip="Search" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mRq-YC-MRF" userLabel="S">
-                                    <rect key="frame" x="156" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="156" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -330,7 +330,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="7hu-MB-9Xu">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="U6A-5l-Y7K" userLabel="more">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="ellipsis" catalog="system"/>
@@ -342,7 +342,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="gMQ-pk-evn">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bdH-Xf-63A">
-                                    <rect key="frame" x="188.5" y="3" width="63.5" height="44"/>
+                                    <rect key="frame" x="188.5" y="6" width="63.5" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" title="彙編" image="magnifyingglass" catalog="system">
@@ -403,7 +403,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="FyM-IV-VEC">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5lG-9Q-XHy" userLabel="Right">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.right" catalog="system"/>
@@ -414,7 +414,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="OCl-ov-Aln">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jWH-0R-M2j" userLabel="Left">
-                                    <rect key="frame" x="208" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.left" catalog="system"/>
@@ -577,7 +577,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="xYL-B2-ieM">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wba-Sw-0hk">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.right" catalog="system"/>
@@ -588,7 +588,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="nKk-lq-00E">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ynU-nC-neb">
-                                    <rect key="frame" x="208" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.left" catalog="system"/>
@@ -633,7 +633,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="b0o-eD-CM1">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wCG-9J-5al" userLabel="next">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.right" catalog="system"/>
@@ -644,7 +644,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="X9a-YB-iVY">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uO1-2z-0ZO" userLabel="prev">
-                                    <rect key="frame" x="208" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.left" catalog="system"/>
@@ -689,7 +689,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="2th-Il-9Ca">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gkc-mB-3SZ" userLabel="okay">
-                                    <rect key="frame" x="260" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="checkmark.square" catalog="system"/>
@@ -700,7 +700,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="Gj4-1V-tgI">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6Ns-kE-haf" userLabel="cancel">
-                                    <rect key="frame" x="208" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="xmark.app" catalog="system"/>
@@ -723,8 +723,8 @@
         <scene sceneID="t6j-Ac-jf4">
             <objects>
                 <viewController storyboardIdentifier="VCSearchResult" id="hEn-Yo-H1w" customClass="VCSearchResult" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="q70-9d-I2A">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
+                    <view key="view" contentMode="scaleToFill" id="q70-9d-I2A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gY4-Px-svQ" customClass="ViewSearchFilter" customModule="FHLBible" customModuleProvider="target">
@@ -754,7 +754,7 @@
                     <navigationItem key="navigationItem" title="搜尋結果" id="tYV-Dm-MWI">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="6Ev-WS-ayW">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="45Q-qC-E3c">
-                                <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                <rect key="frame" x="260" y="5" width="44" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="SN">
@@ -802,7 +802,7 @@
                     <navigationItem key="navigationItem" title="搜尋ing" id="Udp-LO-4sa">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ZXC-X0-xGD">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="COw-LC-ReE" userLabel="trash">
-                                <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                <rect key="frame" x="260" y="6" width="44" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="trash" catalog="system"/>
@@ -860,7 +860,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="FWE-JE-gaV">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I7c-33-dp1" userLabel="Next">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -872,7 +872,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="SsT-RS-J5Z">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QcP-bN-Ev1" userLabel="Prev">
-                                    <rect key="frame" x="208" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -898,7 +898,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="af8-WA-ZHp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="erk-sj-I4I">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -944,7 +944,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75R-FN-keb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3066" y="-3378"/>
+            <point key="canvasLocation" x="-3099" y="-3469"/>
         </scene>
         <!--閱讀記錄-->
         <scene sceneID="KgC-Sz-1VF">
@@ -972,7 +972,7 @@
                     <navigationItem key="navigationItem" title="閱讀記錄" id="KkQ-jI-AOE">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="vPY-nj-anL">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GEW-ZI-OIx" userLabel="removeAll">
-                                <rect key="frame" x="260" y="0.0" width="44" height="44"/>
+                                <rect key="frame" x="260" y="6" width="44" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="trash" catalog="system"/>
@@ -993,7 +993,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YqI-gA-HbX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJv-FV-Tab">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1029,7 +1029,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LG3-lE-CyD" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2EQ-Zy-DL4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1047,7 +1047,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pZx-UM-cBc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2DY-j4-Qju">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1084,10 +1084,10 @@
                     <navigationItem key="navigationItem" id="vuC-1w-qOO">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K17-Hd-CFp">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="33"/>
+                            <rect key="frame" x="8" y="0.0" width="194" height="44"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8os-Dm-TXd">
-                                    <rect key="frame" x="0.0" y="0.0" width="80" height="33"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="194" height="44"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FhJ-Ph-xk7">
                                             <rect key="frame" x="0.0" y="0.0" width="67" height="34"/>
@@ -1123,7 +1123,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="7ml-Rp-z2f">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ihb-wa-BqU" userLabel="Next">
-                                    <rect key="frame" x="260" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="260" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.right" catalog="system"/>
@@ -1134,7 +1134,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="II5-z4-Mta">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="374-8U-GIg" userLabel="Prev">
-                                    <rect key="frame" x="208" y="3" width="44" height="44"/>
+                                    <rect key="frame" x="208" y="6" width="44" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="arrow.left" catalog="system"/>
@@ -1214,7 +1214,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Toe-22-VZU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rto-dU-36n">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1242,7 +1242,161 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iMb-0C-9ux" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4984" y="-2704"/>
+            <point key="canvasLocation" x="-5038" y="-2710"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cT6-Pt-mpC">
+            <objects>
+                <navigationController id="Wod-xl-srh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DRY-fQ-bHW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ka5-vu-fy7" kind="relationship" relationship="rootViewController" id="enr-Ks-Wxb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Lx-6g-IIN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6801" y="-2580"/>
+        </scene>
+        <!--有聲聖經-->
+        <scene sceneID="5BM-B0-Srd">
+            <objects>
+                <viewController storyboardIdentifier="VCAudioBible" id="Ka5-vu-fy7" customClass="VCAudioBible" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vMU-NQ-13h">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yim-hf-kla" userLabel="btnPlay">
+                                <rect key="frame" x="140" y="84" width="40" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="OVG-jV-Diw" userLabel="height = 44"/>
+                                    <constraint firstAttribute="width" constant="40" id="fyW-Hk-q8u" userLabel="width = 44"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="play.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="clickPlay" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="z2J-ik-qCE"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="bhj-8q-4qg">
+                                <rect key="frame" x="3" y="49" width="313" height="31"/>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmN-nl-p0N" userLabel="btnNext">
+                                <rect key="frame" x="185" y="84" width="22" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="dpo-gM-kbi" userLabel="height = 44"/>
+                                    <constraint firstAttribute="width" constant="22" id="vBK-85-1Eo" userLabel="width = 44"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="forward.end.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="clickNext" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="PsB-Pe-qHO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sU-ab-VE7" userLabel="btnPrev">
+                                <rect key="frame" x="113.5" y="90.5" width="21.5" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="FAc-g7-gal" userLabel="height = 44"/>
+                                    <constraint firstAttribute="width" constant="21.5" id="bA5-7M-vsI" userLabel="width = 44"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="backward.end.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="clickPrev" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="PE4-N2-F4v"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0k-Sb-mUz" userLabel="labelTimeRemain">
+                                <rect key="frame" x="240" y="89.5" width="74" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8B-kR-uX8" userLabel="labelTimeAlready">
+                                <rect key="frame" x="5" y="89" width="47.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeI-KZ-1ZL" userLabel="btnPickVersion">
+                                <rect key="frame" x="85.5" y="89" width="23" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="23" id="Abv-PO-OE1" userLabel="width = 44"/>
+                                    <constraint firstAttribute="height" constant="21" id="bWR-RO-R9a" userLabel="height = 44"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="music.note.list" catalog="system"/>
+                                <connections>
+                                    <action selector="pickAudioVersion" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="BwI-ya-2jO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDh-yR-eTp" userLabel="btnPlayrate">
+                                <rect key="frame" x="212" y="88" width="23" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="Ih9-fP-5Hv" userLabel="height = 44"/>
+                                    <constraint firstAttribute="width" constant="23" id="UxU-O7-h4f" userLabel="width = 44"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="timelapse" catalog="system"/>
+                                <connections>
+                                    <action selector="pickPlayrate" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="O0U-Sc-DOe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27C-Ik-dcf" userLabel="btnLoopMode">
+                                <rect key="frame" x="57.5" y="89" width="23" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="23" id="Z7l-Qu-xBB" userLabel="width = 44"/>
+                                    <constraint firstAttribute="height" constant="21" id="gmh-vM-lah" userLabel="height = 44"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="goforward" catalog="system"/>
+                                <connections>
+                                    <action selector="switchLoopMode" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="0aF-ye-60r"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Y6N-dE-TqZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Yim-hf-kla" firstAttribute="leading" secondItem="2sU-ab-VE7" secondAttribute="trailing" constant="5" id="1TK-aV-QqY"/>
+                            <constraint firstItem="W8B-kR-uX8" firstAttribute="trailing" secondItem="27C-Ik-dcf" secondAttribute="leading" constant="-5" id="3lH-zj-fFO"/>
+                            <constraint firstItem="27C-Ik-dcf" firstAttribute="centerY" secondItem="Yim-hf-kla" secondAttribute="centerY" id="6oZ-Rm-azb"/>
+                            <constraint firstItem="2sU-ab-VE7" firstAttribute="centerY" secondItem="Yim-hf-kla" secondAttribute="centerY" id="Cqg-dq-2Up"/>
+                            <constraint firstItem="UDh-yR-eTp" firstAttribute="centerY" secondItem="Yim-hf-kla" secondAttribute="centerY" id="GEU-aT-MI1"/>
+                            <constraint firstItem="bhj-8q-4qg" firstAttribute="leading" secondItem="Y6N-dE-TqZ" secondAttribute="leading" constant="5" id="Nmi-Ja-Kwa"/>
+                            <constraint firstItem="Yim-hf-kla" firstAttribute="centerX" secondItem="Y6N-dE-TqZ" secondAttribute="centerX" id="Uej-db-oHz"/>
+                            <constraint firstItem="FeI-KZ-1ZL" firstAttribute="trailing" secondItem="2sU-ab-VE7" secondAttribute="leading" constant="-5" id="Uff-dy-Btn"/>
+                            <constraint firstItem="27C-Ik-dcf" firstAttribute="trailing" secondItem="FeI-KZ-1ZL" secondAttribute="leading" constant="-5" id="Vpm-93-axQ"/>
+                            <constraint firstItem="bhj-8q-4qg" firstAttribute="top" secondItem="Y6N-dE-TqZ" secondAttribute="top" constant="5" id="Xsn-vZ-ab3"/>
+                            <constraint firstItem="jmN-nl-p0N" firstAttribute="centerY" secondItem="Yim-hf-kla" secondAttribute="centerY" id="ZT2-d7-fSY"/>
+                            <constraint firstItem="W8B-kR-uX8" firstAttribute="centerY" secondItem="Yim-hf-kla" secondAttribute="centerY" id="Zf8-cG-4kz"/>
+                            <constraint firstItem="W8B-kR-uX8" firstAttribute="leading" secondItem="Y6N-dE-TqZ" secondAttribute="leading" constant="5" id="Zfq-Ib-Yfm"/>
+                            <constraint firstItem="Y0k-Sb-mUz" firstAttribute="centerY" secondItem="jmN-nl-p0N" secondAttribute="centerY" id="a5f-0r-liE"/>
+                            <constraint firstItem="FeI-KZ-1ZL" firstAttribute="centerY" secondItem="Yim-hf-kla" secondAttribute="centerY" id="aPw-EU-FQf"/>
+                            <constraint firstItem="Y6N-dE-TqZ" firstAttribute="trailing" secondItem="bhj-8q-4qg" secondAttribute="trailing" constant="6" id="bm9-VN-C9j"/>
+                            <constraint firstItem="Yim-hf-kla" firstAttribute="top" secondItem="bhj-8q-4qg" secondAttribute="bottom" constant="5" id="oLv-Sq-alZ"/>
+                            <constraint firstItem="Y6N-dE-TqZ" firstAttribute="trailing" secondItem="Y0k-Sb-mUz" secondAttribute="trailing" constant="6" id="vrj-ai-NyX"/>
+                            <constraint firstItem="jmN-nl-p0N" firstAttribute="leading" secondItem="Yim-hf-kla" secondAttribute="trailing" constant="5" id="wbe-S1-ldZ"/>
+                            <constraint firstItem="Y0k-Sb-mUz" firstAttribute="leading" secondItem="UDh-yR-eTp" secondAttribute="trailing" constant="5" id="yL0-5x-ujO"/>
+                            <constraint firstItem="UDh-yR-eTp" firstAttribute="leading" secondItem="jmN-nl-p0N" secondAttribute="trailing" constant="5" id="ycs-Kw-T61"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="有聲聖經" id="Vmx-gu-Jdm"/>
+                    <connections>
+                        <outlet property="btnLoopMode" destination="27C-Ik-dcf" id="YLU-Ry-2v6"/>
+                        <outlet property="btnNext" destination="jmN-nl-p0N" id="NC7-gx-KpN"/>
+                        <outlet property="btnPlay" destination="Yim-hf-kla" id="uwz-Qz-lUC"/>
+                        <outlet property="btnPlayrate" destination="UDh-yR-eTp" id="3bd-rE-r0B"/>
+                        <outlet property="btnPrev" destination="2sU-ab-VE7" id="sAX-nu-u9B"/>
+                        <outlet property="labelTime1" destination="W8B-kR-uX8" id="zKI-uj-BU1"/>
+                        <outlet property="labelTimeRemain" destination="Y0k-Sb-mUz" id="0mo-u4-D8x"/>
+                        <outlet property="sliderProcess" destination="bhj-8q-4qg" id="aII-uc-dHe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JPa-62-RWQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6185.625" y="-2580"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lex-jV-yuC">
@@ -1267,12 +1421,18 @@
         <image name="Icon-App-40x40.png" width="40" height="40"/>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="arrow.right" catalog="system" width="128" height="98"/>
+        <image name="backward.end.fill" catalog="system" width="128" height="102"/>
         <image name="book" catalog="system" width="128" height="99"/>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="forward.end.fill" catalog="system" width="128" height="102"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="goforward" catalog="system" width="121" height="128"/>
         <image name="internaldrive" catalog="system" width="128" height="88"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="music.note.list" catalog="system" width="128" height="115"/>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="timelapse" catalog="system" width="128" height="122"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <image name="xmark.app" catalog="system" width="128" height="114"/>
