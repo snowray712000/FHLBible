@@ -22,13 +22,13 @@ class AudioBibleNextPrevGetter {
     var chapPrev = 1
     var mp3Next:String? // 算上面的時候，順便算出來的
     var mp3Prev:String?
-    var loopMode:VCAudioBible.LoopMode = .All
+    var loopMode: DAudioBible.LoopMode = .All
     
     // isFindNext, 按下 next 時，只需重找 next prev 不需要
     // mp3 是要供 copy 用的
-    func mainAsync(book:Int,chap:Int,versionIndex:Int,loopMode:VCAudioBible.LoopMode,mp3:String,isFindNext:Bool,isFindPrev:Bool){
-        self.book = book
-        self.chap = chap
+    func mainAsync(addr:DAddress,versionIndex:Int,loopMode:DAudioBible.LoopMode,mp3:String,isFindNext:Bool,isFindPrev:Bool){
+        self.book = addr.book
+        self.chap = addr.chap
         self.versionIdx = versionIndex
         self.loopMode = loopMode
         self.mp3 = mp3
@@ -89,7 +89,6 @@ class AudioBibleNextPrevGetter {
         // 會呼叫 goPrev 已經確定 book chap 目前是失敗的
         // 不需要每個 chap 都測，直接測卷
         func goPrev(addr:DAddress)->DAddress {
-            print("prev \(addr.book)")
             if addr.book == 1{
                 return DAddress(66,1,1)
             }

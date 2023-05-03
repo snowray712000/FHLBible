@@ -20,7 +20,7 @@ class BibleText2DText {
             let r1a = addTitles(a1.children!) // 高思譯本，發現必須，title先作，再作換行。 h2 \n /h2 就斷開了
             var r1 = ssDtNewLine(r1a)
             
-            print (ver)
+            // print (ver)
             if ["unv","rcuv","ncv"].contains(ver){ // a 併入上節
                 
                 if r1.count == 1 && r1.first!.w == "a" {

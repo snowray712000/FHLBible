@@ -18,8 +18,8 @@ class ManagerLangSet : NSObject {
     /// 太 or 太 Gb (太常用到了)
     var curTpBookNameLang : BookNameLang {
         // return cur ? .太GB : .太
-        print ( Locale.current.identifier )
-        print (_isGBViaLocale())
+        // print ( Locale.current.identifier )
+        // print (_isGBViaLocale())
         if _isGBViaLocale() {
             return .太GB
         } else if _isBig5ViaLocale() {

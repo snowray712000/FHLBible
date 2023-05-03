@@ -119,6 +119,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         ManagerHistoryOfRead.s.updateCur(r2)
     }
     @IBAction func doMore(){
+   
         let vc = VCReadMore()
         vc.onPicker$.addCallback { sender, pData in
             if pData == "prev" {

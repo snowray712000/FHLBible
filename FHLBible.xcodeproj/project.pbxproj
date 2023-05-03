@@ -11,6 +11,7 @@
 		5700345F29DFA15F0007E6F3 /* DApiAu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700345E29DFA15F0007E6F3 /* DApiAu.swift */; };
 		5700346129E03C190007E6F3 /* AudioBibleNextPrevGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700346029E03C190007E6F3 /* AudioBibleNextPrevGetter.swift */; };
 		5700346329E03C380007E6F3 /* VCPlayrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700346229E03C380007E6F3 /* VCPlayrate.swift */; };
+		5700346529E12D880007E6F3 /* DAudioBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5700346429E12D880007E6F3 /* DAudioBible.swift */; };
 		57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57055732295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift */; };
 		570A64AB273A6D4B00B5EC11 /* DAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570A64AA273A6D4B00B5EC11 /* DAddress.swift */; };
 		570A64AE273A9C8600B5EC11 /* VerseRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570A64AD273A9C8600B5EC11 /* VerseRange.swift */; };
@@ -48,6 +49,10 @@
 		572589702732D20900E42DEF /* ConvertorQp2VCParsingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5725896F2732D20900E42DEF /* ConvertorQp2VCParsingData.swift */; };
 		572589722732D23D00E42DEF /* ViewParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572589712732D23D00E42DEF /* ViewParsing.swift */; };
 		572589742732E95200E42DEF /* DApiQp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572589732732E95200E42DEF /* DApiQp.swift */; };
+		5727F5AC29E452320077BA86 /* EasyPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5727F5AB29E452320077BA86 /* EasyPlayer.swift */; };
+		5727F5AE29E452570077BA86 /* EasyPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5727F5AD29E452570077BA86 /* EasyPlayerItem.swift */; };
+		5727F5B029E524F60077BA86 /* EasyCheckAudioUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5727F5AF29E524F60077BA86 /* EasyCheckAudioUrl.swift */; };
+		5727F5B229E84F090077BA86 /* ManagerAudioBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5727F5B129E84F090077BA86 /* ManagerAudioBible.swift */; };
 		572D9A9C29CAD912008DF7BF /* VCAudioBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572D9A9B29CAD912008DF7BF /* VCAudioBible.swift */; };
 		57395B322728D4350067F699 /* VCRead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57395B312728D4350067F699 /* VCRead.swift */; };
 		57395B342728E37A0067F699 /* ViewDisplayTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57395B332728E37A0067F699 /* ViewDisplayTable.xib */; };
@@ -98,6 +103,13 @@
 		574BE54D2757A37500F5DC85 /* DIosBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BE54C2757A37500F5DC85 /* DIosBase.swift */; };
 		57543DAE2779A2DC00587B40 /* SplitByNewLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */; };
 		575574042933062300CC0560 /* DoOneDownload_bible_comm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */; };
+		575AD92129ED1A49006FD6E0 /* IVCAudioBibleEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */; };
+		575AD92329EEB103006FD6E0 /* AudioBibleSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92229EEB103006FD6E0 /* AudioBibleSetter.swift */; };
+		575AD92529EEB1BE006FD6E0 /* VCAudioBibleEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92429EEB1BE006FD6E0 /* VCAudioBibleEvents.swift */; };
+		575AD92729EEEAD7006FD6E0 /* EasyEventAppBackgroundForegroundSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92629EEEAD7006FD6E0 /* EasyEventAppBackgroundForegroundSwitch.swift */; };
+		575AD92929FC3096006FD6E0 /* VCAudioStopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92829FC3096006FD6E0 /* VCAudioStopTimer.swift */; };
+		575AD92B29FC3295006FD6E0 /* IjnTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92A29FC3295006FD6E0 /* IjnTime.swift */; };
+		575AD92D29FC3618006FD6E0 /* AudioBibleStopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92C29FC3618006FD6E0 /* AudioBibleStopTimer.swift */; };
 		5768196728EC8B330049C728 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 5768196628EC8B330049C728 /* ZIPFoundation */; };
 		5768196C28EC8C9D0049C728 /* IJNSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5768196B28EC8C9D0049C728 /* IJNSwift */; };
 		576992BC274BB60B00717E8C /* FooterConvertorDTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576992BB274BB60B00717E8C /* FooterConvertorDTexts.swift */; };
@@ -291,6 +303,7 @@
 		5700345E29DFA15F0007E6F3 /* DApiAu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DApiAu.swift; sourceTree = "<group>"; };
 		5700346029E03C190007E6F3 /* AudioBibleNextPrevGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBibleNextPrevGetter.swift; sourceTree = "<group>"; };
 		5700346229E03C380007E6F3 /* VCPlayrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCPlayrate.swift; sourceTree = "<group>"; };
+		5700346429E12D880007E6F3 /* DAudioBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAudioBible.swift; sourceTree = "<group>"; };
 		57055732295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_cbol_dict.swift; sourceTree = "<group>"; };
 		570A64AA273A6D4B00B5EC11 /* DAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAddress.swift; sourceTree = "<group>"; };
 		570A64AD273A9C8600B5EC11 /* VerseRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseRange.swift; sourceTree = "<group>"; };
@@ -328,6 +341,10 @@
 		5725896F2732D20900E42DEF /* ConvertorQp2VCParsingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertorQp2VCParsingData.swift; sourceTree = "<group>"; };
 		572589712732D23D00E42DEF /* ViewParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewParsing.swift; sourceTree = "<group>"; };
 		572589732732E95200E42DEF /* DApiQp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DApiQp.swift; sourceTree = "<group>"; };
+		5727F5AB29E452320077BA86 /* EasyPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyPlayer.swift; sourceTree = "<group>"; };
+		5727F5AD29E452570077BA86 /* EasyPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyPlayerItem.swift; sourceTree = "<group>"; };
+		5727F5AF29E524F60077BA86 /* EasyCheckAudioUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyCheckAudioUrl.swift; sourceTree = "<group>"; };
+		5727F5B129E84F090077BA86 /* ManagerAudioBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerAudioBible.swift; sourceTree = "<group>"; };
 		572D9A9B29CAD912008DF7BF /* VCAudioBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioBible.swift; sourceTree = "<group>"; };
 		57395B312728D4350067F699 /* VCRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCRead.swift; sourceTree = "<group>"; };
 		57395B332728E37A0067F699 /* ViewDisplayTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewDisplayTable.xib; sourceTree = "<group>"; };
@@ -378,6 +395,13 @@
 		574BE54C2757A37500F5DC85 /* DIosBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIosBase.swift; sourceTree = "<group>"; };
 		57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitByNewLines.swift; sourceTree = "<group>"; };
 		575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_comm.swift; sourceTree = "<group>"; };
+		575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IVCAudioBibleEvents.swift; sourceTree = "<group>"; };
+		575AD92229EEB103006FD6E0 /* AudioBibleSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBibleSetter.swift; sourceTree = "<group>"; };
+		575AD92429EEB1BE006FD6E0 /* VCAudioBibleEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioBibleEvents.swift; sourceTree = "<group>"; };
+		575AD92629EEEAD7006FD6E0 /* EasyEventAppBackgroundForegroundSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyEventAppBackgroundForegroundSwitch.swift; sourceTree = "<group>"; };
+		575AD92829FC3096006FD6E0 /* VCAudioStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioStopTimer.swift; sourceTree = "<group>"; };
+		575AD92A29FC3295006FD6E0 /* IjnTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IjnTime.swift; sourceTree = "<group>"; };
+		575AD92C29FC3618006FD6E0 /* AudioBibleStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBibleStopTimer.swift; sourceTree = "<group>"; };
 		5768196928EC8C3C0049C728 /* IJNSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IJNSwift; path = ../IJNSwift; sourceTree = "<group>"; };
 		5768196D28EE3B100049C728 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		576992BB274BB60B00717E8C /* FooterConvertorDTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterConvertorDTexts.swift; sourceTree = "<group>"; };
@@ -621,6 +645,7 @@
 				573CB8FE27427E7900AEEC9B /* ManagerLangSet.swift */,
 				573CB9022744FB3F00AEEC9B /* ManagerSearchHistory.swift */,
 				578B2542274635C400EF2705 /* ManagerIsSnVisible.swift */,
+				5727F5B129E84F090077BA86 /* ManagerAudioBible.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -700,9 +725,18 @@
 			isa = PBXGroup;
 			children = (
 				572D9A9B29CAD912008DF7BF /* VCAudioBible.swift */,
+				575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */,
+				575AD92429EEB1BE006FD6E0 /* VCAudioBibleEvents.swift */,
 				5700345C29DF066E0007E6F3 /* VCAudioVersion.swift */,
+				575AD92829FC3096006FD6E0 /* VCAudioStopTimer.swift */,
 				5700346229E03C380007E6F3 /* VCPlayrate.swift */,
 				5700346029E03C190007E6F3 /* AudioBibleNextPrevGetter.swift */,
+				5727F5AB29E452320077BA86 /* EasyPlayer.swift */,
+				5727F5AD29E452570077BA86 /* EasyPlayerItem.swift */,
+				5727F5AF29E524F60077BA86 /* EasyCheckAudioUrl.swift */,
+				575AD92229EEB103006FD6E0 /* AudioBibleSetter.swift */,
+				5700346429E12D880007E6F3 /* DAudioBible.swift */,
+				575AD92C29FC3618006FD6E0 /* AudioBibleStopTimer.swift */,
 			);
 			path = VCAudioBible;
 			sourceTree = "<group>";
@@ -1162,6 +1196,7 @@
 			isa = PBXGroup;
 			children = (
 				C8089F352670314E004FA377 /* IjnEvent.swift */,
+				575AD92629EEEAD7006FD6E0 /* EasyEventAppBackgroundForegroundSwitch.swift */,
 				C87F19232684348A0083C647 /* ijnRegex.swift */,
 				C8AD1D952626D6780046C8EE /* ArrayExtensionLinq.swift */,
 				C8AD1D9A262819060046C8EE /* IjnObservableObject.swift */,
@@ -1180,6 +1215,7 @@
 				57BBC78E29128EDF001DC3FE /* SwiftFileManager_Extensions.swift */,
 				57BBC7902912AE4E001DC3FE /* messageBox.swift */,
 				576F723F292B8C6000ED4D04 /* IjnString.swift */,
+				575AD92A29FC3295006FD6E0 /* IjnTime.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1372,6 +1408,7 @@
 				57F22C6B272BF60100526631 /* ViewDisplayTable2.swift in Sources */,
 				57D4929A293A1E2A0099DC86 /* VCTskIReloadDataAuto.swift in Sources */,
 				C8AD1D902624397E0046C8EE /* DownloadManagerView.swift in Sources */,
+				575AD92729EEEAD7006FD6E0 /* EasyEventAppBackgroundForegroundSwitch.swift in Sources */,
 				574599BA273D03B0005635D0 /* DApiSbdag.swift in Sources */,
 				57D7EB672724023D003D2557 /* ViewFromXibBase.swift in Sources */,
 				C85A0F372689D4E10020CD94 /* UIReadBibleController.swift in Sources */,
@@ -1386,9 +1423,12 @@
 				C84564E12674BC850034940F /* BibleGetNextOrPrevChap.swift in Sources */,
 				57BBC781290C4602001DC3FE /* Download_kjv.swift in Sources */,
 				C8A7083A2636DEE500B9175D /* IjnDTextTextView.swift in Sources */,
+				5727F5AE29E452570077BA86 /* EasyPlayerItem.swift in Sources */,
 				573CB90527454A7300AEEC9B /* SnHelper.swift in Sources */,
 				570A64B0273A9CD400B5EC11 /* NextPrevChapter.swift in Sources */,
+				575AD92B29FC3295006FD6E0 /* IjnTime.swift in Sources */,
 				C844021B2631633800AD0CE9 /* DText.swift in Sources */,
+				575AD92329EEB103006FD6E0 /* AudioBibleSetter.swift in Sources */,
 				C87F19632687DC200083C647 /* SmartDescriptEndParsing.swift in Sources */,
 				5714134A2733891F00CD206E /* BibleVersionConstants.swift in Sources */,
 				574599C5273D28E2005635D0 /* SnDictDataQ.swift in Sources */,
@@ -1427,6 +1467,7 @@
 				57BBC7912912AE4E001DC3FE /* messageBox.swift in Sources */,
 				572589722732D23D00E42DEF /* ViewParsing.swift in Sources */,
 				577CEFAD27547676003014A8 /* SQUiabv+CoreDataProperties.swift in Sources */,
+				575AD92929FC3096006FD6E0 /* VCAudioStopTimer.swift in Sources */,
 				C87F191F268434650083C647 /* SplitByRegex.swift in Sources */,
 				57BBC77F290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift in Sources */,
 				57A21A84276A59D70022212D /* VCSnDictMore.swift in Sources */,
@@ -1458,6 +1499,7 @@
 				5700346329E03C380007E6F3 /* VCPlayrate.swift in Sources */,
 				573CB8ED273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift in Sources */,
 				573CB8F1273F3A3F00AEEC9B /* DApiSe.swift in Sources */,
+				5727F5AC29E452320077BA86 /* EasyPlayer.swift in Sources */,
 				57395B3E27296A8E0067F699 /* ViewDisplayCell.swift in Sources */,
 				578B255A2747F9E600EF2705 /* SSSNG0430.swift in Sources */,
 				578B25562747F94500EF2705 /* SSSpanBibtext.swift in Sources */,
@@ -1473,6 +1515,7 @@
 				C84564DC26749DA40034940F /* BibleVerseCount.swift in Sources */,
 				570A64C2273B75E800B5EC11 /* ManagerHistoryOfRead.swift in Sources */,
 				57D492A0294087980099DC86 /* VCParsingIReloadDataViaQpApi.swift in Sources */,
+				575AD92129ED1A49006FD6E0 /* IVCAudioBibleEvents.swift in Sources */,
 				573CB9032744FB3F00AEEC9B /* ManagerSearchHistory.swift in Sources */,
 				577CEFB02754C8D2003014A8 /* SSGreekPlusPlushPlsu.swift in Sources */,
 				577CEF9A27513FC6003014A8 /* RefDTextClickFlow.swift in Sources */,
@@ -1491,7 +1534,9 @@
 				578B25582747F97C00EF2705 /* SSSpanExp.swift in Sources */,
 				574599B0273C38E7005635D0 /* NextPrevVerse.swift in Sources */,
 				5700345D29DF066E0007E6F3 /* VCAudioVersion.swift in Sources */,
+				5727F5B229E84F090077BA86 /* ManagerAudioBible.swift in Sources */,
 				C8A7083026369FE100B9175D /* IjnTestTime.swift in Sources */,
+				5727F5B029E524F60077BA86 /* EasyCheckAudioUrl.swift in Sources */,
 				57AD73B9274D3DF900CA9BA8 /* SSKjv.swift in Sources */,
 				57D7EB652723FE49003D2557 /* ViewSearchFilter.swift in Sources */,
 				574599AB273C1B05005635D0 /* VCComment.swift in Sources */,
@@ -1560,9 +1605,12 @@
 				5714134C2734C49200CD206E /* InfoButtonBase.swift in Sources */,
 				57BBC775290BCC5E001DC3FE /* Unzipor.swift in Sources */,
 				574599BF273D288C005635D0 /* _EmptyFileA.swift in Sources */,
+				5700346529E12D880007E6F3 /* DAudioBible.swift in Sources */,
 				57112069272FCC8400D64A6E /* VCBookChapPicker.swift in Sources */,
 				57BBC7502901E22A001DC3FE /* SINQ.swift in Sources */,
 				57D49298293A08A70099DC86 /* VCTskIReloadDataViaOfflineDatabase.swift in Sources */,
+				575AD92529EEB1BE006FD6E0 /* VCAudioBibleEvents.swift in Sources */,
+				575AD92D29FC3618006FD6E0 /* AudioBibleStopTimer.swift in Sources */,
 				57D4928E2939FFFF0099DC86 /* VCCommentIReloadData.swift in Sources */,
 				57395B322728D4350067F699 /* VCRead.swift in Sources */,
 				578B255E2747FB5600EF2705 /* SSGreek.swift in Sources */,
@@ -1813,7 +1861,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1837,7 +1885,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

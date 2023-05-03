@@ -56,6 +56,7 @@ class ReadDataQ : NSObject, IVCReadDataQ {
                 return "" // 都是空的
             }
             
+            // 從 book:1,chap:1,verse:1 得到 創1
             let r2 = StringToVerseRange().main(r1!.addresses!, nil)
             if r2.count == 0 {
                 return "" // addr 字串轉換不回, 可能是沒考慮到的 case

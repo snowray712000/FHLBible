@@ -56,6 +56,16 @@ class GlobalVariableIntBase : GlobalVariableBase<Int> {
         FHLUserDefaults.s.setCore(_tp, v)
     }
 }
+class GlobalVariableFloatBase : GlobalVariableBase<Float> {
+    internal var _getDefaultFloat:Float { 0 }
+    override func _isTheSame(_ o1: Float?, _ o2: Float?) -> Bool { return o1 == o2 }
+    override func _getFromUserDefault() -> Float {
+        return FHLUserDefaults.s.getCoreFloat(_tp) ?? _getDefaultFloat
+    }
+    override func _updateToUserDefault(_ v: Float) {
+        FHLUserDefaults.s.setCore(_tp, v)
+    }
+}
 class GlobalVariableStringArrayBase : GlobalVariableBase<[String]> {
     internal var _getDefaultStringArray:[String] { [] }
     override func _isTheSame(_ o1: [String]?, _ o2: [String]?) -> Bool {
