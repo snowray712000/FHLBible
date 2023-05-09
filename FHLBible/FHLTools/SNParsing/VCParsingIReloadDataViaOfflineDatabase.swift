@@ -76,8 +76,8 @@ extension VCParsing {
                             r1.word = r1.word?.trimmingCharacters(in: CharacterSet.whitespaces)
                         }
                         
-                        if r1.wid != 0 { // 離線資料 pro wform 會是 ngsm 之類的東西
-                            let r2 = SNParsingDealProXForm().main(r1.pro,r1.wform)
+                        if r1.wid != 0 && addr.book >= 40 { // 離線資料 pro wform 會是 ngsm 之類的東西
+                            let r2 = SNParsingDealProXForm().main(r1.pro,r1.wform) // 新約才需要
                             r1.pro = r2.0
                             r1.wform = r2.1
                         }
