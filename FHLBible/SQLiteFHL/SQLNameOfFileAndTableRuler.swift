@@ -14,7 +14,7 @@ class SQLNameOfFileAndTableRuler : NSObject {
     var filenameOfSQL: String {
         get {
             // sn_unv.db unv.db unv_gb.db
-            let r1 = isSnVisible() && isSnSupport() ? "sn_" : ""
+            let r1 = isSnSupport() ? "sn_" : ""
             let r3 = isGb() && isDifferentBtwBig5AndGb() ?  "_gb" : ""
             return r1 + self.version + r3
         }
@@ -31,9 +31,6 @@ class SQLNameOfFileAndTableRuler : NSObject {
         get {
             return self.filenameOfSQL + "2"
         }
-    }
-    private func isSnVisible()->Bool{
-        return ManagerIsSnVisible.s.cur
     }
     private func isSnSupport()->Bool{
         return ["unv","kjv"].ijnAny({$0==self.version})
