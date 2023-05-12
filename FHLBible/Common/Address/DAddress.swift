@@ -8,14 +8,13 @@
 import Foundation
 
 open class DAddress {
-
     init (_ book:Int = 0, _ chap: Int = 0 , _ verse: Int = 0,_ ver: String? = nil){
         self.book = book
         self.chap = chap
         self.verse = verse
         self.ver = ver
     }
-    /// for SQLite 
+    /// for SQLite
     convenience init(_ book:Int32,_ chap:Int32,_ verse:Int32) {
         self.init(Int(book),Int(chap),Int(verse))
     }
@@ -40,7 +39,6 @@ open class DAddress {
         
         return "\(na) \(chap):\(verse)"
     }
-
 }
 
 /// 當要用 Set<DAddress> 時會用到
@@ -90,4 +88,36 @@ extension DAddress {
         let r1 = BibleVerseCount.getVerseCount(self.book, self.chap)
         return ijnRange(1, r1).map({DAddress(book: self.book, chap: self.chap, verse: $0, ver: self.ver)})
     }
+}
+
+extension DAddress{
+    func hashNumber()->Int { return self.book * 10000 + self.chap * 1000 + self.verse }
+}
+
+// sinq.orderBy，用於 mergeDiffVers 關鍵字 (閱讀時，合併兩個版本經文時)
+// 若 sinq 要 orderBy [DAddress] 是不行的，只好將 [DAddress] 型成一個 class
+class DAddresses : Comparable{
+    static func < (lhs: DAddresses, rhs: DAddresses) -> Bool {
+        let cnt = min(lhs.addresses.count,rhs.addresses.count)
+        if sinq(ijnRange(0, cnt)).any({lhs.addresses[$0].hashNumber() < rhs.addresses[$0].hashNumber()}){
+            return true
+        }
+        // 1:1-2 ... 1:1-4 [0][1] 前，還無法分勝負，若 lhs 少，就是 <
+        return lhs.addresses.count < rhs.addresses.count
+    }
+    
+    static func == (lhs: DAddresses, rhs: DAddresses) -> Bool {
+        if lhs.addresses.count != rhs.addresses.count { return false }
+        return sinq(lhs.addresses)
+            .zip(rhs.addresses){($0,$1)}
+            .all({$0.0.hashNumber() == $0.1.hashNumber()})
+    }
+    func hashNumber()->Int {
+        return sinq(addresses).select({$0.hashNumber()}).reduce(0,+)
+    }
+    
+    init(_ addrs:[DAddress]){
+        self.addresses = addrs
+    }
+    var addresses: [DAddress]
 }

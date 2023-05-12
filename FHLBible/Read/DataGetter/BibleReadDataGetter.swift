@@ -75,27 +75,41 @@ class BibleReadDataGetter {
     }
     /// self.datas dictionary 有不同版本的結果, 但兩個要結合
     private func mergeDiffVers()->[[DOneLine]]{
-        // 隨便合，管它的經節如何 (不一樣多，順序，合併上節之類的)
-        var re:[[DOneLine]] = []
+        // output: [[DOneLine]] = []
+        // re[0][0]，re[0][1] 分別為 [0]版本的[0]節，[1]版本的[0]節
+        // re.count 就是總節數， re[j].count 是版本數
+        // ESV, 和合本，於 太18 是特例，馬可最後一章也有
         
-        let cntVer = datas.count
-        let cnt = datas.map({$0.value.count}).max()!
-        let datas2 = (0..<cntVer).map({datas[vers[$0]]!})
+        // 流程1，計算此次全部會共有幾節。並形成 dict，在第2步的時候要知道自己該寫入 哪個 row。
+        let cntVer = datas.count // 方便用
         
-       
-        // cnt 會等於節數
-        for i in 0..<cnt {
-            var re2: [DOneLine] = []
-            
-            for j in 0..<cntVer {
-                let r3 = datas2[j]
-                let r4 = i < r3.count ? r3[i] : DOneLine()
-                re2.append(r4)
-            }
-            
-            re.append(re2)
+        let datas2 = datas.map { (key: String, value: [DOneLine]) in
+            return value.map({($0,DAddresses($0.addresses2!))})
         }
+        let addressAll = datas2.map({$0.map({$0.1})}).flatMap({$0})
+        let addressDistinctOrder = sinq(addressAll).distinct({$0==$1}).orderBy({$0}).toArray()
         
+        let cntVerse = addressDistinctOrder.count // 方便用
+        
+        // 預備 dict
+        var dictAddress2Row: [Int:Int] = [:] // DAddresses 必須要有 Hashable, 這是為何不用  [DAddresses:Int]
+        for i in ijnRange(0, addressDistinctOrder.count){
+            let a1 = addressDistinctOrder[i]
+            dictAddress2Row[a1.hashNumber()] = i
+        }
+        // assert ( dictAddress2Row.count == addressDistinctOrder.count )
+        
+        // 流程2: 產生 output，先產生一個 grid，再放入指定 row。
+        var re = ijnRange(0, cntVerse).map({_ in Array(repeating: DOneLine(), count: cntVer)}) // 產生1個空的
+        for i1 in ijnRange(0, datas2.count){
+            let a1 = datas2[i1]
+            for a2 in a1 {
+                let hash = a2.1.hashNumber()
+                if let row = dictAddress2Row[hash] {
+                    re[row][i1] = a2.0
+                }
+            }
+        }
         return re
     }
     private func gTitle()->[DOneLine]{
@@ -111,8 +125,5 @@ class BibleReadDataGetter {
             self.datas[ver] = re
             fn()
         })
-        
     }
 }
-
-
