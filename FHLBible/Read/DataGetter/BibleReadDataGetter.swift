@@ -68,10 +68,14 @@ class BibleReadDataGetter {
         }
         
         group.notify(queue: .main){
-            let datas = self.mergeDiffVers()
+            let datas = self.datas.count > 1 ? self.mergeDiffVers() : self.transformDatasForOneVers()
             let titles = self.gTitle()
             fn(titles, datas) // async finish
         }
+    }
+    private func transformDatasForOneVers()->[[DOneLine]]{
+        assert ( datas.count == 1 )
+        return datas.first!.value.map({[$0]})
     }
     /// self.datas dictionary 有不同版本的結果, 但兩個要結合
     private func mergeDiffVers()->[[DOneLine]]{
@@ -80,12 +84,15 @@ class BibleReadDataGetter {
         // re.count 就是總節數， re[j].count 是版本數
         // ESV, 和合本，於 太18 是特例，馬可最後一章也有
         
+        
         // 流程1，計算此次全部會共有幾節。並形成 dict，在第2步的時候要知道自己該寫入 哪個 row。
+        // 注意，datas2 加入順序很重要，若按 datas 順序會不對，因為 datas 順序是看哪個快，哪個在前面
         let cntVer = datas.count // 方便用
         
-        let datas2 = datas.map { (key: String, value: [DOneLine]) in
-            return value.map({($0,DAddresses($0.addresses2!))})
-        }
+        let datas2 = self.vers.map({ ver in
+            self.datas[ver]!.map({($0,DAddresses($0.addresses2!))})
+        })
+        
         let addressAll = datas2.map({$0.map({$0.1})}).flatMap({$0})
         let addressDistinctOrder = sinq(addressAll).distinct({$0==$1}).orderBy({$0}).toArray()
         
