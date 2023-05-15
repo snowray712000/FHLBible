@@ -490,7 +490,7 @@ create table main as select * from db2.main;
         download.onProcessing$.clearCallback()
         download.onProcessing$.addCallback { sender, pData in
             // self._ovTitle2Data[0] = pData!.percent.description
-            let msg = "下載中 \(pData!.totalBytesWritten/1024/1024)/\(pData!.totalBytesExpectedToWrite/1024/1024)mb \(pData!.percent)"
+            let msg = "下載中 \(pData!.totalBytesWritten/1024/1024)/\(pData!.totalBytesExpectedToWrite/1024/1024)mb \(String(format: "%.1f%%", pData!.percent * 100))"
             let r1 = from( self.row2version ).firstOrNil({$0.value==ver})
             if r1 != nil {
                 self._ovTitle2Data[r1!.key] = msg
