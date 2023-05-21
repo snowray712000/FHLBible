@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AVFoundation
 
 protocol IVCReadDataQ {
     func qDataForReadAsync(_ addr:String, _ vers: [String])
@@ -118,31 +119,106 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         r2.insert(addr2, at: 0)
         ManagerHistoryOfRead.s.updateCur(r2)
     }
-    @IBAction func doMore(){
-   
-        let vc = VCReadMore()
-        vc.onPicker$.addCallback { sender, pData in
-            if pData == "prev" {
-                self.goPrev()
-            } else if pData == "next" {
-                self.goNext()
-            } else if pData == "back" {
-                self.clickGoBack()
-            } else if pData == "history" {
-                self.pickFromHistory()
-            } else if pData == "audiobible" {
-                let vc = self.gVCAudioBible()
-                let addr = self._addrsCurFirst!
-                vc.book = addr.book
-                vc.chap = addr.chap
-                self.navigationController?.pushViewController(vc, animated: true)
+    
+    
+    class MySpeechSynthDelegate : NSObject, AVSpeechSynthesizerDelegate {
+        var idxRow = 0
+        var idxCol = 0
+        var data: [[String]] = [
+            ["With my whole heart I cry; answer me, O LORD! I will keep your statutes.","耶和華啊，我一心呼籲你；求你應允我，我必謹守你的律例！","קָרָאתִי בְכָל-לֵב עֲנֵנִי יְהוָה חֻקֶּיךָ אֶצֹּרָה׃", "᾿Εκέκραξα ἐν ὅλῃ καρδίᾳ μου· ἐπάκουσόν μου, Κύριε, τὰ δικαιώματά σου ἐκζητήσω."],
+            ["I call to you; save me, that I may observe your testimonies.","我向你呼籲，求你救我！我要遵守你的法度。","קְרָאתִיךָ הוֹשִׁיעֵנִי וְאֶשְׁמְרָה עֵדֹתֶיךָ׃","ἐκέκραξά σοι· σῶσόν με, καὶ φυλάξω τὰ μαρτύριά σου."]
+        ]
+        var sv: [AVSpeechSynthesisVoice] = []
+        var utterances: [AVSpeechUtterance] = []
+        let synthesizer = AVSpeechSynthesizer()
+        func start(){
+            if synthesizer.isSpeaking {
+                synthesizer.stopSpeaking(at: .immediate)
+                synthesizer.delegate = nil
+            }
+            
+            idxRow = 0
+            idxCol = 0
+           
+
+            // TODO: 可能會 nil
+            if sv.count == 0{
+                sv.append(AVSpeechSynthesisVoice(language: "en-US")!)
+                sv.append(AVSpeechSynthesisVoice(language: "zh-TW")!)
+                sv.append(AVSpeechSynthesisVoice(language: "he-IL")!)
+                sv.append(AVSpeechSynthesisVoice(language: "el-GR")!)
+            }
+            
+            synthesizer.delegate = self
+            
+            playData()
+        }
+
+        func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+            goNext_SetRowCol()
+            
+            if idxRow < data.count {
+                self.playData()
+            } else {
+                synthesizer.delegate = nil
             }
         }
+        private func goNext_SetRowCol(){
+            idxCol = idxCol + 1
+            if idxCol >= sv.count {
+                idxCol = 0
+                idxRow = idxRow + 1
+            }
+        }
+        private func playData(){
+            let r1 = AVSpeechUtterance(string: data[idxRow][idxCol])
+            r1.voice = sv[idxCol]
+            r1.rate = 0.5
+            synthesizer.speak(r1)
+        }
+    }
+    var mySpeech = MySpeechSynthDelegate()
+    @IBAction func doMore(){
+        mySpeech.start()
+//        if let data = self._data {
+//            var r1 = ""
+//            for a1 in data.data {
+//                // a1.header 創1:1
+//                // a1: 此節，每個譯本
+//                for (i2,a2) in a1.datas.enumerated() {
+//                    let r3 = sinq(a2).select({$0.w ?? ""}).toArray().joined(separator: "")
+//                    // a2: DText[] 一節
+//                    r1 = r3
+//
+//                }
+//            }
+//        }
         
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = vc
         
-        present(vc,animated: true,completion: nil)
+        
+//        let vc = VCReadMore()
+//        vc.onPicker$.addCallback { sender, pData in
+//            if pData == "prev" {
+//                self.goPrev()
+//            } else if pData == "next" {
+//                self.goNext()
+//            } else if pData == "back" {
+//                self.clickGoBack()
+//            } else if pData == "history" {
+//                self.pickFromHistory()
+//            } else if pData == "audiobible" {
+//                let vc = self.gVCAudioBible()
+//                let addr = self._addrsCurFirst!
+//                vc.book = addr.book
+//                vc.chap = addr.chap
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }
+//        }
+//
+//        vc.modalPresentationStyle = .custom
+//        vc.transitioningDelegate = vc
+//
+//        present(vc,animated: true,completion: nil)
         
     }
     @IBAction func switchSnVisible(){
