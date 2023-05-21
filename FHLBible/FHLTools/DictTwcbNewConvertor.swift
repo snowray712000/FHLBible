@@ -92,7 +92,8 @@ fileprivate func removeAdditionalSpace(_ str:String)->String{
     let itemData =  NSLocalizedString("零、,壹、,貳、,參、,肆、,伍、,陸、,柒、,捌、,玖、,拾,一、,二、,三、,四、,五、,六、,七、,八、,九、,十、,（一）,（二）,（三）,（四）,（五）,（六）,（七）,（八）,（九）,（十,1.,2.,3.,4.,5.,6.,7.,8.,9.,10.,11.,12.,13.,14.,15.,16.,17.,18.,19.,20.,(1,(2,(3),(4),(5),(6),(7),(8),(9),●,◎,┌,│,├,└,☆,○,a.,b.,c.,d.,e.,f.,g.,h.,i.,j.,k.,A.,B.,C.,D.,E.,F.,G.,H.,I.,J.,K.", comment: "").components(separatedBy: ",")
     
     // 空白隔開
-    var dataArray = str.components(separatedBy: "\r\n")
+    var dataArray = str.replacingOccurrences(of: "\r\n", with: "\n") // 離線版是\n，線上版是\r\n
+        .components(separatedBy: "\n")
     if dataArray.count == 0 { return str }
     
     // 假設: 第1行的空白數量一定是最少的，下面縮排，都減掉這個空白
