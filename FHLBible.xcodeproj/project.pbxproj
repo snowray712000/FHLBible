@@ -211,6 +211,7 @@
 		57F826802773407A0077A807 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F8267E2773407A0077A807 /* Localizable.strings */; };
 		57F82683277341C10077A807 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F82681277341C10077A807 /* InfoPlist.strings */; };
 		57F826842773633C0077A807 /* ViewVersionsPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F826862773633C0077A807 /* ViewVersionsPicker.xib */; };
+		57FBC00B2A217772002E9DF7 /* VCAudioTextBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */; };
 		C8089F22267030A5004FA377 /* DTextDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F21267030A5004FA377 /* DTextDraw.swift */; };
 		C8089F27267030D9004FA377 /* DTextString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F26267030D9004FA377 /* DTextString.swift */; };
 		C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F2B267030E5004FA377 /* DTextTestData.swift */; };
@@ -508,6 +509,7 @@
 		57F8268D277363930077A807 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ViewVersionsPicker.strings"; sourceTree = "<group>"; };
 		57F8268F277363AC0077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ViewVersionsPicker.strings"; sourceTree = "<group>"; };
 		57F82690277370110077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextBible.swift; sourceTree = "<group>"; };
 		C8089F21267030A5004FA377 /* DTextDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTextDraw.swift; sourceTree = "<group>"; };
 		C8089F26267030D9004FA377 /* DTextString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextString.swift; sourceTree = "<group>"; };
 		C8089F2B267030E5004FA377 /* DTextTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextTestData.swift; sourceTree = "<group>"; };
@@ -1023,6 +1025,14 @@
 			path = ViewDisplayTable;
 			sourceTree = "<group>";
 		};
+		57FBC0082A216E9C002E9DF7 /* VCAudioTextBible */ = {
+			isa = PBXGroup;
+			children = (
+				57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */,
+			);
+			path = VCAudioTextBible;
+			sourceTree = "<group>";
+		};
 		C84402062631584D00AD0CE9 /* Read */ = {
 			isa = PBXGroup;
 			children = (
@@ -1108,6 +1118,7 @@
 		C8AD1D4A2624243C0046C8EE /* FHLBible */ = {
 			isa = PBXGroup;
 			children = (
+				57FBC0082A216E9C002E9DF7 /* VCAudioTextBible */,
 				572D9A9A29CAD67C008DF7BF /* VCAudioBible */,
 				57BBC7512902CD33001DC3FE /* SQLiteFHL */,
 				57BBC74E2901E213001DC3FE /* SINQ */,
@@ -1555,6 +1566,7 @@
 				577CEFAE2754BDAA003014A8 /* FHLBible.xcdatamodeld in Sources */,
 				C85A0F4F268C057A0020CD94 /* DApiQsb.swift in Sources */,
 				C88D234226EB070C0088BCF5 /* _index.swift in Sources */,
+				57FBC00B2A217772002E9DF7 /* VCAudioTextBible.swift in Sources */,
 				570A64BD273B5FFD00B5EC11 /* ManagerBibleVersions.swift in Sources */,
 				571413442733585600CD206E /* VCVersionsPicker.swift in Sources */,
 				57395B442729A83C0067F699 /* ViewSearching.swift in Sources */,

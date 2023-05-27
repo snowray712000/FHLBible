@@ -179,7 +179,16 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
     var mySpeech = MySpeechSynthDelegate()
     @IBAction func doMore(){
-        mySpeech.start()
+        // 測試ui
+        let vc = self.gVCAudioTextBible()
+        vc.addr = self._addrsCur!
+        vc.vers = self._vers
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        // 測試核心功能
+        // mySpeech.start()
+        
+        
 //        if let data = self._data {
 //            var r1 = ""
 //            for a1 in data.data {
