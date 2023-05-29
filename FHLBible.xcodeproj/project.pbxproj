@@ -212,6 +212,8 @@
 		57F82683277341C10077A807 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F82681277341C10077A807 /* InfoPlist.strings */; };
 		57F826842773633C0077A807 /* ViewVersionsPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F826862773633C0077A807 /* ViewVersionsPicker.xib */; };
 		57FBC00B2A217772002E9DF7 /* VCAudioTextBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */; };
+		57FBC00D2A24A939002E9DF7 /* TTSEngineGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */; };
+		57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */; };
 		C8089F22267030A5004FA377 /* DTextDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F21267030A5004FA377 /* DTextDraw.swift */; };
 		C8089F27267030D9004FA377 /* DTextString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F26267030D9004FA377 /* DTextString.swift */; };
 		C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F2B267030E5004FA377 /* DTextTestData.swift */; };
@@ -510,6 +512,8 @@
 		57F8268F277363AC0077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ViewVersionsPicker.strings"; sourceTree = "<group>"; };
 		57F82690277370110077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextBible.swift; sourceTree = "<group>"; };
+		57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSEngineGetter.swift; sourceTree = "<group>"; };
+		57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTextBibleTTSCore.swift; sourceTree = "<group>"; };
 		C8089F21267030A5004FA377 /* DTextDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTextDraw.swift; sourceTree = "<group>"; };
 		C8089F26267030D9004FA377 /* DTextString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextString.swift; sourceTree = "<group>"; };
 		C8089F2B267030E5004FA377 /* DTextTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextTestData.swift; sourceTree = "<group>"; };
@@ -1029,6 +1033,8 @@
 			isa = PBXGroup;
 			children = (
 				57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */,
+				57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */,
+				57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */,
 			);
 			path = VCAudioTextBible;
 			sourceTree = "<group>";
@@ -1550,6 +1556,7 @@
 				5727F5B029E524F60077BA86 /* EasyCheckAudioUrl.swift in Sources */,
 				57AD73B9274D3DF900CA9BA8 /* SSKjv.swift in Sources */,
 				57D7EB652723FE49003D2557 /* ViewSearchFilter.swift in Sources */,
+				57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */,
 				574599AB273C1B05005635D0 /* VCComment.swift in Sources */,
 				57395B40272972380067F699 /* VCSearchResult.swift in Sources */,
 				578B25642748227E00EF2705 /* DApiRt.swift in Sources */,
@@ -1634,6 +1641,7 @@
 				57AD73C727509D2F00CA9BA8 /* BibleVersionFonts.swift in Sources */,
 				C8AD1DB22629AF2F0046C8EE /* ijnDate.swift in Sources */,
 				C88D233C26EB05A10088BCF5 /* SplitStringBtwHWFW.swift in Sources */,
+				57FBC00D2A24A939002E9DF7 /* TTSEngineGetter.swift in Sources */,
 				57BBC77D290C44C6001DC3FE /* DoOneDownload_bible_little.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

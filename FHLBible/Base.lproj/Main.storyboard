@@ -1437,6 +1437,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="clickPlay" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="On4-wH-2bU"/>
+                                    <action selector="clickPlayOrPause" destination="KkN-g9-nu0" eventType="primaryActionTriggered" id="227-py-zd9"/>
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1hV-CR-NOB">
