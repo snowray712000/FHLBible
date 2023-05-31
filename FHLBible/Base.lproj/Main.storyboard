@@ -1450,6 +1450,7 @@
                                 <buttonConfiguration key="configuration" style="tinted" image="forward.end.fill" catalog="system"/>
                                 <connections>
                                     <action selector="clickNext" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="MMq-pr-jWM"/>
+                                    <action selector="clickNext" destination="KkN-g9-nu0" eventType="primaryActionTriggered" id="tRb-ig-5oK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xtq-rV-hZM" userLabel="btnPrev">
@@ -1459,6 +1460,7 @@
                                 <buttonConfiguration key="configuration" style="tinted" image="backward.end.fill" catalog="system"/>
                                 <connections>
                                     <action selector="clickPrev" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="Ur0-NG-8cT"/>
+                                    <action selector="clickPrev" destination="KkN-g9-nu0" eventType="primaryActionTriggered" id="meu-QY-Wpw"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suV-vg-nkJ" userLabel="labelTimeRemain">

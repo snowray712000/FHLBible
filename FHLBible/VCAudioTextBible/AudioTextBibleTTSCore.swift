@@ -15,24 +15,42 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         super.init()
         synthesizer.delegate = self
     }
+    var addr: VerseRange!
+    
+    var versions: [String] = []
+    
     var idxRow = 0
     var idxCol = 0
-    var data: [[String]]!
-    func setData(_ data: [[String]]){
+    var data: [[String]]! = []
+    private func setData(_ data: [[String]]){
         idxRow = 0
         idxCol = 0
         self.data = data
     }
     
     var ttsOneLang : [AVSpeechSynthesisVoice] = []
-    var versions: [String] = []
     var versionsValid: [String] = []
     // set 後，會設定好 utterances 與 version 與 versionValid
     func setVersions(_ vers:[String]){
-        self.versions = vers
-        let ver_uttes = vers.map({($0,TTSEngineGetter().main($0))}).filter({$0.1 != nil})
-        self.versionsValid = ver_uttes.map({$0.0})
-        self.ttsOneLang = ver_uttes.map({$0.1!})
+        if vers.count != self.versions.count || sinq(zip(self.versions,vers)).any({$0.0 != $0.1}) {
+            self.versions = vers
+            let ver_uttes = vers.map({($0,TTSEngineGetter().main($0))}).filter({$0.1 != nil})
+            self.versionsValid = ver_uttes.map({$0.0})
+            self.ttsOneLang = ver_uttes.map({$0.1!})
+            
+            self.pause()
+            self.data = [] // 使重新搜尋
+        }
+    }
+    var addrStr: String! // 供 queryData 用，也給外部用
+    func setAddr(_ addr:VerseRange){
+        if self.addr != addr {
+            self.addr = addr
+            addrStr = VerseRangeToString().main(addr.verses)
+            
+            self.pause()
+            self.data = [] // 使重新搜尋
+        }
     }
     
     // synthesizer.isSpeaking = false 時，可能是在切換中，而非使用者的切換
@@ -40,8 +58,12 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
     
     let synthesizer = AVSpeechSynthesizer()
     func play(){
-        playData()
-        isPlayingOfUser = true
+        if data.isEmpty {
+            queryDataAsync()
+        } else {
+            playData()
+            isPlayingOfUser = true
+        }
     }
     func pause(){
         if synthesizer.isSpeaking {
@@ -69,7 +91,45 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
     private func playData(){
         let r1 = AVSpeechUtterance(string: data[idxRow][idxCol])
         r1.voice = ttsOneLang[idxCol]
-        r1.rate = 0.5
+        r1.rate = 0.5 * 1.5
         synthesizer.speak(r1)
+    }
+    var dataReader: ReadDataQ!
+    private func queryDataAsync(){
+        dataReader = ReadDataQ()
+        dataReader.qDataForRead$.addCallback {[weak self] sender, pData in
+            if let pData = pData {
+                // pData!.0 title row
+                // pData.1 data row array
+                // assert all version is support TTS
+                
+                // string [][] , [verse count][version count]
+                var dataForReadEachVerse: [[String]] = []
+                for a1 in pData.1 {
+                    var dataOneVerse: [String] = []
+                    for a2 in a1.datas {
+                        if a2.count == 0 {
+                            dataOneVerse.append("")
+                        } else {
+                            let r3 = a2.filter({$0.sn == nil}).map({$0.w ?? ""}).joined()
+                            dataOneVerse.append(r3)
+                        }
+                    }
+                    dataForReadEachVerse.append(dataOneVerse)
+                }
+                
+                // prepare for read
+                self?.setData(dataForReadEachVerse)
+            } else {
+                var dataForReadEachVerse: [[String]] = []
+                dataForReadEachVerse.append(["取得資料失敗."])
+                dataForReadEachVerse.append([""])
+                self?.setData(dataForReadEachVerse)
+            }
+            
+            self?.play()
+        }
+        
+        dataReader.qDataForReadAsync(addrStr, versionsValid ) // 此處的聖經版本，已經過濾，都是支援的
     }
 }
