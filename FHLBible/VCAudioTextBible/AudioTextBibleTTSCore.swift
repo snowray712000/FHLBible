@@ -71,6 +71,16 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         }
         isPlayingOfUser = false
     }
+    func goNextForce(){
+        let addr2 = addr.goNext()
+        self.setAddr(addr2)
+        self.play()
+    }
+    func goPrevForce(){
+        let addr2 = addr.goPrev()
+        self.setAddr(addr2)
+        self.play()
+    }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         if isPlayingOfUser == false { return }
         
@@ -79,6 +89,7 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         if idxRow < data.count {
             self.playData()
         } else {
+            self.goNextForce()
         }
     }
     private func goNext_SetRowCol(){

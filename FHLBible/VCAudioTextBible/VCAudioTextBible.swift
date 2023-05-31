@@ -30,8 +30,8 @@ class VCAudioTextBible : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // 還沒開發，先 mark 起來
-        btnNext.isEnabled = false
-        btnPrev.isEnabled = false
+//        btnNext.isEnabled = false
+//        btnPrev.isEnabled = false
         btnPlayrate.isEnabled = false
         btnLoopMode.isEnabled = false
         btnTimerStop.isEnabled = false
@@ -57,7 +57,7 @@ class VCAudioTextBible : UIViewController {
         }
     }
     @IBAction func clickNext(){
-        
+        ttsCore.goNextForce()
     }
     @IBAction func clickPrev(){
         
