@@ -27,11 +27,12 @@ class VCAudioTextBible : UIViewController {
     var dataReader: ReadDataQ!
     // tts: text-to-speech
     var ttsCore: AudioTextBibleTTSCore { get { AudioTextBibleTTSCore.s } }
+    var eventKey: String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
+        
         // 還沒開發，先 mark 起來
-//        btnNext.isEnabled = false
-//        btnPrev.isEnabled = false
         btnPlayrate.isEnabled = false
         btnLoopMode.isEnabled = false
         btnTimerStop.isEnabled = false
@@ -46,6 +47,13 @@ class VCAudioTextBible : UIViewController {
             btnPlay.setImage( UIImage(systemName: "pause.fill"), for: .normal)
         }
         
+        ttsCore.addrChanged$.addCallback({[weak self] sender, pData in
+            self?.addrBarItem.title =  self?.ttsCore.addrStr
+            self?.addr = self?.ttsCore.addr
+        }, self.eventKey)
+    }
+    deinit {
+        ttsCore.addrChanged$.clearCallback(self.eventKey)
     }
     @IBAction func clickPlayOrPause(){
         if self.ttsCore.isPlayingOfUser == false{
@@ -60,7 +68,7 @@ class VCAudioTextBible : UIViewController {
         ttsCore.goNextForce()
     }
     @IBAction func clickPrev(){
-        
+        ttsCore.goPrevForce()
     }
 }
 

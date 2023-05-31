@@ -16,8 +16,8 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         synthesizer.delegate = self
     }
     var addr: VerseRange!
-    
     var versions: [String] = []
+    var addrChanged$: IjnEventAdvancedAny = IjnEventAdvancedAny()
     
     var idxRow = 0
     var idxCol = 0
@@ -50,6 +50,8 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
             
             self.pause()
             self.data = [] // 使重新搜尋
+            
+            self.addrChanged$.trigger()
         }
     }
     
