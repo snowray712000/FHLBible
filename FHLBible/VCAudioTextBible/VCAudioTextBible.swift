@@ -33,9 +33,8 @@ class VCAudioTextBible : UIViewController {
         self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
         
         // 還沒開發，先 mark 起來
-        btnPlayrate.isEnabled = false
-        btnLoopMode.isEnabled = false
-        btnTimerStop.isEnabled = false
+        btnLoopMode.isHidden = true
+        btnTimerStop.isHidden = true
         
         ttsCore.setAddr(self.addr)
         ttsCore.setVersions(self.vers)
@@ -69,6 +68,10 @@ class VCAudioTextBible : UIViewController {
     }
     @IBAction func clickPrev(){
         ttsCore.goPrevForce()
+    }
+    @IBAction func clickSpeed(){
+        let vc = self.gVCAudioTextSpeed()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

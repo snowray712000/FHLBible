@@ -103,9 +103,19 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
     }
     private func playData(){
         let r1 = AVSpeechUtterance(string: data[idxRow][idxCol])
-        r1.voice = ttsOneLang[idxCol]
-        r1.rate = 0.5 * 1.5
+        let voice = ttsOneLang[idxCol]
+        r1.voice = voice
+        r1.rate = 0.5 * getSpeedWhereTTSEngine(voice)
         synthesizer.speak(r1)
+    }
+    private func getSpeedWhereTTSEngine(_ tts: AVSpeechSynthesisVoice)->Float{
+        let ttss = TTSEngineGetter.ttsArray
+        for idx in ijnRange(0, ttss.count){
+            if ttss[idx] != nil && ttss[idx] == tts {
+                return ManagerAudioTextSpeed.s.curSpeed[idx]
+            }
+        }
+        return 1.0
     }
     var dataReader: ReadDataQ!
     private func queryDataAsync(){

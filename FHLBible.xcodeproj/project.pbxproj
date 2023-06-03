@@ -214,6 +214,8 @@
 		57FBC00B2A217772002E9DF7 /* VCAudioTextBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */; };
 		57FBC00D2A24A939002E9DF7 /* TTSEngineGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */; };
 		57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */; };
+		57FBC0112A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */; };
+		57FBC0132A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */; };
 		C8089F22267030A5004FA377 /* DTextDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F21267030A5004FA377 /* DTextDraw.swift */; };
 		C8089F27267030D9004FA377 /* DTextString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F26267030D9004FA377 /* DTextString.swift */; };
 		C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F2B267030E5004FA377 /* DTextTestData.swift */; };
@@ -514,6 +516,8 @@
 		57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextBible.swift; sourceTree = "<group>"; };
 		57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSEngineGetter.swift; sourceTree = "<group>"; };
 		57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTextBibleTTSCore.swift; sourceTree = "<group>"; };
+		57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextSpeed.swift; sourceTree = "<group>"; };
+		57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerAudioTextSpeed.swift; sourceTree = "<group>"; };
 		C8089F21267030A5004FA377 /* DTextDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTextDraw.swift; sourceTree = "<group>"; };
 		C8089F26267030D9004FA377 /* DTextString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextString.swift; sourceTree = "<group>"; };
 		C8089F2B267030E5004FA377 /* DTextTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextTestData.swift; sourceTree = "<group>"; };
@@ -652,6 +656,7 @@
 				573CB9022744FB3F00AEEC9B /* ManagerSearchHistory.swift */,
 				578B2542274635C400EF2705 /* ManagerIsSnVisible.swift */,
 				5727F5B129E84F090077BA86 /* ManagerAudioBible.swift */,
+				57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1035,6 +1040,7 @@
 				57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */,
 				57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */,
 				57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */,
+				57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */,
 			);
 			path = VCAudioTextBible;
 			sourceTree = "<group>";
@@ -1489,6 +1495,7 @@
 				57BBC77F290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift in Sources */,
 				57A21A84276A59D70022212D /* VCSnDictMore.swift in Sources */,
 				57F22C60272B6C8D00526631 /* FindIndexOfCharInTextView.swift in Sources */,
+				57FBC0112A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift in Sources */,
 				574599AE273C2482005635D0 /* FhlScCore.swift in Sources */,
 				57AD73C527508BAE00CA9BA8 /* VCVersionsCompareInOneVerse.swift in Sources */,
 				57F22C71272C50CB00526631 /* VCReadImplementEvents.swift in Sources */,
@@ -1497,6 +1504,7 @@
 				57F22C64272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift in Sources */,
 				57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */,
 				57BBC761290BC6E5001DC3FE /* SQLNormalize_unv.swift in Sources */,
+				57FBC0132A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift in Sources */,
 				C88D235826EB08640088BCF5 /* BibleReadDataGetter.swift in Sources */,
 				C88D234D26EB084A0088BCF5 /* DataGetterUsingBibleReader.swift in Sources */,
 				C8AD1DAD262961E20046C8EE /* MyButtonForDownload.swift in Sources */,

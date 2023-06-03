@@ -31,6 +31,7 @@ class FHLUserDefaults : NSObject {
         case AudioBibleSpeed = "AudioBibleSpeed"
         case AudioBibleVersionIndex = "AudioBibleVersionIndex"
         case AudioBibleLoopMode = "AudioBibleLoopMode"
+        case AudioTextSpeed = "AudioTextSpeed"
     }
 }
 

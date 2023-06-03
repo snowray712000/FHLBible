@@ -121,73 +121,12 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
     
     
-    class MySpeechSynthDelegate : NSObject, AVSpeechSynthesizerDelegate {
-        var idxRow = 0
-        var idxCol = 0
-        var data: [[String]] = [
-            ["With my whole heart I cry; answer me, O LORD! I will keep your statutes.","耶和華啊，我一心呼籲你；求你應允我，我必謹守你的律例！","קָרָאתִי בְכָל-לֵב עֲנֵנִי יְהוָה חֻקֶּיךָ אֶצֹּרָה׃", "᾿Εκέκραξα ἐν ὅλῃ καρδίᾳ μου· ἐπάκουσόν μου, Κύριε, τὰ δικαιώματά σου ἐκζητήσω."],
-            ["I call to you; save me, that I may observe your testimonies.","我向你呼籲，求你救我！我要遵守你的法度。","קְרָאתִיךָ הוֹשִׁיעֵנִי וְאֶשְׁמְרָה עֵדֹתֶיךָ׃","ἐκέκραξά σοι· σῶσόν με, καὶ φυλάξω τὰ μαρτύριά σου."]
-        ]
-        var sv: [AVSpeechSynthesisVoice] = []
-        var utterances: [AVSpeechUtterance] = []
-        let synthesizer = AVSpeechSynthesizer()
-        func start(){
-            if synthesizer.isSpeaking {
-                synthesizer.stopSpeaking(at: .immediate)
-                synthesizer.delegate = nil
-            }
-            
-            idxRow = 0
-            idxCol = 0
-           
-
-            // TODO: 可能會 nil
-            if sv.count == 0{
-                sv.append(AVSpeechSynthesisVoice(language: "en-US")!)
-                sv.append(AVSpeechSynthesisVoice(language: "zh-TW")!)
-                sv.append(AVSpeechSynthesisVoice(language: "he-IL")!)
-                sv.append(AVSpeechSynthesisVoice(language: "el-GR")!)
-            }
-            
-            synthesizer.delegate = self
-            
-            playData()
-        }
-
-        func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-            goNext_SetRowCol()
-            
-            if idxRow < data.count {
-                self.playData()
-            } else {
-                synthesizer.delegate = nil
-            }
-        }
-        private func goNext_SetRowCol(){
-            idxCol = idxCol + 1
-            if idxCol >= sv.count {
-                idxCol = 0
-                idxRow = idxRow + 1
-            }
-        }
-        private func playData(){
-            let r1 = AVSpeechUtterance(string: data[idxRow][idxCol])
-            r1.voice = sv[idxCol]
-            r1.rate = 0.5
-            synthesizer.speak(r1)
-        }
-    }
-    var mySpeech = MySpeechSynthDelegate()
     @IBAction func doMore(){
         // 測試ui
         let vc = self.gVCAudioTextBible()
         vc.addr = self._addrsCur!
         vc.vers = self._vers
         self.navigationController?.pushViewController(vc, animated: true)
-        
-        // 測試核心功能
-        // mySpeech.start()
-        
         
 //        if let data = self._data {
 //            var r1 = ""
