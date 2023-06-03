@@ -33,7 +33,6 @@ class VCAudioTextBible : UIViewController {
         self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
         
         // 還沒開發，先 mark 起來
-        btnLoopMode.isHidden = true
         btnTimerStop.isHidden = true
         
         ttsCore.setAddr(self.addr)
@@ -45,6 +44,8 @@ class VCAudioTextBible : UIViewController {
         } else {
             btnPlay.setImage( UIImage(systemName: "pause.fill"), for: .normal)
         }
+        
+        self.loopMode = ttsCore.loopMode
         
         ttsCore.addrChanged$.addCallback({[weak self] sender, pData in
             self?.addrBarItem.title =  self?.ttsCore.addrStr
@@ -72,6 +73,31 @@ class VCAudioTextBible : UIViewController {
     @IBAction func clickSpeed(){
         let vc = self.gVCAudioTextSpeed()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func clickStopTimer(){
+        
+    }
+    @IBAction func clickLoopMode(){
+        if loopMode == .All {
+            loopMode = .Book
+        } else if loopMode == .Book {
+            loopMode = .Chap
+        } else if loopMode == .Chap {
+            loopMode = .All
+        }
+    }
+    var loopMode: DAudioBible.LoopMode = .All {
+        didSet {
+            switch loopMode {
+            case .Chap:
+                btnLoopMode.setImage( UIImage(systemName: "repeat.1"), for: .normal)
+            case .Book:
+                btnLoopMode.setImage( UIImage(systemName: "repeat"), for: .normal)
+            case .All:
+                btnLoopMode.setImage( UIImage(systemName: "goforward"), for: .normal)
+            }
+            ttsCore.loopMode = loopMode
+        }
     }
 }
 

@@ -49,9 +49,9 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
             addrStr = VerseRangeToString().main(addr.verses)
             
             self.pause()
-            self.data = [] // 使重新搜尋
+            self.data = [] // 使重新搜尋，當程式再次呼叫叫 play 時，就會重新搜尋流程
             
-            self.addrChanged$.trigger()
+            self.addrChanged$.trigger() // 供外部 ui 更新 目前章節
         }
     }
     
@@ -73,15 +73,36 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         }
         isPlayingOfUser = false
     }
+    private func goNextPrevCore(_ fnGetNext: ()->VerseRange){
+        if loopMode == .All {
+            let addr2 = fnGetNext()
+            self.setAddr(addr2)
+            self.play()
+        } else if loopMode == .Book {
+            let book = addr.verses[0].book
+            let addr2 = fnGetNext()
+            let book2 = addr2.verses[0].book
+            if (book2 != book ){
+                if book2 > book {
+                    self.setAddr(VerseRange(DAddress(book,1,1).generateEntireThisChap()))
+                } else {
+                    self.setAddr(VerseRange(DAddress(book+1,1,1).goPrevChap()))
+                }
+            } else {
+                self.setAddr(addr2)
+            }
+            self.play()
+        } else if loopMode == .Chap {
+            self.idxRow = 0
+            self.idxCol = 0
+            self.play()
+        }
+    }
     func goNextForce(){
-        let addr2 = addr.goNext()
-        self.setAddr(addr2)
-        self.play()
+        goNextPrevCore({self.addr.goNext()})
     }
     func goPrevForce(){
-        let addr2 = addr.goPrev()
-        self.setAddr(addr2)
-        self.play()
+        goNextPrevCore({self.addr.goPrev()})
     }
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         if isPlayingOfUser == false { return }
@@ -155,4 +176,5 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         
         dataReader.qDataForReadAsync(addrStr, versionsValid ) // 此處的聖經版本，已經過濾，都是支援的
     }
+    var loopMode: DAudioBible.LoopMode = .All
 }

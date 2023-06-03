@@ -424,6 +424,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhD-50-N5O" userLabel="info">
+                                <rect key="frame" x="16" y="614" width="343" height="48"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="info.bubble.fill" catalog="system">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="若點擊無聲音，是你的手機不支援此語言語音。若全部都沒聲音，那就是工程師的Bug了。">
+                                            <attributes>
+                                                <font key="NSFont" size="12" name="PingFangTC-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" systemColor="systemTealColor"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mmg-C6-XEy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -451,11 +466,13 @@
                             <constraint firstItem="sRg-wf-qRe" firstAttribute="trailing" secondItem="k0b-XH-UBR" secondAttribute="trailing" id="VYo-M4-4VH"/>
                             <constraint firstItem="IO9-25-GYW" firstAttribute="centerY" secondItem="fRP-pD-jve" secondAttribute="centerY" id="WsR-Cy-3B7"/>
                             <constraint firstItem="TdX-qk-Ajf" firstAttribute="centerY" secondItem="Sdc-WO-3MQ" secondAttribute="centerY" id="X1A-YC-wg0"/>
+                            <constraint firstItem="VhD-50-N5O" firstAttribute="trailing" secondItem="mmg-C6-XEy" secondAttribute="trailing" constant="-16" id="X3N-5X-18a"/>
                             <constraint firstItem="Sdc-WO-3MQ" firstAttribute="top" secondItem="fRP-pD-jve" secondAttribute="bottom" constant="5" id="XFh-Yb-hm3"/>
                             <constraint firstItem="fDw-7L-a6N" firstAttribute="leading" secondItem="4Ww-MP-JVR" secondAttribute="leading" priority="900" id="ZVt-2R-qLg"/>
                             <constraint firstItem="Hw0-GM-iTk" firstAttribute="centerY" secondItem="rKZ-jk-hOg" secondAttribute="centerY" id="agk-RY-e5g"/>
                             <constraint firstItem="IO9-25-GYW" firstAttribute="leading" secondItem="Bej-xa-RJu" secondAttribute="leading" id="b6F-IU-U0c"/>
                             <constraint firstItem="cHA-W0-nsq" firstAttribute="centerY" secondItem="exb-cu-8e0" secondAttribute="centerY" id="b91-Yb-y95"/>
+                            <constraint firstItem="VhD-50-N5O" firstAttribute="leading" secondItem="mmg-C6-XEy" secondAttribute="leading" constant="16" id="bfn-K9-ezZ"/>
                             <constraint firstItem="exb-cu-8e0" firstAttribute="top" secondItem="rKZ-jk-hOg" secondAttribute="bottom" constant="5" id="byG-VH-KoP"/>
                             <constraint firstItem="MU6-Ay-7FM" firstAttribute="trailing" secondItem="k0b-XH-UBR" secondAttribute="trailing" id="c0n-XN-wZY"/>
                             <constraint firstItem="cHA-W0-nsq" firstAttribute="trailing" secondItem="k0b-XH-UBR" secondAttribute="trailing" id="ciX-0i-2Bf"/>
@@ -473,6 +490,7 @@
                             <constraint firstItem="MU6-Ay-7FM" firstAttribute="centerY" secondItem="wSb-5z-ZCG" secondAttribute="centerY" id="nbs-p8-sOl"/>
                             <constraint firstItem="J4H-l8-QjB" firstAttribute="leading" secondItem="Bej-xa-RJu" secondAttribute="leading" id="o3k-rP-CUR"/>
                             <constraint firstItem="rKZ-jk-hOg" firstAttribute="trailing" secondItem="4Ww-MP-JVR" secondAttribute="trailing" id="oIT-yy-GBt"/>
+                            <constraint firstItem="VhD-50-N5O" firstAttribute="bottom" secondItem="mmg-C6-XEy" secondAttribute="bottom" constant="-5" id="ojN-TA-rGF"/>
                             <constraint firstItem="rKZ-jk-hOg" firstAttribute="leading" secondItem="4Ww-MP-JVR" secondAttribute="leading" priority="900" id="pIg-fQ-Trn"/>
                             <constraint firstItem="k0b-XH-UBR" firstAttribute="centerY" secondItem="4Ww-MP-JVR" secondAttribute="centerY" id="qh7-R5-VNT"/>
                             <constraint firstItem="Sdc-WO-3MQ" firstAttribute="leading" secondItem="4Ww-MP-JVR" secondAttribute="leading" priority="900" id="rqT-It-hSd"/>
@@ -1752,6 +1770,7 @@
                                     <imageReference key="image" image="goforward" catalog="system" symbolScale="default"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="clickLoopMode" destination="KkN-g9-nu0" eventType="primaryActionTriggered" id="1RR-JH-H9d"/>
                                     <action selector="switchLoopMode" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="rfg-P6-9Ps"/>
                                 </connections>
                             </button>
@@ -1760,6 +1779,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" image="timer" catalog="system" title="-- : --"/>
                                 <connections>
+                                    <action selector="clickStopTimer" destination="KkN-g9-nu0" eventType="primaryActionTriggered" id="TOw-1D-gXR"/>
                                     <action selector="clickTimerStop" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="jYe-HZ-idS"/>
                                 </connections>
                             </button>
@@ -1840,6 +1860,7 @@
         <image name="forward.end.fill" catalog="system" width="128" height="101"/>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="goforward" catalog="system" width="119" height="128"/>
+        <image name="info.bubble.fill" catalog="system" width="128" height="110"/>
         <image name="internaldrive" catalog="system" width="128" height="88"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
@@ -1859,6 +1880,9 @@
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -67,7 +67,7 @@ extension VerseRange : Equatable {
         if lhs.verses.count != rhs.verses.count { return false }
         
         let r1a = lhs.verses
-        let r1b = lhs.verses
+        let r1b = rhs.verses
         
         for (a1,a2) in zip(r1a, r1b){
             if a1 != a2 {
