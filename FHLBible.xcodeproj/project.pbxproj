@@ -103,6 +103,7 @@
 		574BE54D2757A37500F5DC85 /* DIosBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BE54C2757A37500F5DC85 /* DIosBase.swift */; };
 		574C7A792A43DE81005F3FD8 /* AudioStopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574C7A782A43DE81005F3FD8 /* AudioStopTimer.swift */; };
 		574C7A7B2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574C7A7A2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift */; };
+		574C7A7E2A446D41005F3FD8 /* ActiveBackgroundAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574C7A7D2A446D41005F3FD8 /* ActiveBackgroundAudio.swift */; };
 		57543DAE2779A2DC00587B40 /* SplitByNewLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */; };
 		575574042933062300CC0560 /* DoOneDownload_bible_comm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */; };
 		575AD92129ED1A49006FD6E0 /* IVCAudioBibleEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */; };
@@ -403,6 +404,7 @@
 		574C7A782A43DE81005F3FD8 /* AudioStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStopTimer.swift; sourceTree = "<group>"; };
 		574C7A7A2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBibleTextStopTimer.swift; sourceTree = "<group>"; };
 		574C7A7C2A43E901005F3FD8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		574C7A7D2A446D41005F3FD8 /* ActiveBackgroundAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveBackgroundAudio.swift; sourceTree = "<group>"; };
 		57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitByNewLines.swift; sourceTree = "<group>"; };
 		575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_comm.swift; sourceTree = "<group>"; };
 		575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IVCAudioBibleEvents.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 				5700346429E12D880007E6F3 /* DAudioBible.swift */,
 				575AD92C29FC3618006FD6E0 /* AudioBibleStopTimer.swift */,
 				574C7A782A43DE81005F3FD8 /* AudioStopTimer.swift */,
+				574C7A7D2A446D41005F3FD8 /* ActiveBackgroundAudio.swift */,
 			);
 			path = VCAudioBible;
 			sourceTree = "<group>";
@@ -1602,6 +1605,7 @@
 				C88D237026EB10530088BCF5 /* QsbRecords2DOneLines01.swift in Sources */,
 				574BE54227570E8800F5DC85 /* VCSettings.swift in Sources */,
 				576992BC274BB60B00717E8C /* FooterConvertorDTexts.swift in Sources */,
+				574C7A7E2A446D41005F3FD8 /* ActiveBackgroundAudio.swift in Sources */,
 				578B25622747FCEB00EF2705 /* SSFoot.swift in Sources */,
 				574599B8273D02B3005635D0 /* DApiStwcbhdic.swift in Sources */,
 				57BBC75F290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift in Sources */,
@@ -1899,7 +1903,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7;
+				MARKETING_VERSION = 2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1923,7 +1927,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7;
+				MARKETING_VERSION = 2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

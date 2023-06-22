@@ -122,51 +122,34 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     
     
     @IBAction func doMore(){
-        // 測試ui
-        let vc = self.gVCAudioTextBible()
-        vc.addr = self._addrsCur!
-        vc.vers = self._vers
-        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        if let data = self._data {
-//            var r1 = ""
-//            for a1 in data.data {
-//                // a1.header 創1:1
-//                // a1: 此節，每個譯本
-//                for (i2,a2) in a1.datas.enumerated() {
-//                    let r3 = sinq(a2).select({$0.w ?? ""}).toArray().joined(separator: "")
-//                    // a2: DText[] 一節
-//                    r1 = r3
-//
-//                }
-//            }
-//        }
-        
-        
-        
-//        let vc = VCReadMore()
-//        vc.onPicker$.addCallback { sender, pData in
-//            if pData == "prev" {
-//                self.goPrev()
-//            } else if pData == "next" {
-//                self.goNext()
-//            } else if pData == "back" {
-//                self.clickGoBack()
-//            } else if pData == "history" {
-//                self.pickFromHistory()
-//            } else if pData == "audiobible" {
-//                let vc = self.gVCAudioBible()
-//                let addr = self._addrsCurFirst!
-//                vc.book = addr.book
-//                vc.chap = addr.chap
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }
-//        }
-//
-//        vc.modalPresentationStyle = .custom
-//        vc.transitioningDelegate = vc
-//
-//        present(vc,animated: true,completion: nil)
+        let vc = VCReadMore()
+        vc.onPicker$.addCallback { sender, pData in
+            if pData == "prev" {
+                self.goPrev()
+            } else if pData == "next" {
+                self.goNext()
+            } else if pData == "back" {
+                self.clickGoBack()
+            } else if pData == "history" {
+                self.pickFromHistory()
+            } else if pData == "audiobible" {
+                let vc = self.gVCAudioBible()
+                let addr = self._addrsCurFirst!
+                vc.book = addr.book
+                vc.chap = addr.chap
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else if pData == "audiobibletext" {
+                let vc = self.gVCAudioTextBible()
+                vc.addr = self._addrsCur!
+                vc.vers = self._vers
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = vc
+
+        present(vc,animated: true,completion: nil)
         
     }
     @IBAction func switchSnVisible(){
