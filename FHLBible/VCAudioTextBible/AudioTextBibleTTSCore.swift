@@ -50,7 +50,7 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
     func setAddr(_ addr:VerseRange){
         if self.addr != addr {
             self.addr = addr
-            addrStr = VerseRangeToString().main(addr.verses)
+            addrStr = VerseRangeToString().main(addr.verses, ManagerLangSet.s.curTpBookNameLang )
             
             self.pause()
             self.data = [] // 使重新搜尋，當程式再次呼叫叫 play 時，就會重新搜尋流程

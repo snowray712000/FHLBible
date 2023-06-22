@@ -20,6 +20,8 @@ class VCAudioTextBible : UIViewController {
     @IBOutlet weak var sliderProcess: UISlider!
     @IBOutlet weak var addrBarItem: UIBarItem!
     @IBOutlet weak var btnTimerStop: UIButton!
+    @IBOutlet weak var btnInfo: UIButton!
+    
     
     var addr: VerseRange!
     var vers: [String]!
@@ -30,6 +32,11 @@ class VCAudioTextBible : UIViewController {
     var eventKey: String!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let strInfo = NSLocalizedString("聖經中的希臘文是古希臘文，而文字發音系統(TTS) 是現代希臘文，希伯來文亦同，自行斟酌使用。", comment: "聖經中的希臘文是古希臘文，而文字發音系統(TTS) 是現代希臘文，希伯來文亦同，自行斟酌使用。")
+        btnInfo.setTitle(strInfo, for: .normal)
+        title = NSLocalizedString("有聲文字", comment: "有聲文字")        
+        
         self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
         
         ttsCore.setAddr(self.addr)
@@ -78,9 +85,11 @@ class VCAudioTextBible : UIViewController {
     }
     @IBAction func clickNext(){
         ttsCore.goNextForce()
+        btnPlay.setImage( UIImage(systemName: "pause.fill"), for: .normal)
     }
     @IBAction func clickPrev(){
         ttsCore.goPrevForce()
+        btnPlay.setImage( UIImage(systemName: "pause.fill"), for: .normal)
     }
     @IBAction func clickSpeed(){
         let vc = self.gVCAudioTextSpeed()

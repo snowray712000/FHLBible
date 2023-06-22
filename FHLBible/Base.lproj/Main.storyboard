@@ -427,15 +427,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhD-50-N5O" userLabel="info">
                                 <rect key="frame" x="16" y="614" width="343" height="48"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="info.bubble.fill" catalog="system">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="若點擊無聲音，是你的手機不支援此語言語音。若全部都沒聲音，那就是工程師的Bug了。">
-                                            <attributes>
-                                                <font key="NSFont" size="12" name="PingFangTC-Regular"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <buttonConfiguration key="configuration" style="plain" image="info.bubble.fill" catalog="system" title="若點擊無聲音，是你的手機不支援此語言語音。若全部都沒聲音，那就是工程師的Bug了。">
+                                    <fontDescription key="titleFontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="12"/>
                                     <color key="baseForegroundColor" systemColor="systemTealColor"/>
                                 </buttonConfiguration>
                             </button>
@@ -506,6 +499,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="有聲文字速度" id="97J-lO-Pxu"/>
                     <connections>
+                        <outlet property="btnInfo" destination="VhD-50-N5O" id="Yzx-Ca-Omo"/>
                         <outletCollection property="sliders" destination="4Ww-MP-JVR" collectionClass="NSMutableArray" id="xX6-fs-0jN"/>
                         <outletCollection property="sliders" destination="fDw-7L-a6N" collectionClass="NSMutableArray" id="3GF-Yv-wbP"/>
                         <outletCollection property="labelSpeeds" destination="k0b-XH-UBR" collectionClass="NSMutableArray" id="LU1-ff-CcW"/>
@@ -1768,6 +1762,14 @@
                                     <action selector="clickTimerStop" destination="Ka5-vu-fy7" eventType="primaryActionTriggered" id="jYe-HZ-idS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7G-Ae-Jvz" userLabel="info">
+                                <rect key="frame" x="16" y="152" width="343" height="48"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="info.bubble.fill" catalog="system" title="聖經中的希臘文是古希臘文，而文字發音系統(TTS) 是現代希臘文，希伯來文亦同，自行斟酌使用。">
+                                    <fontDescription key="titleFontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="12"/>
+                                    <color key="baseForegroundColor" systemColor="systemTealColor"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lkC-si-7im"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1776,11 +1778,14 @@
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="leading" secondItem="lkC-si-7im" secondAttribute="leading" constant="5" id="5cb-u2-ljM"/>
                             <constraint firstItem="1aS-fg-aLF" firstAttribute="leading" secondItem="t3g-2o-0Ha" secondAttribute="trailing" constant="5" id="AzC-Su-uu5"/>
                             <constraint firstItem="1g5-PU-7M3" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="Jtl-Sw-a2a"/>
+                            <constraint firstItem="H7G-Ae-Jvz" firstAttribute="top" secondItem="Kr7-AB-nDX" secondAttribute="bottom" constant="5" id="K2j-vo-swL"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="top" secondItem="TzX-Wd-HLr" secondAttribute="bottom" constant="5" id="R54-Kk-Fs5"/>
                             <constraint firstItem="1aS-fg-aLF" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="UYa-4L-hg2"/>
+                            <constraint firstItem="H7G-Ae-Jvz" firstAttribute="leading" secondItem="lkC-si-7im" secondAttribute="leading" constant="16" id="XSB-z8-Gcg"/>
                             <constraint firstItem="Xtq-rV-hZM" firstAttribute="leading" secondItem="1g5-PU-7M3" secondAttribute="trailing" constant="5" id="l7X-lp-cRw"/>
                             <constraint firstItem="t3g-2o-0Ha" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="lSd-H9-AGw"/>
                             <constraint firstItem="Xtq-rV-hZM" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="rAP-Hb-NaG"/>
+                            <constraint firstItem="H7G-Ae-Jvz" firstAttribute="trailing" secondItem="lkC-si-7im" secondAttribute="trailing" constant="-16" id="rcf-lJ-cSs"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="trailing" secondItem="lkC-si-7im" secondAttribute="trailing" constant="-5" id="vy6-QM-3HX"/>
                             <constraint firstItem="TzX-Wd-HLr" firstAttribute="top" secondItem="lkC-si-7im" secondAttribute="top" constant="10" id="y3L-aL-vFl"/>
                             <constraint firstItem="TzX-Wd-HLr" firstAttribute="leading" secondItem="Xtq-rV-hZM" secondAttribute="trailing" constant="5" id="z7B-WL-eu5"/>
@@ -1792,6 +1797,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addrBarItem" destination="5oL-xk-lK0" id="BCc-mN-AcA"/>
+                        <outlet property="btnInfo" destination="H7G-Ae-Jvz" id="Sbc-n6-yif"/>
                         <outlet property="btnLoopMode" destination="1g5-PU-7M3" id="iUx-S1-pGA"/>
                         <outlet property="btnNext" destination="t3g-2o-0Ha" id="SFC-rn-fNJ"/>
                         <outlet property="btnPlay" destination="TzX-Wd-HLr" id="Q0A-au-KSP"/>

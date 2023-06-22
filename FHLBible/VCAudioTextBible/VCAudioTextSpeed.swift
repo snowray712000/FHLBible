@@ -12,6 +12,8 @@ import AVFoundation
 class VCAudioTextSpeed : UIViewController {
     @IBOutlet var sliders: [UISlider]!
     @IBOutlet var labelSpeeds: [UILabel]!
+    @IBOutlet weak var btnInfo: UIButton!
+    
     deinit {
         if synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
@@ -19,6 +21,9 @@ class VCAudioTextSpeed : UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = NSLocalizedString("有聲文字速度", comment: "有聲文字速度")
+        btnInfo.setTitle(NSLocalizedString("若點擊無聲音，是你的手機不支援此語言語音。若全部都沒聲音，那就是工程師的Bug了。", comment: "若點擊無聲音，是你的手機不支援此語言語音。若全部都沒聲音，那就是工程師的Bug了。") , for: .normal )
         
         func init_slider(_ slider: UISlider){
             slider.isContinuous = false

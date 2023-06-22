@@ -402,6 +402,7 @@
 		574BE54C2757A37500F5DC85 /* DIosBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIosBase.swift; sourceTree = "<group>"; };
 		574C7A782A43DE81005F3FD8 /* AudioStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStopTimer.swift; sourceTree = "<group>"; };
 		574C7A7A2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBibleTextStopTimer.swift; sourceTree = "<group>"; };
+		574C7A7C2A43E901005F3FD8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitByNewLines.swift; sourceTree = "<group>"; };
 		575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_comm.swift; sourceTree = "<group>"; };
 		575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IVCAudioBibleEvents.swift; sourceTree = "<group>"; };
@@ -1718,6 +1719,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				57F8267F2773407A0077A807 /* zh-Hans */,
+				574C7A7C2A43E901005F3FD8 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
