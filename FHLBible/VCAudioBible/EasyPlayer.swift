@@ -140,14 +140,7 @@ class EasyAVPlayer {
         targetPreviousCallback = nil
     }
     private func setupAudioSession(){
-        // 只需一次，如果沒設定，其實我們用 AVPlayer 時也會自動設定
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetooth, .allowBluetoothA2DP])
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print(error)
-        }
-        // try? AVAudioSession.sharedInstance().setActive(false)
+        activeBackgroundAudio()
     }
     private var targetPlayCallback: Any?
     private var targetPauseCallback: Any?
@@ -202,24 +195,7 @@ class EasyAVPlayer {
         let currentTimeInSecond = AVPlayer.s?.currentTime().seconds ?? 0.0;
         let durationInSecond = AVPlayer.s?.currentItem?.duration.seconds ?? 10.0;
         
-        
-        // 获取App图标
-//        let appIcon = UIImage(named: "AppIcon")
-//        let appIcon = UIImage(named: "AppIcon-iPhone App-60x60@2x")
-        let appIcon = UIImage(named: "FHLLOGO")
-        let artwork = MPMediaItemArtwork(boundsSize: appIcon?.size ?? CGSize.zero) { size in
-            return appIcon ?? UIImage()
-        }
-        
-        let nowPlayingInfo: [String : Any] = [
-            MPMediaItemPropertyTitle: title,
-            MPMediaItemPropertyArtist: artist,
-            MPMediaItemPropertyArtwork: artwork,
-            MPMediaItemPropertyPlaybackDuration: durationInSecond,
-            MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTimeInSecond,
-            MPNowPlayingInfoPropertyPlaybackRate: AVPlayer.s?.rate ?? DAudioBible.s.speed
-        ]
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        setPlayingCenterInfo(title, artist, durationInSecond, currentTimeInSecond )
     }
     func goNext(){
         // 在 VC 可以用 isEnable 來確保，但在這個 class 不能有這樣的假設，所以要作一個保護

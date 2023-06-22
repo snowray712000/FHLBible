@@ -7,16 +7,66 @@
 
 import Foundation
 import AVFoundation
+import CoreMedia
+import UIKit
+import MediaPlayer
 
 // 技術: 必需能發音(基本)。在情境`關閉畫面`下，仍要繼續播放，所以必須要有目前章節，才能搜尋下一個章節，也因此，取得經文過程，也會在這裡面作。
 class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
     static var s: AudioTextBibleTTSCore = AudioTextBibleTTSCore()
+    private var targetPlayCallback: Any?
+    private var targetPauseCallback: Any?
+    private var targetNextCallback: Any?
+    private var targetPreviousCallback: Any?
+    
     override init(){
         super.init()
         synthesizer.delegate = self
         
         AudioBibleTextStopTimer.s.evCompleted.addCallback {[weak self] sender, pData in
             self?.pause()
+        }
+        
+        let commandCenter = MPRemoteCommandCenter.shared()
+        // play command
+        targetPlayCallback = commandCenter.playCommand.addTarget {[weak self] event in
+            self?.play()
+            return .success
+        }
+        // pause command
+        targetPauseCallback = commandCenter.pauseCommand.addTarget {[weak self] event in
+            self?.pause()
+            return .success
+        }
+        // next track command
+        targetNextCallback = commandCenter.nextTrackCommand.addTarget {[weak self] event in
+            self?.goNextForce()
+            self?.updateInfoOfControlCenter()
+            return .success
+        }
+        // previous track command
+        targetPreviousCallback = commandCenter.previousTrackCommand.addTarget {[weak self] event in
+            self?.goPrevForce()
+            self?.updateInfoOfControlCenter()
+            return .success
+        }
+        self.updateInfoOfControlCenter()
+        
+        
+    }
+    private func updateInfoOfControlCenter(){
+        if self.addrStr == nil {
+            return
+        }
+        
+        let oneVerseSecond = 10.0
+        let artist = NSLocalizedString("有聲文字", comment: "有聲文字")
+        if data.count == 0 || versionsValid.count == 0 {
+            setPlayingCenterInfo(self.addrStr, artist, oneVerseSecond, 0.0)
+        } else {
+            let cnt = oneVerseSecond * Double( data.count * versionsValid.count )
+            let idx = oneVerseSecond * Double( versionsValid.count * idxRow + idxCol )
+            setPlayingCenterInfo(self.addrStr, artist, cnt , idx)
         }
     }
     var addr: VerseRange!
@@ -44,6 +94,9 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
             
             self.pause()
             self.data = [] // 使重新搜尋
+            
+            //
+            self.updateInfoOfControlCenter()
         }
     }
     var addrStr: String! // 供 queryData 用，也給外部用
@@ -67,6 +120,7 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         if data.isEmpty {
             queryDataAsync()
         } else {
+            
             playData()
             isPlayingOfUser = true
         }
@@ -118,6 +172,9 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         } else {
             self.goNextForce()
         }
+        
+        // 更新 ui, 因為 idxRow idxCol 更新了
+        self.updateInfoOfControlCenter()
     }
     private func goNext_SetRowCol(){
         idxCol = idxCol + 1

@@ -51,6 +51,9 @@ class VCAudioTextBible : UIViewController {
         
         self.loopMode = ttsCore.loopMode
         
+        // 使背景播放不會被中斷(甚至沒中控中心，還是會自動切換下一首)
+        activeBackgroundAudio()
+        
         ttsCore.addrChanged$.addCallback({[weak self] sender, pData in
             self?.addrBarItem.title =  self?.ttsCore.addrStr
             self?.addr = self?.ttsCore.addr
@@ -68,6 +71,8 @@ class VCAudioTextBible : UIViewController {
                 self?.btnTimerStop.setTitle("-- : --", for: .normal)
             }
         }, eventKey)
+        
+        
     }
     deinit {
         ttsCore.addrChanged$.clearCallback(self.eventKey)
