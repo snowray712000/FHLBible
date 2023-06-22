@@ -1702,7 +1702,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TzX-Wd-HLr" userLabel="btnPlay">
-                                <rect key="frame" x="166" y="99" width="43" height="34"/>
+                                <rect key="frame" x="166" y="74" width="43" height="34"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal">
                                     <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
@@ -1715,11 +1715,8 @@
                                     <action selector="clickPlayOrPause" destination="KkN-g9-nu0" eventType="primaryActionTriggered" id="227-py-zd9"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1hV-CR-NOB">
-                                <rect key="frame" x="52" y="64" width="271" height="31"/>
-                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3g-2o-0Ha" userLabel="btnNext">
-                                <rect key="frame" x="214" y="99" width="49" height="34"/>
+                                <rect key="frame" x="214" y="74" width="49" height="34"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="forward.end.fill" catalog="system"/>
                                 <buttonConfiguration key="configuration" style="tinted" image="forward.end.fill" catalog="system"/>
@@ -1729,7 +1726,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xtq-rV-hZM" userLabel="btnPrev">
-                                <rect key="frame" x="112" y="99" width="49" height="34"/>
+                                <rect key="frame" x="112" y="74" width="49" height="34"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="backward.end.fill" catalog="system"/>
                                 <buttonConfiguration key="configuration" style="tinted" image="backward.end.fill" catalog="system"/>
@@ -1738,20 +1735,8 @@
                                     <action selector="clickPrev" destination="KkN-g9-nu0" eventType="primaryActionTriggered" id="meu-QY-Wpw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suV-vg-nkJ" userLabel="labelTimeRemain">
-                                <rect key="frame" x="326" y="68.5" width="44" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkO-o7-vIL" userLabel="labelTimeAlready">
-                                <rect key="frame" x="5" y="68.5" width="44" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aS-fg-aLF" userLabel="btnPlayrate">
-                                <rect key="frame" x="268" y="99" width="52" height="34"/>
+                                <rect key="frame" x="268" y="74" width="52" height="34"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="timelapse" catalog="system"/>
                                 <buttonConfiguration key="configuration" style="tinted" image="timelapse" catalog="system"/>
@@ -1761,7 +1746,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1g5-PU-7M3" userLabel="btnLoopMode">
-                                <rect key="frame" x="63" y="99" width="44" height="34"/>
+                                <rect key="frame" x="63" y="74" width="44" height="34"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal">
                                     <imageReference key="image" image="goforward" catalog="system" symbolScale="default"/>
@@ -1775,7 +1760,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kr7-AB-nDX" userLabel="btnTimerStop">
-                                <rect key="frame" x="5" y="138" width="365" height="34"/>
+                                <rect key="frame" x="5" y="113" width="365" height="34"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" image="timer" catalog="system" title="-- : --"/>
                                 <connections>
@@ -1789,25 +1774,17 @@
                         <constraints>
                             <constraint firstItem="TzX-Wd-HLr" firstAttribute="centerX" secondItem="lkC-si-7im" secondAttribute="centerX" id="19M-6q-Wwd"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="leading" secondItem="lkC-si-7im" secondAttribute="leading" constant="5" id="5cb-u2-ljM"/>
-                            <constraint firstItem="CkO-o7-vIL" firstAttribute="centerY" secondItem="1hV-CR-NOB" secondAttribute="centerY" id="6jd-xu-AOJ"/>
                             <constraint firstItem="1aS-fg-aLF" firstAttribute="leading" secondItem="t3g-2o-0Ha" secondAttribute="trailing" constant="5" id="AzC-Su-uu5"/>
                             <constraint firstItem="1g5-PU-7M3" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="Jtl-Sw-a2a"/>
-                            <constraint firstItem="1hV-CR-NOB" firstAttribute="top" secondItem="lkC-si-7im" secondAttribute="top" id="Prn-Hv-vwQ"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="top" secondItem="TzX-Wd-HLr" secondAttribute="bottom" constant="5" id="R54-Kk-Fs5"/>
-                            <constraint firstItem="suV-vg-nkJ" firstAttribute="leading" secondItem="1hV-CR-NOB" secondAttribute="trailing" constant="5" id="Skn-L6-OhB"/>
                             <constraint firstItem="1aS-fg-aLF" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="UYa-4L-hg2"/>
-                            <constraint firstItem="CkO-o7-vIL" firstAttribute="leading" secondItem="lkC-si-7im" secondAttribute="leading" constant="5" id="haf-0n-fdY"/>
-                            <constraint firstItem="TzX-Wd-HLr" firstAttribute="top" secondItem="1hV-CR-NOB" secondAttribute="bottom" constant="5" id="jFV-eh-ATR"/>
                             <constraint firstItem="Xtq-rV-hZM" firstAttribute="leading" secondItem="1g5-PU-7M3" secondAttribute="trailing" constant="5" id="l7X-lp-cRw"/>
                             <constraint firstItem="t3g-2o-0Ha" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="lSd-H9-AGw"/>
-                            <constraint firstItem="1hV-CR-NOB" firstAttribute="centerX" secondItem="lkC-si-7im" secondAttribute="centerX" id="nsI-2U-qkO"/>
-                            <constraint firstItem="1hV-CR-NOB" firstAttribute="leading" secondItem="CkO-o7-vIL" secondAttribute="trailing" constant="5" id="pfm-rX-cMX"/>
                             <constraint firstItem="Xtq-rV-hZM" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="rAP-Hb-NaG"/>
-                            <constraint firstItem="suV-vg-nkJ" firstAttribute="centerY" secondItem="1hV-CR-NOB" secondAttribute="centerY" id="rG9-9m-16l"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="trailing" secondItem="lkC-si-7im" secondAttribute="trailing" constant="-5" id="vy6-QM-3HX"/>
+                            <constraint firstItem="TzX-Wd-HLr" firstAttribute="top" secondItem="lkC-si-7im" secondAttribute="top" constant="10" id="y3L-aL-vFl"/>
                             <constraint firstItem="TzX-Wd-HLr" firstAttribute="leading" secondItem="Xtq-rV-hZM" secondAttribute="trailing" constant="5" id="z7B-WL-eu5"/>
                             <constraint firstItem="t3g-2o-0Ha" firstAttribute="leading" secondItem="TzX-Wd-HLr" secondAttribute="trailing" constant="5" id="zNY-VB-zaP"/>
-                            <constraint firstItem="suV-vg-nkJ" firstAttribute="trailing" secondItem="lkC-si-7im" secondAttribute="trailing" constant="-5" id="zub-9r-iQc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="有聲文字" id="cBL-wC-3Uz">
@@ -1821,9 +1798,6 @@
                         <outlet property="btnPlayrate" destination="1aS-fg-aLF" id="xni-0w-5Xc"/>
                         <outlet property="btnPrev" destination="Xtq-rV-hZM" id="Ia7-S7-0Tq"/>
                         <outlet property="btnTimerStop" destination="Kr7-AB-nDX" id="0FZ-Df-PhR"/>
-                        <outlet property="labelTime1" destination="CkO-o7-vIL" id="yws-Hh-6rC"/>
-                        <outlet property="labelTimeRemain" destination="suV-vg-nkJ" id="B4K-0o-QH2"/>
-                        <outlet property="sliderProcess" destination="1hV-CR-NOB" id="Imq-hw-xft"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Odm-GI-6Ai" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

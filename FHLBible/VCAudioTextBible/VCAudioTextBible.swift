@@ -32,9 +32,6 @@ class VCAudioTextBible : UIViewController {
         super.viewDidLoad()
         self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
         
-        // 還沒開發，先 mark 起來
-        btnTimerStop.isHidden = true
-        
         ttsCore.setAddr(self.addr)
         ttsCore.setVersions(self.vers)
 
@@ -51,9 +48,24 @@ class VCAudioTextBible : UIViewController {
             self?.addrBarItem.title =  self?.ttsCore.addrStr
             self?.addr = self?.ttsCore.addr
         }, self.eventKey)
+        
+        AudioBibleTextStopTimer.s.evTick.addCallback({[weak self]sender, pData in
+            DispatchQueue.main.async {
+                let str = ctime2dashdashformat(AudioBibleTextStopTimer.s.secondRemain)
+                self?.btnTimerStop.setTitle(str, for: .normal)
+            }
+        }, eventKey)
+        AudioBibleTextStopTimer.s.evCompleted.addCallback({[weak self]sender, pData in
+            DispatchQueue.main.async {
+                self?.btnPlay.setImage( UIImage(systemName: "play.fill"), for: .normal)
+                self?.btnTimerStop.setTitle("-- : --", for: .normal)
+            }
+        }, eventKey)
     }
     deinit {
         ttsCore.addrChanged$.clearCallback(self.eventKey)
+        AudioBibleTextStopTimer.s.evTick.clearCallback(self.eventKey)
+        AudioBibleTextStopTimer.s.evCompleted.clearCallback(self.eventKey)
     }
     @IBAction func clickPlayOrPause(){
         if self.ttsCore.isPlayingOfUser == false{
@@ -74,8 +86,33 @@ class VCAudioTextBible : UIViewController {
         let vc = self.gVCAudioTextSpeed()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @IBAction func clickStopTimer(){
+        let vc = VCAudioStopTimer()
+        vc.onPicker$.addCallback {[weak self] sender, pData in
+            if let pData = pData {
+                if pData == "0" { // 取消計時
+                    AudioBibleTextStopTimer.s.cancelTimer()
+                    AudioBibleTextStopTimer.s.secondRemain = 0.0
+                    self?.btnTimerStop.setTitle("-- : --", for: .normal)
+                } else {
+                    // pData 是 min
+                    let min = Double(pData) ?? 30
+                    let sec = min * 60.0
+                    
+                    let str = ctime2dashdashformat(sec)
+                    self?.btnTimerStop.setTitle(str, for: .normal)
+                    
+                    // start timer
+                    AudioBibleTextStopTimer.s.stopPrevTimerAndStartNewTimer(sec)
+                }
+            }
+        }
         
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = vc
+        
+        present(vc,animated: true,completion: nil)
     }
     @IBAction func clickLoopMode(){
         if loopMode == .All {

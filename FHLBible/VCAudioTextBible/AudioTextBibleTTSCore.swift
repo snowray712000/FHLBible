@@ -14,6 +14,10 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
     override init(){
         super.init()
         synthesizer.delegate = self
+        
+        AudioBibleTextStopTimer.s.evCompleted.addCallback {[weak self] sender, pData in
+            self?.pause()
+        }
     }
     var addr: VerseRange!
     var versions: [String] = []
