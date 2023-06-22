@@ -21,7 +21,7 @@ class VCAudioTextBible : UIViewController {
     @IBOutlet weak var addrBarItem: UIBarItem!
     @IBOutlet weak var btnTimerStop: UIButton!
     @IBOutlet weak var btnInfo: UIButton!
-    
+    @IBOutlet weak var btnInfo2: UIButton!
     
     var addr: VerseRange!
     var vers: [String]!
@@ -35,7 +35,10 @@ class VCAudioTextBible : UIViewController {
         
         let strInfo = NSLocalizedString("聖經中的希臘文是古希臘文，而文字發音系統(TTS) 是現代希臘文，希伯來文亦同，自行斟酌使用。", comment: "聖經中的希臘文是古希臘文，而文字發音系統(TTS) 是現代希臘文，希伯來文亦同，自行斟酌使用。")
         btnInfo.setTitle(strInfo, for: .normal)
-        title = NSLocalizedString("有聲文字", comment: "有聲文字")        
+        btnInfo2.setTitle(NSLocalizedString("當鎖定畫面播放時,進度列時間僅供參考,堪用堪用。", comment: "當鎖定畫面播放時,進度列時間僅供參考,堪用堪用。"), for: .normal)
+        
+        title = NSLocalizedString("有聲文字", comment: "有聲文字")
+        
         
         self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
         

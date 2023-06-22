@@ -1770,6 +1770,14 @@
                                     <color key="baseForegroundColor" systemColor="systemTealColor"/>
                                 </buttonConfiguration>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lp-Rg-Jme" userLabel="info2">
+                                <rect key="frame" x="16" y="205" width="343" height="34"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="info.bubble.fill" catalog="system" title="當鎖定畫面播放時,進度列時間僅供參考,堪用堪用。">
+                                    <fontDescription key="titleFontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="12"/>
+                                    <color key="baseForegroundColor" systemColor="systemTealColor"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lkC-si-7im"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1777,6 +1785,7 @@
                             <constraint firstItem="TzX-Wd-HLr" firstAttribute="centerX" secondItem="lkC-si-7im" secondAttribute="centerX" id="19M-6q-Wwd"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="leading" secondItem="lkC-si-7im" secondAttribute="leading" constant="5" id="5cb-u2-ljM"/>
                             <constraint firstItem="1aS-fg-aLF" firstAttribute="leading" secondItem="t3g-2o-0Ha" secondAttribute="trailing" constant="5" id="AzC-Su-uu5"/>
+                            <constraint firstItem="2Lp-Rg-Jme" firstAttribute="trailing" secondItem="lkC-si-7im" secondAttribute="trailing" constant="-16" id="Ce6-hW-mor"/>
                             <constraint firstItem="1g5-PU-7M3" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="Jtl-Sw-a2a"/>
                             <constraint firstItem="H7G-Ae-Jvz" firstAttribute="top" secondItem="Kr7-AB-nDX" secondAttribute="bottom" constant="5" id="K2j-vo-swL"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="top" secondItem="TzX-Wd-HLr" secondAttribute="bottom" constant="5" id="R54-Kk-Fs5"/>
@@ -1786,8 +1795,10 @@
                             <constraint firstItem="t3g-2o-0Ha" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="lSd-H9-AGw"/>
                             <constraint firstItem="Xtq-rV-hZM" firstAttribute="centerY" secondItem="TzX-Wd-HLr" secondAttribute="centerY" id="rAP-Hb-NaG"/>
                             <constraint firstItem="H7G-Ae-Jvz" firstAttribute="trailing" secondItem="lkC-si-7im" secondAttribute="trailing" constant="-16" id="rcf-lJ-cSs"/>
+                            <constraint firstItem="2Lp-Rg-Jme" firstAttribute="leading" secondItem="lkC-si-7im" secondAttribute="leading" constant="16" id="rhI-4u-cRg"/>
                             <constraint firstItem="Kr7-AB-nDX" firstAttribute="trailing" secondItem="lkC-si-7im" secondAttribute="trailing" constant="-5" id="vy6-QM-3HX"/>
                             <constraint firstItem="TzX-Wd-HLr" firstAttribute="top" secondItem="lkC-si-7im" secondAttribute="top" constant="10" id="y3L-aL-vFl"/>
+                            <constraint firstItem="2Lp-Rg-Jme" firstAttribute="top" secondItem="H7G-Ae-Jvz" secondAttribute="bottom" constant="5" id="yPo-Rh-FDU"/>
                             <constraint firstItem="TzX-Wd-HLr" firstAttribute="leading" secondItem="Xtq-rV-hZM" secondAttribute="trailing" constant="5" id="z7B-WL-eu5"/>
                             <constraint firstItem="t3g-2o-0Ha" firstAttribute="leading" secondItem="TzX-Wd-HLr" secondAttribute="trailing" constant="5" id="zNY-VB-zaP"/>
                         </constraints>
@@ -1798,6 +1809,7 @@
                     <connections>
                         <outlet property="addrBarItem" destination="5oL-xk-lK0" id="BCc-mN-AcA"/>
                         <outlet property="btnInfo" destination="H7G-Ae-Jvz" id="Sbc-n6-yif"/>
+                        <outlet property="btnInfo2" destination="2Lp-Rg-Jme" id="dSO-uj-cyU"/>
                         <outlet property="btnLoopMode" destination="1g5-PU-7M3" id="iUx-S1-pGA"/>
                         <outlet property="btnNext" destination="t3g-2o-0Ha" id="SFC-rn-fNJ"/>
                         <outlet property="btnPlay" destination="TzX-Wd-HLr" id="Q0A-au-KSP"/>

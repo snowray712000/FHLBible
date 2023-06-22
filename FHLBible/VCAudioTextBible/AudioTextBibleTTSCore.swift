@@ -233,6 +233,9 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
             }
             
             self?.play()
+            
+            // 取得新章數，節數
+            self?.updateInfoOfControlCenter()
         }
         
         dataReader.qDataForReadAsync(addrStr, versionsValid ) // 此處的聖經版本，已經過濾，都是支援的
