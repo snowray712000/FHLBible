@@ -62,6 +62,23 @@ extension DAddress : Equatable, Comparable {
         return lhs.book == rhs.book && lhs.chap == rhs.chap && lhs.verse == rhs.verse
     }
 }
+extension VerseRange : Equatable {
+    public static func == (lhs: VerseRange, rhs: VerseRange) -> Bool {
+        if lhs.verses.count != rhs.verses.count { return false }
+        
+        let r1a = lhs.verses
+        let r1b = rhs.verses
+        
+        for (a1,a2) in zip(r1a, r1b){
+            if a1 != a2 {
+                return false
+            }
+        }
+        return true
+    }
+    
+    
+}
 /// 直接呼叫 .distinct() 但沒有排序
 extension Sequence where Iterator.Element: Hashable {
     func distinct() -> [Iterator.Element] {

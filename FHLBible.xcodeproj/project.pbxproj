@@ -101,6 +101,9 @@
 		574BE5472757673400F5DC85 /* ReadDataQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BE5462757673400F5DC85 /* ReadDataQ.swift */; };
 		574BE54927577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BE54827577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift */; };
 		574BE54D2757A37500F5DC85 /* DIosBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BE54C2757A37500F5DC85 /* DIosBase.swift */; };
+		574C7A792A43DE81005F3FD8 /* AudioStopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574C7A782A43DE81005F3FD8 /* AudioStopTimer.swift */; };
+		574C7A7B2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574C7A7A2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift */; };
+		574C7A7E2A446D41005F3FD8 /* ActiveBackgroundAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574C7A7D2A446D41005F3FD8 /* ActiveBackgroundAudio.swift */; };
 		57543DAE2779A2DC00587B40 /* SplitByNewLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */; };
 		575574042933062300CC0560 /* DoOneDownload_bible_comm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */; };
 		575AD92129ED1A49006FD6E0 /* IVCAudioBibleEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */; };
@@ -211,6 +214,11 @@
 		57F826802773407A0077A807 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F8267E2773407A0077A807 /* Localizable.strings */; };
 		57F82683277341C10077A807 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F82681277341C10077A807 /* InfoPlist.strings */; };
 		57F826842773633C0077A807 /* ViewVersionsPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F826862773633C0077A807 /* ViewVersionsPicker.xib */; };
+		57FBC00B2A217772002E9DF7 /* VCAudioTextBible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */; };
+		57FBC00D2A24A939002E9DF7 /* TTSEngineGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */; };
+		57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */; };
+		57FBC0112A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */; };
+		57FBC0132A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */; };
 		C8089F22267030A5004FA377 /* DTextDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F21267030A5004FA377 /* DTextDraw.swift */; };
 		C8089F27267030D9004FA377 /* DTextString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F26267030D9004FA377 /* DTextString.swift */; };
 		C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F2B267030E5004FA377 /* DTextTestData.swift */; };
@@ -393,6 +401,10 @@
 		574BE5462757673400F5DC85 /* ReadDataQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataQ.swift; sourceTree = "<group>"; };
 		574BE54827577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneVerseFunctionsClickFlow.swift; sourceTree = "<group>"; };
 		574BE54C2757A37500F5DC85 /* DIosBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIosBase.swift; sourceTree = "<group>"; };
+		574C7A782A43DE81005F3FD8 /* AudioStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioStopTimer.swift; sourceTree = "<group>"; };
+		574C7A7A2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBibleTextStopTimer.swift; sourceTree = "<group>"; };
+		574C7A7C2A43E901005F3FD8 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		574C7A7D2A446D41005F3FD8 /* ActiveBackgroundAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveBackgroundAudio.swift; sourceTree = "<group>"; };
 		57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitByNewLines.swift; sourceTree = "<group>"; };
 		575574032933062300CC0560 /* DoOneDownload_bible_comm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOneDownload_bible_comm.swift; sourceTree = "<group>"; };
 		575AD92029ED1A49006FD6E0 /* IVCAudioBibleEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IVCAudioBibleEvents.swift; sourceTree = "<group>"; };
@@ -508,6 +520,11 @@
 		57F8268D277363930077A807 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ViewVersionsPicker.strings"; sourceTree = "<group>"; };
 		57F8268F277363AC0077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ViewVersionsPicker.strings"; sourceTree = "<group>"; };
 		57F82690277370110077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextBible.swift; sourceTree = "<group>"; };
+		57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSEngineGetter.swift; sourceTree = "<group>"; };
+		57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTextBibleTTSCore.swift; sourceTree = "<group>"; };
+		57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextSpeed.swift; sourceTree = "<group>"; };
+		57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerAudioTextSpeed.swift; sourceTree = "<group>"; };
 		C8089F21267030A5004FA377 /* DTextDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTextDraw.swift; sourceTree = "<group>"; };
 		C8089F26267030D9004FA377 /* DTextString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextString.swift; sourceTree = "<group>"; };
 		C8089F2B267030E5004FA377 /* DTextTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextTestData.swift; sourceTree = "<group>"; };
@@ -646,6 +663,7 @@
 				573CB9022744FB3F00AEEC9B /* ManagerSearchHistory.swift */,
 				578B2542274635C400EF2705 /* ManagerIsSnVisible.swift */,
 				5727F5B129E84F090077BA86 /* ManagerAudioBible.swift */,
+				57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -737,6 +755,8 @@
 				575AD92229EEB103006FD6E0 /* AudioBibleSetter.swift */,
 				5700346429E12D880007E6F3 /* DAudioBible.swift */,
 				575AD92C29FC3618006FD6E0 /* AudioBibleStopTimer.swift */,
+				574C7A782A43DE81005F3FD8 /* AudioStopTimer.swift */,
+				574C7A7D2A446D41005F3FD8 /* ActiveBackgroundAudio.swift */,
 			);
 			path = VCAudioBible;
 			sourceTree = "<group>";
@@ -1023,6 +1043,18 @@
 			path = ViewDisplayTable;
 			sourceTree = "<group>";
 		};
+		57FBC0082A216E9C002E9DF7 /* VCAudioTextBible */ = {
+			isa = PBXGroup;
+			children = (
+				57FBC00A2A217772002E9DF7 /* VCAudioTextBible.swift */,
+				57FBC00C2A24A939002E9DF7 /* TTSEngineGetter.swift */,
+				57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */,
+				57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */,
+				574C7A7A2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift */,
+			);
+			path = VCAudioTextBible;
+			sourceTree = "<group>";
+		};
 		C84402062631584D00AD0CE9 /* Read */ = {
 			isa = PBXGroup;
 			children = (
@@ -1108,6 +1140,7 @@
 		C8AD1D4A2624243C0046C8EE /* FHLBible */ = {
 			isa = PBXGroup;
 			children = (
+				57FBC0082A216E9C002E9DF7 /* VCAudioTextBible */,
 				572D9A9A29CAD67C008DF7BF /* VCAudioBible */,
 				57BBC7512902CD33001DC3FE /* SQLiteFHL */,
 				57BBC74E2901E213001DC3FE /* SINQ */,
@@ -1472,6 +1505,7 @@
 				57BBC77F290C44F7001DC3FE /* DoOneDownload_bible_gb_little.swift in Sources */,
 				57A21A84276A59D70022212D /* VCSnDictMore.swift in Sources */,
 				57F22C60272B6C8D00526631 /* FindIndexOfCharInTextView.swift in Sources */,
+				57FBC0112A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift in Sources */,
 				574599AE273C2482005635D0 /* FhlScCore.swift in Sources */,
 				57AD73C527508BAE00CA9BA8 /* VCVersionsCompareInOneVerse.swift in Sources */,
 				57F22C71272C50CB00526631 /* VCReadImplementEvents.swift in Sources */,
@@ -1480,6 +1514,7 @@
 				57F22C64272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift in Sources */,
 				57055733295DCE7800A98BCE /* DoOneDownload_cbol_dict.swift in Sources */,
 				57BBC761290BC6E5001DC3FE /* SQLNormalize_unv.swift in Sources */,
+				57FBC0132A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift in Sources */,
 				C88D235826EB08640088BCF5 /* BibleReadDataGetter.swift in Sources */,
 				C88D234D26EB084A0088BCF5 /* DataGetterUsingBibleReader.swift in Sources */,
 				C8AD1DAD262961E20046C8EE /* MyButtonForDownload.swift in Sources */,
@@ -1539,6 +1574,7 @@
 				5727F5B029E524F60077BA86 /* EasyCheckAudioUrl.swift in Sources */,
 				57AD73B9274D3DF900CA9BA8 /* SSKjv.swift in Sources */,
 				57D7EB652723FE49003D2557 /* ViewSearchFilter.swift in Sources */,
+				57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */,
 				574599AB273C1B05005635D0 /* VCComment.swift in Sources */,
 				57395B40272972380067F699 /* VCSearchResult.swift in Sources */,
 				578B25642748227E00EF2705 /* DApiRt.swift in Sources */,
@@ -1555,6 +1591,8 @@
 				577CEFAE2754BDAA003014A8 /* FHLBible.xcdatamodeld in Sources */,
 				C85A0F4F268C057A0020CD94 /* DApiQsb.swift in Sources */,
 				C88D234226EB070C0088BCF5 /* _index.swift in Sources */,
+				574C7A792A43DE81005F3FD8 /* AudioStopTimer.swift in Sources */,
+				57FBC00B2A217772002E9DF7 /* VCAudioTextBible.swift in Sources */,
 				570A64BD273B5FFD00B5EC11 /* ManagerBibleVersions.swift in Sources */,
 				571413442733585600CD206E /* VCVersionsPicker.swift in Sources */,
 				57395B442729A83C0067F699 /* ViewSearching.swift in Sources */,
@@ -1563,9 +1601,11 @@
 				576992BF274BB84D00717E8C /* VCFooter.swift in Sources */,
 				57D4928A2935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift in Sources */,
 				C8AD1D962626D6790046C8EE /* ArrayExtensionLinq.swift in Sources */,
+				574C7A7B2A43DEA0005F3FD8 /* AudioBibleTextStopTimer.swift in Sources */,
 				C88D237026EB10530088BCF5 /* QsbRecords2DOneLines01.swift in Sources */,
 				574BE54227570E8800F5DC85 /* VCSettings.swift in Sources */,
 				576992BC274BB60B00717E8C /* FooterConvertorDTexts.swift in Sources */,
+				574C7A7E2A446D41005F3FD8 /* ActiveBackgroundAudio.swift in Sources */,
 				578B25622747FCEB00EF2705 /* SSFoot.swift in Sources */,
 				574599B8273D02B3005635D0 /* DApiStwcbhdic.swift in Sources */,
 				57BBC75F290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift in Sources */,
@@ -1622,6 +1662,7 @@
 				57AD73C727509D2F00CA9BA8 /* BibleVersionFonts.swift in Sources */,
 				C8AD1DB22629AF2F0046C8EE /* ijnDate.swift in Sources */,
 				C88D233C26EB05A10088BCF5 /* SplitStringBtwHWFW.swift in Sources */,
+				57FBC00D2A24A939002E9DF7 /* TTSEngineGetter.swift in Sources */,
 				57BBC77D290C44C6001DC3FE /* DoOneDownload_bible_little.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1682,6 +1723,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				57F8267F2773407A0077A807 /* zh-Hans */,
+				574C7A7C2A43E901005F3FD8 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1853,7 +1895,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = VYVKTHK4E5;
 				INFOPLIST_FILE = FHLBible/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1861,7 +1903,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7;
+				MARKETING_VERSION = 2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1877,7 +1919,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = VYVKTHK4E5;
 				INFOPLIST_FILE = FHLBible/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1885,7 +1927,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7;
+				MARKETING_VERSION = 2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = IJN.FHLBible;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

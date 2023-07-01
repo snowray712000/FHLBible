@@ -26,13 +26,20 @@ class EasyAVPlayer {
         setupCallbacks()
         
         setupAudioSession()
+        
+        DBackgroundMusic.s.evChanged.addCallback {[weak self] pNew, pOld in
+            if pOld == .bible && pNew != .bible {
+                self?.stopBackgroundMusic()
+                self?.pauseAndRelease()
+            }
+        }
     }
     private func setupCallbacks(){
-        evAppBackForeSwitch.evEnteredBackground.addCallback {[weak self] sender, pData in
+        evAppBackForeSwitch.evResignActive.addCallback {[weak self] sender, pData in
             print("easypleyer enter background")
             self?.startBackgroundMusic()
         }
-        evAppBackForeSwitch.evEnteredForeground.addCallback {[weak self] sender, pData in
+        evAppBackForeSwitch.evBecomeActive.addCallback {[weak self] sender, pData in
             print("easypleyer enter forebackground")
             self?.stopBackgroundMusic()
         }
@@ -127,27 +134,28 @@ class EasyAVPlayer {
     }
     
     private func stopBackgroundMusic(){
-        print("stop background music func call")
         let commandCenter = MPRemoteCommandCenter.shared()
         
-        commandCenter.playCommand.removeTarget(targetPlayCallback)
-        commandCenter.pauseCommand.removeTarget(targetPauseCallback)
-        commandCenter.nextTrackCommand.removeTarget(targetNextCallback)
-        commandCenter.previousTrackCommand.removeTarget(targetPreviousCallback)
+        if targetPlayCallback != nil {
+            commandCenter.playCommand.removeTarget(targetPlayCallback)
+        }
+        if targetPauseCallback != nil {
+            commandCenter.pauseCommand.removeTarget(targetPauseCallback)
+        }
+        if targetNextCallback != nil {
+            commandCenter.nextTrackCommand.removeTarget(targetNextCallback)
+        }
+        if targetPreviousCallback != nil {
+            commandCenter.previousTrackCommand.removeTarget(targetPreviousCallback)
+        }
+        
         targetNextCallback = nil
         targetPlayCallback = nil
         targetPauseCallback = nil
         targetPreviousCallback = nil
     }
     private func setupAudioSession(){
-        // 只需一次，如果沒設定，其實我們用 AVPlayer 時也會自動設定
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetooth, .allowBluetoothA2DP])
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print(error)
-        }
-        // try? AVAudioSession.sharedInstance().setActive(false)
+        activeBackgroundAudio(true)
     }
     private var targetPlayCallback: Any?
     private var targetPauseCallback: Any?
@@ -155,25 +163,32 @@ class EasyAVPlayer {
     private var targetPreviousCallback: Any?
     
     private func startBackgroundMusic(){
+        if DBackgroundMusic.s.tp != .bible { return }
+        
         print("start background music func call")
         let commandCenter = MPRemoteCommandCenter.shared()
         // play command
         
         targetPlayCallback = commandCenter.playCommand.addTarget {event in
-           print("easypleyer play command clicked")
-           if let s = AVPlayer.s {
+            if  DBackgroundMusic.s.tp != .bible { return .success }
+            
+            print("easypleyer play command clicked")
+            if let s = AVPlayer.s {
                s.rate = DAudioBible.s.speed // play will set 1 seepd.
-           }
-           return .success
+            }
+            return .success
         }
        // pause command
         targetPauseCallback = commandCenter.pauseCommand.addTarget {event in
+            if DBackgroundMusic.s.tp != .bible { return .success }
+            
            print("easypleyer pause command clicked")
            AVPlayer.s?.pause()
            return .success
        }
        // next track command
         targetNextCallback = commandCenter.nextTrackCommand.addTarget {[weak self] event in
+            if DBackgroundMusic.s.tp != .bible { return .success }
            print("easypleyer next command clicked")
            // play next track here
            self?.goNext()
@@ -182,6 +197,7 @@ class EasyAVPlayer {
        }
        // previous track command
         targetPreviousCallback = commandCenter.previousTrackCommand.addTarget {[weak self] event in
+            if  DBackgroundMusic.s.tp != .bible { return .success }
            print("easypleyer previous command clicked")
            // play previous track here
            self?.goPrev()
@@ -202,24 +218,7 @@ class EasyAVPlayer {
         let currentTimeInSecond = AVPlayer.s?.currentTime().seconds ?? 0.0;
         let durationInSecond = AVPlayer.s?.currentItem?.duration.seconds ?? 10.0;
         
-        
-        // 获取App图标
-//        let appIcon = UIImage(named: "AppIcon")
-//        let appIcon = UIImage(named: "AppIcon-iPhone App-60x60@2x")
-        let appIcon = UIImage(named: "FHLLOGO")
-        let artwork = MPMediaItemArtwork(boundsSize: appIcon?.size ?? CGSize.zero) { size in
-            return appIcon ?? UIImage()
-        }
-        
-        let nowPlayingInfo: [String : Any] = [
-            MPMediaItemPropertyTitle: title,
-            MPMediaItemPropertyArtist: artist,
-            MPMediaItemPropertyArtwork: artwork,
-            MPMediaItemPropertyPlaybackDuration: durationInSecond,
-            MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTimeInSecond,
-            MPNowPlayingInfoPropertyPlaybackRate: AVPlayer.s?.rate ?? DAudioBible.s.speed
-        ]
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+        setPlayingCenterInfo(title, artist, durationInSecond, currentTimeInSecond )
     }
     func goNext(){
         // 在 VC 可以用 isEnable 來確保，但在這個 class 不能有這樣的假設，所以要作一個保護

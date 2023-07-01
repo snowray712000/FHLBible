@@ -85,10 +85,10 @@ class VCAudioBible : UIViewController {
         
         self.loopMode = DAudioBible.s.loopMode
         self.add_seek_using_sliderBar()
-        eventsOfAppBackForeSwitch.evEnteredBackground.addCallback { [weak self] sender, pData in
+        eventsOfAppBackForeSwitch.evResignActive.addCallback { [weak self] sender, pData in
             self?.events.releaseEvents()
         }
-        eventsOfAppBackForeSwitch.evEnteredForeground.addCallback {  [weak self] sender, pData in
+        eventsOfAppBackForeSwitch.evBecomeActive.addCallback {  [weak self] sender, pData in
             // 目前章節，更新
             self?.book = DAudioBible.s.addr?.book ?? 40
             self?.chap = DAudioBible.s.addr?.chap ?? 1
@@ -131,6 +131,8 @@ class VCAudioBible : UIViewController {
             self.add_11_callbacks()
             AudioBibleSetter.s.trySetDAudioBibleAddrAndMp3(DAddress(book,chap,1), versionIdx)
         }
+        
+        DBackgroundMusic.s.tp = .bible // 避免中控中心按下播放，是兩個音源
     }
     // viewDidLoad
     // clickNext clickPrev (有下面那個就可以了)

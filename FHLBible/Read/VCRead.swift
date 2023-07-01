@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AVFoundation
 
 protocol IVCReadDataQ {
     func qDataForReadAsync(_ addr:String, _ vers: [String])
@@ -118,8 +119,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         r2.insert(addr2, at: 0)
         ManagerHistoryOfRead.s.updateCur(r2)
     }
+    
+    
     @IBAction func doMore(){
-   
         let vc = VCReadMore()
         vc.onPicker$.addCallback { sender, pData in
             if pData == "prev" {
@@ -136,12 +138,17 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
                 vc.book = addr.book
                 vc.chap = addr.chap
                 self.navigationController?.pushViewController(vc, animated: true)
+            } else if pData == "audiobibletext" {
+                let vc = self.gVCAudioTextBible()
+                vc.addr = self._addrsCur!
+                vc.vers = self._vers
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
-        
+
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = vc
-        
+
         present(vc,animated: true,completion: nil)
         
     }
