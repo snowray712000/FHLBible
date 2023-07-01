@@ -1,21 +1,21 @@
 import UIKit
 class EasyEventAppBackgroundForegroundSwitch {
-    var evEnteredForeground = IjnEventAny()
-    var evEnteredBackground = IjnEventAny()
+    var evBecomeActive = IjnEventAny()
+    var evResignActive = IjnEventAny()
     init(){
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDidEnterBackgroundNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
-            
-        NotificationCenter.default.addObserver(self, selector: #selector(handleWillEnterForegroundNotification), name: UIApplication.willEnterForegroundNotification, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(handleResignActiveNotification), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
-    @objc func handleWillEnterForegroundNotification() {
-        self.evEnteredForeground.trigger(self, nil)
+    @objc func handleResignActiveNotification() {
+        self.evResignActive.trigger(self, nil)
     }
-    @objc func handleDidEnterBackgroundNotification() {
-        self.evEnteredBackground.trigger(self, nil)
+    @objc func handleBecomeActiveNotification() {
+        self.evBecomeActive.trigger(self, nil)
     }
     deinit{
-        evEnteredBackground.clearCallback()
-        evEnteredForeground.clearCallback()
+        evResignActive.clearCallback()
+        evBecomeActive.clearCallback()
     }
 }
+

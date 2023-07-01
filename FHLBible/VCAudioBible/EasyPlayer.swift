@@ -26,13 +26,20 @@ class EasyAVPlayer {
         setupCallbacks()
         
         setupAudioSession()
+        
+        DBackgroundMusic.s.evChanged.addCallback {[weak self] pNew, pOld in
+            if pOld == .bible && pNew != .bible {
+                self?.stopBackgroundMusic()
+                self?.pauseAndRelease()
+            }
+        }
     }
     private func setupCallbacks(){
-        evAppBackForeSwitch.evEnteredBackground.addCallback {[weak self] sender, pData in
+        evAppBackForeSwitch.evResignActive.addCallback {[weak self] sender, pData in
             print("easypleyer enter background")
             self?.startBackgroundMusic()
         }
-        evAppBackForeSwitch.evEnteredForeground.addCallback {[weak self] sender, pData in
+        evAppBackForeSwitch.evBecomeActive.addCallback {[weak self] sender, pData in
             print("easypleyer enter forebackground")
             self?.stopBackgroundMusic()
         }
@@ -127,20 +134,28 @@ class EasyAVPlayer {
     }
     
     private func stopBackgroundMusic(){
-        print("stop background music func call")
         let commandCenter = MPRemoteCommandCenter.shared()
         
-        commandCenter.playCommand.removeTarget(targetPlayCallback)
-        commandCenter.pauseCommand.removeTarget(targetPauseCallback)
-        commandCenter.nextTrackCommand.removeTarget(targetNextCallback)
-        commandCenter.previousTrackCommand.removeTarget(targetPreviousCallback)
+        if targetPlayCallback != nil {
+            commandCenter.playCommand.removeTarget(targetPlayCallback)
+        }
+        if targetPauseCallback != nil {
+            commandCenter.pauseCommand.removeTarget(targetPauseCallback)
+        }
+        if targetNextCallback != nil {
+            commandCenter.nextTrackCommand.removeTarget(targetNextCallback)
+        }
+        if targetPreviousCallback != nil {
+            commandCenter.previousTrackCommand.removeTarget(targetPreviousCallback)
+        }
+        
         targetNextCallback = nil
         targetPlayCallback = nil
         targetPauseCallback = nil
         targetPreviousCallback = nil
     }
     private func setupAudioSession(){
-        activeBackgroundAudio()
+        activeBackgroundAudio(true)
     }
     private var targetPlayCallback: Any?
     private var targetPauseCallback: Any?
@@ -148,25 +163,32 @@ class EasyAVPlayer {
     private var targetPreviousCallback: Any?
     
     private func startBackgroundMusic(){
+        if DBackgroundMusic.s.tp != .bible { return }
+        
         print("start background music func call")
         let commandCenter = MPRemoteCommandCenter.shared()
         // play command
         
         targetPlayCallback = commandCenter.playCommand.addTarget {event in
-           print("easypleyer play command clicked")
-           if let s = AVPlayer.s {
+            if  DBackgroundMusic.s.tp != .bible { return .success }
+            
+            print("easypleyer play command clicked")
+            if let s = AVPlayer.s {
                s.rate = DAudioBible.s.speed // play will set 1 seepd.
-           }
-           return .success
+            }
+            return .success
         }
        // pause command
         targetPauseCallback = commandCenter.pauseCommand.addTarget {event in
+            if DBackgroundMusic.s.tp != .bible { return .success }
+            
            print("easypleyer pause command clicked")
            AVPlayer.s?.pause()
            return .success
        }
        // next track command
         targetNextCallback = commandCenter.nextTrackCommand.addTarget {[weak self] event in
+            if DBackgroundMusic.s.tp != .bible { return .success }
            print("easypleyer next command clicked")
            // play next track here
            self?.goNext()
@@ -175,6 +197,7 @@ class EasyAVPlayer {
        }
        // previous track command
         targetPreviousCallback = commandCenter.previousTrackCommand.addTarget {[weak self] event in
+            if  DBackgroundMusic.s.tp != .bible { return .success }
            print("easypleyer previous command clicked")
            // play previous track here
            self?.goPrev()
