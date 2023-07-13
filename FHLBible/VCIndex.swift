@@ -19,8 +19,8 @@ class VCIndex : UIViewController {
         super.viewDidLoad()
         _ = AutoLoadDUiabv.s // lazy var
         
-        labelDate.text = "2023.07.01a"
-        labelVer.text = "2.8.3" //version
+        labelDate.text = "2023.07.13a"
+        labelVer.text = "2.9.1" //version
      
     }
     

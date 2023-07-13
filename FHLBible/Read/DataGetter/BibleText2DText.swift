@@ -21,12 +21,10 @@ class BibleText2DText {
             var r1 = ssDtNewLine(r1a)
             
             // print (ver)
-            if ["unv","rcuv","ncv"].contains(ver){ // a 併入上節
-                
-                if r1.count == 1 && r1.first!.w == "a" {
-                    r1.first!.w = "(併入上節)"
-                }
+            if let firstWord = r1.first?.w, r1.count == 1, ["a", "b", "c"].contains(firstWord) {
+                r1.first!.w = "(併入上節)"
             }
+
             
             if ["fhlwh"].contains(ver){
                 // 新約原文 + + + 的現象 (韋: )(聯: )
