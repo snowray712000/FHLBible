@@ -9,10 +9,21 @@ import UIKit
 
 class ViewParsing : ViewFromXibBase {
     override var nibName: String {"ViewParsing"}
-    @IBOutlet var stack: UIStackView!
-    @IBOutlet var viewEnd: UIView!
+    @IBOutlet weak var stack: UIStackView!
+    @IBOutlet weak var viewEnd: UIView!
     typealias OneSet = (w:[DText],cht:[DText],dict:[ViewParsingDict.OneData])
+    lazy var eventKey: String = {
+        return "ViewParsing\(ObjectIdentifier(self).hashValue)"
+    }()
+    var viewParsingDicts: [ViewParsingDict] = []
+    var evBtnSnClicked$: IjnEventAdvanced<Any,DText> = IjnEventAdvanced()
     override func initedFromXib() {
+    }
+    deinit {
+        for a1 in viewParsingDicts {
+            a1.evBtnSnClicked$.clearCallback(self.eventKey)
+        }
+        evBtnSnClicked$.clearCallback()
     }
 
     var _isRightToLeft: Bool = false
@@ -31,6 +42,11 @@ class ViewParsing : ViewFromXibBase {
                 stack.addArrangedSubview(r2)
                 
                 r2.heightAnchor.constraint(equalTo: r1.heightAnchor, multiplier: 2.5).isActive = true
+                
+                self.viewParsingDicts.append(r2)
+                r2.evBtnSnClicked$.addCallback({[weak self] sender, pData in 
+                    self?.evBtnSnClicked$.trigger(sender,pData)
+                }, self.eventKey)
             }
             
             // add last red view (知道到底了, 一個 stop 線的概念)

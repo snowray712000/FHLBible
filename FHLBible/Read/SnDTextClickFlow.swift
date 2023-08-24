@@ -59,7 +59,7 @@ class SnDTextClickFlow {
     }
     private func _doWhenUsingParsing(){
         let vc2 = _vc.gVCParsing()
-        vc2.set(_addr)
+        vc2.set(_addr, _vers)
         _push(vc2)
     }
 }

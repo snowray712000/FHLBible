@@ -20,18 +20,32 @@ class ViewSNDictCell : ViewFromXibBase{
         _exp = exp
         _remark = remark
     }
-    @IBOutlet var btnSn: UIButton!
-    @IBOutlet var btnWord: UIButton!
-    @IBOutlet var btnOrig: UIButton!
-    @IBOutlet var showerXForm: ViewDisplayCell!
-    @IBOutlet var showerXRemark: ViewDisplayCell!
-    @IBOutlet var showerXExp: ViewDisplayCell!
-    @IBOutlet var stackLast: UIStackView!
+    @IBOutlet weak var btnSn: UIButton!
+    @IBOutlet weak var btnWord: UIButton!
+    @IBOutlet weak var btnOrig: UIButton!
+    @IBOutlet weak var showerXForm: ViewDisplayCell!
+    @IBOutlet weak var showerXRemark: ViewDisplayCell!
+    @IBOutlet weak var showerXExp: ViewDisplayCell!
+    @IBOutlet weak var stackLast: UIStackView!
+    
+    //var evBtnSnClicked$: IjnEventAdvancedAny = IjnEventAdvancedAny()
+    var evBtnSnClicked$: IjnEventAdvanced<Any,DText> = IjnEventAdvanced()
     override func initedFromXib() {
         _sn = DText("G1321", sn: "1321", tp: "G", tp2: "WG")
         // _wform = [DText("G1242"), DText("ajgoaw")]
         _wform = testRemarkH1
         _remark = []
+        
+        // 使用闭包为按钮的 Primary Action 添加事件
+        btnSn.addAction(UIAction(handler: { [weak self] _ in
+            self?.clickBtnSn()
+        }), for: .primaryActionTriggered)
+    }
+    deinit{
+        self.evBtnSnClicked$.clearCallback()
+    }
+    @IBAction func clickBtnSn(){
+        evBtnSnClicked$.trigger(self, _sn)
     }
     private var testRemarkH1: [DText] {
         let r1 = "\u{4ecb}\u{7cfb}\u{8a5e} \u{05d1}\u{05bc}\u{05b0} + \u{540d}\u{8a5e}\u{ff0c}\u{9670}\u{6027}\u{55ae}\u{6578}"

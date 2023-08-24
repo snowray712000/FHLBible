@@ -10,9 +10,10 @@ import UIKit
 
 /// 原本在 read 中，但是搜尋結果顯示若有 reference，流程一樣，所以就抽出 class
 class OneVerseFunctionsClickFlow : NSObject {
-    init(vc: UIViewController,addrThisPageFirst addr:DAddress?){
+    init(vc: UIViewController,addrThisPageFirst addr:DAddress?,vers vers:[String]){
         _vc = vc
         _addrThisPage = addr
+        _vers = vers
     }
     /// 這不是真正的 main, 只是協助將 dtext.w 轉為 addr
     /// 這個其實是配合原本 VCRead 長相加的，但這個的本質其實是 addr
@@ -45,6 +46,7 @@ class OneVerseFunctionsClickFlow : NSObject {
     private var _vc: UIViewController!
     private var _addrThisPage: DAddress?
     private var _addr: DAddress!
+    var _vers: [String] = []
     
     /// 選擇功能後，會設定
     private var _verseAction: VerseAction!
@@ -80,7 +82,7 @@ class OneVerseFunctionsClickFlow : NSObject {
             push(vc2)
         } else if act == .InfoParsing {
             let vc2 = _vc.gVCParsing()
-            vc2.set(_addr)
+            vc2.set(_addr, _vers )
             push(vc2)
         }
     }

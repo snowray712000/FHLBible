@@ -69,10 +69,10 @@ class VCAudioBibleEvents : IVCAudioBibleEvents {
         EasyAVPlayer.s.evBeenReadyStatus.addCallback(fn, self.eventKey)
     }
     
-    var eventKey: String!
-    
+    lazy var eventKey: String = {
+        return "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
+    }()
     init(){
-        self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
     }
     deinit{ self.releaseEvents() }
 }

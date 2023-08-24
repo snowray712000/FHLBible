@@ -83,7 +83,7 @@ class VCSearchResult : UIViewController {
         // 點擊 節 時
         self.viewSearchData.onClickDatas$.addCallback { sender, pData in
             if isNotNil(pData) && pData!.col == -1 {
-                let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addr)
+                let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addr, vers: self._vers)
                 flow.mainAsync(pData!.dtext)
             }
         }

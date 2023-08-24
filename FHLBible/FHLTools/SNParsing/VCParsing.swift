@@ -11,11 +11,17 @@ import UIKit
 /// 使用 set
 class VCParsing : UIViewController {
     typealias FnCallback = (_ dataSet:[ViewParsing.OneSet],_ isHebrew: Bool) -> Void
-    @IBOutlet var viewParsing: ViewParsing!
-    @IBOutlet var btnTitle: UIButton!
+    @IBOutlet weak var viewParsing: ViewParsing!
+    @IBOutlet weak var btnTitle: UIButton!
+    var _vers: [String] = []
+    lazy var eventKey: String = {
+        return "VCParsing\(ObjectIdentifier(self).hashValue)"
+    }()
     /// 這個較好用. set 後, 然後在 inited 時, 就會開始查詢資料
-    func set(_ addr: DAddress){
+    /// vers 是加入 btnSnClicked 後，才需要的
+    func set(_ addr: DAddress,_ vers:[String]){
         self._cur = addr
+        self._vers = vers
     }
     /// 這個是以界面為概念的寫法
     func set(_ dataSets:[ViewParsing.OneSet]) {
@@ -37,8 +43,25 @@ class VCParsing : UIViewController {
                 self.goNext()
             }
         }
+        
+        viewParsing.evBtnSnClicked$.addCallback({[weak self] sender, pData in
+            if self == nil { return }
+            
+            // 判斷, 是 sn 嗎 (這段 code 參考 VCRead 中，當按下是 Sn 時的 callback
+            if pData != nil && pData!.sn != nil {
+                let addr = self?._cur
+                if addr == nil { return }
+                
+                let r1 = SnDTextClickFlow(vc: self!, addr: addr!, vers: self!._vers)
+                r1.mainAsync(pData!)
+            }
+        }, self.eventKey)
+    }
+    deinit{
+        viewParsing.evBtnSnClicked$.clearCallback(eventKey)
     }
     lazy var _swipeHelp = SwipeHelp(view: self.view)
+    
     @IBAction func goNext(){
         if _next != nil {
             _cur = _next

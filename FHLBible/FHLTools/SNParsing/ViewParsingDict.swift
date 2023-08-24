@@ -18,13 +18,24 @@ class ViewParsingDict : ViewFromXibBase, UITableViewDataSource {
         viewTable.reloadData()    
     }
     
-    @IBOutlet var viewTable: UITableView!
+    @IBOutlet weak var viewTable: UITableView!
     var _data: [OneData] = []
     var _isSnVisible: Bool = true
+    lazy var eventKey: String = {
+        return "ViewParsingDict\(ObjectIdentifier(self).hashValue)"
+    }()
+    var cells: [ViewSNDictCell] = [] // 為了在 deinit 要用到
+    var evBtnSnClicked$: IjnEventAdvanced<Any, DText> = IjnEventAdvanced()
     override func initedFromXib() {
         viewTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         viewTable.dataSource = self
         
+    }
+    deinit {
+        for a1 in self.cells{
+            a1.evBtnSnClicked$.clearCallback(self.eventKey)
+        }
+        evBtnSnClicked$.clearCallback()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _data.count
@@ -45,8 +56,15 @@ class ViewParsingDict : ViewFromXibBase, UITableViewDataSource {
         
         return cell
     }
+    
     private func gCell ()-> ViewSNDictCell {
         let r1 = ViewSNDictCell()
+        
+        self.cells.append(r1)
+        r1.evBtnSnClicked$.addCallback({[weak self] sender, pData in
+            self?.evBtnSnClicked$.trigger(sender, pData)
+        }, self.eventKey)
+        
         return r1
     }
     

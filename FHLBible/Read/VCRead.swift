@@ -333,7 +333,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     private func addListenForClickedAddr(){
         v2.onClickDatas$.addCallback { sender, pData in
             if pData != nil && pData!.col == -1 && pData!.dtext != nil && pData!.dtext!.w != nil {
-                let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addrsCurFirst)
+                let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addrsCurFirst, vers: self._vers)
                 flow.mainAsync(pData!.dtext)
             }
         }

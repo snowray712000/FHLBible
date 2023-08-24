@@ -29,7 +29,9 @@ class VCAudioTextBible : UIViewController {
     var dataReader: ReadDataQ!
     // tts: text-to-speech
     var ttsCore: AudioTextBibleTTSCore { get { AudioTextBibleTTSCore.s } }
-    var eventKey: String!
+    lazy var eventKey: String = {
+        return "VCAudioTextBible\(ObjectIdentifier(self).hashValue)"
+    }()
     var evAppBackForeSwitch = EasyEventAppBackgroundForegroundSwitch()
     override func viewDidLoad() {
         func localizeUI(){
@@ -53,8 +55,6 @@ class VCAudioTextBible : UIViewController {
             }, eventKey)
         }
         super.viewDidLoad()
-       
-        self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
         
         ttsCore.setAddrAndPauseAndCleanDataAndTriggerAddrChangedEventIfNeeded(self.addr)
         ttsCore.setVersions(self.vers)
