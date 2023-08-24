@@ -11,9 +11,9 @@ class AudioBibleStopTimer : AudioStopTimer {
     static var s = AudioBibleStopTimer()
     private override init(){
         super.init()
-        self.evCompleted.addCallback({ sender, pData in
+        self.evCompleted.addCallback("AudioBibleStopTimer") { sender, pData in
             AVPlayer.s?.rate = 0 // 停止
-        }, "AudioBibleStopTimer")
+        }
     }
     
     override func stopPrevTimerAndStartNewTimer(_ secondRemain:Double){

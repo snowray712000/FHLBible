@@ -36,9 +36,10 @@ public class IjnEventAdvanced<T1,T2> {
     }
     // key若是不同class視作不同，可參考 VCAudioBibleEvents 用 ObjectIdentifier
     // self.eventKey = "VCAudioBibleEvents\(ObjectIdentifier(self).hashValue)"
-    public func addCallback(_ fn: @escaping FnCallback, _ key: String? = nil) {
+    public func addCallback(_ key:String? ,_ fn: @escaping FnCallback) {
         fnCallbacks.append((key, fn))
     }
+    
     
     public func clearCallback(_ key: String? = nil) {
         if let key = key {

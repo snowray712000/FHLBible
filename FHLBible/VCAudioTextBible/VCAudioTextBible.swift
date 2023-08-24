@@ -41,18 +41,18 @@ class VCAudioTextBible : UIViewController {
         }
         func addCallbacksForStopTimer(){
             // 倒數時間播放，每秒更新剩餘時間；完成時，播放按鈕要變成「播放」
-            AudioBibleTextStopTimer.s.evTick.addCallback({[weak self]sender, pData in
+            AudioBibleTextStopTimer.s.evTick.addCallback(eventKey){[weak self]sender, pData in
                 DispatchQueue.main.async {
                     let str = ctime2dashdashformat(AudioBibleTextStopTimer.s.secondRemain)
                     self?.btnTimerStop.setTitle(str, for: .normal)
                 }
-            }, eventKey)
-            AudioBibleTextStopTimer.s.evCompleted.addCallback({[weak self]sender, pData in
+            }
+            AudioBibleTextStopTimer.s.evCompleted.addCallback(eventKey){[weak self]sender, pData in
                 DispatchQueue.main.async {
                     self?.btnPlay.setImage( UIImage(systemName: "play.fill"), for: .normal)
                     self?.btnTimerStop.setTitle("-- : --", for: .normal)
                 }
-            }, eventKey)
+            }
         }
         super.viewDidLoad()
         
@@ -64,10 +64,10 @@ class VCAudioTextBible : UIViewController {
         self.updatePlayButtonImageBasedOnPlayingState()
         
         // 核心播放，若已經換章了，身為 ui 要更新一下章節。
-        ttsCore.addrChanged$.addCallback({[weak self] sender, pData in
+        ttsCore.addrChanged$.addCallback(self.eventKey){[weak self] sender, pData in
             self?.addrBarItem.title =  self?.ttsCore.addrStr
             self?.addr = self?.ttsCore.addr
-        }, self.eventKey)
+        }
         
         // 倒數時間播放，每秒更新剩餘時間；完成時，播放按鈕要變成「播放」
         addCallbacksForStopTimer()

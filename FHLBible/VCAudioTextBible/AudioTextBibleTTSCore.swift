@@ -56,7 +56,7 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         super.init()
         synthesizer.delegate = self
         
-        DBackgroundMusic.s.evChanged.addCallback {[weak self] pNew, pOld in
+        DBackgroundMusic.s.evChanged.addCallback(nil){[weak self] pNew, pOld in
             // 從自己，變成別的
             if pOld == .bibleText && pNew != .bibleText {
                 self?.stopBackgroundMusic()
@@ -66,7 +66,7 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
             // 從別的，變成自己，目前好像不用加什麼
         }// 這個 addCallback 不用加 key, 因為它不可能移除，是 static 的
         
-        AudioBibleTextStopTimer.s.evCompleted.addCallback {[weak self] sender, pData in
+        AudioBibleTextStopTimer.s.evCompleted.addCallback(nil) {[weak self] sender, pData in
             self?.pauseAndSetPlayingState()
         }
         

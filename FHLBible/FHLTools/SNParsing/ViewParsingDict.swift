@@ -61,9 +61,9 @@ class ViewParsingDict : ViewFromXibBase, UITableViewDataSource {
         let r1 = ViewSNDictCell()
         
         self.cells.append(r1)
-        r1.evBtnSnClicked$.addCallback({[weak self] sender, pData in
+        r1.evBtnSnClicked$.addCallback(self.eventKey){[weak self] sender, pData in
             self?.evBtnSnClicked$.trigger(sender, pData)
-        }, self.eventKey)
+        }
         
         return r1
     }

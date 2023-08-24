@@ -9,12 +9,12 @@ import AVFoundation
 class AudioBibleSetter {
     static var s = AudioBibleSetter ()
     private init(){
-        self.evCheckedAddr.addCallback({ [weak self] sender, pData in
+        self.evCheckedAddr.addCallback("AudioBibleSetter"){[weak self] sender, pData in
             if pData! {
                 self?.findNext()
                 self?.findPrev()
             }
-        }, "AudioBibleSetter")
+        }
     }
     deinit{
         self.cleanAllEventCallbacks()

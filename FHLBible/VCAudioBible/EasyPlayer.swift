@@ -27,7 +27,7 @@ class EasyAVPlayer {
         
         setupAudioSession()
         
-        DBackgroundMusic.s.evChanged.addCallback {[weak self] pNew, pOld in
+        DBackgroundMusic.s.evChanged.addCallback(nil) {[weak self] pNew, pOld in
             if pOld == .bible && pNew != .bible {
                 self?.stopBackgroundMusic()
                 self?.pauseAndRelease()
@@ -43,12 +43,12 @@ class EasyAVPlayer {
             print("easypleyer enter forebackground")
             self?.stopBackgroundMusic()
         }
-        self.evOneFileCompleted.addCallback {[weak self] sender, pData in
+        self.evOneFileCompleted.addCallback(nil){[weak self] sender, pData in
             print("easypleyer one file completed")
             self?.goNext()
             self?.setupAudioSession()
         }
-        self.evBeenReadyStatus.addCallback({[weak self] sender, pData in
+        self.evBeenReadyStatus.addCallback(nil){[weak self] sender, pData in
             // 更新进度信息
             assert( AVPlayer.s != nil && AVPlayer.s!.currentItem != nil )
             self?.updateInfoOfControlCenter()
@@ -60,9 +60,9 @@ class EasyAVPlayer {
 //            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = curInSeconds
 //            nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = duration.seconds
 //            nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
-        })
+        }
         // 若 loop 是 chap, 不要真的播放完成，而是將時間拉回0秒，較省流量
-        self.evForUpdateSliderValueAtMainQueue.addCallback({sender, pData in
+        self.evForUpdateSliderValueAtMainQueue.addCallback("EasyAVPlayer"){sender, pData in
             if DAudioBible.s.loopMode != .Chap { return }
             
             if let player = AVPlayer.s {
@@ -72,7 +72,7 @@ class EasyAVPlayer {
                     AVPlayer.s?.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
                 }
             }
-        }, "EasyAVPlayer")
+        }
     }
     // replace 比起 initial 動詞更準確，因為若原本存在，會安全釋放
     // replace 了，但 events 不需要重綁定唷

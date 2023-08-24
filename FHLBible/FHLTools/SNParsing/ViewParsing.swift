@@ -44,9 +44,9 @@ class ViewParsing : ViewFromXibBase {
                 r2.heightAnchor.constraint(equalTo: r1.heightAnchor, multiplier: 2.5).isActive = true
                 
                 self.viewParsingDicts.append(r2)
-                r2.evBtnSnClicked$.addCallback({[weak self] sender, pData in 
+                r2.evBtnSnClicked$.addCallback(self.eventKey){[weak self] sender, pData in 
                     self?.evBtnSnClicked$.trigger(sender,pData)
-                }, self.eventKey)
+                }
             }
             
             // add last red view (知道到底了, 一個 stop 線的概念)

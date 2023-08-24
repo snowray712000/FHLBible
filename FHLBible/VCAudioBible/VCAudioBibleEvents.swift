@@ -10,11 +10,11 @@ import AudioToolbox
 // 沒呼叫 release, 在 deinit 會自動呼叫
 class VCAudioBibleEvents : IVCAudioBibleEvents {
     func addCallbackOfTickStopTimer(_ fn: @escaping FnCallbackAny) {
-        AudioBibleStopTimer.s.evTick.addCallback(fn, self.eventKey)
+        AudioBibleStopTimer.s.evTick.addCallback(self.eventKey, fn)
     }
     
     func addCallbackOfCompletedStopTimer(_ fn: @escaping FnCallbackAny) {
-        AudioBibleStopTimer.s.evCompleted.addCallback(fn, self.eventKey)
+        AudioBibleStopTimer.s.evCompleted.addCallback(self.eventKey, fn)
     }
     
     
@@ -34,39 +34,39 @@ class VCAudioBibleEvents : IVCAudioBibleEvents {
         AudioBibleStopTimer.s.evCompleted.clearCallback(self.eventKey)
     }
     func addCallbackOfCanChangeSongInfo(_ fn: @escaping FnCallbackAny) {
-        EasyAVPlayer.s.evBeenReadyStatus.addCallback(fn, self.eventKey)
+        EasyAVPlayer.s.evBeenReadyStatus.addCallback(self.eventKey,fn)
     }
     
     func addCallbackOfCheckingCurrentOfAddressOfVersion(_ fn: @escaping FnCallbackAny) {
-        AudioBibleSetter.s.evCheckingAddr.addCallback(fn, self.eventKey)
+        AudioBibleSetter.s.evCheckingAddr.addCallback(self.eventKey,fn)
     }
     
     func addCallbackOfCheckedCurrentOfAddressOfVersion(_ fn: @escaping FnCallbackAny) {
-        AudioBibleSetter.s.evCheckedAddr.addCallback(fn, self.eventKey)
+        AudioBibleSetter.s.evCheckedAddr.addCallback(self.eventKey,fn)
     }
     
     func addCallbackOfSearchingNext(_ fn: @escaping FnCallbackAny) {
-        AudioBibleSetter.s.evCheckingAddrNext.addCallback(fn, self.eventKey)
+        AudioBibleSetter.s.evCheckingAddrNext.addCallback(self.eventKey,fn)
     }
     
     func addCallbackOfSearchedNext(_ fn: @escaping FnCallbackAny) {
-        AudioBibleSetter.s.evCheckedAddrNext.addCallback(fn, self.eventKey)
+        AudioBibleSetter.s.evCheckedAddrNext.addCallback(self.eventKey,fn)
     }
     
     func addCallbackOfSearchingPrev(_ fn: @escaping FnCallbackAny) {
-        AudioBibleSetter.s.evCheckingAddrPrev.addCallback(fn, self.eventKey)
+        AudioBibleSetter.s.evCheckingAddrPrev.addCallback(self.eventKey, fn)
     }
     
     func addCallbackOfSearchedPrev(_ fn: @escaping FnCallbackAny) {
-        AudioBibleSetter.s.evCheckedAddrPrev.addCallback(fn, self.eventKey)
+        AudioBibleSetter.s.evCheckedAddrPrev.addCallback(self.eventKey, fn)
     }
     
     func addCallbackOfTickOfPlaying(_ fn: @escaping FnCallbackAny) {
-        EasyAVPlayer.s.evForUpdateSliderValueAtMainQueue.addCallback(fn, self.eventKey)
+        EasyAVPlayer.s.evForUpdateSliderValueAtMainQueue.addCallback(self.eventKey, fn)
     }
     
     func addCallbackOfCanSetSliderMax(_ fn: @escaping FnCallbackAny) {
-        EasyAVPlayer.s.evBeenReadyStatus.addCallback(fn, self.eventKey)
+        EasyAVPlayer.s.evBeenReadyStatus.addCallback(self.eventKey,fn)
     }
     
     lazy var eventKey: String = {

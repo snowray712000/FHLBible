@@ -44,7 +44,7 @@ class VCParsing : UIViewController {
             }
         }
         
-        viewParsing.evBtnSnClicked$.addCallback({[weak self] sender, pData in
+        viewParsing.evBtnSnClicked$.addCallback(self.eventKey){[weak self] sender, pData in
             if self == nil { return }
             
             // 判斷, 是 sn 嗎 (這段 code 參考 VCRead 中，當按下是 Sn 時的 callback
@@ -55,7 +55,7 @@ class VCParsing : UIViewController {
                 let r1 = SnDTextClickFlow(vc: self!, addr: addr!, vers: self!._vers)
                 r1.mainAsync(pData!)
             }
-        }, self.eventKey)
+        }
     }
     deinit{
         viewParsing.evBtnSnClicked$.clearCallback(eventKey)
