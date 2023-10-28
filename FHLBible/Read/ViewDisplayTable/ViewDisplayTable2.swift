@@ -34,6 +34,7 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
     typealias OneRow = (header:[DText],datas:[[DText]])
     /// header row = -1 , header col = -1, data is 0-based
     typealias OneEvent = (dtext: DText?,col:Int,row:Int)
+    typealias OneLongEvent = (dtext: [DText]?,col:Int,row:Int)
     /// 資料列，header 就是 col of -1，就是寫「羅11:1」那一欄
     /// 一格(Cell) 的資料，是一個 [DText]，一列資料是 [[DText]]
     var dataRows: [OneRow] = []
@@ -43,7 +44,9 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
     var _iViewDiplayTable2DataQ: IViewDisplayTable2DataQ?
     /// row = -1 就是 header row, col = -1 也是
     var onClickHeader$: IjnEvent<ViewDisplayCell, OneEvent> = IjnEvent()
+    var onLongClickHeader$: IjnEvent<ViewDisplayCell, OneLongEvent> = IjnEvent()
     var onClickDatas$: IjnEvent<ViewDisplayCell, OneEvent> = IjnEvent()
+    var onLongClickDatas$: IjnEvent<ViewDisplayCell, OneLongEvent> = IjnEvent()
     func setInitData(_ iDataGetter: IViewDisplayTable2DataQ,_ dataHeader: OneRow,_ isSnVisible: Bool,_ isFontNameOpenHanBibleTCs:[Bool], _ tpTextAlignment: [NSTextAlignment]){
         self.dataRows = []
         self.dataHeader = dataHeader
@@ -109,6 +112,19 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
                     self.onClickHeader$.trigger(sender, (dtext: pData!.0, col: pData!.1, row: -1))
                 }
             }
+            
+            rowView.onLongClickHeader$.clearCallback()
+            rowView.onLongClickHeader$.addCallback { sender, pData in
+                self.onLongClickHeader$.trigger(sender, (dtext: pData, col:-1, row: -1))
+            }
+            rowView.onLongClickData$.clearCallback()
+            rowView.onLongClickData$.addCallback { sender, pData in
+                if pData == nil {
+                    self.onLongClickHeader$.trigger(sender, nil)
+                } else {
+                    self.onLongClickHeader$.trigger(sender, (dtext: pData!.0, col: pData!.1, row: -1))
+                }
+            }
         } else {
             rowView.onClickHeader$.clearCallback()
             rowView.onClickHeader$.addCallback { sender, pData in
@@ -120,6 +136,19 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
                     self.onClickDatas$.trigger(sender, nil)
                 } else {
                     self.onClickDatas$.trigger(sender, (dtext: pData!.0, col: pData!.1, row: row - 1))
+                }
+            }
+            
+            rowView.onLongClickHeader$.clearCallback()
+            rowView.onLongClickHeader$.addCallback { sender, pData in
+                self.onLongClickDatas$.trigger(sender, (dtext: pData, col:-1, row: row - 1))
+            }
+            rowView.onLongClickData$.clearCallback()
+            rowView.onLongClickData$.addCallback { sender, pData in
+                if pData == nil {
+                    self.onLongClickDatas$.trigger(sender, nil)
+                } else {
+                    self.onLongClickDatas$.trigger(sender, (dtext: pData!.0, col: pData!.1, row: row - 1))
                 }
             }
         }

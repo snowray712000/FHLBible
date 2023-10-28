@@ -17,6 +17,8 @@ class ViewDisplayRow : ViewFromXibBase {
     
     var onClickHeader$: IjnEvent<ViewDisplayCell,DText> = IjnEvent()
     var onClickData$: IjnEvent<ViewDisplayCell,(DText?,Int)> = IjnEvent()
+    var onLongClickHeader$: IjnEvent<ViewDisplayCell,[DText]> = IjnEvent()
+    var onLongClickData$: IjnEvent<ViewDisplayCell,([DText]?,Int)> = IjnEvent()
 
     /// 一個版本，資料為 [DText]，因此，多個版本，就是二維陣子
     private var datas: [[DText]] = []
@@ -30,6 +32,10 @@ class ViewDisplayRow : ViewFromXibBase {
         viewAddr.onClicked$.addCallback { sender, pData in
             self.onClickHeader$.trigger(sender, pData)
         }
+        viewAddr.onLongClicked$.addCallback { sender, pData in
+            self.onLongClickHeader$.trigger(sender, pData)
+        }
+        
     }
     func set(_ addr:  [DText], _ data: [[DText]], _ ratios: [CGFloat],_ isSnVisible:Bool,_ isFontNameOpenHanBibleTCs:[Bool]=[],_ tpTextAlignment:[NSTextAlignment] = [] ){
         let sum = ratios.reduce(0.0, +)
@@ -57,6 +63,9 @@ class ViewDisplayRow : ViewFromXibBase {
             let re1 = ViewDisplayCell()
             re1.onClicked$.addCallback { sender, pData in
                 self.onClickData$.trigger(sender, (pData,i))
+            }
+            re1.onLongClicked$.addCallback { sender, pData in
+                self.onLongClickData$.trigger(sender, (pData,i))
             }
             
             stack2.addArrangedSubview(re1)

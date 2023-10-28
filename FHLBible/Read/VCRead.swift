@@ -438,6 +438,13 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         addListenForReferenceDTextClick()
         
         addListenForFootDTextClick()
+        
+        // 驗證
+        v2.onLongClickDatas$.addCallback { sender, pData in
+            if pData != nil {
+                print ( pData!.dtext!.map({ dtext in return dtext.w ?? ""}).joined() )
+            }
+        }
     }
 }
 
