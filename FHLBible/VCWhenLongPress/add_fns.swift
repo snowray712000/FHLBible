@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension VCWhenLongPress {
     func _add_copy_text(){
@@ -35,6 +36,40 @@ extension VCWhenLongPress {
         settingsOfFunCell.append(settingCopy3)
         settingCopy3.evDo.addCallback { [weak self] sender, pData in
             self?.copyToPaste(tpCopy: .img)
+        }
+    }
+    func _add_generate_image_save_to_photo(){
+        let strHelp = NSLocalizedString("並非所有程式都能貼上，所以提供生成為相片。應用1:可搭配手寫新增筆記重點，再傳給他人。", comment: "")
+        let strTitle = NSLocalizedString("圖片產生", comment: "")
+        
+        let settingCopy3 = DOneLongPressCellSetting(strHelp: strHelp,strDoSomething: strTitle, viewController: self)
+        settingsOfFunCell.append(settingCopy3)
+        settingCopy3.evDo.addCallback { [weak self] sender, pData in
+            guard let self = self else {
+                return
+            }
+            
+            // 產生影像，儲存影像。
+            self.textView.capture { image in
+                guard let image = image else {
+                    MessageBox.ok(vc: self, msg: "產生影像失敗")
+                    return
+                }
+                
+                // 儲存影像
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self._image_saved(_:didFinishSavingWithError: contextInfo:)), nil)
+            }
+        }
+    }
+    /**
+     為了 _add_generate_image_save_to_photo 而存在。
+     - UIImageWriteToSavedPhotosAlbum 的 callback ， 必需使用 #selector 不能使用閉包。
+     */
+    @objc func _image_saved(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            MessageBox.ok(vc: self, msg: "儲存影像失敗: \(error.localizedDescription)")
+        } else {
+            MessageBox.ok(vc: self, msg: "儲存影像成功")
         }
     }
     

@@ -1,3 +1,4 @@
 /* Bundle display name */
 // "CFBundleDisplayName" = "信望爱圣经工具";
 "CFBundleDisplayName" = "圣经工具";
+"NSPhotoLibraryAddUsageDescription" = "按下确定，允许权限，使得产生之图片可存至你的相中。";

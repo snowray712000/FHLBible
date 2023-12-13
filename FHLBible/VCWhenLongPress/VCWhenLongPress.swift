@@ -24,6 +24,32 @@ class VCWhenLongPress : UIViewController, UICollectionViewDataSource {
         case rtf
         case img
         case all
+    }    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView.dataSource = self
+        
+        init_settings_of_func()
+        
+        // LongPressCell
+        // dataSelections = DSelections.gTest7() // unit test
+        textView.attributedText = generateTextViewContent()
+        
+        // click 到空白處 for 隱藏鍵盤
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        collectionView.backgroundView = UIView(frame: collectionView.bounds)
+        collectionView.backgroundView?.addGestureRecognizer(tapGestureRecognizer)
+    }
+    func init_settings_of_func(){
+        _add_copy_text()
+        _add_copy_rtf_text()
+        _add_copy_img()
+        _add_generate_image_save_to_photo()
+        
+        _add_is_sn_visiable_switch()
+        _add_is_generate_link_switch()
+        _add_is_show_version_forcely_switch()
     }
     func copyToPaste(tpCopy: TpCopy){
         guard let textView = self.textView else {
@@ -57,13 +83,7 @@ class VCWhenLongPress : UIViewController, UICollectionViewDataSource {
         func msgOk(){
             // 在複製後，你可以顯示一個提示或處理其他操作
             // 例如：顯示一個提示訊息
-            let title = NSLocalizedString("已複製到剪貼簿", comment: "")
-            let msg = NSLocalizedString("文字已複製到剪貼簿中。", comment: "")
-            let confirm = NSLocalizedString("確定", comment: "")
-            
-            let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: confirm, style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+            MessageBox.ok(vc: self, msg: "文字已複製到剪貼簿中。")
         }
         
         pasteboard.string = textToCopy
@@ -79,9 +99,11 @@ class VCWhenLongPress : UIViewController, UICollectionViewDataSource {
         } else if tpCopy == .img {
             gPngImageData { data in
                 if data != nil {
+                    UIImageWriteToSavedPhotosAlbum(UIImage(data: data!)!, nil, nil, nil)
                     pasteboard.setItems([
                         [UTType.png.identifier: data!]
                     ])
+                    
                 }
                 msgOk()
             }
@@ -102,30 +124,6 @@ class VCWhenLongPress : UIViewController, UICollectionViewDataSource {
         }
         
 
-    }
-    func init_settings_of_func(){
-        _add_copy_text()
-        _add_copy_rtf_text()
-        _add_copy_img()
-        
-        _add_is_sn_visiable_switch()
-        _add_is_generate_link_switch()
-        _add_is_show_version_forcely_switch()
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collectionView.dataSource = self
-        
-        init_settings_of_func()
-        
-        // LongPressCell
-        // dataSelections = DSelections.gTest7() // unit test
-        textView.attributedText = generateTextViewContent()
-        
-        // click 到空白處 for 隱藏鍵盤
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        collectionView.backgroundView = UIView(frame: collectionView.bounds)
-        collectionView.backgroundView?.addGestureRecognizer(tapGestureRecognizer)
     }
     @objc func handleTap(_ recognizer: UITapGestureRecognizer) {
         // 隱藏鍵盤
