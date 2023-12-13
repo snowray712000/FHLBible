@@ -197,31 +197,28 @@ public class DTextDrawToAttributeString : IDTextToAttributeString{
         ] )
     }
     private func gStyle(_ str: String?,_ st: Style) -> NSMutableAttributedString {
-        var attrs: [NSAttributedString.Key : Any] = [:]
-        if st.textColor != nil {
-            attrs[.foregroundColor] = st.getColor()
-        } else {
-            attrs[.foregroundColor] = st.getColor()
-        }
+        
+        let attrs = EasyStringAttributes() // 使用此重構
+
+        attrs.fontColor = st.getColor()
         
         // 不能不設 .font 會爆掉，所以預設給 .body
-        attrs[.font] = st.getFont()
+        let easyfont = EasyUIFont(fontRefernce: st.getFont())
+        attrs.fontEasy = easyfont
         
         // 底線 or 虛點點 嗎?
         if st.isUnderline == true {
-            attrs[.underlineStyle] = NSUnderlineStyle.single.rawValue
+            attrs.underLineOrDot = .single
         } else if st.isUnderlineDot == true {
-            attrs[.underlineStyle] = NSUnderlineStyle.patternDot.rawValue
+            attrs.underLineOrDot = .patternDot
         }
         
         // 斜體嗎?
-        if st.isItaly == true {
-            attrs[.obliqueness] = 0.25 // 0 是沒有
-        }
+        attrs.isItaly = st.isItaly
         
-        
-        return NSMutableAttributedString(string: str ?? "", attributes:  attrs)
+        return NSMutableAttributedString(string: str ?? "", attributes:  attrs.resultAttributes)
     }
+    
     class Style {
         public init(){}
         public var textColor : UIColor?
@@ -235,25 +232,14 @@ public class DTextDrawToAttributeString : IDTextToAttributeString{
         public func getFont() -> UIFont {
             
             if isFontNameOpenHanBibleTC == true {
-                let fs = fontStyle ?? .body
-                let r1 = UIFont(name: "OpenHanBibleTC", size: Self._fontSizes[fs] ?? 17.0)
-                if r1 == nil {
-                    return UIFont.preferredFont(forTextStyle: fs) // 原本方式
-                } else {
-                    let r2 = UIFontMetrics(forTextStyle: fs)
-                    return r2.scaledFont(for: r1!)
-                }
+                let re = EasyUIFont() // 使用此重構
+                re.setNameForSupportHanText(fontStyle: fontStyle ?? .body)
+                return re.font
             } else {
-                let fs = fontStyle ?? .body
-                return UIFont.preferredFont(forTextStyle: fs)
+                let re = EasyUIFont(fontStyle: fontStyle ?? .body)
+                return re.font
             }
         }
-        static var _fontSizes: [UIFont.TextStyle:CGFloat] = [
-            .largeTitle: 34,
-            .title1: 28,
-            .title2: 22,
-            .title3: 20
-        ]
         public func getUnderline() -> Int {
             if isUnderlineDot == true { return (NSUnderlineStyle.patternDot.rawValue | NSUnderlineStyle.single.rawValue) }
             if isUnderline == true { return NSUnderlineStyle.single.rawValue }

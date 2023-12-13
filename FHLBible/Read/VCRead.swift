@@ -13,7 +13,6 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     /// updateData() -> addrs, vers
     /// drawData ->  datas
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         eventsTableHelper = EventsHelperOfTableOfRead(self)
         
@@ -21,7 +20,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         self._swipeHelp.addSwipe(dir: .right)
         self._swipeHelp.addSwipe(dir: .right, numberOfTouches: 2)
         self._swipeHelp.addSwipe(dir: .right, numberOfTouches: 3)
-        self._swipeHelp.onSwipe$.addCallback { sender, pData in
+        self._swipeHelp.onSwipe$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData!.direction == .left {
                 self.goNext()
             } else if pData!.direction == .right {
@@ -37,29 +38,43 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
 
         
         // 經文內容 dependen on ...
-        _addrsCurChanged$.addCallback { sender, pData in
+        _addrsCurChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             self.drawTitle()
             self.updateData()
         }
-        _versChanged$.addCallback { sender, pData in
+        _versChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             self._drawButtonSNState()
             self.updateData()
         }
-        _dataChanged$.addCallback { sender, pData in
+        _dataChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
+            self._resize_OnOff_Switchs()
+            
             self.drawData()
         }
-        _isSnOnChanged$.addCallback { sender, pData in
-            self.drawData()
+        _isSnOnChanged$.addCallback {[weak self] sender, pData in
+            self?.drawData()
         }
         
         // 維護 全域變數
-        _addrsCurChanged$.addCallback { sender, pData in
+        _addrsCurChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             ManagerAddress.s.updateCur( self._addrsCur! )
         }
-        _versChanged$.addCallback { sender, pData in
+        _versChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             ManagerBibleVersions.s.updateCur(self._vers)
         }
-        _addrsCurChanged$.addCallback { sender, pData in
+        _addrsCurChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if self._isTriggerByGoBack == false {
                 self._addToReadHistory()
                 
@@ -68,7 +83,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
                 self._isTriggerByGoBack = false
             }
         }
-        _isSnOnChanged$.addCallback { sender, pData in
+        _isSnOnChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             ManagerIsSnVisible.s.updateCur(self._isSnVisible)
         }
         
@@ -79,23 +96,31 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         drawTitle()
         updateData()
         eventsTableHelper.starting()
-                
-        self._drawButtonSNState()
         
+        self._drawButtonSNState()
     }
+    private func _resize_OnOff_Switchs(){
+        let row = self._data == nil ? 1 : self._data!.data.count + 1
+        self._isOnOfSwitchs.resize(row: row, col: self._vers.count + 1)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         // 當交互參照 push 後，再 back 時，要再把 history 換到目前變第1個
         self._addToReadHistory()
         _idxGoBack = 0
     }
+    // 選擇文字時要用。
+    var _isSelectingState: Bool = false
+    /// 複選功能 [0] 是 row header [: , 0] 則是 column header
+    var _isOnOfSwitchs: IsOnOfSelectionsOfSwitch = IsOnOfSelectionsOfSwitch()
     lazy var _swipeHelp = SwipeHelp(view: self.view)
     
     var _isViewDidLoadAlready = false
     /// 為了作，「當版本不含 和合本、和合本2010、KJV」時，將其 disalbe
-    @IBOutlet var btnSN: UIButton!
-    func _drawButtonSNState(){
-        drawSnButtonState(btn: self.btnSN, vers: self._vers)
-    }
+    @IBOutlet weak var btnSN: UIButton!
+    @IBOutlet weak var btnSearch: UIButton!
+    @IBOutlet weak var btnMore: UIButton!
+
     @IBOutlet weak var viewDisplayTable: UIView!
     @IBOutlet var btnTitle: UIButton!
     /// 供還沒顯示前呼叫, 它不會去 trigger
@@ -107,6 +132,10 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
             self._vers = ["unv"]
         }
     }
+    func _drawButtonSNState(){
+        drawSnButtonState(btn: self.btnSN, vers: self._vers)
+    }
+
     /// nil 的時候，會用 _addrsCur!.verses
     fileprivate func _addToReadHistory(_ addr:String? = nil){
         let addr2 = addr ?? VerseRangeToString().main(self._addrsCur!.verses, ManagerLangSet.s.curTpBookNameLang )
@@ -120,10 +149,12 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         ManagerHistoryOfRead.s.updateCur(r2)
     }
     
-    
-    @IBAction func doMore(){
+    /// 因為原本的 doMore 已經是變成 2 種可能，把原本的程式搬到 doMore
+    private func _doMore(){
         let vc = VCReadMore()
-        vc.onPicker$.addCallback { sender, pData in
+        vc.onPicker$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData == "prev" {
                 self.goPrev()
             } else if pData == "next" {
@@ -150,8 +181,67 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         vc.transitioningDelegate = vc
 
         present(vc,animated: true,completion: nil)
-        
     }
+    func generateSelectionDataForLongPressView()->DSelections{
+        func getAddressFromDTexts(dtexts: [DText])->[DAddress]{
+            return StringToVerseRange().main(  dtexts.map{ $0.w ?? "" }.joined() )
+        }
+        
+        let selections = DSelections()
+        selections.data = [:]
+        guard let data = self._data else {
+            return selections
+        }
+        
+        let rows = data.data.count
+        let cols = self._vers.count
+        
+        var isVersionExist:[Bool] = _vers.map{_ in return false }
+        var addresses:[[DAddress]] = []
+        
+        for row in 0..<rows {
+            for col in 0..<cols {
+                let isOn = self._isOnOfSwitchs.isOns[row+1][col+1]
+                lazy var addressesThisRow = getAddressFromDTexts(dtexts: data.data[row].header)
+                if isOn {
+                    let dtexts = data.data[row].datas[col]
+                    
+                    if selections.data[addressesThisRow] == nil {
+                        selections.data[addressesThisRow] = [:]
+                        addresses.append(addressesThisRow)
+                    }
+                    selections.data[addressesThisRow]![self._vers[col]] = dtexts
+                    isVersionExist[col] = true
+                }
+            }
+        }
+        
+        selections.vers = []
+        for i in 0..<cols{
+            if isVersionExist[i] {
+                selections.vers.append(self._vers[i])
+            }
+        }
+        
+        selections.addrs = addresses
+        return selections
+    }
+    @IBAction func doMore(){
+        // 此按鈕，已經共用，目前2個功能。 1 正常閱讀情境 2 複選過程的確認
+        if self._isSelectingState {
+            _isSelectingState = false
+            self.drawData() // redraw
+            
+            let vc = self.gVCWhenLongPress()
+            vc.dataSelections = generateSelectionDataForLongPressView()
+            self.navigationController?.pushViewController(vc, animated: true)
+            return
+        } else {
+            // 正常閱讀情境
+            self._doMore()
+        }
+    }
+    
     @IBAction func switchSnVisible(){
         if _isSnVisible {
             _isSnVisible = false
@@ -163,6 +253,12 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
     lazy var _isSnVisible : Bool = ManagerIsSnVisible.s.cur
     var _isSnOnChanged$: IjnEventAny = IjnEvent()
+    
+    /**
+     開始選擇時，是以 long click 觸發，這時候想記下當時的 row 與 col，作為 select 初始化時用。
+     - row col 值是 0，表示是 header。
+     */
+    var _idxClickEvent: (row:Int,col:Int) = (-1,-1)
     @IBAction func goNext(){
         _addrsCur = _addrsCur!.goNext()
         _addrsCurChanged$.trigger(nil, nil)
@@ -200,9 +296,11 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     /// 當 addr 或 versions 改變後, 呼叫此
     /// 此，也會 trigger 中繼資料 _data Changed$
     fileprivate func updateData(){
-        // 當網路慢的時候，很重要
+        // 顯示，取得資料中。當網路慢的時候，很重要
         let iQQueryingState: IVCReadDataQ = ReadDataDataQuerying()
-        iQQueryingState.qDataForRead$.addCallback { sender, pData in
+        iQQueryingState.qDataForRead$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             self._data = (pData!.0, pData!.1)
             self._dataChanged$.trigger()
         }
@@ -210,16 +308,32 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         
         // 正式抓資料
         let iDataQ: IVCReadDataQ = ReadDataQ()
-        iDataQ.qDataForRead$.addCallback { sender, pData in
-            self._data = (title: pData!.0, data: pData!.1)
+        iDataQ.qDataForRead$.addCallback {[weak self] sender, pData in
+            guard let self = self, let pData = pData else { return }
+            
+            let rowTitle: TpOneRow = pData.0
+            let rowsData: [TpOneRow] = pData.1
+            self._data = (title: rowTitle, data: rowsData)
             self._dataChanged$.trigger(nil, nil)
         }
         iDataQ.qDataForReadAsync(_titleAddr, _vers)
     }
     fileprivate func drawData(){
+        if _isSelectingState {
+            // 複製前，要複選
+            self.btnSearch.isHidden = true
+            self.btnMore.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        } else {
+            self.btnSearch.isHidden = false
+            self.btnMore.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        }
+        
         let isOpenHanBibleTCs = BibleVersionFonts().mainIsOpenHanBibleTCs(_vers)
         let tpTextAlignment = getTpTextAlignmentsViaBibleVersions(_vers)
-        self.v2.set(_data!.title, _data!.data, _isSnVisible, isOpenHanBibleTCs, tpTextAlignment)
+        
+        self.v2.set(_data!.title, _data!.data, _isSnVisible, isOpenHanBibleTCs, tpTextAlignment,
+                    isOnOfSwitchs: _isOnOfSwitchs.isOns, isVisibleSwitch: _isSelectingState)
+        
     }
     
     
@@ -267,7 +381,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         // 開始 push 到 dialog
         let r1 = self.gVCBookChapPicker()
         r1.initBeforePushVC(curAddr.0, curAddr.1)
-        r1.onClick$.addCallback { sender, pData in
+        r1.onClick$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             let r2 = VerseRange()
             r2.verses = DAddress(book: pData!.idBook, chap: pData!.idChap, verse: 1, ver: nil).generateEntireThisChap()
             self._addrsCur = r2
@@ -279,7 +395,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
     @IBAction func pickFromHistory(){
         let vc1 = self.gVCReadHistory()
-        vc1.onClickAddr$.addCallback { sender, pData in
+        vc1.onClickAddr$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData != nil {
                 let r1 = VerseRange(StringToVerseRange().main(pData!))
                 self._addrsCur = r1
@@ -290,7 +408,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
     @IBAction func doSearching(){
         let vc2 = self.gVCSearching()
-        vc2.onClickSearching$.addCallback { sender, pData in
+        vc2.onClickSearching$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             let vc3 = self.gVCSearchResult() // pData '天使'
             vc3.setInitData(pData!.w!, self._vers, self._addrsCurFirst!)
             self.navigationController?.pushViewController(vc3, animated: false)
@@ -305,7 +425,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
     /// call by listenEventsWhenInit #譯本
     fileprivate func addListenForVersionsPicker(){
-        iVCRead.onClickVersions$.addCallback { sender, pData in
+        iVCRead.onClickVersions$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             // 情境: 雖然按 okay, 但其實版本沒變, (順序、內容), 就不要再取一次
             let verOld = self._vers
             func isChanged(_ vers:[String])->Bool {
@@ -319,7 +441,8 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
             if pData != nil {
                 let vc1 = self.gVCVersionsPicker()
                 vc1.setInitData(self._vers)
-                vc1.onClickOkay$.addCallback { sender, pData in
+                vc1.onClickOkay$.addCallback {[weak self] sender, pData in
+                    guard let self = self else { return }
                     if pData != nil {
                         if isChanged(pData!) {
                             self.onFinishVersionPickor(pData!)
@@ -331,7 +454,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         }
     }
     private func addListenForClickedAddr(){
-        v2.onClickDatas$.addCallback { sender, pData in
+        v2.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData != nil && pData!.col == -1 && pData!.dtext != nil && pData!.dtext!.w != nil {
                 let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addrsCurFirst, vers: self._vers)
                 flow.mainAsync(pData!.dtext)
@@ -367,7 +492,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
 
     private func addListenForSnDTextClick(){
-        v2.onClickDatas$.addCallback { sender, pData in
+        v2.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             // 判斷, 是 sn 嗎
             if pData != nil {
                 let dtext = pData!.dtext
@@ -390,7 +517,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
 
     private func addListenForReferenceDTextClick(){
-        v2.onClickDatas$.addCallback { sender, pData in
+        v2.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             // 判斷, 是 ref 嗎
             if pData != nil {
                 let dtext = pData!.dtext
@@ -409,7 +538,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         return r1[c0based]
     }
     private func addListenForFootDTextClick(){
-        v2.onClickDatas$.addCallback { sender, pData in
+        v2.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData != nil {
                 let dtext = pData!.dtext
                 
@@ -440,9 +571,47 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         addListenForFootDTextClick()
         
         // 驗證
-        v2.onLongClickDatas$.addCallback { sender, pData in
-            if pData != nil {
-                print ( pData!.dtext!.map({ dtext in return dtext.w ?? ""}).joined() )
+        v2.onLongClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self, let pData = pData, let dtexts = pData.dtext, let addrsCur = self._addrsCur else {
+                return
+            }
+            
+            // 保護，第二次長按觸發
+            if self._isSelectingState {
+                return
+            }
+            
+            self._isOnOfSwitchs.set_all(v: false)
+            self._idxClickEvent = (row: pData.row + 1, col: pData.col + 1)// + 1 因為 -1 是 header, 而 OnOff 0 是 header
+            self._isSelectingState = true
+            
+            self._isOnOfSwitchs.inverse(r: _idxClickEvent.row, c: _idxClickEvent.col)
+            self.drawData() // redraw
+
+        }
+        
+        v2.onSwitchChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self, let pData = pData else {
+                return
+            }
+            
+            let row = pData.row
+            let col = pData.col
+            let isOn = pData.isOn
+            
+            // 如果只有一個改變，那就不需要 reloadData，若一個以上，就需要
+            if row == 0 && col == 0 {
+                self._isOnOfSwitchs.set_all(v: isOn)
+            } else if row == 0 {
+                self._isOnOfSwitchs.set_all_of_col(v: isOn, col: col)
+            } else if col == 0{
+                self._isOnOfSwitchs.set_all_of_row(v: isOn, row: row)
+            } else {
+                self._isOnOfSwitchs.inverse(r: row, c: col)
+            }
+
+            if row == 0 || col == 0 {
+                self.drawData()
             }
         }
     }

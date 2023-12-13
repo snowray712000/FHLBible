@@ -84,11 +84,9 @@ class VCFooter : UIViewController {
     }
     
     fileprivate func _drawData(){
-        if _data.count == 0 {
-            v2.set([DText(NSLocalizedString("取得資料中...", comment: ""))], false)
-        } else {
-            v2.set(_data, true)
-        }
+        let data = _data.count != 0 ? _data : [DText(NSLocalizedString("取得資料中...", comment: ""))]
+        v2.set(dtexts: data, isVisibleSn: true, isSwitchOn: true, isSwitchVisible: false) // 反正取得資料，也沒有 sn，傳 true 也沒關係
+        
         self.title = "【\(self._pFoot.id!)】"
     }
     

@@ -69,7 +69,7 @@ class ViewSNDictCell : ViewFromXibBase{
     /// .pro (新約才有，名詞/動詞) + .wform
     var _wform: [DText] = [] {
         didSet {
-            showerXForm.set(_wform, true)
+            _set_cell(cell: showerXForm, data: _wform, isSn: true)
         }
     }
     var _remark: [DText] = [] {
@@ -77,15 +77,18 @@ class ViewSNDictCell : ViewFromXibBase{
             if _remark.count == 0 || (_remark.count == 1 && _remark[0].w!.isEmpty ) {
                 stackLast.isHidden = true
             } else {
-                showerXRemark.set(_remark, true)
+                _set_cell(cell: showerXRemark, data: _remark, isSn: true)
                 stackLast.isHidden = false
             }
         }
     }
     var _exp: [DText] = [] {
         didSet {
-            showerXExp.set(_exp, true)
+            _set_cell(cell: showerXExp, data: _exp, isSn: true)
         }
+    }
+    private func _set_cell(cell: ViewDisplayCell,data: [DText],isSn: Bool){
+        cell.set(dtexts: data, isVisibleSn: isSn, isSwitchOn: true, isSwitchVisible: false)
     }
 }
 

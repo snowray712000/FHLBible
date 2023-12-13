@@ -19,19 +19,25 @@ class VCSearchResult : UIViewController {
             r1.main(keyword)
             return r1.sn != nil
         } ()
+        
+        self._resize_OnOff_Switch()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 繪圖
-        _onSearchResultChanged$.addCallback { sender, pData in
+        _onSearchResultChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else {return}
+            
+            self._resize_OnOff_Switch()
             self._drawTitle() // 前一刻變「搜尋中...」了
             self._cvtForFilters()
             self._drawFilterView()
             self._updateDataForTableWhenOptCurChanged()
             self._drawDataView()
         }
-        _isSnOnChanged$.addCallback { sender, pData in
+        _isSnOnChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else {return}
             self._drawDataView()
         }
         // 進度列目前沒有實作
@@ -39,7 +45,10 @@ class VCSearchResult : UIViewController {
         //    print (pData)
         //    print ( sender!.progress )
         //} 
-        self.viewSearchFilter.onClickFilterOption$.addCallback { sender, pData in
+        self.viewSearchFilter.onClickFilterOption$.addCallback {[weak self] sender, pData in
+            guard let self = self else {return}
+            self._resize_OnOff_Switch()
+            
             self._optCur = pData!.na
             self._groupCur = pData!.na2
             self._updateDataForTableWhenOptCurChanged()
@@ -51,7 +60,9 @@ class VCSearchResult : UIViewController {
             return pData != nil && pData!.dtext != nil
         }
         // 點擊 SN 時
-        self.viewSearchData.onClickDatas$.addCallback { sender, pData in
+        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else {return}
+            
             if isNotNil(pData) && pData!.dtext!.sn != nil {
                 let addr = self._getAddrOfThisRow(pData!.row)
                 if addr == nil { return }
@@ -59,13 +70,17 @@ class VCSearchResult : UIViewController {
             }
         }
         // 點擊 Ref 時
-        self.viewSearchData.onClickDatas$.addCallback { sender, pData in
+        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else {return}
+            
             if isNotNil(pData) && pData!.dtext!.refDescription != nil && pData!.col != -1 {
                 RefDTextClickFlow(vc: self, addr: self._addr, vers: self._vers).mainAsync(pData!.dtext!)
             }
         }
         // 點擊到 【231】注腳時
-        self.viewSearchData.onClickDatas$.addCallback { sender, pData in
+        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else {return}
+            
             if isNotNil(pData) && pData!.dtext!.foot != nil && pData!.col != -1 && pData!.row != -1 && self._dataForTable != nil{
                 // 預備參數, 某 row 的 addr
                 let addr = self._getAddrOfThisRow(pData!.row)
@@ -81,13 +96,16 @@ class VCSearchResult : UIViewController {
         }
         
         // 點擊 節 時
-        self.viewSearchData.onClickDatas$.addCallback { sender, pData in
+        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
+            guard let self = self else {return}
+            
             if isNotNil(pData) && pData!.col == -1 {
                 let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addr, vers: self._vers)
                 flow.mainAsync(pData!.dtext)
             }
         }
         
+        self._resize_OnOff_Switch()
         self._drawTitle()
         self._drawFilterView()
         _searchAsync()
@@ -107,7 +125,8 @@ class VCSearchResult : UIViewController {
         self._isSnOnChanged$.trigger()
     }
     var _isSnOnChanged$: IjnEventAny = IjnEvent()
-    
+    var _isOnOfSwitchs = IsOnOfSelectionsOfSwitch()
+    var _isVisibleSwitch:Bool = false
     var _keyword: String!
     func _drawTitle(){ self.title = _keyword }
     var _vers: [String]!
@@ -130,6 +149,11 @@ class VCSearchResult : UIViewController {
     /// 在 search 後會設定的，用此繪圖 viewFilter
     var _filtersOptions: [SearchData.Filter]?
     
+    private func _resize_OnOff_Switch(){
+        let col = _vers.count + 1
+        let row = _searchResult == nil ? 1 :  _searchResult!.datas.count + 1
+        self._isOnOfSwitchs.resize(row: row, col: col)
+    }
     func _searchAsync(){
         // 搜尋中 訊息
         self.title = "搜尋中..."
@@ -164,7 +188,7 @@ class VCSearchResult : UIViewController {
         let isOpenHanBibleTCs = _vers.map({["ttvh","thv12h","ttvhl2021"].contains($0)})
         let tpTextAlignment = getTpTextAlignmentsViaBibleVersions(_vers)
         
-        viewSearchData.setInitData(_dataForTable!, ([],r1a), _isSn, isOpenHanBibleTCs, tpTextAlignment)
+        viewSearchData.setInitData(_dataForTable!, ([],r1a), _isSn, isOpenHanBibleTCs, tpTextAlignment,isOnOffOfSwitchs: _isOnOfSwitchs.isOns,isVisibleSwitch: _isVisibleSwitch)
     }
     func _cvtForFilters(){
         let r1 = _searchResult!

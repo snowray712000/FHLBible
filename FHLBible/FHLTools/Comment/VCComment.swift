@@ -18,14 +18,18 @@ class VCComment : UIViewController {
         super.viewDidLoad()
         // apiResult -> addr
         // addrNext, addrPrev, datas -> apiResult
-        addrChanged$.addCallback { sender, pData in
+        addrChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             self.datas = [DText(NSLocalizedString("取得資料中...", comment: ""))]
             self.draw()
             self.reloadDatas()
         }
-        apiResultChanged$.addCallback { sender, pData in
+        apiResultChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if self.apiErrorMsg != nil {
-                self.v2.set(self.apiErrorMsg!, true)
+                _set_cellview(dtexts: self.apiErrorMsg!, tpAlign: .justified)
             } else {
                 let com_text = self.apiResult!.com_text ?? ""
                 // let com_text = self.apiResult!.record.first!.com_text ?? ""
@@ -35,7 +39,9 @@ class VCComment : UIViewController {
         }
         
         // 點擊到內容中的交叉參照
-        v2.onClicked$.addCallback { sender, pData in
+        v2.onClicked$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData != nil && pData!.refDescription != nil {
                 let r1 = StringToVerseRange().main(pData!.refDescription!, (self.addr.book,self.addr.chap))
                 let r2 = self.gVCRead()
@@ -44,7 +50,9 @@ class VCComment : UIViewController {
             }
         }
         // 點擊到內容中的 原文 SN
-        v2.onClicked$.addCallback { sender, pData in
+        v2.onClicked$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData != nil && pData!.sn != nil {
                 let vers = ManagerBibleVersions.s.cur
                 SnDTextClickFlow(vc: self, addr: self.addr, vers: vers).mainAsync(pData!)
@@ -52,7 +60,9 @@ class VCComment : UIViewController {
         }
         _swipeHelp.addSwipe(dir: .left)
         _swipeHelp.addSwipe(dir: .right)
-        _swipeHelp.onSwipe$.addCallback { sender, pData in
+        _swipeHelp.onSwipe$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if pData?.direction == .right {
                 self.goPrev()
             } else if pData?.direction == .left {
@@ -92,7 +102,9 @@ class VCComment : UIViewController {
     // 關鍵資料 apiResult
     func reloadDatas(){
         let r1:IReloadData = ReloadDataAutoUseOfflineOrScApi()
-        r1.apiFinished$.addCallback { sender, pData in
+        r1.apiFinished$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             self.apiErrorMsg = nil
             self.apiResult = nil
             if sender != nil {
@@ -104,8 +116,11 @@ class VCComment : UIViewController {
         }
         r1.reloadAsync(self.addr)
     }
+    private func _set_cellview(dtexts:[DText],tpAlign: NSTextAlignment){
+        v2.set(dtexts: dtexts, isVisibleSn: true, tpTextAlignment: tpAlign, isSwitchOn: true, isSwitchVisible: false)
+    }
     func draw(){
-        v2.set(datas, true, false, .left)
+        _set_cellview(dtexts: datas, tpAlign: .left)
         title = titleComment
     }
     var v2: ViewDisplayCell { viewCell as! ViewDisplayCell }

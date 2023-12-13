@@ -22,22 +22,27 @@ class VCTsk : UIViewController {
         self.listenEventsWhenClickDtextInContent()
         
         // 資料更新，然再繪資料
-        _addrChanged$.addCallback { sender, pData in
+        _addrChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else {
+                return
+            }
             self.title = "串珠 \(self._addrTitle)"
-            self.v2.set([DText(NSLocalizedString("取得資料中...", comment: ""))], self._isVisibleSn)
+            
+            let data = [DText(NSLocalizedString("取得資料中...", comment: ""))]
+            self._set_cell(data: data)
             self._reloadData()
         }
-        _dataChanged$.addCallback { sender, pData in
-            self._draw()
+        _dataChanged$.addCallback {[weak self] sender, pData in
+            self?._draw()
         }
         
         _swipeHelp.addSwipe(dir: .left)
         _swipeHelp.addSwipe(dir: .right)
-        _swipeHelp.onSwipe$.addCallback { sender, pData in
+        _swipeHelp.onSwipe$.addCallback {[weak self] sender, pData in
             if pData?.direction == .right {
-                self.goPrev()
+                self?.goPrev()
             } else if pData?.direction == .left {
-                self.goNext()
+                self?.goNext()
             }
         }
         
@@ -66,7 +71,7 @@ class VCTsk : UIViewController {
     fileprivate var _addrTitle: String { "\(BibleBookNames.getBookName(_addr.book, .太)) \(_addr.chap):\(_addr.verse)" }
     fileprivate var _data: [DText] = []
     fileprivate var _dataChanged$: IjnEventAny = IjnEvent()
-    fileprivate func _draw(){ v2.set(self._data, self._isVisibleSn) }
+    fileprivate func _draw(){ _set_cell(data: self._data) }
     /// 用 addr 再重抓一次資料，並觸發 dataChanged$
     fileprivate func _reloadData(){
         let fnTriggerAtMainThread = {
@@ -76,7 +81,9 @@ class VCTsk : UIViewController {
         }
         
         let dataQ: IReloadData = ReloadDataAutoUseOfflineOrScApi()
-        dataQ.apiFinished$.addCallback { sender, pData in
+        dataQ.apiFinished$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
             if sender != nil {
                 self._data = sender!
                 fnTriggerAtMainThread()
@@ -95,11 +102,11 @@ class VCTsk : UIViewController {
     /// 方便用參數
     fileprivate lazy var v2: ViewDisplayCell = { viewContent as! ViewDisplayCell}()
     fileprivate func listenEventsWhenClickDtextInContent(){
-        v2.onClicked$.addCallback { sender, pData in
+        v2.onClicked$.addCallback {[weak self] sender, pData in
             // print (pData?.w)
             if pData != nil {
                 if pData!.refDescription != nil {
-                    self.pushVCReadWhenClickContentRef(pData!)
+                    self?.pushVCReadWhenClickContentRef(pData!)
                 }
             }
         }
@@ -115,6 +122,9 @@ class VCTsk : UIViewController {
         let r2 = ManagerBibleVersions.s.cur
         vc1.setInitData(r1b, r2)
         self.navigationController?.pushViewController(vc1, animated: false)
+    }
+    private func _set_cell(data: [DText]) {
+        v2.set(dtexts: data, isVisibleSn: self._isVisibleSn, isSwitchOn: false, isSwitchVisible: false)
     }
 }
 

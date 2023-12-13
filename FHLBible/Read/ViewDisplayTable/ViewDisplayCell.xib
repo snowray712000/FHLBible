@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewDisplayCell" customModule="FHLBible" customModuleProvider="target">
             <connections>
+                <outlet property="switchOn" destination="XiY-hw-5yf" id="0Px-L1-2Kf"/>
                 <outlet property="viewBase" destination="iN0-l3-epB" id="kAS-yp-Fsi"/>
                 <outlet property="viewText" destination="f4h-HT-C5E" id="0IH-Qh-4nD"/>
             </connections>
@@ -20,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" indicatorStyle="black" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4h-HT-C5E">
-                    <rect key="frame" x="0.0" y="0.0" width="384" height="319"/>
+                    <rect key="frame" x="0.0" y="235.33333333333334" width="384" height="49.666666666666657"/>
                     <attributedString key="attributedText">
                         <fragment content="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do">
                             <attributes>
@@ -32,15 +33,28 @@
                     </attributedString>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XiY-hw-5yf">
+                    <rect key="frame" x="167.66666666666666" y="59" width="51" height="31"/>
+                </switch>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="f4h-HT-C5E" secondAttribute="bottom" id="5ms-sJ-Q8f"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="XiY-hw-5yf" secondAttribute="top" id="5ms-sJ-Q8f"/>
                 <constraint firstItem="f4h-HT-C5E" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="CUg-yR-22N"/>
                 <constraint firstItem="f4h-HT-C5E" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="G4o-HR-OoS"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="f4h-HT-C5E" secondAttribute="bottom" id="IIZ-Ou-qPD"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="f4h-HT-C5E" secondAttribute="trailing" id="Nxn-gv-5Ia"/>
+                <constraint firstItem="XiY-hw-5yf" firstAttribute="bottom" secondItem="f4h-HT-C5E" secondAttribute="top" id="jsp-vZ-JWh"/>
+                <constraint firstItem="XiY-hw-5yf" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="xt6-YL-JNj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5ms-sJ-Q8f"/>
+                    <exclude reference="G4o-HR-OoS"/>
+                    <exclude reference="jsp-vZ-JWh"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="93.75" y="-110.625"/>
         </view>
     </objects>

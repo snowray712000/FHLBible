@@ -22,26 +22,26 @@ class VCSnDict: UIViewController {
         
         _swipeHelp.addSwipe(dir: .right)
         _swipeHelp.addSwipe(dir: .left)
-        _swipeHelp.onSwipe$.addCallback { sender, pData in
+        _swipeHelp.onSwipe$.addCallback {[weak self] sender, pData in
             if pData?.direction == .right {
-                self.goPrev()
+                self?.goPrev()
             } else if pData?.direction == .left {
-                self.goNext()
+                self?.goNext()
             }
         }
         
-        _dataOnChanged$.addCallback { sender, pData in
-            self.drawData()
+        _dataOnChanged$.addCallback {[weak self] sender, pData in
+            self?.drawData()
         }
-        _dtextOnChanged$.addCallback { sender, pData in
-            self._data = [DText(NSLocalizedString("取得資料中...", comment: ""))]
-            self.drawData()
-            self.reloadData()
+        _dtextOnChanged$.addCallback {[weak self] sender, pData in
+            self?._data = [DText(NSLocalizedString("取得資料中...", comment: ""))]
+            self?.drawData()
+            self?.reloadData()
             
-            self.reCalcNextPrevDText()
-            self.drawNextPrevButton()
+            self?.reCalcNextPrevDText()
+            self?.drawNextPrevButton()
             
-            self.drawTitle()
+            self?.drawTitle()
         }
         // 點擊內容時，交互參照
         v2.onClicked$.addCallback { sender, pData in
@@ -108,7 +108,7 @@ class VCSnDict: UIViewController {
     var _isVisibleSn: Bool = true // Sn Dict 總是需要顯示 Sn
     var _dataOnChanged$: IjnEventAny = IjnEvent()
     func drawData(){
-        v2.set(_data ?? [], self._isVisibleSn )
+        v2.set(dtexts: _data ?? [], isVisibleSn: self._isVisibleSn, isSwitchOn: true, isSwitchVisible: false)
     }
     func reloadData(){
         let r1 = SnDictDataQ()

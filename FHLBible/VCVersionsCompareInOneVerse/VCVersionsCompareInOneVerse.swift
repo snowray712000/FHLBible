@@ -30,15 +30,18 @@ class VCVersionsCompareInOneVerse : UIViewController {
         }
         
         // 畫圖的資料 (抓資料,並 trigger)
-        _addrOnChanged$.addCallback { sender, pData in
-            self._queryData()
+        _addrOnChanged$.addCallback {[weak self] sender, pData in
+            self?._queryData()
         }
-        _versOnChanged$.addCallback { sender, pData in
-            self._queryData()
+        _versOnChanged$.addCallback {[weak self] sender, pData in
+            self?._queryData()
         }
         
         // 畫圖
-        _datasOnChanged$.addCallback { sender, pData in
+        _datasOnChanged$.addCallback {[weak self] sender, pData in
+            guard let self = self else { return }
+            
+            self._isOnOfSwitchs.resize(row: self._datas.count + 1, col: self._vers.count + 1)
             self._drawDatas()
         }
         
@@ -87,7 +90,9 @@ class VCVersionsCompareInOneVerse : UIViewController {
     fileprivate var _vers: [String]!
     fileprivate var _versOnChanged$: IjnEventAny = IjnEvent()
     fileprivate var _isSn: Bool = false
-    @IBOutlet var viewTable: UIView!
+    fileprivate var _isOnOfSwitchs = IsOnOfSelectionsOfSwitch()
+    fileprivate var _isVisibleSwitchs:Bool = false
+    @IBOutlet weak var viewTable: UIView!
     fileprivate var _v2: ViewDisplayTable2 { viewTable as! ViewDisplayTable2 }
     fileprivate var _datas: [[DText]] = []
     fileprivate var _datasOnChanged$: IjnEventAny = IjnEvent()
@@ -107,7 +112,8 @@ class VCVersionsCompareInOneVerse : UIViewController {
             })
         }()
         
-        _v2.set(dataHeader, dataRows, _isSn, BibleVersionFonts().mainIsOpenHanBibleTCs(_vers), getTpTextAlignmentsViaBibleVersions(_vers))
+        
+        _v2.set(dataHeader, dataRows, _isSn, BibleVersionFonts().mainIsOpenHanBibleTCs(_vers), getTpTextAlignmentsViaBibleVersions(_vers),isOnOfSwitchs: _isOnOfSwitchs.isOns,isVisibleSwitch: _isVisibleSwitchs)
     }
     fileprivate func _drawTitle(){
         self.title = _addr.toString(ManagerLangSet.s.curTpBookNameLang)

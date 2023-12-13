@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 /// 使用 setTextsFirstCellTitle ( ) setTextsSecondCellTitle ( )
+/// 信望愛 Parsing 工具，原文一行，中文一行。就是會有兩個 Cell。而且對齊不同是特色。
 class ViewParsingWord : ViewFromXibBase {
     override var nibName: String{ "ViewParsingWord" }
     @IBOutlet var viewCellOrig: ViewDisplayCell!
@@ -16,13 +17,24 @@ class ViewParsingWord : ViewFromXibBase {
 
     func setTextsFirstCellTitle(_ dtexts:[DText],_ isRightToLeft: Bool){
         _data1 = dtexts
-        viewCellOrig.set(_data1,true)
-        viewCellOrig.viewText.textAlignment = isRightToLeft ? .right : .left
+        
+        let tpAlign: NSTextAlignment = isRightToLeft ? .right : .left
+        
+        _set_cellview(cellview: viewCellOrig, dtexts: _data1, tpAlign: tpAlign)
+        
+        viewCellOrig.viewText.textAlignment = tpAlign
+    }
+    private func _set_cellview(cellview: ViewDisplayCell, dtexts: [DText],tpAlign: NSTextAlignment){
+        cellview.set(dtexts: dtexts, isVisibleSn: true, isSwitchOn: true, isSwitchVisible: false)
     }
     func setTextsSecondCellTitle(_ dtexts:[DText],_ isRightToLeft: Bool){
         _data2 = dtexts
-        viewCellChineses.set(_data2,true)
-        viewCellChineses.viewText.textAlignment = isRightToLeft ? .right : .left
+        
+        let tpAlign: NSTextAlignment = isRightToLeft ? .right : .left
+        
+        _set_cellview(cellview: viewCellChineses, dtexts: _data2, tpAlign: tpAlign)
+        
+        viewCellChineses.viewText.textAlignment = tpAlign
     }
     var onClick$: IjnEvent<UIView,DText> = IjnEvent()
         
@@ -40,9 +52,10 @@ class ViewParsingWord : ViewFromXibBase {
         }
     }
     override func initedFromXib() {
-        viewCellOrig.set(test3, true)
+        viewCellOrig.set(dtexts: test3, isVisibleSn: true, isSwitchOn: true, isSwitchVisible: false)
         
-        viewCellChineses.set([DText(testHebrew1["exp"]?.replacingOccurrences(of: "\r\n", with: ""))], true)
+        let dataChinese = [DText(testHebrew1["exp"]?.replacingOccurrences(of: "\r\n", with: ""))]
+        viewCellChineses.set(dtexts: dataChinese, isVisibleSn: true, isSwitchOn: true, isSwitchVisible: false)
         
         viewCellOrig.onClicked$.addCallback { sender, pData in
             self.onClick$.trigger(sender, pData)
