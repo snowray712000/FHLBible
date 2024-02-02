@@ -8,9 +8,8 @@
 import Foundation
 import UIKit
 import ZIPFoundation
-import IJNSwift
 import zlib
-
+import FHLCommon
 class VCData : VCOptionListViaTableViewControllerBase{
     override func viewDidLoad() {
         super.viewDidLoad()

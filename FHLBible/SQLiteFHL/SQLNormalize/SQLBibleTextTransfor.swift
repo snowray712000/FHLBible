@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import IJNSwift
 
 /// 重構: 相似程式碼。
 class SQLBibleTextTransfor: NSObject {

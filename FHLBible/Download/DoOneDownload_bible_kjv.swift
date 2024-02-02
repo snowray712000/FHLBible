@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import IJNSwift
 
 extension VCData {
     class DoOneDownload_bible_kjv : DoOneDownload_bible_little {

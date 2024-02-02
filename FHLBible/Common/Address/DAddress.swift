@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 open class DAddress {
     init (_ book:Int = 0, _ chap: Int = 0 , _ verse: Int = 0,_ ver: String? = nil){
@@ -116,6 +117,7 @@ extension DAddress{
 class DAddresses : Comparable{
     static func < (lhs: DAddresses, rhs: DAddresses) -> Bool {
         let cnt = min(lhs.addresses.count,rhs.addresses.count)
+        
         if sinq(ijnRange(0, cnt)).any({lhs.addresses[$0].hashNumber() < rhs.addresses[$0].hashNumber()}){
             return true
         }

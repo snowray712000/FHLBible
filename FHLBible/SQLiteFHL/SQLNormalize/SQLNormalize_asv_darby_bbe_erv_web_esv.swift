@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import IJNSwift
 
 class SQLNormalizeBase : EasySQLiteBase {
     /// override

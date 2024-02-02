@@ -116,7 +116,6 @@
 		575AD92B29FC3295006FD6E0 /* IjnTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92A29FC3295006FD6E0 /* IjnTime.swift */; };
 		575AD92D29FC3618006FD6E0 /* AudioBibleStopTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575AD92C29FC3618006FD6E0 /* AudioBibleStopTimer.swift */; };
 		5768196728EC8B330049C728 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 5768196628EC8B330049C728 /* ZIPFoundation */; };
-		5768196C28EC8C9D0049C728 /* IJNSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5768196B28EC8C9D0049C728 /* IJNSwift */; };
 		576992BC274BB60B00717E8C /* FooterConvertorDTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576992BB274BB60B00717E8C /* FooterConvertorDTexts.swift */; };
 		576992BF274BB84D00717E8C /* VCFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576992BE274BB84D00717E8C /* VCFooter.swift */; };
 		576F7240292B8C6000ED4D04 /* IjnString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F723F292B8C6000ED4D04 /* IjnString.swift */; };
@@ -160,10 +159,14 @@
 		57AD73C727509D2F00CA9BA8 /* BibleVersionFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73C627509D2F00CA9BA8 /* BibleVersionFonts.swift */; };
 		57AD73C92750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73C82750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift */; };
 		57B818E627741EC100ACC891 /* Icon-App-40x40@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B818E527741EC000ACC891 /* Icon-App-40x40@1x.png */; };
+		57BA21CE2B6CB97500E5638D /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 57BA21CD2B6CB97500E5638D /* FMDB */; };
+		57BA21E02B6CBB1B00E5638D /* path_UserDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BA21DE2B6CBB1B00E5638D /* path_UserDomain.swift */; };
+		57BA21E12B6CBB1B00E5638D /* EasySQLiteBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BA21DF2B6CBB1B00E5638D /* EasySQLiteBase.swift */; };
+		57BA21E62B6CBC2E00E5638D /* FHLCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57BA21E52B6CBC2E00E5638D /* FHLCommon.framework */; };
+		57BA21E72B6CBC2E00E5638D /* FHLCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57BA21E52B6CBC2E00E5638D /* FHLCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57BBB17B2B20B73D001F54D3 /* DSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBB17A2B20B73D001F54D3 /* DSelections.swift */; };
 		57BBB17D2B20B7B0001F54D3 /* LongPressFuncCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBB17C2B20B7B0001F54D3 /* LongPressFuncCell.swift */; };
 		57BBB17F2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBB17E2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift */; };
-		57BBC7502901E22A001DC3FE /* SINQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC74F2901E22A001DC3FE /* SINQ.swift */; };
 		57BBC7532902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7522902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift */; };
 		57BBC7552902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7542902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift */; };
 		57BBC7582907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7572907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift */; };
@@ -193,6 +196,7 @@
 		57BBC7912912AE4E001DC3FE /* messageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7902912AE4E001DC3FE /* messageBox.swift */; };
 		57C08F032B23130B0065D553 /* ScrollViewCaptureImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C08F022B23130B0065D553 /* ScrollViewCaptureImage.swift */; };
 		57C08F072B263B650065D553 /* add_fns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C08F062B263B650065D553 /* add_fns.swift */; };
+		57C08F092B29F9A30065D553 /* SaveToPhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C08F082B29F9A30065D553 /* SaveToPhotoHelper.swift */; };
 		57D4928A2935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D492892935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift */; };
 		57D4928C2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4928B2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift */; };
 		57D4928E2939FFFF0099DC86 /* VCCommentIReloadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4928D2939FFFF0099DC86 /* VCCommentIReloadData.swift */; };
@@ -313,6 +317,20 @@
 			remoteInfo = FHLBible;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		57BA21E82B6CBC2E00E5638D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				57BA21E72B6CBC2E00E5638D /* FHLCommon.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5700345C29DF066E0007E6F3 /* VCAudioVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioVersion.swift; sourceTree = "<group>"; };
@@ -467,10 +485,12 @@
 		57AD73C627509D2F00CA9BA8 /* BibleVersionFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleVersionFonts.swift; sourceTree = "<group>"; };
 		57AD73C82750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerBibleVersionsForCompare.swift; sourceTree = "<group>"; };
 		57B818E527741EC000ACC891 /* Icon-App-40x40@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@1x.png"; sourceTree = "<group>"; };
+		57BA21DE2B6CBB1B00E5638D /* path_UserDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = path_UserDomain.swift; sourceTree = "<group>"; };
+		57BA21DF2B6CBB1B00E5638D /* EasySQLiteBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasySQLiteBase.swift; sourceTree = "<group>"; };
+		57BA21E52B6CBC2E00E5638D /* FHLCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FHLCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57BBB17A2B20B73D001F54D3 /* DSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSelections.swift; sourceTree = "<group>"; };
 		57BBB17C2B20B7B0001F54D3 /* LongPressFuncCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressFuncCell.swift; sourceTree = "<group>"; };
 		57BBB17E2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOneLongPressCellSetting.swift; sourceTree = "<group>"; };
-		57BBC74F2901E22A001DC3FE /* SINQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SINQ.swift; sourceTree = "<group>"; };
 		57BBC7522902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleTextGenerator.swift; sourceTree = "<group>"; };
 		57BBC7542902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleTextGeneratorTests.swift; sourceTree = "<group>"; };
 		57BBC7572907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleGetterViaSQLiteFile.swift; sourceTree = "<group>"; };
@@ -500,6 +520,7 @@
 		57BBC7902912AE4E001DC3FE /* messageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageBox.swift; sourceTree = "<group>"; };
 		57C08F022B23130B0065D553 /* ScrollViewCaptureImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewCaptureImage.swift; sourceTree = "<group>"; };
 		57C08F062B263B650065D553 /* add_fns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = add_fns.swift; sourceTree = "<group>"; };
+		57C08F082B29F9A30065D553 /* SaveToPhotoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotoHelper.swift; sourceTree = "<group>"; };
 		57D492892935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleCommentsGenerator.swift; sourceTree = "<group>"; };
 		57D4928B2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleCommentsGeneratorTests.swift; sourceTree = "<group>"; };
 		57D4928D2939FFFF0099DC86 /* VCCommentIReloadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCCommentIReloadData.swift; sourceTree = "<group>"; };
@@ -623,8 +644,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5768196C28EC8C9D0049C728 /* IJNSwift in Frameworks */,
 				5768196728EC8B330049C728 /* ZIPFoundation in Frameworks */,
+				57BA21E62B6CBC2E00E5638D /* FHLCommon.framework in Frameworks */,
+				57BA21CE2B6CB97500E5638D /* FMDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,6 +886,7 @@
 		5768196A28EC8C9D0049C728 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				57BA21E52B6CBC2E00E5638D /* FHLCommon.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -955,12 +978,13 @@
 			path = VCVersionsCompareInOneVerse;
 			sourceTree = "<group>";
 		};
-		57BBC74E2901E213001DC3FE /* SINQ */ = {
+		57BA21DD2B6CBB1B00E5638D /* EasySQLite */ = {
 			isa = PBXGroup;
 			children = (
-				57BBC74F2901E22A001DC3FE /* SINQ.swift */,
+				57BA21DE2B6CBB1B00E5638D /* path_UserDomain.swift */,
+				57BA21DF2B6CBB1B00E5638D /* EasySQLiteBase.swift */,
 			);
-			path = SINQ;
+			path = EasySQLite;
 			sourceTree = "<group>";
 		};
 		57BBC7512902CD33001DC3FE /* SQLiteFHL */ = {
@@ -1124,6 +1148,7 @@
 				5714134B2734C49200CD206E /* InfoButtonBase.swift */,
 				57DDA91A2B14B3CF0034CDFC /* EasyStringAttributes.swift */,
 				57C08F022B23130B0065D553 /* ScrollViewCaptureImage.swift */,
+				57C08F082B29F9A30065D553 /* SaveToPhotoHelper.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1171,11 +1196,11 @@
 		C8AD1D4A2624243C0046C8EE /* FHLBible */ = {
 			isa = PBXGroup;
 			children = (
+				57BA21DD2B6CBB1B00E5638D /* EasySQLite */,
 				573958552AEC9F39005A92F8 /* VCWhenLongPress */,
 				57FBC0082A216E9C002E9DF7 /* VCAudioTextBible */,
 				572D9A9A29CAD67C008DF7BF /* VCAudioBible */,
 				57BBC7512902CD33001DC3FE /* SQLiteFHL */,
-				57BBC74E2901E213001DC3FE /* SINQ */,
 				57073CBE275633D100B08F2F /* VCSetting */,
 				57AD73C327508B9A00CA9BA8 /* VCVersionsCompareInOneVerse */,
 				578B253E2746280800EF2705 /* NoUse */,
@@ -1314,6 +1339,7 @@
 				C8AD1D442624243C0046C8EE /* Sources */,
 				C8AD1D452624243C0046C8EE /* Frameworks */,
 				C8AD1D462624243C0046C8EE /* Resources */,
+				57BA21E82B6CBC2E00E5638D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1322,7 +1348,7 @@
 			name = FHLBible;
 			packageProductDependencies = (
 				5768196628EC8B330049C728 /* ZIPFoundation */,
-				5768196B28EC8C9D0049C728 /* IJNSwift */,
+				57BA21CD2B6CB97500E5638D /* FMDB */,
 			);
 			productName = FHLBible;
 			productReference = C8AD1D482624243C0046C8EE /* FHLBible.app */;
@@ -1399,6 +1425,7 @@
 			mainGroup = C8AD1D3F2624243C0046C8EE;
 			packageReferences = (
 				5768196528EC8B330049C728 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				57BA21CC2B6CB97500E5638D /* XCRemoteSwiftPackageReference "fmdb" */,
 			);
 			productRefGroup = C8AD1D492624243C0046C8EE /* Products */;
 			projectDirPath = "";
@@ -1467,6 +1494,7 @@
 				C8089F4B2670894E004FA377 /* setConstraints.swift in Sources */,
 				C8AD1DA02628A9A90046C8EE /* JobFlag2Starter_ObDownloadGetter.swift in Sources */,
 				57D49294293A008C0099DC86 /* VCCommentIReloadDataAuto.swift in Sources */,
+				57C08F092B29F9A30065D553 /* SaveToPhotoHelper.swift in Sources */,
 				57BBC785290C468F001DC3FE /* SQLNormalize_sn_kjv.swift in Sources */,
 				C89F76612672090000953F4B /* BookNameConstants.swift in Sources */,
 				5700346129E03C190007E6F3 /* AudioBibleNextPrevGetter.swift in Sources */,
@@ -1667,6 +1695,7 @@
 				57D49296293A00D90099DC86 /* VCTskIReloadData.swift in Sources */,
 				5711206D272FCD3400D64A6E /* ViewButtons.swift in Sources */,
 				578B2548274741A700EF2705 /* SSH1H2H3H4Title.swift in Sources */,
+				57BA21E02B6CBB1B00E5638D /* path_UserDomain.swift in Sources */,
 				C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */,
 				57AD73BB274D4E4A00CA9BA8 /* SSEsv.swift in Sources */,
 				C8AD1D82262427DE0046C8EE /* AppTabController.swift in Sources */,
@@ -1678,6 +1707,7 @@
 				573CB8F9273F905600AEEC9B /* BookClassor.swift in Sources */,
 				570A64C0273B662000B5EC11 /* VCReadHistory.swift in Sources */,
 				57AD73C92750B90B00CA9BA8 /* ManagerBibleVersionsForCompare.swift in Sources */,
+				57BA21E12B6CBB1B00E5638D /* EasySQLiteBase.swift in Sources */,
 				57D4929C293A2A4F0099DC86 /* DoOneDownload_bible_parsing.swift in Sources */,
 				570A64B2273AA44300B5EC11 /* FhlParameters.swift in Sources */,
 				C8AD1D4E2624243C0046C8EE /* SceneDelegate.swift in Sources */,
@@ -1687,7 +1717,6 @@
 				574599BF273D288C005635D0 /* _EmptyFileA.swift in Sources */,
 				5700346529E12D880007E6F3 /* DAudioBible.swift in Sources */,
 				57112069272FCC8400D64A6E /* VCBookChapPicker.swift in Sources */,
-				57BBC7502901E22A001DC3FE /* SINQ.swift in Sources */,
 				57D49298293A08A70099DC86 /* VCTskIReloadDataViaOfflineDatabase.swift in Sources */,
 				575AD92529EEB1BE006FD6E0 /* VCAudioBibleEvents.swift in Sources */,
 				575AD92D29FC3618006FD6E0 /* AudioBibleStopTimer.swift in Sources */,
@@ -2110,6 +2139,14 @@
 				kind = branch;
 			};
 		};
+		57BA21CC2B6CB97500E5638D /* XCRemoteSwiftPackageReference "fmdb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ccgus/fmdb.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2118,9 +2155,10 @@
 			package = 5768196528EC8B330049C728 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
 		};
-		5768196B28EC8C9D0049C728 /* IJNSwift */ = {
+		57BA21CD2B6CB97500E5638D /* FMDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = IJNSwift;
+			package = 57BA21CC2B6CB97500E5638D /* XCRemoteSwiftPackageReference "fmdb" */;
+			productName = FMDB;
 		};
 /* End XCSwiftPackageProductDependency section */
 

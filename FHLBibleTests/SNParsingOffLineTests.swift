@@ -6,7 +6,6 @@
 import Foundation
 import XCTest
 @testable import FHLBible
-import IJNSwift
 
 class SNParsingOfflineTests : XCTestCase {
     func testBasic01(){

@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import IJNSwift
 import FMDB
 
 class VCComment : UIViewController {

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import IJNSwift
 
 extension VCData {
     /// 參考 comment 作出來的，但 comment 是參考 kjv 作出來的

@@ -49,29 +49,10 @@ extension VCWhenLongPress {
                 return
             }
             
-            // 產生影像，儲存影像。
-            self.textView.capture { image in
-                guard let image = image else {
-                    MessageBox.ok(vc: self, msg: "產生影像失敗")
-                    return
-                }
-                
-                // 儲存影像
-                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self._image_saved(_:didFinishSavingWithError: contextInfo:)), nil)
-            }
+            generate_and_save_and_msgbox_image_of_scrollview(viewOfImage: self.textView, vc: self)
         }
     }
-    /**
-     為了 _add_generate_image_save_to_photo 而存在。
-     - UIImageWriteToSavedPhotosAlbum 的 callback ， 必需使用 #selector 不能使用閉包。
-     */
-    @objc func _image_saved(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
-            MessageBox.ok(vc: self, msg: "儲存影像失敗: \(error.localizedDescription)")
-        } else {
-            MessageBox.ok(vc: self, msg: "儲存影像成功")
-        }
-    }
+    
     
     func _add_is_sn_visiable_switch(){
         let strHelp = NSLocalizedString("只有和合本，KJV，和合本2010的舊約，具有 Strong Number 代號", comment: "")

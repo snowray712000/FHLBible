@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import ZIPFoundation
-import IJNSwift
 import zlib
 import AVFoundation
 

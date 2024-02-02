@@ -1,5 +1,5 @@
 import Foundation
-
+import FHLCommon
 
 class DictTwcbNewConvertor : IStr2DTextArray {
     func main(_ str: String) -> [DText] {

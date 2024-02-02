@@ -174,6 +174,8 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
                 vc.addr = self._addrsCur!
                 vc.vers = self._vers
                 self.navigationController?.pushViewController(vc, animated: true)
+            } else if pData == "generatePhoto" {
+                generate_and_save_and_msgbox_image_of_scrollview(viewOfImage: v2.viewTable, vc: self)
             }
         }
 

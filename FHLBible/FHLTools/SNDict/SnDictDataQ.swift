@@ -1,5 +1,4 @@
 import Foundation
-import IJNSwift
 import FMDB
 /// 很多其實都需要這個, 但這個是在寫 SnDictDataQ 定義的
 /// SnDictDataQ 需要 CBOL 與 Twcb 版本的轉換器

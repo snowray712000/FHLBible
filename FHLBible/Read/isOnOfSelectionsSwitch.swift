@@ -30,7 +30,7 @@ class IsOnOfSelectionsOfSwitch {
         }
     }
     func set_all_of_col(v:Bool, col:Int){
-        for (r,a1) in isOns.enumerated(){
+        for (r,_) in isOns.enumerated(){
             isOns[r][col] = v            
         }
     }

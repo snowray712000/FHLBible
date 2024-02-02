@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 class SQLSelectBibleTextGenerator {
     func main(addresses addrs:[DAddress],
               nameOfTable unv2:String,

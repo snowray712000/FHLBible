@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import IJNSwift
 import FMDB
 
 class BibleGetterViaSQLiteOrApi : NSObject, IBibleGetter {

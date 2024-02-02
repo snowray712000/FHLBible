@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FHLCommon
 class BibleVersionConstants {
     static var s: BibleVersionConstants = BibleVersionConstants()
     var datas: [OneGroup] { get {

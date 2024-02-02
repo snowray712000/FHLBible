@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FHLCommon
 class SNParsingDealProXForm{
     private var proid: String!
     func main(_ pro:String?,_ wform:String?)-> (String,String) {

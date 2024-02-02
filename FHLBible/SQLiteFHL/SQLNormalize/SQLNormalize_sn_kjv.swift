@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import IJNSwift
 
 class SQLNormalize_sn_kjv : EasySQLiteBase {
     public override var pathToDatabase: URL!{

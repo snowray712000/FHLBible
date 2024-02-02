@@ -67,6 +67,10 @@ public class IjnEventOnce<T1,T2> {
     public func addCallback(_ fn: @escaping FnCallback){
         fnCallbacks.append(fn)
     }
+    /// 用作，若沒有加入 callback, 提供預設動作.
+    public var isEmptyCallback: Bool {
+        get { return fnCallbacks.isEmpty }
+    }
 }
 typealias FnCallbackAny = (_ sender: Any?,_ pData: Any?)-> Void
 typealias IjnEventAny = IjnEvent<Any,Any>

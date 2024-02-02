@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import IJNSwift
 import FMDB
+import FHLCommon
 /// 為了 BibleReadDataGetter
 protocol IBibleGetter {
     /// ver: unv

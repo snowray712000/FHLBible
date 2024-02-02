@@ -10,7 +10,7 @@ import AVFoundation
 import CoreMedia
 import UIKit
 import MediaPlayer
-
+import FHLCommon
 // 技術: 必需能發音(基本)。在情境`關閉畫面`下，仍要繼續播放，所以必須要有目前章節，才能搜尋下一個章節，也因此，取得經文過程，也會在這裡面作。
 // 以下是使用self:
 // 首先，會先呼叫 setVersions 與 setAddr 一次
