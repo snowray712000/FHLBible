@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 /// 當使用 viewDisplayTable 的 set 函式時，會先準備所有 datas，
 /// 然而，datas 只會有 Address 的可能，這時候，也會同時產生 noData 是哪些 row

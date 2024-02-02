@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FMDB
+import FHLCommon
 
 extension VCComment {
     class ReloadDataAutoUseOfflineOrScApi : IReloadData {

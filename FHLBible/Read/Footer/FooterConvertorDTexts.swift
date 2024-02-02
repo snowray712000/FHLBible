@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 func cvtFooter(_ txt: String, _ addr: DAddress,_ ver:String) -> [DText] {
     return FooterConvertor(addr,ver).mainConvert(txt)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 class QsbRecords2DOneLines01 : IQsbRecords2DOneLines {
     func cvt(_ records: [DApiQsbRecord], _ ver: String) -> [DOneLine] {

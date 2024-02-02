@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 class FindWhichDTextFromIndexOfChar : IFindWhichDTextFromIndexOfChar {
     init(_ isVisibleSn:Bool){

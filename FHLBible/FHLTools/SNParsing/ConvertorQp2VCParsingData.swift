@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FHLCommon
 
 class ConvertorQp2VCParsingData {
     init(_ data: DData){

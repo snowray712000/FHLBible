@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FMDB
+import FHLCommon
 
 class VCComment : UIViewController {
     func setInitData(_ addr: DAddress){

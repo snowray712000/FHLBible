@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// SSDT: split string dtext
 func ssDtH1H2H3H4Title (_ ds:[DText])->[DText]{

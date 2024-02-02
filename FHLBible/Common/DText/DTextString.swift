@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// 方便的小東西
 public class DTextString : IDTextTestGetter {

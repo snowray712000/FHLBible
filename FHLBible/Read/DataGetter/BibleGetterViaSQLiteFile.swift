@@ -7,8 +7,7 @@
 
 import Foundation
 import FMDB
-
-
+import FHLCommon
 
 class BibleGetterViaSQLiteFile : IBibleGetter {
     private func cvtToDOneLine(_ a1:FMResultSet)->DOneLine{

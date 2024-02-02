@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FHLCommon
 
 class VCSearchKeywordViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var historys: [DText] = [

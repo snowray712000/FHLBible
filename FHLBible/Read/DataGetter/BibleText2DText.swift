@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 /// 用在 BibleGetterViaFhlApiQsb 時
 /// 那個 class, 從 qsb 取得資料, 再經過 cvtor 轉換為 [DOneLine] 但裡面的資料, 只是純文字轉為 w 去

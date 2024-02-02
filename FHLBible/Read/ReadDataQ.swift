@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import FHLCommon
+
 /// 用現有的  BibleReadDataGetter 去湊
 class ReadDataQ : NSObject, IVCReadDataQ {
     var qDataForRead$: IjnEventOnce<Any, (OneRow, [OneRow])> = IjnEventOnce()

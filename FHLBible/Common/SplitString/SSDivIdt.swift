@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import FHLCommon
+
+
 func doDivIdt (_ ds:[DText])->[DText]{
     return doSSDTextCore(ds, {SSDivIdt()})
 }

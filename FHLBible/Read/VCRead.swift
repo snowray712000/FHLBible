@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import FHLCommon
 
 protocol IVCReadDataQ {
     func qDataForReadAsync(_ addr:String, _ vers: [String])

@@ -231,7 +231,6 @@
 		57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */; };
 		57FBC0112A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */; };
 		57FBC0132A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */; };
-		C8089F22267030A5004FA377 /* DTextDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F21267030A5004FA377 /* DTextDraw.swift */; };
 		C8089F27267030D9004FA377 /* DTextString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F26267030D9004FA377 /* DTextString.swift */; };
 		C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F2B267030E5004FA377 /* DTextTestData.swift */; };
 		C8089F312670311B004FA377 /* EventOneRowForDTextClick.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F302670311B004FA377 /* EventOneRowForDTextClick.swift */; };
@@ -280,7 +279,6 @@
 		C89F76612672090000953F4B /* BookNameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89F76602672090000953F4B /* BookNameConstants.swift */; };
 		C8A7083026369FE100B9175D /* IjnTestTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A7082F26369FE100B9175D /* IjnTestTime.swift */; };
 		C8A7083A2636DEE500B9175D /* IjnDTextTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A708392636DEE500B9175D /* IjnDTextTextView.swift */; };
-		C8A7084A263940B800B9175D /* IjnColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A70849263940B800B9175D /* IjnColor.swift */; };
 		C8AD1D4C2624243C0046C8EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AD1D4B2624243C0046C8EE /* AppDelegate.swift */; };
 		C8AD1D4E2624243C0046C8EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AD1D4D2624243C0046C8EE /* SceneDelegate.swift */; };
 		C8AD1D532624243C0046C8EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8AD1D512624243C0046C8EE /* Main.storyboard */; };
@@ -562,7 +560,6 @@
 		57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTextBibleTTSCore.swift; sourceTree = "<group>"; };
 		57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextSpeed.swift; sourceTree = "<group>"; };
 		57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerAudioTextSpeed.swift; sourceTree = "<group>"; };
-		C8089F21267030A5004FA377 /* DTextDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTextDraw.swift; sourceTree = "<group>"; };
 		C8089F26267030D9004FA377 /* DTextString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextString.swift; sourceTree = "<group>"; };
 		C8089F2B267030E5004FA377 /* DTextTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextTestData.swift; sourceTree = "<group>"; };
 		C8089F302670311B004FA377 /* EventOneRowForDTextClick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventOneRowForDTextClick.swift; sourceTree = "<group>"; };
@@ -611,7 +608,6 @@
 		C89F76602672090000953F4B /* BookNameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookNameConstants.swift; sourceTree = "<group>"; };
 		C8A7082F26369FE100B9175D /* IjnTestTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IjnTestTime.swift; sourceTree = "<group>"; };
 		C8A708392636DEE500B9175D /* IjnDTextTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IjnDTextTextView.swift; sourceTree = "<group>"; };
-		C8A70849263940B800B9175D /* IjnColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IjnColor.swift; sourceTree = "<group>"; };
 		C8AD1D482624243C0046C8EE /* FHLBible.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHLBible.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8AD1D4B2624243C0046C8EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8AD1D4D2624243C0046C8EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -905,7 +901,6 @@
 			children = (
 				C844021A2631633800AD0CE9 /* DText.swift */,
 				C8089F26267030D9004FA377 /* DTextString.swift */,
-				C8089F21267030A5004FA377 /* DTextDraw.swift */,
 				C8089F2B267030E5004FA377 /* DTextTestData.swift */,
 			);
 			path = DText;
@@ -1293,7 +1288,6 @@
 				C8AD1DB12629AF2F0046C8EE /* ijnDate.swift */,
 				C8F79A15262D715300811978 /* PrintNotImplementYet.swift */,
 				C8A7082F26369FE100B9175D /* IjnTestTime.swift */,
-				C8A70849263940B800B9175D /* IjnColor.swift */,
 				57543DAD2779A2DC00587B40 /* SplitByNewLines.swift */,
 				C8089F4A2670894E004FA377 /* setConstraints.swift */,
 				C87F191E268434650083C647 /* SplitByRegex.swift */,
@@ -1545,7 +1539,6 @@
 				57A21A86276A61280022212D /* SwipeHelp.swift in Sources */,
 				C8089F3B26703182004FA377 /* OneRowForDText.swift in Sources */,
 				C88D236026EB0D110088BCF5 /* BibleGetterViaFhlApiQsb.swift in Sources */,
-				C8A7084A263940B800B9175D /* IjnColor.swift in Sources */,
 				57BBC78B290FE357001DC3FE /* Download_asv_darby_bbe_erv_web_esv.swift in Sources */,
 				577CEF9C27514337003014A8 /* FooterDTextClickFlow.swift in Sources */,
 				57BBB17D2B20B7B0001F54D3 /* LongPressFuncCell.swift in Sources */,
@@ -1655,7 +1648,6 @@
 				C85A0F47268C04FC0020CD94 /* FhlJson.swift in Sources */,
 				57BBC78F29128EDF001DC3FE /* SwiftFileManager_Extensions.swift in Sources */,
 				574599C1273D28A6005635D0 /* SnDictDataTwcbQ.swift in Sources */,
-				C8089F22267030A5004FA377 /* DTextDraw.swift in Sources */,
 				577CEFAE2754BDAA003014A8 /* FHLBible.xcdatamodeld in Sources */,
 				C85A0F4F268C057A0020CD94 /* DApiQsb.swift in Sources */,
 				C88D234226EB070C0088BCF5 /* _index.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 /// 使用 setTextsFirstCellTitle ( ) setTextsSecondCellTitle ( )
 /// 信望愛 Parsing 工具，原文一行，中文一行。就是會有兩個 Cell。而且對齊不同是特色。

@@ -4,7 +4,7 @@
  */
 
 import Foundation
-
+import FHLCommon
 /**
  提供 VCWhenLongPress 使用的，將要顯示要複製的結果用的。
  */

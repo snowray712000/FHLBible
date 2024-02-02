@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 /// 使用 set
 @IBDesignable

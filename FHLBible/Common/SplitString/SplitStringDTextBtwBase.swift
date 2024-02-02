@@ -7,7 +7,7 @@
 /// <div></div> 或 ( ) 成對出現時可用
 /// 開發過程，可看 DevUname02 這個 class
 import Foundation
-
+import FHLCommon
 
 /// 過載 isFront gRegexp gDTextContain
 /// ＜div＞＜/div＞ 或 ( ) 成對出現時可用

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 class VCReadImplementEvents : IVCRead {
     var onClickAddr$: IjnEvent<UIView, DText> = IjnEvent()

@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// 處理括號 全型 半型都會處理
 /// SSDT: split string dtext

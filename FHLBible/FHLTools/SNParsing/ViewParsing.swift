@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FHLCommon
 
 class ViewParsing : ViewFromXibBase {
     override var nibName: String {"ViewParsing"}

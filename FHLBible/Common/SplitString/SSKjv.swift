@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import FHLCommon
+
+
 func ssDtKjvRf (_ ds:[DText])->[DText]{
     return doSSDTextCore(ds, {SSKjvRF()})
 }

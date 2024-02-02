@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 class VCVersionsCompareInOneVerse : UIViewController {
     func setInitData(_ addr:DAddress){

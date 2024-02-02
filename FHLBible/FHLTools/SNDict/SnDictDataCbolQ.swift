@@ -1,5 +1,7 @@
 import Foundation
 import FMDB
+import FHLCommon
+
 class SnDictDataCbolQAuto {
     /// 第1個參數，若有錯誤訊息時，放在那
     var onApiFinished$: IjnEventOnce<[DText],DApiSd> = IjnEventOnce()

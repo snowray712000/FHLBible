@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FHLCommon
 
 class VCSnDict: UIViewController {
     /// addr, vers 是因為若點點了 內容，有時候可能會需要，而非 dict 真的需要

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 func ssDtHebrew(_ src:[DText])->[DText]{
     return doSSDTextCore(src, {SSHebrew()})

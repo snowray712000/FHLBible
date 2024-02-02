@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 /// 寫完 tsk，再寫 comment 時，有共同處
 class FhlScCore {

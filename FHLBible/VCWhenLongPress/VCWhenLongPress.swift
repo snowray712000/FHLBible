@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import UniformTypeIdentifiers
+import FHLCommon
 
 class VCWhenLongPress : UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var textView: UITextView!

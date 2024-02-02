@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// 若要作新的，請參照 SplitStringDivIdt 、 SSReference 兩大類來作
 func ssDtUnderlineU (_ ds:[DText])->[DText]{

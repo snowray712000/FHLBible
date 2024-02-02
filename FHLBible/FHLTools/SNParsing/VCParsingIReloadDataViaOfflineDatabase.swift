@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FMDB
+import FHLCommon
 
 extension VCParsing {
     /// 參考 Comment 寫的

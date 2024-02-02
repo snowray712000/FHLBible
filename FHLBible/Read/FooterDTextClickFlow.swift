@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 /// 原本在 read 中，但是搜尋結果顯示若有 reference，流程一樣，所以就抽出 class
 class FooterDTextClickFlow : NSObject {

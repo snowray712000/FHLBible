@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FHLCommon
+
 func ssDtEsvSubtitle (_ ds:[DText])->[DText]{
     return doSSDTextCore(ds, {SSEsvTitle()})
 }

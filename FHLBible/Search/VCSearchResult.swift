@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 class VCSearchResult : UIViewController {
     func setInitData(_ keyword: String,_ vers:[String],_ addr:DAddress!){

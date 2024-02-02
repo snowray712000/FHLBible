@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FHLCommon
+
 
 /// csb: 中文標準譯本 cnet: NET聖經中譯本
 /// 內容需要目前經文位置，在查詢內容時需要

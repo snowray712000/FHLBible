@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FHLCommon
 
 func ssDtSpanExp (_ ds:[DText])->[DText]{
     return doSSDTextCore(ds, {SSSpanExp()})

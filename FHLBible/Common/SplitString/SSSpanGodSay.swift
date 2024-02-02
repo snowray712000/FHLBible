@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 func ssDtSpanGodSayCsb (_ ds:[DText])->[DText]{
     return doSSDTextCore(ds, {SSSpanGodSayCsb()})

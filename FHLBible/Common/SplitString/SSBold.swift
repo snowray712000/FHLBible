@@ -1,4 +1,6 @@
 import Foundation
+import FHLCommon
+
 
 /// 若要作新的，請參照 SSDivIdt 、 SSReference 兩大類來作
 func ssDtSSBoldB (_ ds:[DText])->[DText]{

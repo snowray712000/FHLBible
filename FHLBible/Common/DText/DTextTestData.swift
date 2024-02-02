@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 public protocol IDTextTestGetter {
     func main() -> DOneLine

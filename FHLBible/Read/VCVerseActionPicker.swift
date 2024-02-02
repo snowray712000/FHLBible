@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 public enum VerseAction {
     case InfoParsing // 原文分析

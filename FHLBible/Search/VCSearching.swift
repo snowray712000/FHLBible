@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import FHLCommon
 
 class VCSearching : UIViewController {
     @IBOutlet weak var viewSearching: UIView!

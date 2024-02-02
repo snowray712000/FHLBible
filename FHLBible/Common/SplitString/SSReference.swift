@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 func ssDtReference(_ ds:[DText],_ ver: String? = nil )->[DText]{
     return doSSDTextCore(ds, {SSReference(ver)})

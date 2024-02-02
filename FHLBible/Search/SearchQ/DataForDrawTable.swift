@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FHLCommon
 
 /// 這個 class 核心在負責，qsb api 抓資料，不是在串流程，所以上色應該是別人的事。
 /// 但處理資料也不該是 view table 的事，而應該是 ctrl 的事 VCSearchResult

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 
 func ssDtSNG(_ ds:[DText])->[DText]{ doSSDTextCore(ds, {SSSNG0430()}) }

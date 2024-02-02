@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 func ssDtSpanBibtext (_ ds:[DText])->[DText]{
     return doSSDTextCore(ds, {SSSpanBibtext()})

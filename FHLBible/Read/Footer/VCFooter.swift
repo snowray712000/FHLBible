@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 class VCFooter : UIViewController {
     /// 第一個 ver, 是目前 col. 第二個 vers 主要是若內容 click reference 時要用到的

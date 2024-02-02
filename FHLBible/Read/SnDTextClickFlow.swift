@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 /// 因為 comment 也有，所以從 Read 中抽離出來流程
 /// Step1: 選 Action 動作 2: 執行對應動作

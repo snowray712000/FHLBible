@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import FHLCommon
+
 class VCSnActionPicker : VCPickerBaseOnTableView<DText.SnAction> {
     override func getSelected(_ i: Int) -> DText.SnAction? {
         return types[i]

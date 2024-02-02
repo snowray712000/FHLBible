@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 protocol IFindIndexOfCharInTextView {
     func findIndexOfChar(_ tv: UITextView,_ tapGesture: UITapGestureRecognizer) -> Int

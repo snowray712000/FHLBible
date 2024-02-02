@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// \r?\n ... 思高譯本，有 br/
 func ssDtNewLine(_ src:[DText])->[DText]{
