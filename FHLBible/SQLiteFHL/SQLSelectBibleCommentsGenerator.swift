@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FHLCommon
+
 class SQLSelectBibleCommentsGenerator {
     func main(address addr:DAddress,
               tag:Int,

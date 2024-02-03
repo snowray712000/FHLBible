@@ -8,29 +8,30 @@
 import Foundation
 import FHLCommon
 
-open class DAddress {
-    init (_ book:Int = 0, _ chap: Int = 0 , _ verse: Int = 0,_ ver: String? = nil){
-        self.book = book
-        self.chap = chap
-        self.verse = verse
-        self.ver = ver
-    }
-    /// for SQLite
-    convenience init(_ book:Int32,_ chap:Int32,_ verse:Int32) {
-        self.init(Int(book),Int(chap),Int(verse))
-    }
-    internal init(book: Int = 0, chap: Int = 0, verse: Int = 0, ver: String? = nil) {
-        self.book = book
-        self.chap = chap
-        self.verse = verse
-        self.ver = ver
-    }
-    
-    public var book = 0
-    public var chap = 0
-    public var verse = 0
-    public var ver: String?
-    
+//open class DAddress {
+//    init (_ book:Int = 0, _ chap: Int = 0 , _ verse: Int = 0,_ ver: String? = nil){
+//        self.book = book
+//        self.chap = chap
+//        self.verse = verse
+//        self.ver = ver
+//    }
+//    /// for SQLite
+//    convenience init(_ book:Int32,_ chap:Int32,_ verse:Int32) {
+//        self.init(Int(book),Int(chap),Int(verse))
+//    }
+//    internal init(book: Int = 0, chap: Int = 0, verse: Int = 0, ver: String? = nil) {
+//        self.book = book
+//        self.chap = chap
+//        self.verse = verse
+//        self.ver = ver
+//    }
+//    
+//    public var book = 0
+//    public var chap = 0
+//    public var verse = 0
+//    public var ver: String?
+//}
+extension DAddress {
     public func toString(_ tp: BookNameLang)->String{
         if ( book < 1 || book > 66){
             return "\(book) \(chap):\(verse)"
@@ -42,27 +43,27 @@ open class DAddress {
     }
 }
 
-/// 當要用 Set<DAddress> 時會用到
-extension DAddress : Hashable {
-    /// Type 'DAddress' does not conform to protocol 'Hashable'
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(book)
-        hasher.combine(chap)
-        hasher.combine(verse)
-    }
-}
-/// 呼叫排序時 .sort （＜）　或　.sort（＞） r2.sort(by:＜)
-extension DAddress : Equatable, Comparable {
-    public static func < (lhs: DAddress, rhs: DAddress) -> Bool {
-        if lhs.book < rhs.book { return true }
-        if lhs.chap < rhs.chap { return true }
-        if lhs.verse < rhs.verse { return true }
-        return false
-    }
-    public static func == (lhs: DAddress, rhs: DAddress) -> Bool {
-        return lhs.book == rhs.book && lhs.chap == rhs.chap && lhs.verse == rhs.verse
-    }
-}
+///// 當要用 Set<DAddress> 時會用到
+//extension DAddress : Hashable {
+//    /// Type 'DAddress' does not conform to protocol 'Hashable'
+//    public func hash(into hasher: inout Hasher) {
+//        hasher.combine(book)
+//        hasher.combine(chap)
+//        hasher.combine(verse)
+//    }
+//}
+///// 呼叫排序時 .sort （＜）　或　.sort（＞） r2.sort(by:＜)
+//extension DAddress : Equatable, Comparable {
+//    public static func < (lhs: DAddress, rhs: DAddress) -> Bool {
+//        if lhs.book < rhs.book { return true }
+//        if lhs.chap < rhs.chap { return true }
+//        if lhs.verse < rhs.verse { return true }
+//        return false
+//    }
+//    public static func == (lhs: DAddress, rhs: DAddress) -> Bool {
+//        return lhs.book == rhs.book && lhs.chap == rhs.chap && lhs.verse == rhs.verse
+//    }
+//}
 extension VerseRange : Equatable {
     public static func == (lhs: VerseRange, rhs: VerseRange) -> Bool {
         if lhs.verses.count != rhs.verses.count { return false }
@@ -104,7 +105,7 @@ extension DAddress {
     /// 產生整章 DAddress, 用 book, chap 參教
     func generateEntireThisChap()->[DAddress] {
         let r1 = BibleVerseCount.getVerseCount(self.book, self.chap)
-        return ijnRange(1, r1).map({DAddress(book: self.book, chap: self.chap, verse: $0, ver: self.ver)})
+        return ijnRange(1, r1).map({DAddress(book: self.book, chap: self.chap, verse: $0)})
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 // 前提假設: 傳入的 book chap version 是存在的
 class AudioBibleNextPrevGetter {

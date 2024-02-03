@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 open class VerseRange {
     init(_ verses:[DAddress]=[]){

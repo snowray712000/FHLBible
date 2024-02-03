@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// 使用情境: VerseRange 常常要轉為 "創1" 或 "Ge1" 或 "创1" 等等
 /// 使它相反的就是 VerseRange 的 fromReferenceDescription

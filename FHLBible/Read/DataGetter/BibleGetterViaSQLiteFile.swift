@@ -18,7 +18,7 @@ class BibleGetterViaSQLiteFile : IBibleGetter {
         
         let r1 = DOneLine()
         
-        r1.address2 = DAddress(book,chap,sec)
+        r1.address2 = DAddress(Int(book),Int(chap),Int(sec))
         r1.children = [DText(txt)]
         return r1
     }

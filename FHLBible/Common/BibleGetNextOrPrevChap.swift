@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 /// 將 getNextChap 與 getPrevChap 這一對包在一個 class
 open class BibleGetNextOrPrevChap {
@@ -44,7 +45,7 @@ open class BibleGetNextOrPrevChap {
         
         func gThisChap(_ b: Int,_ c: Int) -> [DAddress]{
             let cntVerse = BibleVerseCount.getVerseCount(b, c)
-            return (1..<cntVerse+1).map({DAddress(book: b, chap: c, verse: $0, ver: nil)})
+            return (1..<cntVerse+1).map({DAddress(book: b, chap: c, verse: $0)})
         }
         
         if isReturnNil() {
@@ -69,7 +70,7 @@ open class BibleGetNextOrPrevChap {
         
         func gThisChap(_ b: Int,_ c: Int) -> [DAddress]{
             let cntVerse = BibleVerseCount.getVerseCount(b, c)
-            return (1..<cntVerse+1).map({DAddress(book: b, chap: c, verse: $0, ver: nil)})
+            return (1..<cntVerse+1).map({DAddress(book: b, chap: c, verse: $0)})
         }
         
         if isReturnNil() {

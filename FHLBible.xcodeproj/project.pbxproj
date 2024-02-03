@@ -215,7 +215,6 @@
 		57D7EB652723FE49003D2557 /* ViewSearchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D7EB642723FE49003D2557 /* ViewSearchFilter.swift */; };
 		57D7EB672724023D003D2557 /* ViewFromXibBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D7EB662724023D003D2557 /* ViewFromXibBase.swift */; };
 		57D7EB6A27255A16003D2557 /* VCSearchKeywordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D7EB6927255A16003D2557 /* VCSearchKeywordViewController.swift */; };
-		57DDA91B2B14B3CF0034CDFC /* EasyStringAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DDA91A2B14B3CF0034CDFC /* EasyStringAttributes.swift */; };
 		57F22C60272B6C8D00526631 /* FindIndexOfCharInTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F22C5F272B6C8D00526631 /* FindIndexOfCharInTextView.swift */; };
 		57F22C62272B6E2700526631 /* FindWhichDTextFromIndexOfChar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F22C61272B6E2700526631 /* FindWhichDTextFromIndexOfChar.swift */; };
 		57F22C64272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F22C63272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift */; };
@@ -537,7 +536,6 @@
 		57D7EB642723FE49003D2557 /* ViewSearchFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSearchFilter.swift; sourceTree = "<group>"; };
 		57D7EB662724023D003D2557 /* ViewFromXibBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFromXibBase.swift; sourceTree = "<group>"; };
 		57D7EB6927255A16003D2557 /* VCSearchKeywordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSearchKeywordViewController.swift; sourceTree = "<group>"; };
-		57DDA91A2B14B3CF0034CDFC /* EasyStringAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyStringAttributes.swift; sourceTree = "<group>"; };
 		57F22C5F272B6C8D00526631 /* FindIndexOfCharInTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIndexOfCharInTextView.swift; sourceTree = "<group>"; };
 		57F22C61272B6E2700526631 /* FindWhichDTextFromIndexOfChar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindWhichDTextFromIndexOfChar.swift; sourceTree = "<group>"; };
 		57F22C63272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindWordInTextViewWhenTapGesture.swift; sourceTree = "<group>"; };
@@ -1141,7 +1139,6 @@
 				C87F193F26846D140083C647 /* VerseRangeToString.swift */,
 				C84564E02674BC850034940F /* BibleGetNextOrPrevChap.swift */,
 				5714134B2734C49200CD206E /* InfoButtonBase.swift */,
-				57DDA91A2B14B3CF0034CDFC /* EasyStringAttributes.swift */,
 				57C08F022B23130B0065D553 /* ScrollViewCaptureImage.swift */,
 				57C08F082B29F9A30065D553 /* SaveToPhotoHelper.swift */,
 			);
@@ -1586,7 +1583,6 @@
 				57BBC76A290BCB33001DC3FE /* FHLZipFileDownloador.swift in Sources */,
 				578B25522747A4F600EF2705 /* SSDivIdt.swift in Sources */,
 				570A64CB273BAAE000B5EC11 /* VCTsk.swift in Sources */,
-				57DDA91B2B14B3CF0034CDFC /* EasyStringAttributes.swift in Sources */,
 				5700346329E03C380007E6F3 /* VCPlayrate.swift in Sources */,
 				573CB8ED273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift in Sources */,
 				573CB8F1273F3A3F00AEEC9B /* DApiSe.swift in Sources */,

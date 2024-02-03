@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 
 /// 使用情境: 常常要將 "創1" 或 "Ge1" 或 "创1" 轉為 VerseRange

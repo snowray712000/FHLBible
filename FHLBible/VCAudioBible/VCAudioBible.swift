@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 import AVKit
 import MediaPlayer
+import FHLCommon
 
 class VCAudioBible : UIViewController {
     var book = 40

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 extension VerseRange {
     func goNext()->VerseRange {
@@ -69,12 +70,12 @@ class VerseRangeGoNextChap: NSObject {
         return re
     }
     fileprivate func gChap(_ bk:Int, _ ch: Int) -> [DAddress] {
-        return DAddress(book: bk, chap: ch, verse: 1, ver: nil).generateEntireThisChap()
+        return DAddress(book: bk, chap: ch, verse: 1).generateEntireThisChap()
     }
     fileprivate var vDefault: VerseRange {
         get {
             let re = VerseRange()
-            re.verses = [DAddress(book: 1, chap: 1, verse: 1, ver: nil)]
+            re.verses = [DAddress(book: 1, chap: 1, verse: 1)]
             return re
         }
     }

@@ -19,7 +19,7 @@ extension VCParsing {
         }
         func cvt(_ pn: DApiQp.PrevNext)->DAddress {
             let idBook = BibleBookNameToId().main1based(.Matt, pn.engs! )
-            return DAddress(book: idBook, chap: pn.chap!, verse: pn.sec!, ver: nil)
+            return DAddress(book: idBook, chap: pn.chap!, verse: pn.sec!)
         }
         override var addrNext: DAddress? {
             get {

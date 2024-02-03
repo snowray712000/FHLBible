@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 class DSearchParameters {
     /// [uvn, kjv]

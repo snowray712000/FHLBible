@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 extension VerseRange{
     static var globalManagerAddress: ManagerAddress { ManagerAddress.s }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 extension DAddress {
     /// 若到最後一節，會自動切換為下一個 book
@@ -23,16 +24,16 @@ class NextPrevVerse {
     func goNext(_ addr:DAddress)->DAddress {
         let cnt = BibleVerseCount.getVerseCount(addr.book, addr.chap)
         if addr.verse != cnt {
-            return DAddress(addr.book,addr.chap,addr.verse + 1, addr.ver)
+            return DAddress(addr.book,addr.chap,addr.verse + 1)
         } else {
             let cntChap = BibleChapCount.getChapCount(addr.book)
             if addr.chap != cntChap {
-                return DAddress(addr.book,addr.chap+1,1,addr.ver)
+                return DAddress(addr.book,addr.chap+1,1)
             } else {
                 if addr.book != 66 {
-                    return DAddress(addr.book+1,1,1,addr.ver)
+                    return DAddress(addr.book+1,1,1)
                 } else {
-                    return DAddress(1,1,1,addr.ver)
+                    return DAddress(1,1,1)
                 }
             }
         }
@@ -41,14 +42,13 @@ class NextPrevVerse {
         let bk = addr.book
         let ch = addr.chap
         let vs = addr.verse
-        let ver = addr.ver
         
         if vs != 1 {
-            return DAddress(bk,ch,vs-1,ver)
+            return DAddress(bk,ch,vs-1)
         } else {
             if ch != 1{
                 let cnt = BibleVerseCount.getVerseCount(bk, ch - 1)
-                return DAddress(bk,ch-1,cnt,ver)
+                return DAddress(bk,ch-1,cnt)
             } else {
                 if bk != 1 {
                     let cntCh = BibleChapCount.getChapCount(bk-1)

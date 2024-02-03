@@ -388,7 +388,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
             guard let self = self else { return }
             
             let r2 = VerseRange()
-            r2.verses = DAddress(book: pData!.idBook, chap: pData!.idChap, verse: 1, ver: nil).generateEntireThisChap()
+            r2.verses = DAddress(book: pData!.idBook, chap: pData!.idChap, verse: 1).generateEntireThisChap()
             self._addrsCur = r2
             self._addrsCurChanged$.trigger(nil, nil)
             //let r2 = BibleBookNames.getBookName(pData!.idBook, .太)

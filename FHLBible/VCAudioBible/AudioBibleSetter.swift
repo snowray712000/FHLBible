@@ -2,6 +2,7 @@
 import Foundation
 import CoreMedia
 import AVFoundation
+import FHLCommon
 
 // 開發 VCAudioBible 時用的
 // 分為 ing ed 兩大類

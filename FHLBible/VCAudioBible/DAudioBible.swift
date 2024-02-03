@@ -2,6 +2,7 @@
 import Foundation
 import CoreMedia
 import AVFoundation
+import FHLCommon
 
 // 資料必須足夠判定，下一首，上一首
 open class DAudioBible {

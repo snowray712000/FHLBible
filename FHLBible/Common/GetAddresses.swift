@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// 開發 GetAddresses 而需求的
 public protocol IBookNameTryGetBookIdResult {
