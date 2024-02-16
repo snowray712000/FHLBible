@@ -708,7 +708,7 @@
         <!--書卷選擇-->
         <scene sceneID="vOZ-lH-uBd">
             <objects>
-                <viewController storyboardIdentifier="VCBookChapPicker" id="Kzb-LX-PZh" customClass="VCBookChapPicker" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VCBookChapPicker" id="Kzb-LX-PZh" customClass="VCBookChapPicker" customModule="FHLCommon" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4oV-XA-4fM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -792,7 +792,7 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="oWk-2a-3d4"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="xo3-H9-S2Z"/>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVW-xh-LKF" customClass="ViewButtons" customModule="FHLBible" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVW-xh-LKF" customClass="ViewButtons" customModule="FHLCommon">
                                 <rect key="frame" x="16" y="101" width="343" height="555"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>

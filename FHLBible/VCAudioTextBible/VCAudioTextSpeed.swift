@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import FHLCommon
 
 class VCAudioTextSpeed : UIViewController {
     @IBOutlet var sliders: [UISlider]!

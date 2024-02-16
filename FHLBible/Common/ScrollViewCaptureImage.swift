@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import FHLCommon
+
 class EventForScrollView : NSObject, UIScrollViewDelegate{
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         print("scrollViewDidEndScrollingAnimation")

@@ -4,6 +4,7 @@ import CoreMedia
 import AVFoundation
 import UIKit
 import MediaPlayer
+import FHLCommon
 
 
 extension AVPlayer {

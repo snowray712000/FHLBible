@@ -1,4 +1,6 @@
 import UIKit
+import FHLCommon
+
 class EasyEventAppBackgroundForegroundSwitch {
     var evBecomeActive = IjnEventAny()
     var evResignActive = IjnEventAny()

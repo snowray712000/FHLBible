@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 class VCHalfPresentBase : UITableViewController, UIViewControllerTransitioningDelegate {
     func presentMe(_ vc:UIViewController){

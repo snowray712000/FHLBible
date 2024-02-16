@@ -23,7 +23,6 @@ extension UIViewController {
     func gVCComment()->VCComment { self.gEasyGetViewCtrlFromXibCore("VCComment")}
     func gVCVersionsPicker()->VCVersionsPicker { self.gEasyGetViewCtrlFromXibCore("VCVersionsPicker")}
     /// 使用 initBeforePushVC、onClick$
-    func gVCBookChapPicker()->VCBookChapPicker { self.gEasyGetViewCtrlFromXibCore("VCBookChapPicker")}
     func gVCParsing() -> VCParsing {gEasyGetViewCtrlFromXibCore("VCParsing")}
     func gVCReadHistory() -> VCReadHistory { self.gEasyGetViewCtrlFromXibCore("VCReadHistory")}
     func gVCSnDict() -> VCSnDict { self.gEasyGetViewCtrlFromXibCore("VCSnDict")}

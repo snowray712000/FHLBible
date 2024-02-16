@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// 開發此，是為了 Page 取得資料
 /// 規畫是用 async 方式取得資料, 但 sync 也可以

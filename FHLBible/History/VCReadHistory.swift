@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FHLCommon
 
 class VCReadHistory: UITableViewController {
     var onClickAddr$: IjnEventOnce<Any,String> = IjnEventOnce()

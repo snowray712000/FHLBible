@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 
 /// cur 雖然想用 T 而非 T?, 但因為 String 沒有 init()，會過不了

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FHLCommon
 
 /// 使用 setInitData 初始化
 /// 使用 datasSelection, datasRecently, datasSet 取得結果

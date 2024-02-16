@@ -103,14 +103,14 @@ extension Set where Element: Hashable {
 
 extension DAddress {
     /// 產生整章 DAddress, 用 book, chap 參教
-    func generateEntireThisChap()->[DAddress] {
+    public func generateEntireThisChap()->[DAddress] {
         let r1 = BibleVerseCount.getVerseCount(self.book, self.chap)
         return ijnRange(1, r1).map({DAddress(book: self.book, chap: self.chap, verse: $0)})
     }
 }
 
 extension DAddress{
-    func hashNumber()->Int { return self.book * 10000 + self.chap * 1000 + self.verse }
+    public func hashNumber()->Int { return self.book * 10000 + self.chap * 1000 + self.verse }
 }
 
 // sinq.orderBy，用於 mergeDiffVers 關鍵字 (閱讀時，合併兩個版本經文時)

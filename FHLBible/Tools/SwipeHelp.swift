@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 /// 手勢，向左滑 向右滑
 /// lazy var _swipeHelp = SwipeHelp(view: self.view)

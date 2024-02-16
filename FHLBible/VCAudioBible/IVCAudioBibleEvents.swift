@@ -7,6 +7,8 @@
 
 import Foundation
 import AudioToolbox
+import FHLCommon
+
 // VCAudioBible
 protocol IVCAudioBibleEvents {
     // viewDidLoad, 切換版本後會用到

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 /// 取得 ios-futures.json 這個檔案用的
 /// 通常不需要傳參數的都可以用這個

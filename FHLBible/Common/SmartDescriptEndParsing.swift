@@ -1,4 +1,5 @@
 import Foundation
+import FHLCommon
 
 /// 為了 StringToVerseRange 需求
 /// 輸入網址時，有時候不知道這章幾節，直接寫 1:3-e；甚至可以寫 1:3-

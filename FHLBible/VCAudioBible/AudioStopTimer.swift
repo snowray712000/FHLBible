@@ -7,6 +7,8 @@
 
 import Foundation
 import AVFoundation
+import FHLCommon
+
 // 先開發 AudioBibleStopTimer 後來出現 AudioBibleTextStopTimer
 // 太像了，所以重構 AudioStopTimer
 class AudioStopTimer {

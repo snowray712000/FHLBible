@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 extension VCData {
     /// 參考 kjv 作出來的

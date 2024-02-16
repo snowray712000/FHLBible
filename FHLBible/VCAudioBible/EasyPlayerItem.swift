@@ -2,6 +2,7 @@
 import Foundation
 import CoreMedia
 import AVFoundation
+import FHLCommon
 
 extension EasyAVPlayer {
     // 這個給 EasyAvPlayer 用，其他人不要直接用

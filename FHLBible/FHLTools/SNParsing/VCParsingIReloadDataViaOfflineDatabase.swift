@@ -12,8 +12,8 @@ import FHLCommon
 
 extension VCParsing {
     /// 參考 Comment 寫的
-    class ReloadDataViaOfflineDatabase : IReloadData {
-        override init() {
+    public class ReloadDataViaOfflineDatabase : IReloadData {
+        public override init() {
             super.init()
             
         }
@@ -113,17 +113,17 @@ extension VCParsing {
             }
         }
         /// 為了符合 cvtDBResultToReloadData 的 return 型態
-        class DData2 : ConvertorQp2VCParsingData.DData {
+        public class DData2 : ConvertorQp2VCParsingData.DData {
             init(_ data: DBParsing.DResultParsing,_ addr:DAddress){
                 self._data = data
                 self._addr = addr
             }
             var _data: DBParsing.DResultParsing
             var _addr: DAddress
-            override func isOldTestment() -> Bool {
+            public override func isOldTestment() -> Bool {
                 return _addr.book < 40
             }
-            override var record: [DApiQpRecord]! { get {
+            public override var record: [DApiQpRecord]! { get {
                 if _data.lastError != nil {
                     return []
                 }

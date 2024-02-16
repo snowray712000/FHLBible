@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FHLCommon
+
 public class FHLZipFileDownloador_FinishEventObject {
     /// 例如 bible_little.zip
     var name_zip :String!

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 /// 為了產生 SQLBibles 存在的
 /// 就是用 ver 、 目前 簡體/繁體  來決定 檔名

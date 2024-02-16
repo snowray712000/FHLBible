@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FHLCommon
 
 @IBDesignable
 class ViewSearchFilter: ViewFromXibBase {

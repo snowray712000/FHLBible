@@ -1,4 +1,6 @@
 import Foundation
+import FHLCommon
+
 /// IDataGetter 用在 UIReadPageController
 class DataGetterUsingBibleReader : IDataGetter {
     typealias c = DataGetterUsingBibleReader

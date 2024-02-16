@@ -2,6 +2,7 @@
 import Foundation
 import CoreMedia
 import AVFoundation
+import FHLCommon
 class EasyCheckAudioUrl {
     var evChecked:IjnEventOnce<Bool,String> = IjnEventOnce()
     func mainAsync(_ versionIdx:Int,_ book:Int,_ chap:Int){

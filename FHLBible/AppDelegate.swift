@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import FHLCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -81,3 +82,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 func getMoc()-> NSManagedObjectContext {
     return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 }
+

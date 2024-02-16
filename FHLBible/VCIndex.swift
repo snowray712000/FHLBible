@@ -10,12 +10,13 @@ import UIKit
 import ZIPFoundation
 import zlib
 import AVFoundation
-
+import FHLCommon
 
 class VCIndex : UIViewController {
     @IBOutlet var viewDisplay: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        AutoLoadDUiabv.fnGFromSQLite = gAutoLoadDuiabvSQLite
         _ = AutoLoadDUiabv.s // lazy var
         
         labelDate.text = "2023.12.10a"

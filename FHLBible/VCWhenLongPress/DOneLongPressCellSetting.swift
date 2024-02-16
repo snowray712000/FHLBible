@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-
+import FHLCommon
 
 class DOneLongPressCellSetting {
     /** 傳入此，就必須傳入 viewController */

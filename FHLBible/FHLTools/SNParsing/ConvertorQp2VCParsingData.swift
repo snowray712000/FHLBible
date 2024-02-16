@@ -133,11 +133,11 @@ class ConvertorQp2VCParsingData {
     var dicts: [[ViewParsingDict.OneData]]? = nil
 }
 extension ConvertorQp2VCParsingData {
-    class DData {
+    public class DData {
         func isOldTestment()->Bool { return true }
-        var record: [DApiQpRecord]! { get { return [] } }
+        public var record: [DApiQpRecord]! { get { return [] } }
     }
-    class DDataViaQpApi : DData {
+    public class DDataViaQpApi : DData {
         override func isOldTestment() -> Bool {
             return _reApi.isOldTestment()
         }

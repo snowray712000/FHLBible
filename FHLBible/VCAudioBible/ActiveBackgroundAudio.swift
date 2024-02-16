@@ -11,6 +11,8 @@ import CoreMedia
 import AVFoundation
 import UIKit
 import MediaPlayer
+import FHLCommon
+
 
 // EasyPlayer 會用到，是有聲聖經，只會呼叫一次即可 (VCAudioBible 用到的)
 // VCAudioTextBible 也會用到。

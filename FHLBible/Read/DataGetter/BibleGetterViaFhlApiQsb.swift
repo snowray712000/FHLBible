@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 /// 為了 BibleReadDataGetter 開發 (實際用在 BibleGetterViaFhlApiQsb)
 public protocol IQsbRecords2DOneLines {

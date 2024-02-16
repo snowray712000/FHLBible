@@ -7,6 +7,8 @@
 
 import Foundation
 import AudioToolbox
+import FHLCommon
+
 // 沒呼叫 release, 在 deinit 會自動呼叫
 class VCAudioBibleEvents : IVCAudioBibleEvents {
     func addCallbackOfTickStopTimer(_ fn: @escaping FnCallbackAny) {
