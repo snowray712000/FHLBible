@@ -7,6 +7,7 @@
 
 import Foundation
 import FMDB
+import FHLCommon
 
 // sample
 public class TestDb : EasySQLiteBase {
@@ -21,8 +22,7 @@ public class TestDb : EasySQLiteBase {
 
 // 建立自己的 singleton 變數 static var shared: XXXXX = XXXXXX ()
 // override pathToDatabase getter
-open class EasySQLiteBase: NSObject {
-    
+open class EasySQLiteBase: NSObject, ISQLCBOLDictDoSelect {
     // 因為 static 初始值要給，就沒辦法用了，所以將其變為 override getter
     open var pathToDatabase: URL! {
         get {
@@ -34,7 +34,7 @@ open class EasySQLiteBase: NSObject {
     }
     var database: FMDatabase!
     public var lastError: Error!
-    public var lastErrorMessage:String!
+    public var lastErrorMessage: String?
     
     // static let shared :EasySQLite = EasySQLite()
     public override init(){

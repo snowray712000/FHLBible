@@ -111,8 +111,16 @@ class VCSnDict: UIViewController {
     func drawData(){
         v2.set(dtexts: _data ?? [], isVisibleSn: self._isVisibleSn, isSwitchOn: true, isSwitchVisible: false)
     }
+    /// 重構才出現的, 非必要邏輯
+    class MySQLCbol2 : SQLCBOLDict, ISQLCBOLDictIsExist {
+        func SQLCBOLDictisExist() -> Bool {
+            return SQLCBOLDict.isExist()
+        }
+    }
+    
     func reloadData(){
-        let r1 = SnDictDataQ()
+        let iFromSQL = MySQLCbol2()
+        let r1 = SnDictDataQ(iFromSQL,iFromSQL)
         r1.onFinishedQ$.addCallback { sender, pData in
             self._data = r1.resultContent
             self._dataOnChanged$.trigger()

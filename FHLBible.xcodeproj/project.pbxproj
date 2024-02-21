@@ -67,7 +67,6 @@
 		57395B4E272A73C70067F699 /* VCIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57395B4D272A73C70067F699 /* VCIndex.swift */; };
 		573CB8E9273D6BE800AEEC9B /* DictTwcbNewConvertorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB8E8273D6BE800AEEC9B /* DictTwcbNewConvertorTests.swift */; };
 		573CB8EB273D6C2700AEEC9B /* DictTwcbNewConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB8EA273D6C2700AEEC9B /* DictTwcbNewConvertor.swift */; };
-		573CB8ED273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB8EC273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift */; };
 		573CB8EF273E81BF00AEEC9B /* SplitStringDTextCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB8EE273E81BF00AEEC9B /* SplitStringDTextCore.swift */; };
 		573CB8F3273F418700AEEC9B /* FhlSeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB8F2273F418700AEEC9B /* FhlSeTests.swift */; };
 		573CB8F7273F889200AEEC9B /* SearchQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573CB8F6273F889200AEEC9B /* SearchQ.swift */; };
@@ -118,30 +117,11 @@
 		577CEFAC27547676003014A8 /* SQUiabv+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CEFAA27547676003014A8 /* SQUiabv+CoreDataClass.swift */; };
 		577CEFAD27547676003014A8 /* SQUiabv+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CEFAB27547676003014A8 /* SQUiabv+CoreDataProperties.swift */; };
 		577CEFAE2754BDAA003014A8 /* FHLBible.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C8AD1D542624243C0046C8EE /* FHLBible.xcdatamodeld */; };
-		577CEFB02754C8D2003014A8 /* SSGreekPlusPlushPlsu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577CEFAF2754C8D2003014A8 /* SSGreekPlusPlushPlsu.swift */; };
 		578B2543274635C400EF2705 /* ManagerIsSnVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B2542274635C400EF2705 /* ManagerIsSnVisible.swift */; };
-		578B25462747419900EF2705 /* _EmptyFileB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25452747419900EF2705 /* _EmptyFileB.swift */; };
-		578B2548274741A700EF2705 /* SSH1H2H3H4Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B2547274741A700EF2705 /* SSH1H2H3H4Title.swift */; };
-		578B254A2747449500EF2705 /* SSParentheses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25492747449500EF2705 /* SSParentheses.swift */; };
-		578B254C27479DC300EF2705 /* SSNewLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B254B27479DC300EF2705 /* SSNewLine.swift */; };
-		578B254E2747A0B100EF2705 /* SSReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B254D2747A0B100EF2705 /* SSReference.swift */; };
-		578B25502747A0F800EF2705 /* SSUnderLineU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B254F2747A0F800EF2705 /* SSUnderLineU.swift */; };
-		578B25522747A4F600EF2705 /* SSDivIdt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25512747A4F600EF2705 /* SSDivIdt.swift */; };
-		578B25542747A52200EF2705 /* SSBold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25532747A52200EF2705 /* SSBold.swift */; };
-		578B25562747F94500EF2705 /* SSSpanBibtext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25552747F94500EF2705 /* SSSpanBibtext.swift */; };
-		578B25582747F97C00EF2705 /* SSSpanExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25572747F97C00EF2705 /* SSSpanExp.swift */; };
-		578B255A2747F9E600EF2705 /* SSSNG0430.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25592747F9E600EF2705 /* SSSNG0430.swift */; };
-		578B255C2747FB1C00EF2705 /* SSSNH0430.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B255B2747FB1C00EF2705 /* SSSNH0430.swift */; };
-		578B255E2747FB5600EF2705 /* SSGreek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B255D2747FB5600EF2705 /* SSGreek.swift */; };
-		578B25602747FB5900EF2705 /* SSHebrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B255F2747FB5900EF2705 /* SSHebrew.swift */; };
-		578B25622747FCEB00EF2705 /* SSFoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B25612747FCEB00EF2705 /* SSFoot.swift */; };
 		57A21A82276A574B0022212D /* VCReadMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A21A81276A574B0022212D /* VCReadMore.swift */; };
 		57A21A84276A59D70022212D /* VCSnDictMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A21A83276A59D70022212D /* VCSnDictMore.swift */; };
 		57A21A86276A61280022212D /* SwipeHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A21A85276A61280022212D /* SwipeHelp.swift */; };
 		57AD73B5274CFA7500CA9BA8 /* SSForFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73B4274CFA7500CA9BA8 /* SSForFooter.swift */; };
-		57AD73B7274D292300CA9BA8 /* SSSpanGodSay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73B6274D292300CA9BA8 /* SSSpanGodSay.swift */; };
-		57AD73B9274D3DF900CA9BA8 /* SSKjv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73B8274D3DF900CA9BA8 /* SSKjv.swift */; };
-		57AD73BB274D4E4A00CA9BA8 /* SSEsv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73BA274D4E4A00CA9BA8 /* SSEsv.swift */; };
 		57AD73BD274DCA7E00CA9BA8 /* open_han31.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57AD73BC274DC21500CA9BA8 /* open_han31.ttf */; };
 		57AD73BE274DCA7F00CA9BA8 /* open_han31.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57AD73BC274DC21500CA9BA8 /* open_han31.ttf */; };
 		57AD73C0274FA25600CA9BA8 /* TextAlignmentsViaBibleVersionGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73BF274FA25600CA9BA8 /* TextAlignmentsViaBibleVersionGetter.swift */; };
@@ -379,7 +359,6 @@
 		57395B4D272A73C70067F699 /* VCIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCIndex.swift; sourceTree = "<group>"; };
 		573CB8E8273D6BE800AEEC9B /* DictTwcbNewConvertorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictTwcbNewConvertorTests.swift; sourceTree = "<group>"; };
 		573CB8EA273D6C2700AEEC9B /* DictTwcbNewConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictTwcbNewConvertor.swift; sourceTree = "<group>"; };
-		573CB8EC273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitStringDTextBtwBase.swift; sourceTree = "<group>"; };
 		573CB8EE273E81BF00AEEC9B /* SplitStringDTextCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitStringDTextCore.swift; sourceTree = "<group>"; };
 		573CB8F2273F418700AEEC9B /* FhlSeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FhlSeTests.swift; sourceTree = "<group>"; };
 		573CB8F6273F889200AEEC9B /* SearchQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQ.swift; sourceTree = "<group>"; };
@@ -430,30 +409,11 @@
 		577CEF9F2753C3E2003014A8 /* FhlAbvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FhlAbvTests.swift; sourceTree = "<group>"; };
 		577CEFAA27547676003014A8 /* SQUiabv+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQUiabv+CoreDataClass.swift"; sourceTree = "<group>"; };
 		577CEFAB27547676003014A8 /* SQUiabv+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQUiabv+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		577CEFAF2754C8D2003014A8 /* SSGreekPlusPlushPlsu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSGreekPlusPlushPlsu.swift; sourceTree = "<group>"; };
 		578B2542274635C400EF2705 /* ManagerIsSnVisible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerIsSnVisible.swift; sourceTree = "<group>"; };
-		578B25452747419900EF2705 /* _EmptyFileB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EmptyFileB.swift; sourceTree = "<group>"; };
-		578B2547274741A700EF2705 /* SSH1H2H3H4Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSH1H2H3H4Title.swift; sourceTree = "<group>"; };
-		578B25492747449500EF2705 /* SSParentheses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSParentheses.swift; sourceTree = "<group>"; };
-		578B254B27479DC300EF2705 /* SSNewLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSNewLine.swift; sourceTree = "<group>"; };
-		578B254D2747A0B100EF2705 /* SSReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSReference.swift; sourceTree = "<group>"; };
-		578B254F2747A0F800EF2705 /* SSUnderLineU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSUnderLineU.swift; sourceTree = "<group>"; };
-		578B25512747A4F600EF2705 /* SSDivIdt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDivIdt.swift; sourceTree = "<group>"; };
-		578B25532747A52200EF2705 /* SSBold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSBold.swift; sourceTree = "<group>"; };
-		578B25552747F94500EF2705 /* SSSpanBibtext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSSpanBibtext.swift; sourceTree = "<group>"; };
-		578B25572747F97C00EF2705 /* SSSpanExp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSSpanExp.swift; sourceTree = "<group>"; };
-		578B25592747F9E600EF2705 /* SSSNG0430.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSSNG0430.swift; sourceTree = "<group>"; };
-		578B255B2747FB1C00EF2705 /* SSSNH0430.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSSNH0430.swift; sourceTree = "<group>"; };
-		578B255D2747FB5600EF2705 /* SSGreek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSGreek.swift; sourceTree = "<group>"; };
-		578B255F2747FB5900EF2705 /* SSHebrew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSHebrew.swift; sourceTree = "<group>"; };
-		578B25612747FCEB00EF2705 /* SSFoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSFoot.swift; sourceTree = "<group>"; };
 		57A21A81276A574B0022212D /* VCReadMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCReadMore.swift; sourceTree = "<group>"; };
 		57A21A83276A59D70022212D /* VCSnDictMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSnDictMore.swift; sourceTree = "<group>"; };
 		57A21A85276A61280022212D /* SwipeHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeHelp.swift; sourceTree = "<group>"; };
 		57AD73B4274CFA7500CA9BA8 /* SSForFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSForFooter.swift; sourceTree = "<group>"; };
-		57AD73B6274D292300CA9BA8 /* SSSpanGodSay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSSpanGodSay.swift; sourceTree = "<group>"; };
-		57AD73B8274D3DF900CA9BA8 /* SSKjv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSKjv.swift; sourceTree = "<group>"; };
-		57AD73BA274D4E4A00CA9BA8 /* SSEsv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEsv.swift; sourceTree = "<group>"; };
 		57AD73BC274DC21500CA9BA8 /* open_han31.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = open_han31.ttf; sourceTree = "<group>"; };
 		57AD73BF274FA25600CA9BA8 /* TextAlignmentsViaBibleVersionGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlignmentsViaBibleVersionGetter.swift; sourceTree = "<group>"; };
 		57AD73C1274FB58600CA9BA8 /* SnDTextClickFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnDTextClickFlow.swift; sourceTree = "<group>"; };
@@ -912,33 +872,6 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		578B254427473FF900EF2705 /* SplitString */ = {
-			isa = PBXGroup;
-			children = (
-				578B25452747419900EF2705 /* _EmptyFileB.swift */,
-				573CB8EC273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift */,
-				578B25512747A4F600EF2705 /* SSDivIdt.swift */,
-				578B254D2747A0B100EF2705 /* SSReference.swift */,
-				578B25492747449500EF2705 /* SSParentheses.swift */,
-				578B2547274741A700EF2705 /* SSH1H2H3H4Title.swift */,
-				578B254B27479DC300EF2705 /* SSNewLine.swift */,
-				578B254F2747A0F800EF2705 /* SSUnderLineU.swift */,
-				578B25532747A52200EF2705 /* SSBold.swift */,
-				578B25552747F94500EF2705 /* SSSpanBibtext.swift */,
-				57AD73B6274D292300CA9BA8 /* SSSpanGodSay.swift */,
-				578B25572747F97C00EF2705 /* SSSpanExp.swift */,
-				578B25592747F9E600EF2705 /* SSSNG0430.swift */,
-				578B255B2747FB1C00EF2705 /* SSSNH0430.swift */,
-				578B255F2747FB5900EF2705 /* SSHebrew.swift */,
-				578B255D2747FB5600EF2705 /* SSGreek.swift */,
-				578B25612747FCEB00EF2705 /* SSFoot.swift */,
-				57AD73BA274D4E4A00CA9BA8 /* SSEsv.swift */,
-				57AD73B8274D3DF900CA9BA8 /* SSKjv.swift */,
-				577CEFAF2754C8D2003014A8 /* SSGreekPlusPlushPlsu.swift */,
-			);
-			path = SplitString;
-			sourceTree = "<group>";
-		};
 		57AD73C327508B9A00CA9BA8 /* VCVersionsCompareInOneVerse */ = {
 			isa = PBXGroup;
 			children = (
@@ -1105,7 +1038,6 @@
 		C84402192631632200AD0CE9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				578B254427473FF900EF2705 /* SplitString */,
 				578B253F27462BCB00EF2705 /* Constants */,
 				578B253D2746244200EF2705 /* DText */,
 				570A64B3273AA46200B5EC11 /* Managers */,
@@ -1474,11 +1406,9 @@
 				574599C5273D28E2005635D0 /* SnDictDataQ.swift in Sources */,
 				573CB8F7273F889200AEEC9B /* SearchQ.swift in Sources */,
 				57395B3A2728FA350067F699 /* ViewDisplayRow.swift in Sources */,
-				578B254A2747449500EF2705 /* SSParentheses.swift in Sources */,
 				57BBC7582907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift in Sources */,
 				C85A0F222689D4130020CD94 /* IDataGetter.swift in Sources */,
 				573CB8EF273E81BF00AEEC9B /* SplitStringDTextCore.swift in Sources */,
-				578B255C2747FB1C00EF2705 /* SSSNH0430.swift in Sources */,
 				C8AD1DA52628AA470046C8EE /* JobFlag2Starter.swift in Sources */,
 				57BBC787290C46B5001DC3FE /* DoOneDownload_bible_kjv.swift in Sources */,
 				C87F194026846D140083C647 /* VerseRangeToString.swift in Sources */,
@@ -1527,20 +1457,15 @@
 				C85A0F2C2689D4720020CD94 /* IAddressManager.swift in Sources */,
 				570A64B5273AA47700B5EC11 /* FHLUserDefaults.swift in Sources */,
 				578B2543274635C400EF2705 /* ManagerIsSnVisible.swift in Sources */,
-				578B254E2747A0B100EF2705 /* SSReference.swift in Sources */,
 				C8089F312670311B004FA377 /* EventOneRowForDTextClick.swift in Sources */,
 				570A64B7273AA49200B5EC11 /* ManagerAddress.swift in Sources */,
 				C876EA6026E30CBB00ACE13D /* testThenDo.swift in Sources */,
 				57395B48272A45EA0067F699 /* VCVerseActionPicker.swift in Sources */,
 				57BBC76A290BCB33001DC3FE /* FHLZipFileDownloador.swift in Sources */,
-				578B25522747A4F600EF2705 /* SSDivIdt.swift in Sources */,
 				570A64CB273BAAE000B5EC11 /* VCTsk.swift in Sources */,
 				5700346329E03C380007E6F3 /* VCPlayrate.swift in Sources */,
-				573CB8ED273DFE5300AEEC9B /* SplitStringDTextBtwBase.swift in Sources */,
 				5727F5AC29E452320077BA86 /* EasyPlayer.swift in Sources */,
 				57395B3E27296A8E0067F699 /* ViewDisplayCell.swift in Sources */,
-				578B255A2747F9E600EF2705 /* SSSNG0430.swift in Sources */,
-				578B25562747F94500EF2705 /* SSSpanBibtext.swift in Sources */,
 				57BBB17B2B20B73D001F54D3 /* DSelections.swift in Sources */,
 				575574042933062300CC0560 /* DoOneDownload_bible_comm.swift in Sources */,
 				C87F194826846D490083C647 /* StringToVerseRange.swift in Sources */,
@@ -1557,30 +1482,24 @@
 				57D492A0294087980099DC86 /* VCParsingIReloadDataViaQpApi.swift in Sources */,
 				575AD92129ED1A49006FD6E0 /* IVCAudioBibleEvents.swift in Sources */,
 				573CB9032744FB3F00AEEC9B /* ManagerSearchHistory.swift in Sources */,
-				577CEFB02754C8D2003014A8 /* SSGreekPlusPlushPlsu.swift in Sources */,
 				577CEF9A27513FC6003014A8 /* RefDTextClickFlow.swift in Sources */,
 				57BBB17F2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift in Sources */,
-				578B25462747419900EF2705 /* _EmptyFileB.swift in Sources */,
 				57C08F072B263B650065D553 /* add_fns.swift in Sources */,
-				578B25502747A0F800EF2705 /* SSUnderLineU.swift in Sources */,
 				57BBC76C290BCB45001DC3FE /* Download_unv_gb.swift in Sources */,
 				57BBC789290F745E001DC3FE /* BibleGetterViaSQLiteOrApi.swift in Sources */,
 				573CB8FF27427E7900AEEC9B /* ManagerLangSet.swift in Sources */,
 				57C08F032B23130B0065D553 /* ScrollViewCaptureImage.swift in Sources */,
 				570A64BB273B5FD900B5EC11 /* GlobalVariableBase.swift in Sources */,
-				57AD73B7274D292300CA9BA8 /* SSSpanGodSay.swift in Sources */,
 				57BBC765290BC7F2001DC3FE /* SQLBibleTextTransfor.swift in Sources */,
 				C844020B2631586900AD0CE9 /* UIReadPageController.swift in Sources */,
 				57BBC772290BCC1C001DC3FE /* Download_unv.swift in Sources */,
 				5711206F2730305800D64A6E /* BibleConstants.swift in Sources */,
 				57BBC78D290FE4D6001DC3FE /* SQLNormalize_asv_darby_bbe_erv_web_esv.swift in Sources */,
-				578B25582747F97C00EF2705 /* SSSpanExp.swift in Sources */,
 				574599B0273C38E7005635D0 /* NextPrevVerse.swift in Sources */,
 				5700345D29DF066E0007E6F3 /* VCAudioVersion.swift in Sources */,
 				5727F5B229E84F090077BA86 /* ManagerAudioBible.swift in Sources */,
 				C8A7083026369FE100B9175D /* IjnTestTime.swift in Sources */,
 				5727F5B029E524F60077BA86 /* EasyCheckAudioUrl.swift in Sources */,
-				57AD73B9274D3DF900CA9BA8 /* SSKjv.swift in Sources */,
 				57D7EB652723FE49003D2557 /* ViewSearchFilter.swift in Sources */,
 				57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */,
 				574599AB273C1B05005635D0 /* VCComment.swift in Sources */,
@@ -1589,7 +1508,6 @@
 				C88D236526EB0D140088BCF5 /* BibleText2DText.swift in Sources */,
 				57BBC7532902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift in Sources */,
 				573CB8EB273D6C2700AEEC9B /* DictTwcbNewConvertor.swift in Sources */,
-				578B254C27479DC300EF2705 /* SSNewLine.swift in Sources */,
 				57BBC78F29128EDF001DC3FE /* SwiftFileManager_Extensions.swift in Sources */,
 				574599C1273D28A6005635D0 /* SnDictDataTwcbQ.swift in Sources */,
 				577CEFAE2754BDAA003014A8 /* FHLBible.xcdatamodeld in Sources */,
@@ -1609,7 +1527,6 @@
 				574BE54227570E8800F5DC85 /* VCSettings.swift in Sources */,
 				576992BC274BB60B00717E8C /* FooterConvertorDTexts.swift in Sources */,
 				574C7A7E2A446D41005F3FD8 /* ActiveBackgroundAudio.swift in Sources */,
-				578B25622747FCEB00EF2705 /* SSFoot.swift in Sources */,
 				57BBC75F290BC675001DC3FE /* SQLNormalize_sn_unv_gb.swift in Sources */,
 				C8089F27267030D9004FA377 /* DTextString.swift in Sources */,
 				572589702732D20900E42DEF /* ConvertorQp2VCParsingData.swift in Sources */,
@@ -1627,12 +1544,9 @@
 				574BE54027570B7300F5DC85 /* VCOptionListViaTableViewControllerBase.swift in Sources */,
 				57D49296293A00D90099DC86 /* VCTskIReloadData.swift in Sources */,
 				5711206D272FCD3400D64A6E /* ViewButtons.swift in Sources */,
-				578B2548274741A700EF2705 /* SSH1H2H3H4Title.swift in Sources */,
 				57BA21E02B6CBB1B00E5638D /* path_UserDomain.swift in Sources */,
 				C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */,
-				57AD73BB274D4E4A00CA9BA8 /* SSEsv.swift in Sources */,
 				C8AD1D82262427DE0046C8EE /* AppTabController.swift in Sources */,
-				578B25602747FB5900EF2705 /* SSHebrew.swift in Sources */,
 				C87F195B2687DA730083C647 /* GetAddresses.swift in Sources */,
 				571120722730BC9800D64A6E /* VCParsing.swift in Sources */,
 				57D7EB612723E13E003D2557 /* SearchData.swift in Sources */,
@@ -1656,12 +1570,10 @@
 				575AD92D29FC3618006FD6E0 /* AudioBibleStopTimer.swift in Sources */,
 				57D4928E2939FFFF0099DC86 /* VCCommentIReloadData.swift in Sources */,
 				57395B322728D4350067F699 /* VCRead.swift in Sources */,
-				578B255E2747FB5600EF2705 /* SSGreek.swift in Sources */,
 				57D7EB6A27255A16003D2557 /* VCSearchKeywordViewController.swift in Sources */,
 				57BBC763290BC72D001DC3FE /* SQLNormalize_sn_unv.swift in Sources */,
 				574BE5472757673400F5DC85 /* ReadDataQ.swift in Sources */,
 				573CB9012744A35600AEEC9B /* DataForDrawTable.swift in Sources */,
-				578B25542747A52200EF2705 /* SSBold.swift in Sources */,
 				57AD73C727509D2F00CA9BA8 /* BibleVersionFonts.swift in Sources */,
 				C8AD1DB22629AF2F0046C8EE /* ijnDate.swift in Sources */,
 				C88D233C26EB05A10088BCF5 /* SplitStringBtwHWFW.swift in Sources */,

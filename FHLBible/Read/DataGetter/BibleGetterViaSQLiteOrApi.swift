@@ -7,6 +7,7 @@
 
 import Foundation
 import FMDB
+import FHLCommon
 
 class BibleGetterViaSQLiteOrApi : NSObject, IBibleGetter {
     func queryAsync(_ ver: String, _ addr: String, _ fn: @escaping ([DOneLine]) -> Void) {

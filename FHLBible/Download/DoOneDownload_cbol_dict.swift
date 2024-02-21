@@ -149,23 +149,6 @@ class SQLCBOLDict : EasySQLiteBase {
         return FileManager.default.fileExists(atPath: SQLCBOLDict().pathToDatabase.path)
     }
 }
+/// 已重構至 FHLCommon
 /// 因為 SQL 的 Sn Dict 是正規化的，但是原本的字是 2132a 時，就要切割
-class SnSplitSuffix{
-    static var reg = try! NSRegularExpression(pattern: "([\\d]+)([a-zA-Z]*)", options: [])
-    init(_ snWithSuffix:String){
-        main(snWithSuffix)
-    }
-    var sn: Int!
-    /// "" or 'a' 不會是 nil
-    var snSuffix: String = ""
-    func main(_ snWithSuffix:String){
-        let r2 = ijnMatchFirstAndToSubString(Self.reg, snWithSuffix)
-        if r2![2] != nil {
-            snSuffix = String(r2![2]!)
-        } else {
-            snSuffix = ""
-        }
-        
-        sn = Int(r2![1]!)
-    }
-}
+// class SnSplitSuffix

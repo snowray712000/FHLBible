@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FHLCommon
 
 public class SearchData {
     public var curGroup: String = ""

@@ -106,7 +106,7 @@ extension VCComment {
                 
                 if isSuccess == false {
                     var r1 = DResultComment()
-                    r1.txt = self.lastErrorMessage
+                    r1.txt = self.lastErrorMessage!
                     fn(r1,false)
                 }
             }
