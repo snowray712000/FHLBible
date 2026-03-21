@@ -127,13 +127,15 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
     
     
     func playAndSetPlayingState(){
+        activeBackgroundAudio(true) // 設定 .playback category，靜音模式下仍可播放
+
         if data.isEmpty {
             self.statePlaying = .playingButStopForQueryingData
-            
+
             queryDataAsync()
         } else {
             self.statePlaying = .playing
-            
+
             playData()
         }
     }
