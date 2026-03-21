@@ -11,27 +11,30 @@ import ZIPFoundation
 import zlib
 import AVFoundation
 import FHLCommon
-
+import OSLog
 class VCIndex : UIViewController {
+    var logger = Logger(subsystem: "com.FHLBible", category: "VCIndex")
+
     @IBOutlet var viewDisplay: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         AutoLoadDUiabv.fnGFromSQLite = gAutoLoadDuiabvSQLite
         _ = AutoLoadDUiabv.s // lazy var
         
-        labelDate.text = "2023.12.10a"
-        labelVer.text = "3.1.1" //version
+        // 發版本 (供 關鍵字搜尋，提醒 發版本要改什麼)
+        labelDate.text = "2026.03.02a"
+        labelVer.text = "4.5.1" //version
      
     }
     
     @IBAction func goRead(){
         // 若程式，開始的時候，沒有網路。
-        print (AutoLoadDUiabv.s.record.count)
+        logger.info("AutoLoadDUiabv record count: \(AutoLoadDUiabv.s.record.count)")
         if AutoLoadDUiabv.s.record.count == 0 {
             AutoLoadDUiabv.s.reloadAsync()
         }
         
-        print (AutoLoadDUiabv.s.record.count)
+        logger.info("AutoLoadDUiabv record count: \(AutoLoadDUiabv.s.record.count)")
         testThenDoAsync({ AutoLoadDUiabv.s.record.count != 0 }, {
             if AutoLoadDUiabv.s.record.count != 0 {
                 let vc1 = self.gVCRead()
@@ -48,6 +51,10 @@ class VCIndex : UIViewController {
     }
     @IBAction func goData(){
         let vc = VCData()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func goHelp(){
+        let vc = VCHelps()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBOutlet var labelDate: UILabel!

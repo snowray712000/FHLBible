@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 import FHLCommon
 
-class VCSettings : VCOptionListViaTableViewControllerBase {
-    override func viewDidLoad() {
+public class VCSettings : VCOptionListViaTableViewControllerBase {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         _onClickRow$.addCallback { sender, pData in
@@ -18,9 +18,9 @@ class VCSettings : VCOptionListViaTableViewControllerBase {
         }
     }
     
-    override var _ovTitle1: [String] { self._datas.map({$0.0}) }
-    override var _ovTitle2: [String]? { self._datas.map({$0.1}) }
-    override var _ovColors: [UIColor]? { [.systemBlue, .label]}
+    public override var _ovTitle1: [String] { self._datas.map({$0.0}) }
+    public override var _ovTitle2: [String]? { self._datas.map({$0.1}) }
+    public override var _ovColors: [UIColor]? { [.systemBlue, .label]}
     var _datas: [(String,String)] = [
         (NSLocalizedString("當機重置", comment: ""),NSLocalizedString("程式總是有Bug，當「閱讀」總是閃退，可能是某譯本、某章、某節、我沒處理好。按此功能，嘗試重置為「和合本，創世記1」", comment: "")),
         ("Bugs",NSLocalizedString("請至 support urls 回報{或觀看}目前已提出的問題與回饋。", comment: "")),

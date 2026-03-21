@@ -11,13 +11,13 @@ import FHLCommon
 
 /// 因為 comment 也有，所以從 Read 中抽離出來流程
 /// Step1: 選 Action 動作 2: 執行對應動作
-class SnDTextClickFlow {
+public class SnDTextClickFlow {
     init(vc: UIViewController,addr: DAddress,vers:[String]){
         _vc = vc
         _addr = addr
         _vers = vers
     }
-    func mainAsync(_ dtext:DText){
+    public func mainAsync(_ dtext:DText){
         if dtext.sn == nil { return }
         
         let r1 = _vc.gVCSnActionPicker()

@@ -6,6 +6,8 @@
 import Foundation
 import XCTest
 @testable import FHLBible
+@testable import FHLCommon
+
 
 class SNParsingOfflineTests : XCTestCase {
     func testBasic01(){

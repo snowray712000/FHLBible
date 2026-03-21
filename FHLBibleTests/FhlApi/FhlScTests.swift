@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import FHLBible
-
+@testable import FHLCommon
 class FhlScTests: XCTestCase {
     /// 確定 fhlSc 可呼叫，並且透過 debug 看 data 大概長什麼樣子
     func test01() throws {

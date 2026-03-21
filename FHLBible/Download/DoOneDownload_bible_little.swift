@@ -6,10 +6,12 @@
 //
 
 import Foundation
-
+import OSLog
 extension VCData {
     
     class DoOneDownload_bible_little : NSObject{
+        var logger = Logger(subsystem: "com.FHLBible", category: "DoOneDownload_bible_little")
+
         var pathOffline = "/offline/unv.db"
         var pathOfflineSn: String?
         var pathUnzip = "/unzip/bible_little.db"
@@ -35,7 +37,7 @@ extension VCData {
                 }
                 
             }catch{
-                print(error.localizedDescription)
+                logger.error("\(error.localizedDescription)")
             }
         }
         func fnNormalize(){
@@ -56,7 +58,9 @@ extension VCData {
         var onFinished$ = IjnEvent_Finished()
         func deleteUnzipAndDownload(){
             fnDeleteIfExists(pathUnzip)
+            #if RELEASE
             fnDeleteIfExists(pathDownload)
+            #endif
         }
         func isReadyOffline()->Bool{
             if pathOfflineSn == nil {

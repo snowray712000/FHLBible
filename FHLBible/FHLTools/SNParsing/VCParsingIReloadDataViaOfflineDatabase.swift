@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FMDB
 import FHLCommon
+import OSLog
 
 extension VCParsing {
     /// 參考 Comment 寫的
@@ -76,10 +77,19 @@ extension VCParsing {
                             r1.word = r1.word?.trimmingCharacters(in: CharacterSet.whitespaces)
                         }
                         
-                        if r1.wid != 0 && addr.book >= 40 { // 離線資料 pro wform 會是 ngsm 之類的東西
-                            let r2 = SNParsingDealProXForm().main(r1.pro,r1.wform) // 新約才需要
-                            r1.pro = r2.0
-                            r1.wform = r2.1
+                        // wform 離線額外處理
+                        if r1.wid != 0 {
+                            if addr.book >= 40 {
+                                // 離線資料 pro wform 會是 ngsm 之類的東西
+                                let r2 = SNParsingDealProXForm().main(r1.pro,r1.wform) // 新約
+                                r1.pro = r2.0
+                                r1.wform = r2.1
+                            } else {
+                                // 舊約，會把希伯來文用 12 21 包起來。
+                                r1.wform = toHebWhen1221InParsing(r1.wform ?? "")
+                                r1.exp = toHebWhen1221InParsing(r1.exp ?? "")
+                                r1.remark = toHebWhen1221InParsing(r1.remark ?? "")
+                            }
                         }
                         
                         records.append(r1)

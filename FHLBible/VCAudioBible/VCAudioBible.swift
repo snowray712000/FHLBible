@@ -10,8 +10,9 @@ import AVFoundation
 import AVKit
 import MediaPlayer
 import FHLCommon
-
+import OSLog
 class VCAudioBible : UIViewController {
+    var logger = Logger(subsystem: "com.FHLBible", category: "VCAudioBible")
     var book = 40
     var chap = 1
     
@@ -189,7 +190,7 @@ class VCAudioBible : UIViewController {
         }
         // 搜尋 next 前。
         events.addCallbackOfSearchingNext {[weak self] sender, pData in
-            print("vcaudiobible searching next")
+            self?.logger.info("vcaudiobible searching next")
             DispatchQueue.main.async {
                 self?.btnNext.isEnabled = false
                 self?.btnLoopMode.isEnabled = false
@@ -198,7 +199,7 @@ class VCAudioBible : UIViewController {
         }
         // 搜尋 next 後。
         events.addCallbackOfSearchedNext {[weak self] sender, pData in
-            print("vcaudiobible searched next")
+            self?.logger.info("vcaudiobible searched next")
             DispatchQueue.main.async {
                 self?.btnNext.isEnabled = true
                 self?.btnLoopMode.isEnabled = true
@@ -374,7 +375,7 @@ class VCAudioBible : UIViewController {
         chap = DAudioBible.s.addr!.chap
     }
     @IBAction func clickPlay(){
-        print("clicked Play")
+        self.logger.info("clicked Play")
         guard let player = AVPlayer.s else {
             assert ( DAudioBible.s.mp3 != nil )
             EasyAVPlayer.s.replacePlayer(DAudioBible.s.mp3!)

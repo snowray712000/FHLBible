@@ -7,7 +7,7 @@
 
 import Foundation
 import FHLCommon
-
+import OSLog
 public class FHLZipFileDownloador_FinishEventObject {
     /// 例如 bible_little.zip
     var name_zip :String!
@@ -35,6 +35,7 @@ public class FHLZipFileDownloador_ProcessingBarEventObject{
 typealias IjnEvent_ProcessingBar = IjnEvent<Any,FHLZipFileDownloador_ProcessingBarEventObject>
 typealias IjnEvent_Finished = IjnEventOnce<Any,FHLZipFileDownloador_FinishEventObject>
 class FHLZipFileDownloador : NSObject , URLSessionDownloadDelegate {
+    var logger = Logger(subsystem: "com.FHLBible", category: "FHLZipFileDownloador")
     var onFinished$: IjnEvent_Finished = IjnEvent_Finished()
     var onProcessingBar$: IjnEvent_ProcessingBar = IjnEvent_ProcessingBar()
     
@@ -51,7 +52,7 @@ class FHLZipFileDownloador : NSObject , URLSessionDownloadDelegate {
             try fm.moveItem(at: location, to: path1)
         }catch{
             result.msg_error = error.localizedDescription
-            print(error.localizedDescription)
+            self.logger.error("\(error.localizedDescription)")
         }
         
         session.finishTasksAndInvalidate() // 要下這行，才能把這個 unv backgroundsession 拿掉，不然下次再按一次 unv 下載會失敗
@@ -62,8 +63,8 @@ class FHLZipFileDownloador : NSObject , URLSessionDownloadDelegate {
         
         onProcessingBar$.trigger(self, FHLZipFileDownloador_ProcessingBarEventObject(totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite))
         
-        //let r1 = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite) ;
-        //print(r1)
+        self.logger.info("\(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite))")
+
     }
     
     

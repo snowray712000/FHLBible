@@ -8,10 +8,13 @@
 import Foundation
 import UIKit
 import FHLCommon
+import OSLog
 
 /// 使用 setTextsFirstCellTitle ( ) setTextsSecondCellTitle ( )
 /// 信望愛 Parsing 工具，原文一行，中文一行。就是會有兩個 Cell。而且對齊不同是特色。
 class ViewParsingWord : ViewFromXibBase {
+    var logger = Logger(subsystem: "FHLBible", category: "ViewParsingWord")
+
     override var nibName: String{ "ViewParsingWord" }
     @IBOutlet var viewCellOrig: ViewDisplayCell!
     @IBOutlet var viewCellChineses: ViewDisplayCell!
@@ -66,7 +69,7 @@ class ViewParsingWord : ViewFromXibBase {
         }
         self.onClick$.addCallback { sender, pData in
             if pData != nil && pData!.w != nil {
-                print (pData!.w!)
+                self.logger.info("\(pData!.w!)")
             }
         }
     }

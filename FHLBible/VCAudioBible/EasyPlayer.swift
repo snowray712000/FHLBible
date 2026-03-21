@@ -5,12 +5,14 @@ import AVFoundation
 import UIKit
 import MediaPlayer
 import FHLCommon
-
+import OSLog
 
 extension AVPlayer {
     static var s: AVPlayer?
 }
 class EasyAVPlayer {
+    var logger = Logger(subsystem: "com.FHLBible", category: "EasyAVPlayer")
+    
     typealias EventThisClass = IjnEventAdvanced<EasyAVPlayer,Any>
     private var timeObserver: Any? // player 的 timeObserver
     private var itemHelper: EasyPlayerItem?
@@ -37,15 +39,15 @@ class EasyAVPlayer {
     }
     private func setupCallbacks(){
         evAppBackForeSwitch.evResignActive.addCallback {[weak self] sender, pData in
-            print("easypleyer enter background")
+            self?.logger.info("easypleyer enter background")
             self?.startBackgroundMusic()
         }
         evAppBackForeSwitch.evBecomeActive.addCallback {[weak self] sender, pData in
-            print("easypleyer enter forebackground")
+            self?.logger.info("easypleyer enter forebackground")
             self?.stopBackgroundMusic()
         }
         self.evOneFileCompleted.addCallback(nil){[weak self] sender, pData in
-            print("easypleyer one file completed")
+            self?.logger.info("easypleyer one file completed")
             self?.goNext()
             self?.setupAudioSession()
         }
@@ -166,14 +168,14 @@ class EasyAVPlayer {
     private func startBackgroundMusic(){
         if DBackgroundMusic.s.tp != .bible { return }
         
-        print("start background music func call")
+        self.logger.info("start background music func call")
         let commandCenter = MPRemoteCommandCenter.shared()
         // play command
         
         targetPlayCallback = commandCenter.playCommand.addTarget {event in
             if  DBackgroundMusic.s.tp != .bible { return .success }
             
-            print("easypleyer play command clicked")
+            self.logger.info("easypleyer play command clicked")
             if let s = AVPlayer.s {
                s.rate = DAudioBible.s.speed // play will set 1 seepd.
             }
@@ -183,14 +185,14 @@ class EasyAVPlayer {
         targetPauseCallback = commandCenter.pauseCommand.addTarget {event in
             if DBackgroundMusic.s.tp != .bible { return .success }
             
-           print("easypleyer pause command clicked")
+           self.logger.info("easypleyer pause command clicked")
            AVPlayer.s?.pause()
            return .success
        }
        // next track command
         targetNextCallback = commandCenter.nextTrackCommand.addTarget {[weak self] event in
             if DBackgroundMusic.s.tp != .bible { return .success }
-           print("easypleyer next command clicked")
+           self?.logger.info("easypleyer next command clicked")
            // play next track here
            self?.goNext()
            self?.updateInfoOfControlCenter()
@@ -199,7 +201,7 @@ class EasyAVPlayer {
        // previous track command
         targetPreviousCallback = commandCenter.previousTrackCommand.addTarget {[weak self] event in
             if  DBackgroundMusic.s.tp != .bible { return .success }
-           print("easypleyer previous command clicked")
+           self?.logger.info("easypleyer previous command clicked")
            // play previous track here
            self?.goPrev()
            self?.updateInfoOfControlCenter()

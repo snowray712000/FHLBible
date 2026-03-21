@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 
 @testable import FHLBible
-
+@testable import FHLCommon
 class SQLSelectBibleCommentsGeneratorTests : XCTestCase {
     func test01_123() throws {
         // -- book=1, chap=2, sec=3 case

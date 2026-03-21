@@ -8,6 +8,8 @@
 import XCTest
 
 @testable import FHLBible
+@testable import FHLCommon
+import func FHLCommon.ijnRange
 
 /// 注腳 開發過程的測試
 /// 尤其是注腳內容中的 交互參照

@@ -6,9 +6,9 @@
 //
 
 import UIKit
-
+import OSLog
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    var logger = Logger(subsystem: "com.FHLBible", category: "SceneDelegate")
     var window: UIWindow?
 
 
@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     at: r2, withIntermediateDirectories: true,
                     attributes: nil)
             }catch{
-                print(error.localizedDescription)
+                logger.error("\(error.localizedDescription)")
             }
         }
         
@@ -71,7 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     task.resume()
                     taskDownload = task
                 }catch {
-                    print(error.localizedDescription)
+                    logger.error("\(error.localizedDescription)")
                 }
             }
         }
@@ -79,6 +79,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var taskDownload: URLSessionDownloadTask?
     var mydelegate = MyDelegate()
     class MyDelegate : NSObject, URLSessionDownloadDelegate {
+        var logger = Logger(subsystem: "com.FHLBible", category: "MyDelegate")
         // 必要, 當完成時呼叫, 這裡通常處理: 存檔
         func urlSession(_ session: URLSession,
                         downloadTask: URLSessionDownloadTask,
@@ -89,13 +90,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // Users/littlesnow/Library/Developer/CoreSimulator/Devices/
             // 6B47374C-BE89-4DA5-91D7-F00165BBD869/data/Containers/Data/Application/
             // C358DC8B-CE37-4873-88AB-3CF53FE3395C/tmp/CFNetworkDownload_UFQoJW.tmp
-            print ( location.path )
+            logger.info("\(location.path)")
             
             // Users/littlesnow/Library/Developer/CoreSimulator/Devices/
             // 6B47374C-BE89-4DA5-91D7-F00165BBD869/data/Containers/Data/Application/
             // 4141026F-0D00-4A9D-89E1-114363739F10/Documents
             let r2 = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            print( r2.path)
+            logger.info("\(r2.path)")
             
             do {
                 try FileManager.default.moveItem(
@@ -103,7 +104,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     to: r2.appendingPathComponent("/\(r1)"))
             } catch {
                 // 無法將「CFNetworkDownload_etYhFY.tmp」搬移至「Documents」，因為已存在相同名稱的項目。
-                print(error.localizedDescription)
+                logger.error("\(error.localizedDescription)")
             }
         }
         // 非必要.
@@ -114,7 +115,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         totalBytesWritten: Int64,
                         totalBytesExpectedToWrite: Int64) {
             let r1 = Float( totalBytesWritten )  / Float( totalBytesExpectedToWrite )
-            print("download percent \(r1) %, bys\(totalBytesWritten)")
+            logger.info("download percent \(r1) %, bys\(totalBytesWritten)")
         }
         // 非必要
         // 用在 "恢復下載" ， 但此例還不知道怎麼恢復
@@ -122,7 +123,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         downloadTask: URLSessionDownloadTask,
                         didResumeAtOffset fileOffset: Int64,
                         expectedTotalBytes: Int64) {
-            print("恢復下載 offset:\(fileOffset) total:\(expectedTotalBytes)")
+            logger.info("恢復下載 offset:\(fileOffset) total:\(expectedTotalBytes)")
         }
     }
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -137,9 +138,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let r2 = r1.appendingPathComponent("bible_little.zip")
             do {
                 try a1!.write(to: r2)
-                print("finished")
+                self.logger.info("finished")
             }catch{
-                print(error.localizedDescription)
+                self.logger.error("\(error.localizedDescription)")
             }
         }
         task.resume()

@@ -7,6 +7,7 @@
 
 import Foundation
 import FHLCommon
+import OSLog
 
 class DSearchParameters {
     /// [uvn, kjv]
@@ -105,6 +106,14 @@ class SearchQ : NSObject , ISearchQ {
             var r1: Set<DAddress> = Set()
             _dataEachVer.forEach({r1.ijnAppend(contentsOf: $0.value)})
             _mergeDataMergedAndOrdered = r1.sorted(by: <)
+
+            // 驗證排序結果，使用 hashNumber 來驗證, 會漸增
+            _mergeDataMergedAndOrdered.enumerated().forEach { index, addr in
+                if index > 0 {
+                    let prev = _mergeDataMergedAndOrdered[index - 1]
+                    assert(prev.hashNumber() <= addr.hashNumber(), "排序錯誤")
+                }
+            }
         }
     }
     enum TpStatus {
@@ -190,6 +199,7 @@ fileprivate class QuerySeDataHelper {
         self._ver = ver
         self._keyhelp = keyHelper
     }
+    var logger = Logger(subsystem: "FHLBible", category: "QuerySeDataHelper")
     /// 外部會用，內部也有用。
     var onTick$: IjnEventAny = IjnEvent()
     var onFinish$: IjnEventOnceAny = IjnEventOnce()
@@ -232,7 +242,7 @@ fileprivate class QuerySeDataHelper {
         // index_only=1&limit=500&offset=0&orig=2&RANGE=2&q=430&VERSION=unv
         // index_only=1&limit=500&offset=500&orig=2&RANGE=2&q=430
         let param = gParam()
-        print (param)
+        self.logger.info("\(param)")
         fhlSe(param) { data in
             if data.isSuccess() == false {
                 self._isContinue = false

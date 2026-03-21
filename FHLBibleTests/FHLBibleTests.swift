@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import FHLBible
+@testable import FHLCommon
 
 open class ParsingReferenceDescription {
     public func main(_ strDescription: String, defaultAddress: (book: Int,chap: Int)?) -> VerseRange {

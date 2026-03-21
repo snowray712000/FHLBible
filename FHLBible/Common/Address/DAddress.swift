@@ -109,9 +109,14 @@ extension DAddress {
     }
 }
 
-extension DAddress{
-    public func hashNumber()->Int { return self.book * 10000 + self.chap * 1000 + self.verse }
-}
+// // 同步 from FHLNUI
+// // 章，最多，150，詩篇
+// // 節，最多，176，詩篇119篇
+// // 書，最多，66
+// // verse + 1000 chap + 1000 1000 book，理論上，最大是66,000,000 而 int 最大是 2,147,483,647 夠用
+// extension DAddress{
+//     public func hashNumber()->Int { return self.book * 1000000 + self.chap * 1000 + self.verse }
+// }
 
 // sinq.orderBy，用於 mergeDiffVers 關鍵字 (閱讀時，合併兩個版本經文時)
 // 若 sinq 要 orderBy [DAddress] 是不行的，只好將 [DAddress] 型成一個 class

@@ -9,6 +9,7 @@ import Foundation
 import XCTest
 
 @testable import FHLBible
+@testable import FHLCommon
 
 class StringToVerseRangeTests : XCTestCase {
     func testBasic() throws {
@@ -19,7 +20,7 @@ class StringToVerseRangeTests : XCTestCase {
         // 第2種情況，可能縮成整章可能...約二 case (但qsb.php實際上, 約二, 會錯誤, 還是要傳入 約二1)
         var r1: [DAddress] = []
         func av(_ v:Int = 0,_ c:Int = 1 ,_ b:Int = 1){
-            r1.append(DAddress(book: b, chap: c, verse: v, ver: nil))
+            r1.append(DAddress(book: b, chap: c, verse: v))
         }
         
         [23].forEach(({av($0)}))

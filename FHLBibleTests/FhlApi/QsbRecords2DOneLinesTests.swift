@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import FHLBible
+@testable import FHLCommon
 
 /// 為了 BibleReadDataGetter 開發 (實際用在 BibleGetterViaFhlApiQsb)
 /// 仿 ts 流程

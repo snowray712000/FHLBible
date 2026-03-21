@@ -34,7 +34,7 @@ class VCSearchResult : UIViewController {
             self._drawTitle() // 前一刻變「搜尋中...」了
             self._cvtForFilters()
             self._drawFilterView()
-            self._updateDataForTableWhenOptCurChanged()
+            self._updateDataForTableWhenOptCurChanged() //
             self._drawDataView()
         }
         _isSnOnChanged$.addCallback {[weak self] sender, pData in
@@ -182,6 +182,7 @@ class VCSearchResult : UIViewController {
     func _drawFilterView(){
         viewSearchFilter.setInitData(self._filtersOptions, self._optCur, self._groupCur)
     }
+    
     func _drawDataView(){
         let r1 = _versGenerateForDTexts()
         let r1a = r1.map({[$0]})

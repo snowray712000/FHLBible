@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import FHLCommon
+import OSLog
 /// VCFutures 與 VCBugs 只有資料是不一樣，也就是 url 不一樣而已，重構
 /// 願本開發的是 Futures
 /// VCFutures 、 VCBugs 已經不再使用，因為直接在 support urls 裡就有了
 class VCIosBase<T: DIosBase> : VCOptionListViaTableViewControllerBase {
+    var logger = Logger(subsystem: "com.FHLBible", category: "VCIosBase")
     var _ovUrl: String { "https://bkbible.fhl.net/NUI/ios/ios-futures.json" }
     /// https://bible.fhl.net/NUI/ios/ 供 sub class 使用
     var _urlPrefix: String {"https://bible.fhl.net/NUI/ios/"}
@@ -28,7 +31,7 @@ class VCIosBase<T: DIosBase> : VCOptionListViaTableViewControllerBase {
         }
         r2.onError$.addCallback { sender, pData in
             let r1 = sender!._msgError!
-            print (r1)
+            self.logger.error("\(r1)")
         }
         
         let r1 = _ovUrl

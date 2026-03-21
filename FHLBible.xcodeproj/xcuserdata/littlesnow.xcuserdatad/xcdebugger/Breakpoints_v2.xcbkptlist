@@ -66,38 +66,6 @@
             endingLineNumber = "84"
             landmarkName = "capture(fnDoImageCompleted:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F2F3CA5D-DD3E-40ED-AA06-DB385CB82631 - 3aea60f41213b86a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.UIScrollView.capture(fnDoImageCompleted: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "FHLBible"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBible/Common/ScrollViewCaptureImage.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "70"
-                  endingLineNumber = "70"
-                  offsetFromSymbolStart = "824">
-               </Location>
-               <Location
-                  uuid = "F2F3CA5D-DD3E-40ED-AA06-DB385CB82631 - 3aea60f41213b937"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__C.UIScrollView.capture(fnDoImageCompleted: (Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "FHLBible"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Shared/coding/%E4%BF%A1%E6%9C%9B%E6%84%9B/iOS/FHLBible/FHLBible/Common/ScrollViewCaptureImage.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "75"
-                  endingLineNumber = "75"
-                  offsetFromSymbolStart = "732">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

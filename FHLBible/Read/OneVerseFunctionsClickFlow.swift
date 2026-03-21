@@ -8,14 +8,17 @@
 import Foundation
 import UIKit
 import FHLCommon
+import OSLog
 
 /// 原本在 read 中，但是搜尋結果顯示若有 reference，流程一樣，所以就抽出 class
-class OneVerseFunctionsClickFlow : NSObject {
+public class OneVerseFunctionsClickFlow : NSObject {
     init(vc: UIViewController,addrThisPageFirst addr:DAddress?,vers vers:[String]){
         _vc = vc
         _addrThisPage = addr
         _vers = vers
     }
+    var logger = Logger(subsystem: "com.FHLBible", category: "OneVerseFunctionsClickFlow")
+    
     /// 這不是真正的 main, 只是協助將 dtext.w 轉為 addr
     /// 這個其實是配合原本 VCRead 長相加的，但這個的本質其實是 addr
     /// 若 w 為空，會直接 return 不作任何事
@@ -52,10 +55,12 @@ class OneVerseFunctionsClickFlow : NSObject {
     /// 選擇功能後，會設定
     private var _verseAction: VerseAction!
     private func _cvtDText2DAddress(_ d:DText)->DAddress?{
+        // 取預設值
         let addr = self._addrThisPage
         let bk = addr == nil ? 1 : addr!.book
         let cp = addr == nil ? 1 : addr!.chap
         
+        // 轉換
         let r1 = StringToVerseRange().main(d.w!, (bk,cp))
         if r1.count != 0 {
             return r1.first!

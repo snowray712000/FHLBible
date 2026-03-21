@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 @testable import FHLBible
-
+@testable import FHLCommon
 class SearchQTests : XCTestCase {
     /// 讓流程能串起來
     func testDev01() throws {

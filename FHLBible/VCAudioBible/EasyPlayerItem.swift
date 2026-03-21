@@ -24,6 +24,7 @@ extension EasyAVPlayer {
             // 监听 AVPlayerItem 的状态，并在准备好播放时获取视频的总时长
             item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.new, .old], context: &playerItemContext)
             // 註冊觀察者，接收播放完成通知
+            
             playerItemDidPlayToEndTimeObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.item, queue: .main) { [weak self] notification in
                 self?.evPlayCompleted.triggerAndCleanCallback(nil, nil)
                 self?.removeCompletedObserve()

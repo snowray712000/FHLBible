@@ -9,7 +9,8 @@ import Foundation
 import XCTest
 
 @testable import FHLBible
-
+@testable import FHLCommon
+import func FHLCommon.ijnRange
 class SQLSelectBibleTextGeneratorTests : XCTestCase {
     func testSelect01_Mt_chap10_1() throws {
         // -- 太 10:1

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FHLCommon
+
 // dialog of 語音聖經版本選擇
 class VCAudioVersion : VCPickerBaseOnTableView<String> {
     override func getSelected(_ i: Int) -> String? {

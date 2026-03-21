@@ -7,6 +7,10 @@
 
 import XCTest
 @testable import FHLBible
+@testable import FHLCommon
+// 明確指定使用 FHLCommon 的 ijnSubString, 為避免 Ambiguous use of 'ijnSubString(_:pos:to:)' 錯誤
+import func FHLCommon.ijnSubString
+
 
 
 class SplitStringBtwBaseTests: XCTestCase {

@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 import FHLCommon
-
+import OSLog
 
 @IBDesignable
 class ViewDisplayRow : ViewFromXibBase {
+    var logger = Logger(subsystem: "com.FHLBible", category: "ViewDisplayRow")
     override var nibName: String { "ViewDisplayRow" }
     @IBOutlet weak var viewAddr: ViewDisplayCell!
     @IBOutlet weak var stack2: UIStackView!
@@ -116,7 +117,11 @@ class ViewDisplayRow : ViewFromXibBase {
             stack2.addArrangedSubview(re1)
             re1.widthAnchor.constraint(equalTo: stack2.widthAnchor, multiplier: self.ratios[i]).isActive = true
             
-            _set_cellview(cellview: re1, data: datas[i], colOfTable: i+1)
+            // 尾端加空白，因為在自動算寬度高度時，會不太正確，可能會卡掉最尾端的字
+            var dataAppendtab: [DText] = clone_dtexts(datas[i])
+            dataAppendtab.append(DText("\t\t\t\t"))
+            
+            _set_cellview(cellview: re1, data: dataAppendtab, colOfTable: i+1)
         }
     }
     

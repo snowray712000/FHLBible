@@ -7,6 +7,7 @@
 
 import Foundation
 import FHLCommon
+import OSLog
 
 /// 為了 BibleReadDataGetter 開發 (實際用在 BibleGetterViaFhlApiQsb)
 public protocol IQsbRecords2DOneLines {
@@ -19,6 +20,7 @@ public protocol IQsbRecords2DOneLines {
 /// 同時需要 convertor protocol (IQsbRecords2DOneLines)
 /// 到時候，會有一個「自動選擇來自 api、來自 local file database的」
 class BibleGetterViaFhlApiQsb : IBibleGetter{
+    var logger = Logger(subsystem: "com.FHLBible", category: "BibleGetter")
     private var cvtor: IQsbRecords2DOneLines = QsbRecords2DOneLines01()
     init(){
     }
@@ -27,7 +29,7 @@ class BibleGetterViaFhlApiQsb : IBibleGetter{
         let unv = BibleVersionConvertor().cna2na(ver)
         
         let r1 = "version=\(unv)&qstr=\(addr)&strong=1&\(ManagerLangSet.s.curQueryParamGb)"
-        print (r1)
+//        logger.debug ("\(r1)")
         fhlQsb(r1, { a2 in
             
             let re: [DOneLine] = false == a2.isSuccess() ? [] :

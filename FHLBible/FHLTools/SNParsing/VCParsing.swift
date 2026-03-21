@@ -8,9 +8,11 @@
 import Foundation
 import UIKit
 import FHLCommon
+import OSLog
 
 /// 使用 set
 class VCParsing : UIViewController {
+    static var logger = Logger(subsystem: "com.FHLBible", category: "VCParsing")
     typealias FnCallback = (_ dataSet:[ViewParsing.OneSet],_ isHebrew: Bool) -> Void
     @IBOutlet weak var viewParsing: ViewParsing!
     @IBOutlet weak var btnTitle: UIButton!

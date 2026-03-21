@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FHLCommon
 
 class VCReadMore : VCPickerBaseOnTableView<String> {
     override func getSelected(_ i: Int) -> String? {

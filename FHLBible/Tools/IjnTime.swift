@@ -13,6 +13,9 @@ import AVFoundation
 // 有聲聖經時用的
 // 真正核心
 func ctime2dashdashformat(_ sec:CMTime)->String{
+    guard sec.isValid && sec.isNumeric else { return "--:--" }
+    let seconds = sec.seconds
+    guard seconds.isFinite && !seconds.isNaN else { return "--:--" }
     // Format remaining time as "mm:ss" or "h:mm:ss"
     let formatter = DateComponentsFormatter()
     formatter.zeroFormattingBehavior = .pad
@@ -21,8 +24,8 @@ func ctime2dashdashformat(_ sec:CMTime)->String{
     } else {
         formatter.allowedUnits = [.minute, .second]
     }
-    
-    return formatter.string(from: sec.seconds) ?? "--:--"
+
+    return formatter.string(from: seconds) ?? "--:--"
 }
 func ctime2dashdashformat(_ sec:Double)->String{
     return ctime2dashdashformat(convertToCMTime(seconds: sec))

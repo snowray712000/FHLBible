@@ -8,14 +8,16 @@
 import Foundation
 import FMDB
 import FHLCommon
+import OSLog
 
 class BibleGetterViaSQLiteOrApi : NSObject, IBibleGetter {
+    var logger = Logger(subsystem: "com.FHLBible", category: "BibleGetter")
     func queryAsync(_ ver: String, _ addr: String, _ fn: @escaping ([DOneLine]) -> Void) {
         if isExistSQLite(ver) {
-            print("using sql \(ver)")
+//            logger.debug("using sql \(ver)")
             BibleGetterViaSQLiteFile().queryAsync(ver, addr, fn)
         } else {
-            print("using api \(ver)")
+//            logger.debug("using api \(ver)")
             BibleGetterViaFhlApiQsb().queryAsync(ver, addr, fn)
         }
     }

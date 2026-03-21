@@ -8,8 +8,11 @@
 import Foundation
 import UIKit
 import FHLCommon
+import OSLog
 
 class VCTsk : UIViewController {
+    var logger = Logger(subsystem: "FHLBible", category: "VCTsk")
+
     @IBOutlet var viewContent: UIView!
     /// addr 為何要傳呢？因為有的 19,27 變為 太2:19,27
     func setInitData(_ addr: DAddress){
@@ -104,7 +107,7 @@ class VCTsk : UIViewController {
     fileprivate lazy var v2: ViewDisplayCell = { viewContent as! ViewDisplayCell}()
     fileprivate func listenEventsWhenClickDtextInContent(){
         v2.onClicked$.addCallback {[weak self] sender, pData in
-            // print (pData?.w)
+            self?.logger.info("\(pData?.w ?? "nil")")
             if pData != nil {
                 if pData!.refDescription != nil {
                     self?.pushVCReadWhenClickContentRef(pData!)

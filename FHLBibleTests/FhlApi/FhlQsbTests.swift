@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import FHLBible
-
+@testable import FHLCommon
 
 /// fhlqsb function Test
 class FhlQsbTests : XCTestCase {

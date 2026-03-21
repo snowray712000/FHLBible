@@ -7,11 +7,57 @@
 
 import Foundation
 import FHLCommon
+import OSLog
 
 /// 這個 class 核心在負責，qsb api 抓資料，不是在串流程，所以上色應該是別人的事。
 /// 但處理資料也不該是 view table 的事，而應該是 ctrl 的事 VCSearchResult
 /// ... 但資料包含它的 該繪什麼，硬要算它的也是可以啦 ...
+/// 它重要的 results 是 ._datas 
 class DataForDrawTable : IViewDisplayTable2DataQ {
+    var logger = Logger(subsystem: "com.FHLBible", category: "DataForDrawTable")
+    func _debug_dtextss_to_string(_ dtextss: [[DText]])->String {
+        return debug_dtextss_to_string(dtextss," 下一譯本 ")
+    }
+    func _debug_ReadDataQ_OneRow_to_string(_ r: ReadDataQ.OneRow)->String {
+        return _debug_dtextss_to_string(r.datas)
+    }
+    func _debug_ReadDataQ_OneRows_to_string_random2(_ r: [ReadDataQ.OneRow])->String {
+        // r: 在 callback 中，pData!.1 就是 [ReadDataQ.OneRow]
+        // 取得亂數 2 個，整數，範圍是 0 到 r.count - 1
+        let randomIndices = (0..<r.count).shuffled().prefix(2)
+        return randomIndices.map({_debug_ReadDataQ_OneRow_to_string(r[$0])}).joined(separator: " ")
+
+        // 從這函式，可以理解到 qDataForRead 的 callback 回傳值的 pData
+        // pData 的 .1 是包含 經節位置，與經文資料
+        // pData 的 .1 是個 array。 這資料結構，本來就是設計給 tableview 的 row 的，所以它將 row 的 header datas 綁成一個 tuple
+        // 承上，所以顯示所有經文是 .1.map 而不是 .1.datas.map
+    }
+    func _debug_query_rows_row_and_addr(_ r: [DataForDrawTable.OneRow]) -> String {
+        // 這是在 callback 中，的 r3，就是 OneQuery 中的 rows
+        return r.map({"\($0.row ?? -1) \(debug_dtexts_to_string($0.addrToDText()))"}).joined(separator: " (下個oneRow)")
+    }
+    func _debug_query_rows_datas(_ r: [DataForDrawTable.OneRow])->String{
+        // 這是在 callback 中的 r3.rows
+        // 確認一下，callback 後， r3 的 rows 的 datas 是不是還是空的
+        // 確實，還是 nil，而且在呼叫 _updateDatasWhenFinishOnce 之後，仍然沒有填入它的 .datas 值，而真正要填入的是 self._datas ，而非只是 query 的
+        
+        return r.map({"\($0.datas == nil ? "(nil)" : self._debug_dtextss_to_string($0.datas!))"}).joined(separator: " (下個oneRow)")
+    }
+    func _debug_info_datas()->String{
+        // 想知道目前有多少 keys
+        let cntOfkey = self._datas.keys.count
+        // 想知道目前有多少 values 是 nil, 多少不是
+        // 注意， nil 是 values.1 才是 datas 而 values.0 是 address, 一定不會是 nil
+        let cntOfNil = self._datas.values.filter({$0.1 == nil}).count
+        let cntOfNotNil = self._datas.values.filter({$0.1 != nil}).count
+        
+        return "key: \(cntOfkey), nil: \(cntOfNil), notnil: \(cntOfNotNil)"
+        
+        // 經測試, 一開始會有 所有的 row
+        // 然後, 可能會局部取得, 例如， 取得其中 21 個
+        // 觸發是 dataview 的 cellRowAtIndex 的 row 上下 20 個
+    }
+    
     /// 第2個參數, 是指 目前 opt 時, 所有的 datas, 而非所有找到的 addr
     init(_ vers:[String],_ datasAddrs:[DAddress],_ fnColorIt: FnColorIt?){
         self._vers = vers
@@ -37,15 +83,33 @@ class DataForDrawTable : IViewDisplayTable2DataQ {
     func queryDataAsync(_ rows: [Int]) {
         
         let r3 = OneQuery()
+
+        // 指定要抓 rows ， 但真正需要抓的是 r3.rows 。
+        // 例如，[0,1,2,3,4] 要抓，但是 [0,1,4] 正在抓，或抓過了。就只抓 [2,3]
+        // 並且 .rows 不是 Int, 而是 OneRow
+        // OneRow class，就是記得 row 與對應的 Address，這兩個都是 input。
+        // OneRow class，還會準備 data 來放資料，預設是 nil，因為可能是多個譯本，所以是 DText[][]。
         r3.rows = self._gQueryRows(rows)
         if r3.rows!.count == 0 {
             return // 別人在抓，也包含它的
         }
+
         r3.qDataForRead$.addCallback { sender, pData in
             // pData.0 當然就是 和合本 新譯本 這 row
             // pData.1 開始才是資料
             let r2 = r3.rows!
             if pData != nil {
+                // debug , 列出抓到的資料 pData.1
+//                self.logger.debug("pData.1.datas \(self._debug_ReadDataQ_OneRows_to_string_random2(pData!.1))")
+                
+                // 其實不知道為何需要 pData.0 ，因為經文的 Adress 在 pData.1 也有。
+                
+                // r3 裡面存的，是這次真正要取的，它就是有 row id 與 row 的 address 。 注意， row 的 address 有可能會有多個，因為有的譯本會將數節合併成一個
+//                self.logger.debug("r3.rows \(self._debug_query_rows_row_and_addr(r3.rows!))")
+                
+                // 如下結果，確實，僅管 pData!.1 已經有資料，但 r3 的 datas 裡是還沒有資料的
+//                self.logger.debug("r3.rows data \(self._debug_query_rows_datas(r3.rows!))")
+                
                 // 抓了一堆資料
                 self._updateDatasWhenFinishOnce(pData!.1, r3)
             } else {
@@ -169,3 +233,4 @@ class DataForDrawTable : IViewDisplayTable2DataQ {
     
     
 }
+

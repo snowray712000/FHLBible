@@ -46,7 +46,7 @@ class VCSnDict: UIViewController {
         }
         // 點擊內容時，交互參照
         v2.onClicked$.addCallback { sender, pData in
-            // print (pData?.w )
+            
             if pData != nil && pData!.refDescription != nil {
                 let r1 = self.gVCRead()
                 let r2 = StringToVerseRange().main(pData!.refDescription!, nil)

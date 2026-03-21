@@ -40,6 +40,7 @@ class BibleVersionConstants {
            One( na: "recover", cna: "恢復本", yr: 2003, cds: [.yrnow, .pr, .officer] ),
            One( na: "tcv95", cna: "現代中文譯本1995版", yr: 1995, cds: [.yrnow, .pr, .officer] ),
            One( na: "ncv", cna: "新譯本", yr: 1992, cds: [.yrnow, .pr, .officer] ),
+           One( na: "wcb", cna: "環球譯本", yr: 2023, cds: [.yrnow, .pr, .officer] ),
            One( na: "lcc", cna: "呂振中譯本", yr: 1970, cds: [.yrnow, .pr, .officer] ),
            One( na: "ofm", cna: "思高譯本", yr: 1968, cds: [.yrnow, .cc, .officer] ),
             One( na: "cwang", cna: "王元德官話譯本", yr: 1933, cds: [.pr, .yr1960, .officer] ),
@@ -111,6 +112,11 @@ class BibleVersionConstants {
             One( na: "russian", cna: "俄文聖經", od: 3 ),
             One( na: "korean", cna: "韓文聖經", od: 5 ),
             One( na: "jp", cna: "日語聖經", od: 7 ),
+            One( na: "baru", cna: "印尼聖經", od: 9 ),
+            One( na: "ind1958", cna: "印尼聖經舊聖經", od: 11 ),
+            One( na: "cvul", cna: "武加大譯本(拉丁文)", od: 13 ),
+            One( na: "nvul", cna: "新武加大譯本", od: 15 ),
+
         ]
     }
     private func dataOfMinnan()->[One]{
@@ -141,12 +147,18 @@ class BibleVersionConstants {
     private func dataOfIna()->[One]{
         return [
             One( na: "rukai", cna: "聖經公會魯凱語聖經", od: 1 ),
+            One( na: "wanshandia", cna: "萬山魯凱語馬可福音", od: 19 ),
+            One( na: "maolindia", cna: "茂林魯凱語馬可福音", od: 21 ),
+            One( na: "tonadia", cna: "多納魯凱語馬可福音", od: 23 ),
             One( na: "tsou", cna: "聖經公會鄒語聖經", od: 3 ),
             One( na: "ams", cna: "聖經公會阿美語1997", od: 5 ),
             One( na: "amis2", cna: "聖經公會阿美語2019", od: 7 ),
             One( na: "ttnt94", cna: "聖經公會達悟語新約聖經", od: 9 ),
             One( na: "sed", cna: "賽德克語", od: 11 ),
-            One( na: "tru", cna: "聖經公會太魯閣語聖經", od: 13 )
+            One( na: "tru", cna: "聖經公會太魯閣語聖經", od: 13 ),
+            One( na: "bunun", cna: "聖經公會布農語聖經", od: 15 ),
+            One( na: "tay", cna: "聖經公會泰雅爾語聖經", od: 17 ),
+            One( na: "pinuyan", cna: "卑南語", od: 25 )
         ]
     }
     private func dataOfOther()->[One]{

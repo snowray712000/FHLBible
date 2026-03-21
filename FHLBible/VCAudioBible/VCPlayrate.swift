@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FHLCommon
+
 class VCPlayrate : VCPickerBaseOnTableView<String> {
     override func getSelected(_ i: Int) -> String? {
         return String(i)

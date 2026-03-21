@@ -2,14 +2,30 @@ import Foundation
 import UIKit
 import AVFoundation
 import FHLCommon
+import OSLog
 
+/*
+
+ ## viewDidLoad
+ - swipe 字眼，處理用手指操作，例如， `左滑` 是切換章節
+ - 以 事件驅動 模式來處理 顯示結果
+    - 顯示資料
+        - 顯示資料，核心是 self.drawData()。 使用資料 data ，畫在介面 v2 上面。
+        - 切換譯本、切換章節，都應該要重新抓資料，即使用 self.updateData()，抓完後 trigger data 已變更，即 _dataChanged$.trigger
+    - 點擊相關
+        - data 就是內容，畫在介面 v2 上，v2 核心有事件觸發，例如，點擊到裡面的文字，文字也會分類，有 SN，一般文字，是 譯本名稱(title) 或 經節位置(Address) 的文字。
+        - 詳細要看 listenEventsWhenInit()，裡面就是綁定不同種類的東西被 click 到，要對應的工作。
+            - 例如，我要找 點擊經節 跳出功能表 選擇，就會在這。
+ 
+ */
 protocol IVCReadDataQ {
     func qDataForReadAsync(_ addr:String, _ vers: [String])
     var qDataForRead$: IjnEventOnce<Any,(ViewDisplayTable2.OneRow,[ViewDisplayTable2.OneRow])> { get }
 }
 /// 呼叫 setInitData 後再開啟此
 class VCRead : UIViewController, IEventsHelperOfTableOfRead {
-
+    private var logger = Logger(subsystem: "com.FHLBible", category: "VCRead")
+    
     /// drawTitle()  -> addrs
     /// updateData() -> addrs, vers
     /// drawData ->  datas
@@ -456,11 +472,15 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
             }
         }
     }
+    
     private func addListenForClickedAddr(){
         v2.onClickDatas$.addCallback {[weak self] sender, pData in
             guard let self = self else { return }
             
             if pData != nil && pData!.col == -1 && pData!.dtext != nil && pData!.dtext!.w != nil {
+                
+//                self.logger.debug("\(pData!.dtext!.w!)")
+                
                 let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addrsCurFirst, vers: self._vers)
                 flow.mainAsync(pData!.dtext)
             }

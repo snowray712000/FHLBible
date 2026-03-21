@@ -1,21 +1,78 @@
-//
 //  VCData.swift
 //  FHLBible
-//
 //  Created by littlesnow on 2022/10/29.
-//
+// 這個 class 是對應一個介面，你可以想像這個介面底子就是 TableView
+
+/*
+ ## 介面
+ - 本質是一個 TableView
+ - 是一個 N Row x 1 column 的 table
+ - cell 使用 Title 與 Subtitle 的方式呈現
+ - 例如： 和合本 (Title) 未下載(Subtitle)
+ 
+ ## 資源
+ - 每個資源，就是 信望愛網站 提供，可下載的離線資料庫。
+ - 並非所有資源都 被授權 可下載，有的是沒有授權，只能在網路上用的。
+ - 資源，例如，`註釋`、`Parsing`、`CBOL字典`、`原文直譯(參考用)`、`和合本`...etc
+ 
+ ## 狀態
+ - 狀態有：`未下載`、`使用中`、`下載中`、`待處理`、`需更新`。
+ - 比較要說明的是，待處理。待處理，就是下載後，會是 .zip 檔，還會解壓縮，然後再前處理，型成最終的 sqlite檔，此時就會刪掉解壓縮完的 sqlite 與 zip 檔。
+ 
+ ## 檔案結構
+ - 模擬器，是一個資料夾為根目錄，例如
+    - /Users/littlesnow/Library/Developer/CoreSimulator/Devices/1CE0EEE2-5417-4226-BF30-69BEF5094398/data/Containers/Data/Application/07081292-69DF-41CA-864D-74DB0916D3F1/Documents/
+    - 模擬的裝置，會是一個 UUID，就是上面的 Devices 下的資料夾
+    - 每個 App，又會是一個 UUID，就是上面的 Application 下的資料夾
+    - 核心是使用 FileManager.urls(for: .documentDirectory, in: .userDomainMask) 來取得的
+ - 下載後，會放在 /Documents/ 下的 `download` 資料夾下
+ - 解壓縮後，會放在 /Documents/ 下的 `unzip` 資料夾下
+ - 處理完後，會放在 /Documents/ 下的 `offline` 資料夾下
+ - 當處理完後，會自動移除 download 與 unzip 下的檔案。
+ 
+ ## 事件處理
+ - viewDidLoad
+    - makeSureMainDbExistAsync ()
+        - MainDb 就是 main.db
+        - 它是從 bible_little.db 中 某個 table 取出來的        
+    - initial_title1_row2version ()
+        - title1 顯示資料。string []。例如 `註釋`、`Parsing`、`CBOL字典`、`原文直譯(參考用)`、`和合本`...etc
+        - row2version。一個字典 [int:string]。例如 0:comm 、 1:parsing ...
+        - 這初始化，前幾個是手動的，因為它與要下載的連連檔名關聯不大。但後面譯本名稱，與下載連結有關聯，所以就可以直接自動取得線上的。
+    - getVersion2Date ()
+        - 這是從 api 取得每個 資源 的 最後更新 日期
+        - 有這個才能知道是不是需要更新
+    - reloadStatesUsingCheckingFile ()
+        - 要計算每個資源的 state
+        - 藉著判斷指定檔案的 存在 、 最後日期 、 就可以了。
+    - updateTitle2DataAndColorFromStates ()
+        - 這是更新 title2 與 cell 的字串與顏色
+        - 這是根據 states 的資料來更新的
+ 
+ - 點擊 Row
+    - _doClickRow (row)
+
+ 
+ */
+
 
 import Foundation
 import UIKit
 import ZIPFoundation
 import zlib
 import FHLCommon
+import OSLog
+
 class VCData : VCOptionListViaTableViewControllerBase{
+    var logger = Logger(subsystem: "com.FHLBible", category: "VCData")
     override func viewDidLoad() {
         super.viewDidLoad()
         _onClickRow$.addCallback { sender, pData in
             self._doClickRow(pData!)
         }
+#if DEBUG
+        let dir = FileManager.default.getPathAtDocumentUserDomain(pathRelative: "") // 可用中斷點來取得 Document 目錄
+#endif
         
         self.makeSureMainDbExistAsync()
         
@@ -181,6 +238,8 @@ class VCData : VCOptionListViaTableViewControllerBase{
     /// `有些zip，沒有main，所以正規化的時候錯` 因此，長存個 main.db 來正規化用
     ///  在 initial 時，呼叫一次。會非同步產生 /offline/main.db 檔案
     class MainDbMakeSureExist{
+        var logger = Logger(subsystem: "com.FHLBible", category: "MainDbMakeSureExist")
+        
         func main(){
             
             if fm.fileExists(atPath: pathMainDb.path){
@@ -234,13 +293,20 @@ create table main as select * from db2.main;
         }
         private func deleteDownloadAndUnzipFile(){
             do {
-                for a1 in [pathUnzipDb,pathDownload]{
+                #if DEBUG
+                // dev 時，下載的 zip 檔每次要重下載，要等。
+                let pathsDelete = [pathUnzipDb]
+                #else
+                let pathsDelete = [pathUnzipDb,pathDownload]
+                #endif
+                
+                for a1 in pathsDelete{
                     if fm.fileExists(atPath: a1.path){
                         try fm.removeItem(at: a1)
                     }
                 }
             }catch{
-                print(error.localizedDescription)
+                logger.error("\(error.localizedDescription)")
             }
         }
         
@@ -288,18 +354,21 @@ create table main as select * from db2.main;
         }
         
         // check
-        print("check ver2Date")
+        logger.info("check ver2Date")
+        
         var error_vers: [String] = []
         re.forEach { (key: String, value: Date?) in
             if value == nil {
                 let r1 = record.ijnFirstOrDefault({$0.book == key})
                 if r1?.candownload == 1 {
-                    print("uiabv.php 沒有 \(key) 版本嗎?")
+                    logger.warning("uiabv.php 沒有 \(key) 版本嗎?")
                     if r1 == nil {
-                        print("是的, uiabv中沒有此譯本資訊, 回報給 tjm.")
+                        logger.warning("是的, uiabv中沒有此譯本資訊, 回報給 tjm.")
                     } else {
-                        print("不是的, uiabv 中有此譯本 \(r1!.cname!), 也 candownload, 但沒有 version 資訊, 回報給 tjm")
-                        print(record.ijnFirstOrDefault({$0.book == key})?.getVersion() ?? "")
+                        logger.warning("不是的, uiabv 中有此譯本 \(r1!.cname!), 也 candownload, 但沒有 version 資訊, 回報給 tjm")
+                        // ...existing code...
+                        let msgwarning = r1?.getVersion().map { "\($0)" } ?? ""
+                        logger.warning("version 資訊: \(msgwarning)")
                     }
                     
                     error_vers.append(key)
@@ -339,6 +408,8 @@ create table main as select * from db2.main;
     private func isReadyMainDb()->Bool { return FileManager.default.fileExists(atPath: FileManager.default.getPathAtDocumentUserDomain(pathRelative: "/offline/main.db").path)}
     /// 在執行緒等 main.db 有了之後，就會開始下載所有
     class DoVersionWaitMainDbCompleted{
+        var logger = Logger(subsystem: "com.FHLBible", category: "DoVersionWaitMainDbCompleted")
+
         var fnDoOneBible: ((String)->Void)?
         func mainAddToQueueNeverRepeatAdded(_ ver:String){
             if self.isFinish {
@@ -362,7 +433,7 @@ create table main as select * from db2.main;
                 self.isExistThread = true
                 
                 while ( self.isFileExist() == false ){
-                    print("wait main.db completed.")
+                    self.logger.info("wait main.db completed.")
                     sleep(1)
                 }
                 
@@ -435,6 +506,7 @@ create table main as select * from db2.main;
         DoDeleteBible(ver: ver, isSn: isSn, strSpecialName: na).main()
     }
     class DoDeleteBibleBase : NSObject {
+        var logger = Logger(subsystem: "com.FHLBible", category: "DoDeleteBibleBase")
         /// strSpecialName: 以 unv 為例，它是 bible_little 而不是 unv
         /// unzip: /unzip/bible_comm.db
         /// offline: /offline/comm.db
@@ -446,7 +518,11 @@ create table main as select * from db2.main;
             let unzip = fm.getPathAtDocumentUserDomain(pathRelative: unzip)
             let zip = fm.getPathAtDocumentUserDomain(pathRelative: download)
             let db1 = fm.getPathAtDocumentUserDomain(pathRelative: offline)
-            urls.append(unzip)
+            
+            let isDebug = true
+            if isDebug == false {
+                urls.append(unzip)
+            }
             urls.append(zip)
             urls.append(db1)
             if offlineSn != nil {
@@ -467,7 +543,7 @@ create table main as select * from db2.main;
                     }
                 }
             } catch {
-                print(error.localizedDescription)
+                logger.error("\(error.localizedDescription)")
             }
         }
     }
@@ -499,7 +575,7 @@ create table main as select * from db2.main;
             }
         }
         download.onFinished$.addCallback { sender, pData in
-            print("offline \(ver) ready.")
+            self.logger.info("offline \(ver) ready.")
             self.reloadStatesUsingCheckingFile()
             self.updateTitle2DataAndColorFromStates()
             DispatchQueue.main.async{

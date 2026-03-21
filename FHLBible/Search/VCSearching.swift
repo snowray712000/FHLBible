@@ -9,8 +9,6 @@ class VCSearching : UIViewController {
         super.viewDidLoad()
         
         vMain.onClickSearching$.addCallback { sender, pData in
-            
-            
             self.navigationController?.popViewController(animated:  false) // 先 pop 掉再 trigger，不然會 push 到第二層
             self.onClickSearching$.triggerAndCleanCallback(sender, pData)
         }

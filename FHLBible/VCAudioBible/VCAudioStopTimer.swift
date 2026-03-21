@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FHLCommon
+
 // dialog of 語音聖經倒數計數(睡覺用)
 class VCAudioStopTimer : VCPickerBaseOnTableView<String> {
     override func getSelected(_ i: Int) -> String? {

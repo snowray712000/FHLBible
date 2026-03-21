@@ -12,7 +12,7 @@ import AVFoundation
 import UIKit
 import MediaPlayer
 import FHLCommon
-
+import OSLog
 
 // EasyPlayer 會用到，是有聲聖經，只會呼叫一次即可 (VCAudioBible 用到的)
 // VCAudioTextBible 也會用到。
@@ -22,7 +22,8 @@ func activeBackgroundAudio(_ isActive:Bool){
         try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetooth, .allowBluetoothA2DP])
         try AVAudioSession.sharedInstance().setActive(isActive)
     } catch {
-        print(error)
+        let logger = Logger(subsystem: "com.FHLBible", category: "ActiveBackgroundAudio")
+        logger.error("\(error.localizedDescription)")
     }
 }
 

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FHLCommon
+import OSLog
 
 /// 當使用 viewDisplayTable 的 set 函式時，會先準備所有 datas，
 /// 然而，datas 只會有 Address 的可能，這時候，也會同時產生 noData 是哪些 row
@@ -32,6 +33,7 @@ protocol IViewDisplayTable2DataQ {
 /// 因為有有一個1版本的，所以才叫2 (1已經不用了)
 @IBDesignable
 class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
+    var logger = Logger(subsystem: "com.FHLBible", category: "ViewDisplayTable2")
     typealias OneRow = (header:[DText],datas:[[DText]])
     /// header row = -1 , header col = -1, data is 0-based
     typealias OneEvent = (dtext: DText?,col:Int,row:Int)
@@ -233,24 +235,45 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
     func _drawUseMode2(_ rowOfData: Int,_ rowView: ViewDisplayRow){
         /// search result 會用到 mode2
         
+        logger.debug("_drawUseMode2 \(rowOfData) ")
+
         guard let iQ = _iViewDiplayTable2DataQ,let r1 = iQ.datas[rowOfData] else {
             return
         }
         
-        // 忘了為何這麼作了。
-        if r1.1 != nil {
+        // 要了解 r1，要先了解 iQ
+        // iQ 是 DataForDrawTable class
+        // 它最重要的結果是 ._datas ， 它本質是個 dict 
+        // iQ.datas[row_idx] 即是 一個 tuple ， 是 header: DText[] 與 datas: DText[][]。
+        // 搞錯了 iQ.datas 的 tuple 不像 SearchQ 的原始資資料， 0 就是對應 header, 1 就是對應到 datas
+        // 例子: r1 = iQ.datas[2], r1.1 有可能是 nil
+        // iQ.datas 就是非同步取得的經文資料
+
+        if r1.1 != nil {      
+            // 在 _tryQueryDataThenUpdate 的函式中，若 _dcitCell2Row 裡有這個 key 值，就會更新資料
+            // r1.1 != nil 表示已經有資料了，所以不需要再更新資料      
             self._dictCell2Row.removeValue(forKey: rowView)
         } else {
+            // 到時後，就是在 _tryQueryDataThenUpdate 的時候，會透過 _set_viewrow 函式，將資料設定到此 rowView。
+            // rowView 就是 UI, 而 _set_viewrow 就是把 data 設定給 UI.
             self._dictCell2Row[rowView] = rowOfData
         }
         
-        let isHeader = false // UserMode2 一定不會有 header
-        let dtextsData = r1.1 ?? ijnRange(0, dataHeader.datas.count).map({ _ in [DText("")]}) // n 格空白
-        self._set_viewrow(viewRow: rowView, header: r1.0, data: dtextsData, rowOfTable: rowOfData+1, isHeader: isHeader)
-        
-        // 若是空的, 要嘗試取資料
         if r1.1 == nil {
+            // 先弄個空白，給 rowView
+            // UserMode2 一定不會有 header, isHeader = false            
+            let dtextsData = Array(repeating: [DText("")], count: dataHeader.datas.count)
+            self._set_viewrow(viewRow: rowView, header: r1.0, data: dtextsData, rowOfTable: rowOfData+1, isHeader: false)
+            
+            // 若是空的, 要嘗試取資料
             self._tryQueryDataThenUpdate(rowOfData)
+        } else {
+            // 若有資料，就直接設定
+            var dtextsData: [[DText]] = clone_dtextss(r1.1!)
+//            for i in 0..<dtextsData.count {
+//                dtextsData[i].append(DText("\t\t\t"))
+//            }
+            self._set_viewrow(viewRow: rowView, header: r1.0, data: dtextsData, rowOfTable: rowOfData+1, isHeader: false)
         }
     }
     /// 許多參數，都是使用 self 資料，因此簡化。
@@ -283,13 +306,17 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
                     let r3 = self.widthRatio
                     
                     var r4: [ViewDisplayRow] = []
+
+                    // 存在於 r2 dict 都是 rowView 還沒放資料進來的，而有資料的不會進到下面那個 for a2 in r2
                     for a2 in r2 {
                         let rowOfTable = a2.value
-                        let r1a = r1[a2.value]!
+                        var r1a = r1[a2.value]!
                         if r1a.1 != nil { // 有資料了
                             
-                            self._set_viewrow(viewRow: a2.key, header: r1a.0, data: r1a.1!, rowOfTable: a2.value, isHeader: false) // 這裡應該都是資料，而非 header
-//                          a2.key.set(r1a.0, r1a.1!, r3, self._isSnVisible,self._isFontNameOpenHanBibleTCs,self._tpTextAlignment)
+                            // 這裡應該都是資料，而非 header
+                            self._set_viewrow(viewRow: a2.key, header: r1a.0, data: r1a.1!, rowOfTable: a2.value, isHeader: false)
+                            // self._set_viewrow(viewRow: a2.key, header: r1a.0, data: r1a.1!, rowOfTable: a2.value, isHeader: false) // 這裡應該都是資料，而非 header
+                            // a2.key.set(r1a.0, r1a.1!, r3, self._isSnVisible,self._isFontNameOpenHanBibleTCs,self._tpTextAlignment)
 
                             
                             r4.append(a2.key) // append 後, 等等要拿掉
@@ -299,9 +326,13 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
                     
                     /// 高度要重算
                     if r4.count > 0 {
-                        self.viewTable.beginUpdates()
-                        self.viewTable.endUpdates()
-                    }
+                        // 用執行緒才會正真計算
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.viewTable.beginUpdates()
+                            self.viewTable.endUpdates()
+                        }
+                    }                    
+                    
                     r4.forEach({r2.removeValue(forKey: $0)})
                     self._dictCell2Row = r2
                 }
@@ -309,7 +340,7 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
         }
         // 效率考量， +- 20 個一起取
         let cntLimit = iQ.datas.count
-        let rows = ijnRange(r - 20, 40).filter({$0 >= 0 && $0 < cntLimit})
+        let rows = Array(max(0, r - 20)..<min(cntLimit, r + 20))
         iQ.queryDataAsync(rows)
     }
     private func getRowData(_ i: Int)-> [[DText]] {

@@ -7,6 +7,9 @@
 
 import XCTest
 @testable import FHLBible
+@testable import FHLCommon
+import class FHLCommon.SplitByRegex
+import class FHLCommon.SplitByRegexOneResult
 
 class DictTwcbNewConvertorTests: XCTestCase {
     // 測試 reg 處理換行的能力

@@ -9,9 +9,11 @@
 import Foundation
 import CoreData
 import FHLCommon
-
+import OSLog
 /// 無法重構至
 public class AutoLoadDuiabvSQLite : IAutoLoadDuiabvSQLite {
+    var logger = Logger(subsystem: "FHLBible", category: "AutoLoadDuiabvSQLite")
+
     public func load() -> (DApiUiabv?, DApiUiabv?) {
         let moc = _moc
         let r1 = SQUiabv.fetchRequest()
@@ -32,7 +34,7 @@ public class AutoLoadDuiabvSQLite : IAutoLoadDuiabvSQLite {
             return (re1,re2)
             
         }catch{
-            print("load failure. \(error)")
+            self.logger.error("load failure. \(error.localizedDescription)")
         }
         return (nil,nil)
     }
@@ -55,7 +57,8 @@ public class AutoLoadDuiabvSQLite : IAutoLoadDuiabvSQLite {
                 }
                 try moc.save()
             } catch {
-                fatalError("update to abv sqlite failure, \(error)")
+                self.logger.error("update to abv sqlite failure, \(error.localizedDescription)")
+                
             }
         }
     }

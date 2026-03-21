@@ -8,14 +8,16 @@
 import Foundation
 import UIKit
 import FHLCommon
-
+import OSLog
 class EventForScrollView : NSObject, UIScrollViewDelegate{
+    var logger = Logger(subsystem: "com.FHLBible", category: "EventForScrollView")
+
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        print("scrollViewDidEndScrollingAnimation")
+        logger.info("scrollViewDidEndScrollingAnimation")
         ev_scrollViewDidEndScrollingAnimation.triggerAndCleanCallback()
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("scrollViewDidEndDecelerating")
+        logger.info("scrollViewDidEndDecelerating")
         ev_scrollViewDidEndScrollingAnimation.triggerAndCleanCallback()
     }
     var ev_scrollViewDidEndScrollingAnimation = IjnEventOnceAny()

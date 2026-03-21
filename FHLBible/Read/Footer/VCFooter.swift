@@ -8,8 +8,10 @@
 import Foundation
 import UIKit
 import FHLCommon
-
+import OSLog
 class VCFooter : UIViewController {
+    var logger = Logger(subsystem: "FHLBible", category: "VCFooter")
+
     /// 第一個 ver, 是目前 col. 第二個 vers 主要是若內容 click reference 時要用到的
     func setInitData(_ dtext: DText, _ ver: String, _ addr: DAddress,_ vers:[String]){
         _dtext = dtext
@@ -28,7 +30,7 @@ class VCFooter : UIViewController {
         /// 內容字 click
         self.v2.onClicked$.addCallback { sender, pData in
             if pData != nil && pData!.refDescription != nil {
-                print (pData!.w!)
+                self.logger.info("\(pData!.w!)")
                 let vc = self.gVCRead()
                 let r1 = StringToVerseRange().main(pData!.refDescription!, (self._addr.book,self._addr.chap))
                 vc.setInitData( VerseRange(r1) , self._vers)
@@ -71,7 +73,7 @@ class VCFooter : UIViewController {
             if data.isSuccess() == false {
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: false)
-                    print (data.status)
+                    self.logger.info("\(data.status)")
                     return
                 }
                 return

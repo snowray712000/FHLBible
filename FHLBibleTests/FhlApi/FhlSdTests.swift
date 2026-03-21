@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import FHLBible
+@testable import FHLCommon
 
 class FhlSdTests: XCTestCase {
     /// 確定 fhlSd 可呼叫，並且透過 debug 看 data 大概長什麼樣子

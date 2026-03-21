@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import FHLBible
+@testable import FHLCommon
 
 class FhlSeTests: XCTestCase {
     /// H430

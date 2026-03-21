@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import FHLBible
-
+@testable import FHLCommon
 
 /// 開發 BibleText2DText 用
 class BibleText2DTextTests :XCTestCase {

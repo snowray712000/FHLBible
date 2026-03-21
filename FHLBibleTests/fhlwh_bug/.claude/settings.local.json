@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /Users/Shared/coding/信望愛/iOSWorkSpace/FHLBible/FHLBible/Read/VCRead.swift /Users/Shared/coding/信望愛/iOSWorkSpace/FHLBible/FHLBible/Search/*.swift)"
+    ]
+  }
+}
