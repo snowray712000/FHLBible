@@ -25,6 +25,7 @@ protocol IVCReadDataQ {
 /// 呼叫 setInitData 後再開啟此
 class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     private var logger = Logger(subsystem: "com.FHLBible", category: "VCRead")
+    private var titleViewWidthConstraint: NSLayoutConstraint?
     
     /// drawTitle()  -> addrs
     /// updateData() -> addrs, vers
@@ -32,6 +33,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     override func viewDidLoad() {
         super.viewDidLoad()
         eventsTableHelper = EventsHelperOfTableOfRead(self)
+        configureTitleView()
         
         self._swipeHelp.addSwipe(dir: .left)
         self._swipeHelp.addSwipe(dir: .right)
@@ -115,6 +117,49 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         eventsTableHelper.starting()
         
         self._drawButtonSNState()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateTitleViewLayout()
+    }
+
+    private func configureTitleView() {
+        guard let titleView = navigationItem.titleView else { return }
+
+        btnTitle.contentHorizontalAlignment = .center
+        btnTitle.contentVerticalAlignment = .center
+        btnTitle.titleLabel?.lineBreakMode = .byTruncatingTail
+        btnTitle.titleLabel?.numberOfLines = 1
+        btnTitle.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+
+        if let existingConstraint = titleView.constraints.first(where: {
+            $0.firstAttribute == .width && $0.secondItem == nil
+        }) {
+            titleViewWidthConstraint = existingConstraint
+        } else {
+            let constraint = titleView.widthAnchor.constraint(equalToConstant: 130)
+            constraint.isActive = true
+            titleViewWidthConstraint = constraint
+        }
+    }
+
+    private func updateTitleViewLayout() {
+        guard let titleView = navigationItem.titleView else { return }
+
+        let navigationBarWidth = navigationController?.navigationBar.bounds.width ?? view.bounds.width
+        let reservedWidth: CGFloat = 180
+        let maxWidth = max(96, min(240, navigationBarWidth - reservedWidth))
+        let fittingSize = btnTitle.systemLayoutSizeFitting(
+            CGSize(width: UIView.layoutFittingCompressedSize.width, height: 44),
+            withHorizontalFittingPriority: .fittingSizeLevel,
+            verticalFittingPriority: .required
+        )
+        let targetWidth = min(max(96, ceil(fittingSize.width)), maxWidth)
+
+        titleViewWidthConstraint?.constant = targetWidth
+        if titleView.bounds.width != targetWidth {
+            titleView.bounds.size = CGSize(width: targetWidth, height: 44)
+        }
     }
     private func _resize_OnOff_Switchs(){
         let row = self._data == nil ? 1 : self._data!.data.count + 1
@@ -303,6 +348,8 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     /// _addrsCurChanged$
     private func drawTitle(){
         btnTitle.setTitle(_titleAddr, for: .normal)
+        btnTitle.accessibilityLabel = _titleAddr
+        updateTitleViewLayout()
     }
     
     var _vers: [String] = ["unv","kjv"]

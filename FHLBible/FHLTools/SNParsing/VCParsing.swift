@@ -16,6 +16,7 @@ class VCParsing : UIViewController {
     typealias FnCallback = (_ dataSet:[ViewParsing.OneSet],_ isHebrew: Bool) -> Void
     @IBOutlet weak var viewParsing: ViewParsing!
     @IBOutlet weak var btnTitle: UIButton!
+    private var titleViewWidthConstraint: NSLayoutConstraint?
     var _vers: [String] = []
     lazy var eventKey: String = {
         return "VCParsing\(ObjectIdentifier(self).hashValue)"
@@ -32,6 +33,7 @@ class VCParsing : UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTitleView()
         
         if _cur != nil {
             self.reloadDataAsync(self._cur!)
@@ -58,6 +60,49 @@ class VCParsing : UIViewController {
                 let r1 = SnDTextClickFlow(vc: self!, addr: addr!, vers: self!._vers)
                 r1.mainAsync(pData!)
             }
+        }
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateTitleViewLayout()
+    }
+
+    private func configureTitleView() {
+        guard let titleView = navigationItem.titleView else { return }
+
+        btnTitle.contentHorizontalAlignment = .center
+        btnTitle.contentVerticalAlignment = .center
+        btnTitle.titleLabel?.lineBreakMode = .byTruncatingTail
+        btnTitle.titleLabel?.numberOfLines = 1
+        btnTitle.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+
+        if let existingConstraint = titleView.constraints.first(where: {
+            $0.firstAttribute == .width && $0.secondItem == nil
+        }) {
+            titleViewWidthConstraint = existingConstraint
+        } else {
+            let constraint = titleView.widthAnchor.constraint(equalToConstant: 130)
+            constraint.isActive = true
+            titleViewWidthConstraint = constraint
+        }
+    }
+
+    private func updateTitleViewLayout() {
+        guard let titleView = navigationItem.titleView else { return }
+
+        let navigationBarWidth = navigationController?.navigationBar.bounds.width ?? view.bounds.width
+        let reservedWidth: CGFloat = 140
+        let maxWidth = max(96, min(240, navigationBarWidth - reservedWidth))
+        let fittingSize = btnTitle.systemLayoutSizeFitting(
+            CGSize(width: UIView.layoutFittingCompressedSize.width, height: 44),
+            withHorizontalFittingPriority: .fittingSizeLevel,
+            verticalFittingPriority: .required
+        )
+        let targetWidth = min(max(96, ceil(fittingSize.width)), maxWidth)
+
+        titleViewWidthConstraint?.constant = targetWidth
+        if titleView.bounds.width != targetWidth {
+            titleView.bounds.size = CGSize(width: targetWidth, height: 44)
         }
     }
     deinit{
@@ -94,6 +139,8 @@ class VCParsing : UIViewController {
                 let r1 = BibleBookNames.getBookName(_cur!.book, .太)
                 let r2 = "\(r1)\(_cur!.chap):\(_cur!.verse)"
                 btnTitle!.setTitle(r2, for: .normal)
+                btnTitle.accessibilityLabel = r2
+                updateTitleViewLayout()
             }
         }
     }
