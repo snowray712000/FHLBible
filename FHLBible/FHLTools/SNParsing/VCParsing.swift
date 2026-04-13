@@ -108,7 +108,15 @@ class VCParsing : UIViewController {
     deinit{
         viewParsing.evBtnSnClicked$.clearCallback(eventKey)
     }
-    lazy var _swipeHelp = SwipeHelp(view: self.view)
+    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _swipeHelp.onViewWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _swipeHelp.onViewWillDisappear()
+    }
     
     @IBAction func goNext(){
         if _next != nil {

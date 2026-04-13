@@ -73,7 +73,15 @@ class VCComment : UIViewController {
         // 首先觸發
         addrChanged$.trigger()
     }
-    lazy var _swipeHelp = SwipeHelp(view:self.view)
+    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _swipeHelp.onViewWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _swipeHelp.onViewWillDisappear()
+    }
     @IBOutlet var viewCell: UIView!
     @IBAction func goNext(){
         if addrNext != nil {

@@ -51,7 +51,15 @@ class VCFooter : UIViewController {
         _drawData() // 取資料資中
         _queryDataAsyncAndTriggerDataChanged() // 第1次查詢
     }
-    lazy var _swipeHelp = SwipeHelp(view:self.view)
+    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _swipeHelp.onViewWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _swipeHelp.onViewWillDisappear()
+    }
     @IBOutlet var _viewText: UIView!
     fileprivate var v2: ViewDisplayCell { _viewText as! ViewDisplayCell }
     fileprivate var _dtext: DText!

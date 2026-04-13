@@ -167,15 +167,21 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // 當交互參照 push 後，再 back 時，要再把 history 換到目前變第1個
         self._addToReadHistory()
         _idxGoBack = 0
+        _swipeHelp.onViewWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _swipeHelp.onViewWillDisappear()
     }
     // 選擇文字時要用。
     var _isSelectingState: Bool = false
     /// 複選功能 [0] 是 row header [: , 0] 則是 column header
     var _isOnOfSwitchs: IsOnOfSelectionsOfSwitch = IsOnOfSelectionsOfSwitch()
-    lazy var _swipeHelp = SwipeHelp(view: self.view)
+    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
     
     var _isViewDidLoadAlready = false
     /// 為了作，「當版本不含 和合本、和合本2010、KJV」時，將其 disalbe

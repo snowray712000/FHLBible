@@ -68,7 +68,15 @@ class VCSnDict: UIViewController {
         // 開始動作
         _dtextOnChanged$.trigger()
     }
-    lazy var _swipeHelp = SwipeHelp(view: self.view)
+    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _swipeHelp.onViewWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _swipeHelp.onViewWillDisappear()
+    }
     @IBAction func doDictMore(){
         let vc = VCSnDictMore()
         vc.onPicker$.addCallback { sender, pData in

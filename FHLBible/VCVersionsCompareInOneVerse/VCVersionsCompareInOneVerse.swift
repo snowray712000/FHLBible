@@ -85,7 +85,15 @@ class VCVersionsCompareInOneVerse : UIViewController {
         // trigger first (setInitData 比較早被呼叫)
         _addrOnChanged$.trigger()
     }
-    lazy var _swipe = SwipeHelp(view: self.view)
+    lazy var _swipe = SwipeHelp(view: self.view, viewController: self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _swipe.onViewWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _swipe.onViewWillDisappear()
+    }
     fileprivate var _addr: DAddress!
     fileprivate var _addrOnChanged$: IjnEventAny = IjnEvent()
     fileprivate var _vers: [String]!
