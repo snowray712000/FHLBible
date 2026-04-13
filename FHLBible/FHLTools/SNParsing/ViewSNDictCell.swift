@@ -24,6 +24,10 @@ class ViewSNDictCell : ViewFromXibBase{
     @IBOutlet weak var btnSn: UIButton!
     @IBOutlet weak var btnWord: UIButton!
     @IBOutlet weak var btnOrig: UIButton!
+    @IBOutlet weak var labelOrigTitle: UILabel!
+    @IBOutlet weak var labelExpTitle: UILabel!
+    @IBOutlet weak var labelFormTitle: UILabel!
+    @IBOutlet weak var labelRemarkTitle: UILabel!
     @IBOutlet weak var showerXForm: ViewDisplayCell!
     @IBOutlet weak var showerXRemark: ViewDisplayCell!
     @IBOutlet weak var showerXExp: ViewDisplayCell!
@@ -36,6 +40,8 @@ class ViewSNDictCell : ViewFromXibBase{
         // _wform = [DText("G1242"), DText("ajgoaw")]
         _wform = testRemarkH1
         _remark = []
+        applyDynamicTypeToSectionLabels()
+        applyDynamicTypeToButtons()
         
         // 使用闭包为按钮的 Primary Action 添加事件
         btnSn.addAction(UIAction(handler: { [weak self] _ in
@@ -90,6 +96,22 @@ class ViewSNDictCell : ViewFromXibBase{
     }
     private func _set_cell(cell: ViewDisplayCell,data: [DText],isSn: Bool){
         cell.set(dtexts: data, isVisibleSn: isSn, isSwitchOn: true, isSwitchVisible: false)
+    }
+
+    private func applyDynamicTypeToSectionLabels() {
+        let labels = [labelOrigTitle, labelExpTitle, labelFormTitle, labelRemarkTitle]
+        labels.forEach { label in
+            label?.font = UIFont.preferredFont(forTextStyle: .headline)
+            label?.adjustsFontForContentSizeCategory = true
+        }
+    }
+
+    private func applyDynamicTypeToButtons() {
+        let buttons = [btnSn, btnWord, btnOrig]
+        buttons.forEach { button in
+            button?.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+            button?.titleLabel?.adjustsFontForContentSizeCategory = true
+        }
     }
 }
 

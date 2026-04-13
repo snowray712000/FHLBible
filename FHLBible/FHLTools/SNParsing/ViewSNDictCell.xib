@@ -13,6 +13,10 @@
                 <outlet property="btnOrig" destination="l3L-Qn-RgW" id="AvX-uL-gLr"/>
                 <outlet property="btnSn" destination="95R-g3-bak" id="FsV-q0-NUa"/>
                 <outlet property="btnWord" destination="97I-KU-N4b" id="IgD-7p-18w"/>
+                <outlet property="labelExpTitle" destination="yTW-pi-blQ" id="8bQ-6P-mC8"/>
+                <outlet property="labelFormTitle" destination="pIK-2l-Jf8" id="58w-k5-z8L"/>
+                <outlet property="labelOrigTitle" destination="szo-Bs-gbs" id="c7X-Nz-95Q"/>
+                <outlet property="labelRemarkTitle" destination="ABH-T9-gGw" id="9wX-C0-9k0"/>
                 <outlet property="showerXExp" destination="ati-K9-n8v" id="cgx-c6-tDR"/>
                 <outlet property="showerXForm" destination="gQw-1U-msH" id="ljJ-5z-VFu"/>
                 <outlet property="showerXRemark" destination="xWu-hw-ogE" id="Mt0-Sq-tdh"/>
