@@ -42,10 +42,13 @@ class VCParsing : UIViewController {
         _swipeHelp.addSwipe(dir: .left)
         _swipeHelp.addSwipe(dir: .right)
         _swipeHelp.onSwipe$.addCallback { sender, pData in
+            // 在 Parsing 界面，不要單指切換章節。
+            // 因為，考慮字型放大的時候，很多 table 或字，可能需要左右卷軸。若要滾動卷軸，卻切換到上一章或下一章，就會讓人覺得難用。
+            // 承上，並且，Parsing 通常是一節一節進行，所以上面已經有方便快速按下一章與上一章的，所以少這個快速鍵沒關係。
             if pData?.direction == .right {
-                self.goPrev()
+                // self.goPrev()
             } else if pData?.direction == .left {
-                self.goNext()
+                // self.goNext()
             }
         }
         
