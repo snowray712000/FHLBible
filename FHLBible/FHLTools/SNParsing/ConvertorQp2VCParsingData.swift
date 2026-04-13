@@ -125,8 +125,9 @@ class ConvertorQp2VCParsingData {
         
     }
     func countSpaceAndDash(_ str:String)->Int{
+        let trimmed = str.trimmingCharacters(in: .whitespaces)
         let regSpace = try! NSRegularExpression(pattern: "[ -]+", options: [])
-        return regSpace.numberOfMatches(in: str, options: [], range: NSRange(location: 0, length: str.utf16.count))
+        return regSpace.numberOfMatches(in: trimmed, options: [], range: NSRange(location: 0, length: trimmed.utf16.count))
     }
     var words: [[DText]]? = nil
     var exps: [[DText]]? = nil
