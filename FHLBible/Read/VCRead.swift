@@ -35,7 +35,8 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         eventsTableHelper = EventsHelperOfTableOfRead(self)
         configureTitleView()
         
-        self._swipeHelp.addSwipe(dir: .left)
+        self._swipeHelp.addSwipe(dir: .left, numberOfTouches: 1)
+        self._swipeHelp.addSwipe(dir: .left, numberOfTouches: 3)
         self._swipeHelp.addSwipe(dir: .right)
         self._swipeHelp.addSwipe(dir: .right, numberOfTouches: 2)
         self._swipeHelp.addSwipe(dir: .right, numberOfTouches: 3)
@@ -43,7 +44,11 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
             guard let self = self else { return }
             
             if pData!.direction == .left {
-                self.goNext()
+                if pData?.numberOfTouchesRequired == 1 {
+                    self.goNext()
+                } else if pData?.numberOfTouchesRequired == 3 {
+                    self.pickBookChap()
+                }
             } else if pData!.direction == .right {
                 if pData?.numberOfTouchesRequired == 1 {
                     self.goPrev()
@@ -222,8 +227,9 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         let vc = VCReadMore()
         vc.onPicker$.addCallback {[weak self] sender, pData in
             guard let self = self else { return }
-            
-            if pData == "prev" {
+            if pData == "book" {
+                self.pickBookChap()
+            } else if pData == "prev" {
                 self.goPrev()
             } else if pData == "next" {
                 self.goNext()

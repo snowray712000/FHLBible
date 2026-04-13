@@ -12,6 +12,7 @@
 
 /* No comment provided by engineer. */
 "小技巧: 3隻手指向右滑" = "小技巧: 3隻手指向右滑";
+"小技巧: 3隻手指向左滑" = "小技巧: 3隻手指向左滑";
 
 /* No comment provided by engineer. */
 "小技巧: 手指向右滑" = "小技巧: 手指向右滑";
@@ -80,7 +81,7 @@
 "訊息" = "讯息";
 "打開到 support urls嗎？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)" = "打开到 support urls吗？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)";
 
-
+"聖經目錄" = "圣经目录";
 "版本比較 註釋 Parsing 串珠" = "版本比较 注释 Parsing 串珠";
 "說明: 點擊藍色字眼，例如 '太1:1'。因為其它功能是不是以一章為單位，而是節為單位。" = "说明: 点击蓝色字眼，例如 '太1:1'。因为其它功能是不是以一章为单位，而是节为单位。";
 "Parsing 原文字典" = "Parsing 原文字典";
