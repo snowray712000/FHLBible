@@ -1096,78 +1096,6 @@
             </objects>
             <point key="canvasLocation" x="-3909.375" y="-2700"/>
         </scene>
-        <!--串珠-->
-        <scene sceneID="KAf-ug-Ein">
-            <objects>
-                <viewController storyboardIdentifier="VCTsk" id="51F-YI-g5l" customClass="VCTsk" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0tQ-CM-U2M">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yhc-Rj-ZNL">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G62-FY-d00" customClass="ViewDisplayCell" customModule="FHLBible" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="G62-FY-d00" firstAttribute="width" secondItem="XoL-2r-YrR" secondAttribute="width" id="JJh-J6-u0k"/>
-                                    <constraint firstItem="G62-FY-d00" firstAttribute="leading" secondItem="LQi-Jz-Oe0" secondAttribute="leading" id="MQh-8E-DJu"/>
-                                    <constraint firstItem="G62-FY-d00" firstAttribute="trailing" secondItem="LQi-Jz-Oe0" secondAttribute="trailing" id="cLq-fh-S3n"/>
-                                    <constraint firstItem="G62-FY-d00" firstAttribute="top" secondItem="LQi-Jz-Oe0" secondAttribute="top" id="lIc-Sm-EWG"/>
-                                    <constraint firstItem="G62-FY-d00" firstAttribute="bottom" secondItem="LQi-Jz-Oe0" secondAttribute="bottom" id="nZA-R2-1aR"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="LQi-Jz-Oe0"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="XoL-2r-YrR"/>
-                            </scrollView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="BCV-8W-DV2"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Yhc-Rj-ZNL" firstAttribute="top" secondItem="BCV-8W-DV2" secondAttribute="top" id="1YW-KT-rdZ"/>
-                            <constraint firstItem="Yhc-Rj-ZNL" firstAttribute="leading" secondItem="BCV-8W-DV2" secondAttribute="leading" id="4a8-tG-P6f"/>
-                            <constraint firstItem="BCV-8W-DV2" firstAttribute="bottom" secondItem="Yhc-Rj-ZNL" secondAttribute="bottom" id="LTe-Ya-5eG"/>
-                            <constraint firstItem="BCV-8W-DV2" firstAttribute="trailing" secondItem="Yhc-Rj-ZNL" secondAttribute="trailing" id="itN-dw-Ded"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="串珠" id="gpP-no-PTh">
-                        <rightBarButtonItems>
-                            <barButtonItem style="plain" id="FWE-JE-gaV">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I7c-33-dp1" userLabel="Next">
-                                    <rect key="frame" x="315" y="6" width="44" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="arrow.right" catalog="system"/>
-                                    <connections>
-                                        <action selector="goNext" destination="51F-YI-g5l" eventType="primaryActionTriggered" id="4jd-1m-OYr"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="SsT-RS-J5Z">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QcP-bN-Ev1" userLabel="Prev">
-                                    <rect key="frame" x="263" y="6" width="44" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="arrow.left" catalog="system"/>
-                                    <connections>
-                                        <action selector="goPrev" destination="51F-YI-g5l" eventType="primaryActionTriggered" id="4ut-fB-bjn"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="viewContent" destination="G62-FY-d00" id="GbD-8V-X8u"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6qF-Bk-IAa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2981.25" y="-1975"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="T3d-rb-4Ri">
             <objects>
@@ -1422,24 +1350,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6hh-BT-zJC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4003" y="-2670"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="N7R-MI-MdR">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MFP-n2-CgU" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ity-Ry-Crd">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="51F-YI-g5l" kind="relationship" relationship="rootViewController" id="c4e-7L-ZWO"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z6f-sx-QCi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3069" y="-1950"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ij2-v0-SSP">

@@ -19,7 +19,6 @@ extension UIViewController {
     func gVCRead()->VCRead {
         self.gEasyGetViewCtrlFromXibCore("VCRead")
     }
-    func gVCTsk()->VCTsk { self.gEasyGetViewCtrlFromXibCore("VCTsk") }
     func gVCComment()->VCComment { self.gEasyGetViewCtrlFromXibCore("VCComment")}
     func gVCVersionsPicker()->VCVersionsPicker { self.gEasyGetViewCtrlFromXibCore("VCVersionsPicker")}
     /// 使用 initBeforePushVC、onClick$

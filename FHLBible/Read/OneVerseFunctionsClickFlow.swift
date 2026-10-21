@@ -75,8 +75,7 @@ public class OneVerseFunctionsClickFlow : NSObject {
         
         let act = self._verseAction
         if act == .InfoTsk {
-            let vc2 = _vc.gVCTsk()
-            vc2.setInitData(_addr ?? DAddress(1,1,1))
+            let vc2 = VCTsk(addr: _addr ?? DAddress(1,1,1))
             push(vc2)
         } else if act == .InfoComment {
             let vc2 = _vc.gVCComment()
