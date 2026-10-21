@@ -133,7 +133,7 @@ class VCWhenLongPress : UIViewController, UICollectionViewDataSource {
 
     func generateTextViewContent()->NSMutableAttributedString{
         // 兩個譯本以上，才需要，譯本。除非強制顯示
-        var isVerShow = dataSelections.vers.count > 1 || isForceShowVersion
+        let isVerShow = dataSelections.vers.count > 1 || isForceShowVersion
         
         let re = NSMutableAttributedString()
         let addrs = dataSelections.addrs!

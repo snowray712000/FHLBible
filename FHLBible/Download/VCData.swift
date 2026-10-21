@@ -72,6 +72,7 @@ class VCData : VCOptionListViaTableViewControllerBase{
         }
 #if DEBUG
         let dir = FileManager.default.getPathAtDocumentUserDomain(pathRelative: "") // 可用中斷點來取得 Document 目錄
+        _ = dir
 #endif
         
         self.makeSureMainDbExistAsync()

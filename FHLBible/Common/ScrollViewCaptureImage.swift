@@ -31,8 +31,6 @@ extension UIScrollView {
      - 原本用在 UITextView
      */
     func capture(fnDoImageCompleted: @escaping (_ image: UIImage?)->Void ) {
-        let oldDelegate = delegate
-        let savedContentOffset = contentOffset
         
         delegate = EventForScrollView.shared
 
@@ -81,10 +79,8 @@ extension UIScrollView {
         // 坑: 有人滾到最下面，才按，就不觸發了。
         // 兩種都呼叫，測試正確。而且 ScrollingAnimation 也只有一次
         //  首先，從頭卷到尾一次，讓所有都畫過一次，不然中間會有空白，要從頭開始卷。但通常上面都已經看過了，所以從目前向底部卷動即可
-        let cy = contentSize
-        let fr = frame
         if frame.height < contentSize.height {
-            var sz = sizeThatFits(contentSize) // 直接用 contentSize 會有問題，所以用 sizeThatFits
+            let sz = sizeThatFits(contentSize) // 直接用 contentSize 會有問題，所以用 sizeThatFits
             // scrollRectToVisible(CGRect(x: 0, y: sz.height - 1, width: 1, height: 1), animated: true)
             // scrollRectToVisible(CGRect(x: 0, y: contentSize.height - 1, width: 1, height: 1), animated: true)
             // scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)

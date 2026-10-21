@@ -12,7 +12,7 @@ import OSLog
 
 /// 原本在 read 中，但是搜尋結果顯示若有 reference，流程一樣，所以就抽出 class
 public class OneVerseFunctionsClickFlow : NSObject {
-    init(vc: UIViewController,addrThisPageFirst addr:DAddress?,vers vers:[String]){
+    init(vc: UIViewController,addrThisPageFirst addr:DAddress?,vers:[String]){
         _vc = vc
         _addrThisPage = addr
         _vers = vers

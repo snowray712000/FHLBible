@@ -269,7 +269,7 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
             self._tryQueryDataThenUpdate(rowOfData)
         } else {
             // 若有資料，就直接設定
-            var dtextsData: [[DText]] = clone_dtextss(r1.1!)
+            let dtextsData: [[DText]] = clone_dtextss(r1.1!)
 //            for i in 0..<dtextsData.count {
 //                dtextsData[i].append(DText("\t\t\t"))
 //            }
@@ -303,14 +303,12 @@ class ViewDisplayTable2 : ViewFromXibBase, UITableViewDataSource {
                 DispatchQueue.main.async {
                     let r1 = iQ2.datas
                     var r2 = self._dictCell2Row
-                    let r3 = self.widthRatio
                     
                     var r4: [ViewDisplayRow] = []
 
                     // 存在於 r2 dict 都是 rowView 還沒放資料進來的，而有資料的不會進到下面那個 for a2 in r2
                     for a2 in r2 {
-                        let rowOfTable = a2.value
-                        var r1a = r1[a2.value]!
+                        let r1a = r1[a2.value]!
                         if r1a.1 != nil { // 有資料了
                             
                             // 這裡應該都是資料，而非 header

@@ -27,12 +27,12 @@ class BibleGetterViaSQLiteFile : IBibleGetter {
     }
     private func bhs_to_utf8_umscode(_ result: [DOneLine]) {
         for i in 0..<result.count {
-            var r1 = result[i]
-            var r2 = r1.children
+            let r1 = result[i]
+            let r2 = r1.children
             if r2 != nil {
-                var r3 = r2! // children!, 是一個 DText Array
+                let r3 = r2! // children!, 是一個 DText Array
                 for j in 0..<r3.count {
-                    var r4: DText = r3[j]
+                    let r4: DText = r3[j]
                     if r4.w != nil {
                         r4.w = umscode(r4.w!)
                     }
@@ -42,12 +42,12 @@ class BibleGetterViaSQLiteFile : IBibleGetter {
     }
     private func fhlwh_to_utf8_gcode(_ result: [DOneLine]) {
         for i in 0..<result.count {
-            var r1 = result[i]
-            var r2 = r1.children
+            let r1 = result[i]
+            let r2 = r1.children
             if r2 != nil {
-                var r3 = r2! // children!, 是一個 DText Array
+                let r3 = r2! // children!, 是一個 DText Array
                 for j in 0..<r3.count {
-                    var r4: DText = r3[j]
+                    let r4: DText = r3[j]
                     if r4.w != nil {
                         r4.w = gcode2(r4.w!)
                     }

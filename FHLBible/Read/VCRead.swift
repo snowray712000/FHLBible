@@ -654,7 +654,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         
         // 驗證
         v2.onLongClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self, let pData = pData, let dtexts = pData.dtext, let addrsCur = self._addrsCur else {
+            guard let self = self, let pData = pData, pData.dtext != nil, self._addrsCur != nil else {
                 return
             }
             
