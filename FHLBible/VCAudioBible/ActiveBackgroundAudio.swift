@@ -19,7 +19,7 @@ import OSLog
 func activeBackgroundAudio(_ isActive:Bool){
     // 只需一次，如果沒設定，其實我們用 AVPlayer 時也會自動設定
     do {
-        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetooth, .allowBluetoothA2DP])
+        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.allowAirPlay, .allowBluetoothHFP, .allowBluetoothA2DP])
         try AVAudioSession.sharedInstance().setActive(isActive)
     } catch {
         let logger = Logger(subsystem: "com.FHLBible", category: "ActiveBackgroundAudio")

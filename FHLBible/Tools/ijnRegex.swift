@@ -49,7 +49,7 @@ public func ijnReplaceString(_ reg: NSRegularExpression,_ str:String,_ strReplac
 /// 使用方法:
 /// 宣告個物件, 使用 setCallbackForReplacement
 /// 使用 replacing 產生新字串
-open class IjnRegex : NSRegularExpression {
+open class IjnRegex : NSRegularExpression, @unchecked Sendable {
     public typealias FnCallback = (_ captures:[Substring])-> String
     var fnReplacement : FnCallback?
     open func setCallbackForReplacement(_ fn: @escaping FnCallback){
