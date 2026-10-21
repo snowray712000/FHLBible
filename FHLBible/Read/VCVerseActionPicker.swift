@@ -13,7 +13,7 @@ public enum VerseAction {
     case InfoParsing // 原文分析
     case InfoComment // 注釋
     case InfoTsk //串珠
-    case VersionsCompare // 版本比較
+    case VersionsCompare // 譯本比較
 }
 
 
@@ -33,10 +33,10 @@ class VCVerseActionPicker : VCPickerBaseOnTableView<VerseAction> {
         }
     }
     override var _ovTitle1: [String] {
-        return [NSLocalizedString("版本比較", comment: ""),"Parsing",NSLocalizedString("注釋", comment: ""),NSLocalizedString("串珠", comment: "")]
+        return [NSLocalizedString("譯本比較", comment: ""),"Parsing",NSLocalizedString("注釋", comment: ""),NSLocalizedString("串珠", comment: "")]
     }
     override var _ovTitle2: [String]? {
-        return [NSLocalizedString("此節，比較多個版本", comment: ""),
+        return [NSLocalizedString("此節，比較多個譯本", comment: ""),
                 NSLocalizedString("原文分析工具；時態、單複數、陽性、陰性等原文分析", comment: ""),
                 NSLocalizedString("查經班查經後資料整理，完整可見 https://a2z.fhl.net/bible/，或 google 'a2z fhl' 即可。", comment: ""),
                 NSLocalizedString("串珠聖經工具。每一節經文旁，標注相關經文，它也是一種注釋，不是聖經本身", comment: ""),

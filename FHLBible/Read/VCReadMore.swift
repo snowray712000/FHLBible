@@ -22,7 +22,7 @@ class VCReadMore : VCPickerBaseOnTableView<String> {
                 NSLocalizedString("有聲聖經", comment: ""),
                 NSLocalizedString("有聲文字", comment: ""),
                 NSLocalizedString("圖片產生", comment: ""),
-                NSLocalizedString("版本比較 註釋 Parsing 串珠", comment: ""),
+                NSLocalizedString("譯本比較 註釋 Parsing 串珠", comment: ""),
                 NSLocalizedString("Parsing 原文字典", comment: ""),
                 
         ]

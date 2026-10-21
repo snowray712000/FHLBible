@@ -28,7 +28,7 @@
 "字典(全)" = "字典(全)";
 
 /* No comment provided by engineer. */
-"此節，比較多個版本" = "此节，比较多个版本";
+"此節，比較多個譯本" = "此节，比较多个译本";
 
 /* No comment provided by engineer. */
 "串珠" = "串珠";
@@ -44,7 +44,7 @@
 "註釋" = "註释";
 
 /* No comment provided by engineer. */
-"版本比較" = "版本比较";
+"譯本比較" = "译本比较";
 
 /* No comment provided by engineer. */
 "查經班查經後資料整理，完整可見 https://a2z.fhl.net/bible/，或 google 'a2z fhl' 即可。" = "查经班查经后资料整理，完整可见 https://a2z.fhl.net/bible/，或 google 'a2z fhl' 即可。";
@@ -80,7 +80,7 @@
 "打開到 support urls嗎？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)" = "打开到 support urls吗？(https://bible.fhl.net/ios/FHLBibleSupport/index.html)";
 
 "聖經目錄" = "圣经目录";
-"版本比較 註釋 Parsing 串珠" = "版本比较 注释 Parsing 串珠";
+"譯本比較 註釋 Parsing 串珠" = "译本比较 注释 Parsing 串珠";
 "說明: 點擊藍色字眼，例如 '太1:1'。因為其它功能是不是以一章為單位，而是節為單位。" = "说明: 点击蓝色字眼，例如 '太1:1'。因为其它功能是不是以一章为单位，而是节为单位。";
 "Parsing 原文字典" = "Parsing 原文字典";
 "說明: 點擊 SN 字眼，例如 '<G3767>'。" = "说明: 点击 SN 字眼，例如 '<G3767>'。";
@@ -159,3 +159,10 @@
 "單章重複" = "单章重复";
 "計時停止" = "计时停止";
 "取消計時" = "取消计时";
+
+/* 譯本比較 */
+"選擇譯本" = "选择译本";
+"尚未選擇譯本" = "尚未选择译本";
+"上一節" = "上一节";
+"下一節" = "下一节";
+"(此譯本無)" = "(此译本无)";

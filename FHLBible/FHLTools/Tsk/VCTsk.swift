@@ -170,16 +170,22 @@ struct TskView: View {
 }
 
 /// 把 `ViewDisplayCell` 放進 SwiftUI。只在 `generation` 改變時才重設內容；
-/// 點到有參照 (`refDescription`) 的字才通知 `onTapRef`。
+/// 預設只有點到有參照 (`refDescription`) 的字才通知 `onTapRef`；
+/// 有給 `onTapAny` 時，改成點到任何字都通知它（譯本比較要處理 SN、參照、注腳）。
 struct DTextContentView: UIViewRepresentable {
     let dtexts: [DText]
     let generation: Int
     let isVisibleSn: Bool
     let onTapRef: (DText) -> Void
+    /// 台語、客語漢字需要特殊字型（`BibleVersionFonts`）
+    var isFontOpenHan: Bool? = nil
+    var alignment: NSTextAlignment = .justified
+    var onTapAny: ((DText) -> Void)? = nil
 
     final class Coordinator {
         var generation = -1
         var onTapRef: (DText) -> Void = { _ in }
+        var onTapAny: ((DText) -> Void)?
     }
     func makeCoordinator() -> Coordinator { Coordinator() }
 
@@ -187,7 +193,10 @@ struct DTextContentView: UIViewRepresentable {
         let v = ViewDisplayCell()
         let c = context.coordinator
         v.onClicked$.addCallback { _, dtext in
-            if let d = dtext, d.refDescription != nil {
+            guard let d = dtext else { return }
+            if let any = c.onTapAny {
+                any(d)
+            } else if d.refDescription != nil {
                 c.onTapRef(d)
             }
         }
@@ -195,9 +204,10 @@ struct DTextContentView: UIViewRepresentable {
     }
     func updateUIView(_ v: ViewDisplayCell, context: Context) {
         context.coordinator.onTapRef = onTapRef
+        context.coordinator.onTapAny = onTapAny
         if context.coordinator.generation != generation {
             context.coordinator.generation = generation
-            v.set(dtexts: dtexts, isVisibleSn: isVisibleSn, isSwitchOn: false, isSwitchVisible: false)
+            v.set(dtexts: dtexts, isVisibleSn: isVisibleSn, isFontNameOpenHanBibleTC: isFontOpenHan, tpTextAlignment: alignment, isSwitchOn: false, isSwitchVisible: false)
             v.invalidateIntrinsicContentSize()
         }
     }

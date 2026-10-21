@@ -82,9 +82,7 @@ public class OneVerseFunctionsClickFlow : NSObject {
             vc2.setInitData(_addr ?? DAddress(1,1,1))
             push(vc2)
         } else if act == .VersionsCompare {
-            let vc2 = _vc.gVCVersionsCompareInOneVerse()
-            vc2.setInitData(_addr ?? DAddress(1,1,1))
-            push(vc2)
+            push(VCVersionsCompareInOneVerse(addr: _addr ?? DAddress(1,1,1)))
         } else if act == .InfoParsing {
             let vc2 = _vc.gVCParsing()
             vc2.set(_addr, _vers )

@@ -15,7 +15,11 @@ func easyGetViewCtrlFromXibCore<T>(_ idOfStoryboard:String ,_ ctrl:UIViewControl
 
 
 extension UIViewController {
-    func gEasyGetViewCtrlFromXibCore<T>(_ idOfStoryboard:String)->T where T:UIViewController { self.storyboard!.instantiateViewController(withIdentifier: idOfStoryboard) as! T }
+    /// 以 UIHostingController 在程式碼中建立的畫面，storyboard 是 nil，改由 navigationController 或 Main 取得
+    func gEasyGetViewCtrlFromXibCore<T>(_ idOfStoryboard:String)->T where T:UIViewController {
+        let sb = self.storyboard ?? self.navigationController?.storyboard ?? UIStoryboard(name: "Main", bundle: nil)
+        return sb.instantiateViewController(withIdentifier: idOfStoryboard) as! T
+    }
     func gVCRead()->VCRead {
         self.gEasyGetViewCtrlFromXibCore("VCRead")
     }
@@ -24,7 +28,6 @@ extension UIViewController {
     /// 使用 initBeforePushVC、onClick$
     func gVCParsing() -> VCParsing {gEasyGetViewCtrlFromXibCore("VCParsing")}
     func gVCSnDict() -> VCSnDict { self.gEasyGetViewCtrlFromXibCore("VCSnDict")}
-    func gVCVersionsCompareInOneVerse() -> VCVersionsCompareInOneVerse { self.gEasyGetViewCtrlFromXibCore("VCVersionsCompareInOneVerse")}
     /// 按下某個 SN 的字的時候，跳出的選單
     func gVCSnActionPicker() -> VCSnActionPicker { self.gEasyGetViewCtrlFromXibCore("VCSnActionPicker")}
     /// 關鍵字查詢，輸入界面

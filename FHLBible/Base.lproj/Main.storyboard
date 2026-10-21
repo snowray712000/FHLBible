@@ -614,62 +614,6 @@
             </objects>
             <point key="canvasLocation" x="-1155" y="-1910"/>
         </scene>
-        <!--版本比較-->
-        <scene sceneID="FhF-3Z-0od">
-            <objects>
-                <viewController storyboardIdentifier="VCVersionsCompareInOneVerse" id="FUs-9Y-PWj" customClass="VCVersionsCompareInOneVerse" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sNa-hX-3Sd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZzW-fe-KBQ" customClass="ViewDisplayTable2" customModule="FHLBible" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="UfG-Bx-1Bb"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="UfG-Bx-1Bb" firstAttribute="bottom" secondItem="ZzW-fe-KBQ" secondAttribute="bottom" id="0NX-jh-CIc"/>
-                            <constraint firstItem="ZzW-fe-KBQ" firstAttribute="top" secondItem="UfG-Bx-1Bb" secondAttribute="top" id="Eep-Fk-o9w"/>
-                            <constraint firstItem="UfG-Bx-1Bb" firstAttribute="trailing" secondItem="ZzW-fe-KBQ" secondAttribute="trailing" id="QeI-ip-9MA"/>
-                            <constraint firstItem="ZzW-fe-KBQ" firstAttribute="leading" secondItem="UfG-Bx-1Bb" secondAttribute="leading" id="Uuj-iJ-Gln"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="版本比較" id="yyd-62-yyW">
-                        <rightBarButtonItems>
-                            <barButtonItem style="plain" id="b0o-eD-CM1">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wCG-9J-5al" userLabel="next">
-                                    <rect key="frame" x="315" y="6" width="44" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="arrow.right" catalog="system"/>
-                                    <connections>
-                                        <action selector="goNextVerse" destination="FUs-9Y-PWj" eventType="primaryActionTriggered" id="svT-JX-mfO"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="X9a-YB-iVY">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uO1-2z-0ZO" userLabel="prev">
-                                    <rect key="frame" x="263" y="6" width="44" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="arrow.left" catalog="system"/>
-                                    <connections>
-                                        <action selector="goPrevVerse" destination="FUs-9Y-PWj" eventType="primaryActionTriggered" id="hsK-dW-Y6P"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="viewTable" destination="ZzW-fe-KBQ" id="ZbC-aN-fuP"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WYw-Gq-VU7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2936.25" y="-1258.75"/>
-        </scene>
         <!--譯本選擇-->
         <scene sceneID="aqN-iD-U2O">
             <objects>
@@ -1159,24 +1103,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="na7-NY-ewh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3821.25" y="-1273.75"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ce3-Gw-iqk">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZS1-fG-u24" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fJF-fB-Ekw">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="FUs-9Y-PWj" kind="relationship" relationship="rootViewController" id="Uss-cm-K1w"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="k71-qt-SFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3024" y="-1213"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="T6k-QO-3P0">
