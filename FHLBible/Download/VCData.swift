@@ -58,18 +58,32 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 import ZIPFoundation
 import zlib
 import FHLCommon
 import OSLog
 
-class VCData : VCOptionListViaTableViewControllerBase{
+/// 「資料」畫面。畫面是 SwiftUI (`DataListView`)，其餘下載／狀態邏輯維持原樣；
+/// 列表內容由 `_ovTitle1Data` `_ovTitle2Data` `_ovColorsData` 經 `refreshModel()` 同步到 `model`
+class VCData : UIHostingController<DataListView>{
     var logger = Logger(subsystem: "com.FHLBible", category: "VCData")
+    let model: DataListModel
+    init() {
+        let m = DataListModel()
+        self.model = m
+        super.init(rootView: DataListView(model: m, onSelect: { _ in }))
+        rootView = DataListView(model: m, onSelect: { [weak self] row in
+            self?._doClickRow(row)
+        })
+    }
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        let m = DataListModel()
+        self.model = m
+        super.init(coder: aDecoder, rootView: DataListView(model: m, onSelect: { _ in }))
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        _onClickRow$.addCallback { sender, pData in
-            self._doClickRow(pData!)
-        }
 #if DEBUG
         let dir = FileManager.default.getPathAtDocumentUserDomain(pathRelative: "") // 可用中斷點來取得 Document 目錄
         _ = dir
@@ -83,6 +97,16 @@ class VCData : VCOptionListViaTableViewControllerBase{
         
         self.reloadStatesUsingCheckingFile()
         self.updateTitle2DataAndColorFromStates()
+        self.refreshModel()
+    }
+    /// 把 `_ovTitle1Data` `_ovTitle2Data` `_ovColorsData` 同步給 SwiftUI。要在主執行緒呼叫。
+    func refreshModel() {
+        model.rows = ijnRange(0, _ovTitle1Data.count).map { i in
+            DataListModel.Row(id: i,
+                              title: _ovTitle1Data[i],
+                              subtitle: i < _ovTitle2Data.count ? _ovTitle2Data[i] : "",
+                              color: i < _ovColorsData.count ? Color(uiColor: _ovColorsData[i]) : .primary)
+        }
     }
     func _doClickRow(_ row: Int) {
         let ver = self.row2version[row]
@@ -97,7 +121,7 @@ class VCData : VCOptionListViaTableViewControllerBase{
                     self.do_delete_bible(ver!)
                     self.reloadStatesUsingCheckingFile()
                     self.updateTitle2DataAndColorFromStates()
-                    self.tableView.reloadData()
+                    self.refreshModel()
                 }
             } else if st!.state == .downloading {
                 //
@@ -119,13 +143,6 @@ class VCData : VCOptionListViaTableViewControllerBase{
         }
     }
     
-    /// `顯示於 tableview 的資料 _ title`
-    override var _ovTitle1: [String] { get {return _ovTitle1Data} }
-    /// `顯示於 tableview 的資料 _ 小字 sub title`
-    override var _ovTitle2: [String]? { get{ return _ovTitle2Data.count != 0 ? _ovTitle2Data : []}}
-    /// `顯示於 tableview 的資料 _ 顏色`
-    override var _ovColors: [UIColor]? { get{return self._ovColorsData }}
-
     /// 由 initial_title1_row2version 產生一次
     /// - SeeAlso: initial_title1_row2version()
     var _ovTitle1Data: [String] = ["和合本","和合本(簡體)","KJV"]
@@ -391,8 +408,8 @@ create table main as select * from db2.main;
     }
 
     private func updateTitle2DataAndColorFromStates(){
-        _ovTitle2Data = ijnRange(0, _ovTitle1.count).map({$0.description})
-        _ovColorsData = ijnRange(0, _ovTitle1.count).map{_ in
+        _ovTitle2Data = ijnRange(0, _ovTitle1Data.count).map({$0.description})
+        _ovColorsData = ijnRange(0, _ovTitle1Data.count).map{_ in
             return .label
         }
         for a1 in states{
@@ -571,7 +588,7 @@ create table main as select * from db2.main;
             if r1 != nil {
                 self._ovTitle2Data[r1!.key] = msg
                 DispatchQueue.main.async{
-                    self.tableView.reloadData()
+                    self.refreshModel()
                 }
             }
         }
@@ -580,7 +597,7 @@ create table main as select * from db2.main;
             self.reloadStatesUsingCheckingFile()
             self.updateTitle2DataAndColorFromStates()
             DispatchQueue.main.async{
-                self.tableView.reloadData()
+                self.refreshModel()
             }
         }
         download.mainAsync()
@@ -748,5 +765,48 @@ class CheckInitialState : NSObject {
             self.state = state
             self.sizeFile = sizeFile
         }
+    }
+}
+
+/// 「資料」列表的資料（由 VCData.refreshModel 更新）
+@Observable
+final class DataListModel {
+    struct Row: Identifiable {
+        let id: Int
+        let title: String
+        let subtitle: String
+        let color: Color
+    }
+    var rows: [Row] = []
+}
+
+/// 「資料」列表：一列一個資源（註釋、Parsing、CBOL字典、各譯本…），標題 + 狀態小字
+struct DataListView: View {
+    let model: DataListModel
+    let onSelect: (Int) -> Void
+
+    var body: some View {
+        List {
+            ForEach(model.rows) { row in
+                Button {
+                    onSelect(row.id)
+                } label: {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(verbatim: row.title)
+                            .foregroundStyle(row.color)
+                        if row.subtitle.isEmpty == false {
+                            Text(verbatim: row.subtitle)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .navigationTitle(ManagerLangSet.s.curIsGb ? "资料" : "資料")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
