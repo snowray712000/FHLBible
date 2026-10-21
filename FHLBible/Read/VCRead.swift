@@ -472,7 +472,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
         navigationController?.pushViewController(r1, animated: false)
     }
     @IBAction func pickFromHistory(){
-        let vc1 = self.gVCReadHistory()
+        let vc1 = VCReadHistory()
         vc1.onClickAddr$.addCallback {[weak self] sender, pData in
             guard let self = self else { return }
             

@@ -23,7 +23,6 @@ extension UIViewController {
     func gVCVersionsPicker()->VCVersionsPicker { self.gEasyGetViewCtrlFromXibCore("VCVersionsPicker")}
     /// 使用 initBeforePushVC、onClick$
     func gVCParsing() -> VCParsing {gEasyGetViewCtrlFromXibCore("VCParsing")}
-    func gVCReadHistory() -> VCReadHistory { self.gEasyGetViewCtrlFromXibCore("VCReadHistory")}
     func gVCSnDict() -> VCSnDict { self.gEasyGetViewCtrlFromXibCore("VCSnDict")}
     func gVCVersionsCompareInOneVerse() -> VCVersionsCompareInOneVerse { self.gEasyGetViewCtrlFromXibCore("VCVersionsCompareInOneVerse")}
     /// 按下某個 SN 的字的時候，跳出的選單

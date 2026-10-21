@@ -1023,47 +1023,6 @@
             </objects>
             <point key="canvasLocation" x="-3099" y="-3469"/>
         </scene>
-        <!--閱讀記錄-->
-        <scene sceneID="KgC-Sz-1VF">
-            <objects>
-                <tableViewController storyboardIdentifier="VCReadHistory" id="Ils-6J-lJZ" customClass="VCReadHistory" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="5qd-XX-lxv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="5Dm-Wp-bdn">
-                                <rect key="frame" x="0.0" y="50" width="375" height="44.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Dm-Wp-bdn" id="kiF-Ok-1q8">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Ils-6J-lJZ" id="g2q-DJ-8s1"/>
-                            <outlet property="delegate" destination="Ils-6J-lJZ" id="Mlz-b5-iIz"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="閱讀記錄" id="KkQ-jI-AOE">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="vPY-nj-anL">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GEW-ZI-OIx" userLabel="removeAll">
-                                <rect key="frame" x="315" y="6" width="44" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="trash" catalog="system"/>
-                                <connections>
-                                    <action selector="removeAllAndBack" destination="Ils-6J-lJZ" eventType="primaryActionTriggered" id="Rgx-3L-JKm"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="crX-yb-ZsZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4881" y="-2659"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="yfb-LW-4rL">
             <objects>
@@ -1272,24 +1231,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZE-MD-CrV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2021.25" y="-1123.75"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Xuo-66-mNv">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fNQ-1A-QQc" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ioB-BH-zv5">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Ils-6J-lJZ" kind="relationship" relationship="rootViewController" id="zqY-pY-YyP"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iMb-0C-9ux" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-5040" y="-2710"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cT6-Pt-mpC">
