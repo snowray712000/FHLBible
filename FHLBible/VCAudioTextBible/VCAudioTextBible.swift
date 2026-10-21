@@ -27,11 +27,8 @@ class VCAudioTextBible : UIHostingController<AudioTextBibleView> {
     }
 }
 
-/// 計時停止（睡覺用）可選的分鐘數；與舊的 `VCAudioStopTimer` 選項相同（30、60、1:30、2:00、3:00、4:00、6:00、8:00）。
-private let stopTimerMinutes = [30, 60, 90, 120, 180, 240, 360, 480]
-
 @Observable
-final class AudioTextBibleModel {
+final class AudioTextBibleModel: AudioTimerProviding {
     /// 目前章節（會因為播到下一章而改變）
     var addrStr: String
     /// 使用者是否是「播放中」(含取得資料中)；與 `ttsCore.statePlaying != .stop` 同義
@@ -41,6 +38,8 @@ final class AudioTextBibleModel {
     }
     /// 計時停止的剩餘時間字串，nil 表示沒有在計時
     var timerText: String?
+    /// 是否在計時（只在開始／結束時才變，選單內容用這個，不要用每秒都變的 `timerText`）
+    var isTimerRunning = false
 
     @ObservationIgnored private var ttsCore: AudioTextBibleTTSCore { AudioTextBibleTTSCore.s }
 
@@ -55,6 +54,7 @@ final class AudioTextBibleModel {
         // 重新進入畫面時，計時可能還在跑
         if AudioBibleTextStopTimer.s.timer != nil {
             timerText = ctime2dashdashformat(AudioBibleTextStopTimer.s.secondRemain)
+            isTimerRunning = true
         }
         setUpEvents()
 
@@ -79,6 +79,7 @@ final class AudioTextBibleModel {
         AudioBibleTextStopTimer.s.evCompleted.addCallback(key) { [weak self] sender, pData in
             DispatchQueue.main.async {
                 self?.timerText = nil
+                self?.isTimerRunning = false
                 self?.refreshPlaying()
             }
         }
@@ -117,6 +118,7 @@ final class AudioTextBibleModel {
     func startStopTimer(minutes: Int) {
         let sec = Double(minutes) * 60.0
         timerText = ctime2dashdashformat(sec)
+        isTimerRunning = true
         AudioBibleTextStopTimer.s.stopPrevTimerAndStartNewTimer(sec)
     }
     func cancelStopTimer() {
@@ -124,6 +126,7 @@ final class AudioTextBibleModel {
         AudioBibleTextStopTimer.s.cancelTimer()
         AudioBibleTextStopTimer.s.secondRemain = 0.0
         timerText = nil
+        isTimerRunning = false
         refreshPlaying()
     }
 }
@@ -199,23 +202,12 @@ struct AudioTextBibleView: View {
         HStack(spacing: 12) {
             loopMenu
             Button(action: onOpenSpeed) {
-                optionLabel(NSLocalizedString("速度", comment: "速度"), systemImage: "speedometer")
+                AudioOptionLabel(title: NSLocalizedString("速度", comment: "速度"), systemImage: "speedometer")
             }
             timerMenu
         }
         .buttonStyle(.plain)
         .foregroundStyle(.tint)
-    }
-
-    /// 三個選項共用：圖示在上、說明在下，等寬
-    private func optionLabel(_ title: String, systemImage: String, monospacedDigit: Bool = false) -> some View {
-        VStack(spacing: 6) {
-            Image(systemName: systemImage).font(.title3)
-            Text(verbatim: title).font(monospacedDigit ? .caption.monospacedDigit() : .caption)
-        }
-        .frame(maxWidth: .infinity, minHeight: 56)
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 12))
-        .contentShape(RoundedRectangle(cornerRadius: 12))
     }
 
     private var loopMenu: some View {
@@ -227,40 +219,30 @@ struct AudioTextBibleView: View {
             }
         } label: {
             switch model.loopMode {
-            case .All:  optionLabel(NSLocalizedString("連續播放", comment: "連續播放"), systemImage: "goforward")
-            case .Book: optionLabel(NSLocalizedString("本卷循環", comment: "本卷循環"), systemImage: "repeat")
-            case .Chap: optionLabel(NSLocalizedString("單章重複", comment: "單章重複"), systemImage: "repeat.1")
+            case .All:  AudioOptionLabel(title: NSLocalizedString("連續播放", comment: "連續播放"), systemImage: "goforward")
+            case .Book: AudioOptionLabel(title: NSLocalizedString("本卷循環", comment: "本卷循環"), systemImage: "repeat")
+            case .Chap: AudioOptionLabel(title: NSLocalizedString("單章重複", comment: "單章重複"), systemImage: "repeat.1")
             }
         }
     }
 
     private var timerMenu: some View {
         Menu {
-            if model.timerText != nil {
+            if model.isTimerRunning {
                 Button(role: .destructive) {
                     model.cancelStopTimer()
                 } label: {
                     Label(NSLocalizedString("取消計時", comment: "取消計時"), systemImage: "xmark.circle")
                 }
             }
-            ForEach(stopTimerMinutes, id: \.self) { minutes in
-                Button(minutesTitle(minutes)) {
+            ForEach(audioStopTimerMinutes, id: \.self) { minutes in
+                Button(audioStopTimerMinutesTitle(minutes)) {
                     model.startStopTimer(minutes: minutes)
                 }
             }
         } label: {
-            if let text = model.timerText {
-                optionLabel(text, systemImage: "timer", monospacedDigit: true)
-            } else {
-                optionLabel(NSLocalizedString("計時停止", comment: "計時停止"), systemImage: "timer")
-            }
+            AudioTimerTile(model: model)
         }
-    }
-    private func minutesTitle(_ minutes: Int) -> String {
-        let f = DateComponentsFormatter()
-        f.unitsStyle = .full
-        f.allowedUnits = [.hour, .minute]
-        return f.string(from: TimeInterval(minutes * 60)) ?? "\(minutes)"
     }
 
     private var notes: some View {

@@ -238,10 +238,8 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
             } else if pData == "history" {
                 self.pickFromHistory()
             } else if pData == "audiobible" {
-                let vc = self.gVCAudioBible()
                 let addr = self._addrsCurFirst!
-                vc.book = addr.book
-                vc.chap = addr.chap
+                let vc = VCAudioBible(book: addr.book, chap: addr.chap)
                 self.navigationController?.pushViewController(vc, animated: true)
             } else if pData == "audiobibletext" {
                 let vc = VCAudioTextBible(addr: self._addrsCur!, vers: self._vers)

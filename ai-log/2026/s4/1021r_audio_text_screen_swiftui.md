@@ -5,7 +5,7 @@
 - Type: refactor + UX redesign (playback core and persisted data unchanged); third screen taken out of the storyboard today
 - Related logs: 1021p_audio_text_speed_screen_swiftui.md, 1021q_read_history_screen_swiftui.md
 - Cross-project: none
-- Commit: not committed (maintainer did not ask). Main.storyboard working tree also still carries Xcode 27's format rewrite; when committing, apply only the scene removals to HEAD's file as in 1021o/p.
+- Commit: 0abbf79 (no release note); the note for this screen was added with 4.12.9 together with 有聲聖經 (see 1021s). Main.storyboard working tree also still carries Xcode 27's format rewrite; when committing, apply only the scene removals to HEAD's file as in 1021o/p.
 
 ## Goal / why
 Next screen of the UIKit -> SwiftUI migration; the maintainer allowed a different design if it fits iOS guidelines better (also hinted that there may be a ready-made media UI). Entry: Read -> "···" -> 有聲文字 (`VCRead._doMore`, `pData == "audiobibletext"`).
@@ -44,5 +44,4 @@ Note on "ready-made media UI": there is no stock SwiftUI player chrome for TTS (
 - When removing a scene by hand, delete the `<!--title-->` comment line before it too, and check `relationship="rootViewController"` segues for the orphan nav controller.
 
 ## Open issues / next steps
-- Release-notes entry in `Helps/app_versions.md` not added (maintainer's call on version number).
 - Possible: a core event for playing-state changes; a read-only progress bar (the old `getProcessInfo()` estimate); `VCAudioBible` (有聲聖經) is the sibling still in UIKit and could reuse the same layout.
