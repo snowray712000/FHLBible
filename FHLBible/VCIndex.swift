@@ -22,8 +22,8 @@ class VCIndex : UIViewController {
         _ = AutoLoadDUiabv.s // lazy var
         
         // 發版本 (供 關鍵字搜尋，提醒 發版本要改什麼)
-        labelDate.text = "2026.03.30a"
-        labelVer.text = "4.9.1" //version
+        labelDate.text = "2026.04.13a"
+        labelVer.text = "4.11.1" //version
      
     }
     
