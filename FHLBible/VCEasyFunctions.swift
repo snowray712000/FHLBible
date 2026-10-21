@@ -38,6 +38,5 @@ extension UIViewController {
     func gVCFooter() -> VCFooter { self.gEasyGetViewCtrlFromXibCore("VCFooter")}
     func gVCAudioBible() -> VCAudioBible { self.gEasyGetViewCtrlFromXibCore("VCAudioBible")}
     func gVCAudioTextBible() -> VCAudioTextBible {  self.gEasyGetViewCtrlFromXibCore("VCAudioTextBible")}
-    func gVCAudioTextSpeed() -> VCAudioTextSpeed { self.gEasyGetViewCtrlFromXibCore("VCAudioTextSpeed")}
     func gVCWhenLongPress() -> VCWhenLongPress { self.gEasyGetViewCtrlFromXibCore("VCWhenLongPress")}
 }

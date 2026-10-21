@@ -105,7 +105,7 @@ class VCAudioTextBible : UIViewController {
         self.updatePlayButtonImageBasedOnPlayingState()
     }
     @IBAction func clickSpeed(){
-        let vc = self.gVCAudioTextSpeed()
+        let vc = VCAudioTextSpeed()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
