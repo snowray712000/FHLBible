@@ -244,9 +244,7 @@ class VCRead : UIViewController, IEventsHelperOfTableOfRead {
                 vc.chap = addr.chap
                 self.navigationController?.pushViewController(vc, animated: true)
             } else if pData == "audiobibletext" {
-                let vc = self.gVCAudioTextBible()
-                vc.addr = self._addrsCur!
-                vc.vers = self._vers
+                let vc = VCAudioTextBible(addr: self._addrsCur!, vers: self._vers)
                 self.navigationController?.pushViewController(vc, animated: true)
             } else if pData == "generatePhoto" {
                 generate_and_save_and_msgbox_image_of_scrollview(viewOfImage: v2.viewTable, vc: self)
