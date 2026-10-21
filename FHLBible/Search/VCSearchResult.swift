@@ -187,7 +187,8 @@ class VCSearchResult : UIViewController {
         let r1 = _versGenerateForDTexts()
         let r1a = r1.map({[$0]})
        
-        let isOpenHanBibleTCs = _vers.map({["ttvh","thv12h","ttvhl2021"].contains($0)})
+        // _vers 是 [String]!，要明確 ! 才會用 Array.map；否則部署目標 >= iOS 16 時會改走 Optional.map，變成 Bool?
+        let isOpenHanBibleTCs: [Bool] = _vers!.map({["ttvh","thv12h","ttvhl2021"].contains($0)})
         let tpTextAlignment = getTpTextAlignmentsViaBibleVersions(_vers)
         
         viewSearchData.setInitData(_dataForTable!, ([],r1a), _isSn, isOpenHanBibleTCs, tpTextAlignment,isOnOffOfSwitchs: _isOnOfSwitchs.isOns,isVisibleSwitch: _isVisibleSwitch)
