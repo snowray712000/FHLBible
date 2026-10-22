@@ -12,8 +12,10 @@ import FHLCommon
 protocol IFindIndexOfCharInTextView {
     func findIndexOfChar(_ tv: UITextView,_ tapGesture: UITapGestureRecognizer) -> Int
 }
+/// 每個 DText 在 TextView 的 attributedText 中，實際佔用的範圍 (UTF-16)
+typealias DTextCharRange = (range: NSRange, dtext: DText)
 protocol IFindWhichDTextFromIndexOfChar {
-    func findWhichDText(_ dtexts: [DText],_ idxChar: Int) -> DText?
+    func findWhichDText(_ ranges: [DTextCharRange],_ idxChar: Int) -> DText?
 }
 
 /// 使用 + set
@@ -59,14 +61,21 @@ class ViewDisplayCell : ViewFromXibBase {
     private var _isVisibleSwitch: Bool = false
     private var _isVisibleSn: Bool = false
     private var _isFontNameOpenHanBibleTC: Bool?
+    /// 點擊要找「第 n 個字元是哪個 DText」，範圍用轉出來的字串實際長度累加，不可用字數推算
+    /// (希伯來文會多一個看不見的 "H:"，有母音點的字，字素數與 UTF-16 長度不同)
+    private var _charRanges: [DTextCharRange] = []
     private func cvtForTextView(_ dtexts: [DText]) -> NSAttributedString {
-        let r2 = DTextDrawToAttributeString(_isVisibleSn,_isFontNameOpenHanBibleTC).mainConvert(self.dtexts)
+        let r2 = DTextDrawToAttributeString(_isVisibleSn,_isFontNameOpenHanBibleTC).mainConvertWithSource(self.dtexts)
         
         let re2 = NSMutableAttributedString()
-        r2.forEach({re2.append($0)})
+        _charRanges = []
+        for (str, dtext) in r2 {
+            _charRanges.append((NSRange(location: re2.length, length: str.length), dtext))
+            re2.append(str)
+        }
         return re2
     }
-    lazy var iFindWhichDText: IFindWhichDTextFromIndexOfChar? = FindWhichDTextFromIndexOfChar(self._isVisibleSn)
+    lazy var iFindWhichDText: IFindWhichDTextFromIndexOfChar? = FindWhichDTextFromIndexOfChar()
     lazy var iFindIdxOfChar: IFindIndexOfCharInTextView? = FindIndexOfCharInTextView()
     var iConvertDTexts2AttributedString: IDTextToAttributeString? { DTextDrawToAttributeString (_isVisibleSn,_isFontNameOpenHanBibleTC) }
     
@@ -128,7 +137,7 @@ class ViewDisplayCell : ViewFromXibBase {
     }
     @objc func tapResponse(recognizer: UITapGestureRecognizer) {
         let idxChar = iFindIdxOfChar!.findIndexOfChar(viewText, recognizer)
-        let dtext = iFindWhichDText!.findWhichDText(self.dtexts, idxChar)
+        let dtext = iFindWhichDText!.findWhichDText(_charRanges, idxChar)
         
         onClicked$.trigger(self, dtext)
     }

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class FindIndexOfCharInTextView : IFindIndexOfCharInTextView {
+    /// 點到文字的哪個字元 (UTF-16 index)；點在沒有文字的地方 (最後一行之下、行尾之外) 回傳 -1。
     func findIndexOfChar(_ v: UITextView, _ tapGesture: UITapGestureRecognizer) -> Int {
         let ptOfTapGesture = tapGesture.location(in: v)
         
@@ -16,63 +17,23 @@ class FindIndexOfCharInTextView : IFindIndexOfCharInTextView {
         xy.x -= v.textContainerInset.left
         xy.y -= v.textContainerInset.top
         
-        if isNotInFirstAndEndCharacter(xy, v) {
-            return -1
-        }
-        
         let m = v.layoutManager
-        return m.characterIndex(for: xy, in: v.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        let tc = v.textContainer
+        m.ensureLayout(for: tc)
+        
+        let cntGlyphs = m.numberOfGlyphs
+        if cntGlyphs == 0 { return -1 }
+        
+        // 以「點到的那個 glyph 所在的那一行」判斷是否在文字內。
+        // 不可用 boundingRect(forGlyphRange: 字元數 - 1)：glyph 數會比字元數少 (希伯來文母音點等組合字元)，
+        // 會取到不存在的 glyph，導致整段文字下方都被當成「沒點到」。
+        let idxGlyph = m.glyphIndex(for: xy, in: tc, fractionOfDistanceThroughGlyph: nil)
+        let rectLine = m.lineFragmentUsedRect(forGlyphAt: idxGlyph, effectiveRange: nil)
+        
+        // 行的上下範圍 (含行距) 與左右範圍；左右各給一點寬容
+        if xy.y < rectLine.minY || xy.y > rectLine.maxY { return -1 }
+        if xy.x < rectLine.minX - 4 || xy.x > rectLine.maxX + 4 { return -1 }
+        
+        return m.characterIndexForGlyph(at: idxGlyph)
     }
-    
-    private func isNotInFirstAndEndCharacter(_ p: CGPoint,_ v: UITextView) -> Bool {
-        let m = v.layoutManager
-        let texts = m.textStorage!.length
-        let rr1 = m.boundingRect(forGlyphRange: NSRange(location: 0, length: 1), in: m.textContainers[0]) // {5,0} {484,0 18x22} // 希伯來文，順序反過來
-        let rr2 = m.boundingRect(forGlyphRange: NSRange(location: texts-1, length: 1), in: m.textContainers[0]) // {231,46} {5,0 5x22}
- 
-        
-        let xx = [rr1.minX,rr2.minX,rr1.maxX,rr2.maxX]
-        let yy = [rr1.minY,rr2.minY,rr1.maxY,rr2.maxY]
-        
-        if p.x < xx.min()! || p.y < yy.min()! {
-            return true
-        }
-        if p.y > yy.max()! {
-            return true
-        }
-                
-//        // 原本程式，非 希伯來文 時
-//        if rr1.minX <= rr2.minX {
-//            if p.x < rr1.minX || p.y < rr1.minY {
-//                return true // not in
-//            }
-//            if p.y > rr2.maxY {
-//                return true // not in
-//            }
-//
-//            if  rr2.minY <= p.y && p.y <= rr2.maxY  {
-//                if p.x > rr2.maxX {
-//                    return true
-//                }
-//            }
-//        } else {
-//            // 新增 希伯來文 條件時
-//            if p.x < rr2.minX || p.y < rr2.minY {
-//                return true // not in
-//            }
-//            if p.y > rr1.maxY {
-//                return true // not in
-//            }
-//
-//            if  rr1.minY <= p.y && p.y <= rr1.maxY  {
-//                if p.x > rr1.maxX {
-//                    return true
-//                }
-//            }
-//        }
-        
-        
-        return false
-    }
-    
 }
