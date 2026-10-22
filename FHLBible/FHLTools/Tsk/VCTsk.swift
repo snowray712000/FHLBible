@@ -65,9 +65,7 @@ class VCTsk : UIHostingController<TskView> {
     fileprivate func pushVCReadWhenClickContentRef(_ dtext: DText){
         assert( dtext.refDescription != nil )
 
-        // 不是由 storyboard 建立的，self.storyboard 是 nil，改由 navigationController 或 Main 取得
-        let sb = self.navigationController?.storyboard ?? UIStoryboard(name: "Main", bundle: nil)
-        let vc1 = sb.instantiateViewController(withIdentifier: "VCRead") as! VCRead
+        let vc1 = VCRead()
         let r1a = dtext.refDescription!
         let r1b = VerseRange( StringToVerseRange().main(r1a) )
         let r2 = ManagerBibleVersions.s.cur
@@ -181,11 +179,14 @@ struct DTextContentView: UIViewRepresentable {
     var isFontOpenHan: Bool? = nil
     var alignment: NSTextAlignment = .justified
     var onTapAny: ((DText) -> Void)? = nil
+    /// 長按文字（閱讀用它開始複選）
+    var onLongPress: (() -> Void)? = nil
 
     final class Coordinator {
         var generation = -1
         var onTapRef: (DText) -> Void = { _ in }
         var onTapAny: ((DText) -> Void)?
+        var onLongPress: (() -> Void)?
     }
     func makeCoordinator() -> Coordinator { Coordinator() }
 
@@ -200,11 +201,13 @@ struct DTextContentView: UIViewRepresentable {
                 c.onTapRef(d)
             }
         }
+        v.onLongClicked$.addCallback { _, _ in c.onLongPress?() }
         return v
     }
     func updateUIView(_ v: ViewDisplayCell, context: Context) {
         context.coordinator.onTapRef = onTapRef
         context.coordinator.onTapAny = onTapAny
+        context.coordinator.onLongPress = onLongPress
         if context.coordinator.generation != generation {
             context.coordinator.generation = generation
             v.set(dtexts: dtexts, isVisibleSn: isVisibleSn, isFontNameOpenHanBibleTC: isFontOpenHan, tpTextAlignment: alignment, isSwitchOn: false, isSwitchVisible: false)
@@ -213,7 +216,8 @@ struct DTextContentView: UIViewRepresentable {
     }
     /// 文字視圖不可捲動，高度由內容決定：寬度給多少就用多少，再量需要的高度
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: ViewDisplayCell, context: Context) -> CGSize? {
-        let w = proposal.width ?? uiView.bounds.width
+        // List 剛建立列時，寬度可能還沒決定 (nil、0 或無限大)，用 0 去量會得到極大的高度，造成捲動位置跳動
+        let w = (proposal.width.flatMap { $0.isFinite && $0 > 0 ? $0 : nil }) ?? max(uiView.bounds.width, 320)
         let fit = uiView.systemLayoutSizeFitting(CGSize(width: w, height: UIView.layoutFittingCompressedSize.height),
                                                  withHorizontalFittingPriority: .required,
                                                  verticalFittingPriority: .fittingSizeLevel)

@@ -1,743 +1,795 @@
 import Foundation
 import UIKit
+import SwiftUI
 import AVFoundation
 import FHLCommon
 import OSLog
 
 /*
 
- ## viewDidLoad
- - swipe 字眼，處理用手指操作，例如， `左滑` 是切換章節
- - 以 事件驅動 模式來處理 顯示結果
-    - 顯示資料
-        - 顯示資料，核心是 self.drawData()。 使用資料 data ，畫在介面 v2 上面。
-        - 切換譯本、切換章節，都應該要重新抓資料，即使用 self.updateData()，抓完後 trigger data 已變更，即 _dataChanged$.trigger
-    - 點擊相關
-        - data 就是內容，畫在介面 v2 上，v2 核心有事件觸發，例如，點擊到裡面的文字，文字也會分類，有 SN，一般文字，是 譯本名稱(title) 或 經節位置(Address) 的文字。
-        - 詳細要看 listenEventsWhenInit()，裡面就是綁定不同種類的東西被 click 到，要對應的工作。
-            - 例如，我要找 點擊經節 跳出功能表 選擇，就會在這。
- 
+ 閱讀畫面 (SwiftUI)
+
+ - `VCRead` 是 `UIHostingController<ReadView>`，用 `VCRead()` 建立，呼叫 `setInitData` 後 push，不再經由 storyboard。
+ - 狀態都在 `ReadModel` (`@Observable`)：目前位址、譯本、每一節每個譯本的 `[DText]`、SN 開關、複選狀態。
+   換章節、換譯本，都是 `ReadModel.reload()` 重抓資料 (沿用 `ReadDataQ`)，抓完在主執行緒更新 `rows`。
+ - 經文內容仍是 `ViewDisplayCell` (UITextView，點到 SN、參照、注腳要逐字判定)，用 `DTextContentView` 包進 SwiftUI。
+ - 點擊流程 (SN、參照、注腳、節的功能選單) 與 push 其它畫面，都在 `VCRead`，因為它們需要 UIViewController。
+ - 手勢 (左右滑換章、返回上一頁等) 沿用 `SwipeHelp`。
+
  */
 protocol IVCReadDataQ {
     func qDataForReadAsync(_ addr:String, _ vers: [String])
     var qDataForRead$: IjnEventOnce<Any,(ViewDisplayTable2.OneRow,[ViewDisplayTable2.OneRow])> { get }
 }
-/// 呼叫 setInitData 後再開啟此
-class VCRead : UIViewController, IEventsHelperOfTableOfRead {
-    private var logger = Logger(subsystem: "com.FHLBible", category: "VCRead")
-    private var titleViewWidthConstraint: NSLayoutConstraint?
-    
-    /// drawTitle()  -> addrs
-    /// updateData() -> addrs, vers
-    /// drawData ->  datas
+
+class VCRead : UIHostingController<ReadView> {
+    private let model: ReadModel
+    private var saver: SaveToPhotoHelper?
+
+    init() {
+        let m = ReadModel()
+        self.model = m
+        super.init(rootView: ReadView(model: m, actions: ReadActions()))
+        rootView = ReadView(model: m, actions: makeActions())
+        // 之後 push 的畫面，返回鈕會寫這個
+        title = NSLocalizedString("閱讀", comment: "")
+    }
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        let m = ReadModel()
+        self.model = m
+        super.init(coder: aDecoder, rootView: ReadView(model: m, actions: ReadActions()))
+    }
+
+    /// 供還沒顯示前呼叫, 它不會去 trigger
+    /// vers是設 [unv, cnv] 這些
+    func setInitData(_ addr:VerseRange,_ vers:[String]){
+        model.setInitData(addr, vers)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        eventsTableHelper = EventsHelperOfTableOfRead(self)
-        configureTitleView()
-        
-        self._swipeHelp.addSwipe(dir: .left, numberOfTouches: 1)
-        self._swipeHelp.addSwipe(dir: .left, numberOfTouches: 3)
-        self._swipeHelp.addSwipe(dir: .right)
-        self._swipeHelp.addSwipe(dir: .right, numberOfTouches: 2)
-        self._swipeHelp.addSwipe(dir: .right, numberOfTouches: 3)
-        self._swipeHelp.onSwipe$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            if pData!.direction == .left {
-                if pData?.numberOfTouchesRequired == 1 {
-                    self.goNext()
-                } else if pData?.numberOfTouchesRequired == 3 {
+
+        _swipeHelp.addSwipe(dir: .left, numberOfTouches: 1)
+        _swipeHelp.addSwipe(dir: .left, numberOfTouches: 3)
+        _swipeHelp.addSwipe(dir: .right)
+        _swipeHelp.addSwipe(dir: .right, numberOfTouches: 2)
+        _swipeHelp.addSwipe(dir: .right, numberOfTouches: 3)
+        _swipeHelp.onSwipe$.addCallback {[weak self] sender, pData in
+            guard let self = self, let pData = pData else { return }
+            // 複選中，手勢不換章，避免選到一半被換掉
+            if self.model.isSelecting { return }
+
+            if pData.direction == .left {
+                if pData.numberOfTouchesRequired == 1 {
+                    self.model.goNext()
+                } else if pData.numberOfTouchesRequired == 3 {
                     self.pickBookChap()
                 }
-            } else if pData!.direction == .right {
-                if pData?.numberOfTouchesRequired == 1 {
-                    self.goPrev()
-                } else if pData?.numberOfTouchesRequired == 2{
-                    self.clickGoBack()
-                } else if pData?.numberOfTouchesRequired == 3 {
+            } else if pData.direction == .right {
+                if pData.numberOfTouchesRequired == 1 {
+                    self.model.goPrev()
+                } else if pData.numberOfTouchesRequired == 2 {
+                    self.model.clickGoBack()
+                } else if pData.numberOfTouchesRequired == 3 {
                     self.pickFromHistory()
                 }
             }
         }
 
-        
-        // 經文內容 dependen on ...
-        _addrsCurChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            self.drawTitle()
-            self.updateData()
-        }
-        _versChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            self._drawButtonSNState()
-            self.updateData()
-        }
-        _dataChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            self._resize_OnOff_Switchs()
-            
-            self.drawData()
-        }
-        _isSnOnChanged$.addCallback {[weak self] sender, pData in
-            self?.drawData()
-        }
-        
-        // 維護 全域變數
-        _addrsCurChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            ManagerAddress.s.updateCur( self._addrsCur! )
-        }
-        _versChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            ManagerBibleVersions.s.updateCur(self._vers)
-        }
-        _addrsCurChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            if self._isTriggerByGoBack == false {
-                self._addToReadHistory()
-                
-                self._idxGoBack = 0 // reset
-            } else {
-                self._isTriggerByGoBack = false
-            }
-        }
-        _isSnOnChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            ManagerIsSnVisible.s.updateCur(self._isSnVisible)
-        }
-        
-        // 點擊內容時的動作
-        listenEventsWhenInit()
-
-        // 開始
-        drawTitle()
-        updateData()
-        eventsTableHelper.starting()
-        
-        self._drawButtonSNState()
+        model.reload()
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        updateTitleViewLayout()
-    }
-
-    private func configureTitleView() {
-        guard let titleView = navigationItem.titleView else { return }
-
-        btnTitle.contentHorizontalAlignment = .center
-        btnTitle.contentVerticalAlignment = .center
-        btnTitle.titleLabel?.lineBreakMode = .byTruncatingTail
-        btnTitle.titleLabel?.numberOfLines = 1
-        btnTitle.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-
-        if let existingConstraint = titleView.constraints.first(where: {
-            $0.firstAttribute == .width && $0.secondItem == nil
-        }) {
-            titleViewWidthConstraint = existingConstraint
-        } else {
-            let constraint = titleView.widthAnchor.constraint(equalToConstant: 130)
-            constraint.isActive = true
-            titleViewWidthConstraint = constraint
-        }
-    }
-
-    private func updateTitleViewLayout() {
-        guard let titleView = navigationItem.titleView else { return }
-
-        let navigationBarWidth = navigationController?.navigationBar.bounds.width ?? view.bounds.width
-        let reservedWidth: CGFloat = 180
-        let maxWidth = max(96, min(240, navigationBarWidth - reservedWidth))
-        let fittingSize = btnTitle.systemLayoutSizeFitting(
-            CGSize(width: UIView.layoutFittingCompressedSize.width, height: 44),
-            withHorizontalFittingPriority: .fittingSizeLevel,
-            verticalFittingPriority: .required
-        )
-        let targetWidth = min(max(96, ceil(fittingSize.width)), maxWidth)
-
-        titleViewWidthConstraint?.constant = targetWidth
-        if titleView.bounds.width != targetWidth {
-            titleView.bounds.size = CGSize(width: targetWidth, height: 44)
-        }
-    }
-    private func _resize_OnOff_Switchs(){
-        let row = self._data == nil ? 1 : self._data!.data.count + 1
-        self._isOnOfSwitchs.resize(row: row, col: self._vers.count + 1)
-    }
-    
+    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 當交互參照 push 後，再 back 時，要再把 history 換到目前變第1個
-        self._addToReadHistory()
-        _idxGoBack = 0
+        model.addToReadHistory()
+        model.idxGoBack = 0
         _swipeHelp.onViewWillAppear()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         _swipeHelp.onViewWillDisappear()
     }
-    // 選擇文字時要用。
-    var _isSelectingState: Bool = false
-    /// 複選功能 [0] 是 row header [: , 0] 則是 column header
-    var _isOnOfSwitchs: IsOnOfSelectionsOfSwitch = IsOnOfSelectionsOfSwitch()
-    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
-    
-    var _isViewDidLoadAlready = false
-    /// 為了作，「當版本不含 和合本、和合本2010、KJV」時，將其 disalbe
-    @IBOutlet weak var btnSN: UIButton!
-    @IBOutlet weak var btnSearch: UIButton!
-    @IBOutlet weak var btnMore: UIButton!
 
-    @IBOutlet weak var viewDisplayTable: UIView!
-    @IBOutlet var btnTitle: UIButton!
-    /// 供還沒顯示前呼叫, 它不會去 trigger
-    /// vers是設 [unv, cnv] 這些
-    func setInitData(_ addr:VerseRange,_ vers:[String]){
-        self._addrsCur = addr
-        self._vers = vers
-        if vers.count == 0 {
-            self._vers = ["unv"]
+    private func makeActions() -> ReadActions {
+        var a = ReadActions()
+        a.pickBookChap = { [weak self] in self?.pickBookChap() }
+        a.pickVers = { [weak self] in self?.pickVersions() }
+        a.search = { [weak self] in self?.doSearching() }
+        a.history = { [weak self] in self?.pickFromHistory() }
+        a.audioBible = { [weak self] in self?.pushAudioBible() }
+        a.audioText = { [weak self] in self?.pushAudioText() }
+        a.makeImage = { [weak self] in self?.generateImage() }
+        a.confirmSelection = { [weak self] in self?.confirmSelection() }
+        a.tap = { [weak self] row, col, dtext in self?.doWhenContentClicked(row, col, dtext) }
+        a.verseAction = { [weak self] row, act in self?.doVerseAction(row, act) }
+        return a
+    }
+
+    private func push(_ vc: UIViewController, animated: Bool = true) {
+        navigationController?.pushViewController(vc, animated: animated)
+    }
+
+    // MARK: 選擇其它位置、譯本
+
+    private func pickBookChap(){
+        // 準備「目前的」給 dialog 初始參數
+        let cur = model.addrFirst
+        let r1 = BookChapPickerViewController(book: cur?.book ?? 1, chap: cur?.chap ?? 1)
+        r1.onClick$.addCallback {[weak self] sender, pData in
+            guard let self = self, let pData = pData else { return }
+
+            let r2 = VerseRange()
+            r2.verses = DAddress(book: pData.idBook, chap: pData.idChap, verse: 1).generateEntireThisChap()
+            self.model.setAddr(r2)
+        }
+        push(r1, animated: false)
+    }
+    private func pickFromHistory(){
+        let vc1 = VCReadHistory()
+        vc1.onClickAddr$.addCallback {[weak self] sender, pData in
+            guard let self = self, let pData = pData else { return }
+
+            self.model.setAddr(VerseRange(StringToVerseRange().main(pData)))
+        }
+        push(vc1, animated: false)
+    }
+    private func pickVersions(){
+        let vc1 = self.gVCVersionsPicker()
+        vc1.setInitData(model.vers)
+        vc1.onClickOkay$.addCallback {[weak self] sender, pData in
+            guard let self = self, let pData = pData else { return }
+            // 情境: 雖然按 okay, 但其實譯本沒變, (順序、內容), 就不要再取一次
+            self.model.setVers(pData)
+        }
+        push(vc1, animated: false)
+    }
+    private func doSearching(){
+        let vc2 = self.gVCSearching()
+        vc2.onClickSearching$.addCallback {[weak self] sender, pData in
+            guard let self = self, let w = pData?.w, let addr = self.model.addrFirst else { return }
+
+            let vc3 = self.gVCSearchResult() // pData '天使'
+            vc3.setInitData(w, self.model.vers, addr)
+            self.push(vc3, animated: false)
+        }
+        push(vc2, animated: false)
+    }
+    private func pushAudioBible(){
+        guard let addr = model.addrFirst else { return }
+        push(VCAudioBible(book: addr.book, chap: addr.chap))
+    }
+    private func pushAudioText(){
+        push(VCAudioTextBible(addr: model.addr, vers: model.vers))
+    }
+
+    // MARK: 點擊內容
+
+    /// 點擊經文：SN 跳選單、參照開閱讀、注腳開 Footer
+    private func doWhenContentClicked(_ row: ReadRow, _ col: Int, _ dtext: DText){
+        let vers = model.vers
+        // 以「該節」的位置為準，因為可能是複合型 read，即 羅1:2;創1:3
+        guard let addrThisRow = row.addr ?? model.addrFirst else { return }
+
+        if dtext.sn != nil {
+            SnDTextClickFlow(vc: self, addr: addrThisRow, vers: vers).mainAsync(dtext)
+        } else if dtext.refDescription != nil {
+            guard let addrPage = model.addrFirst else { return }
+            RefDTextClickFlow(vc: self, addr: addrPage, vers: vers).mainAsync(dtext)
+        } else if dtext.foot != nil, vers.indices.contains(col) {
+            FooterDTextClickFlow(vc: self, vers: vers).mainAsync(dtext, vers[col], addrThisRow)
         }
     }
-    func _drawButtonSNState(){
-        drawSnButtonState(btn: self.btnSN, vers: self._vers)
+    /// 點擊節的位置後，選了要作什麼功能
+    private func doVerseAction(_ row: ReadRow, _ act: VerseAction){
+        guard let addr = row.addr ?? model.addrFirst else { return }
+
+        switch act {
+        case .InfoTsk:
+            push(VCTsk(addr: addr), animated: false)
+        case .InfoComment:
+            push(VCComment(addr: addr), animated: false)
+        case .VersionsCompare:
+            push(VCVersionsCompareInOneVerse(addr: addr), animated: false)
+        case .InfoParsing:
+            let vc2 = self.gVCParsing()
+            vc2.set(addr, model.vers)
+            push(vc2, animated: false)
+        }
     }
 
-    /// nil 的時候，會用 _addrsCur!.verses
-    fileprivate func _addToReadHistory(_ addr:String? = nil){
-        let addr2 = addr ?? VerseRangeToString().main(self._addrsCur!.verses, ManagerLangSet.s.curTpBookNameLang )
+    // MARK: 複選、圖片
+
+    /// 複選後按「完成」，開啟複製、產生圖片等功能的畫面
+    private func confirmSelection(){
+        let vc = self.gVCWhenLongPress()
+        vc.dataSelections = model.makeSelections()
+        model.endSelection()
+        push(vc, animated: false)
+    }
+    /// 把目前這章 (含所有譯本) 畫成一張長圖，存到相簿。
+    /// 不是截 SwiftUI 畫面，因為 List 只會畫出看得到的列；改用一個離螢幕的 UIStackView 全部排好再畫。
+    private func generateImage(){
+        let width = view.bounds.width
+        guard let image = ReadSnapshotRenderer(model: model, width: width, scale: traitCollection.displayScale).render() else {
+            MessageBox.ok(vc: self, msg: NSLocalizedString("產生影像失敗", comment: ""))
+            return
+        }
+        let saver = SaveToPhotoHelper()
+        self.saver = saver
+        saver.main(vc: self, img: image)
+    }
+}
+
+// MARK: - Model
+
+/// 一格 = 一節 (row) 的一個譯本 (col, 0-based)
+struct ReadCellKey: Hashable {
+    let row: Int
+    let col: Int
+}
+
+/// 一個譯本 (一欄)
+struct ReadColumn {
+    /// 譯本代碼，例如 unv
+    let ver: String
+    /// 譯本中文名，例如 和合本
+    let name: String
+    /// 台語、客語漢字需要特殊字型
+    let isFontOpenHan: Bool
+    /// 希伯來文靠右、英文靠左、其它左右對齊
+    let alignment: NSTextAlignment
+}
+
+/// 一節經文 (一列)
+struct ReadRow: Identifiable {
+    let id: Int
+    /// 例如 創1:1 (多節合併時是 創1:1-2)，沒有經文時是空字串
+    let address: String
+    /// 此節的第一個位置，轉換失敗是 nil
+    let addr: DAddress?
+    /// 畫面上顯示的節號。整頁都是同一章時只顯示節號 (1)，否則顯示完整位置 (羅1:2)
+    let label: String
+    /// 每個譯本一個 `[DText]`
+    let cells: [[DText]]
+}
+
+/// 閱讀的狀態：目前位址、譯本、資料、SN 開關、複選
+@Observable
+final class ReadModel {
+    var addr: VerseRange = VerseRange()
+    var vers: [String] = ["unv"]
+    var columns: [ReadColumn] = []
+    var rows: [ReadRow] = []
+    var isLoading = false
+    /// 每載入一次、或 SN 開關變了就加 1，讓 UIKit 內容只在真的要重畫時才重畫
+    var generation: Int = 0
+    var isSnVisible: Bool = ManagerIsSnVisible.s.cur
+
+    /// 複選
+    var isSelecting = false
+    var selected: Set<ReadCellKey> = []
+
+    /// 點了節的位置，要跳功能選單的那一列 (`ReadRow.id`)
+    var verseActionRow: Int?
+
+    /// 按 GoBack 時，考慮連續按的時候，它就是一直往前
+    @ObservationIgnored var idxGoBack = 0
+    @ObservationIgnored private var requestId = 0
+
+    /// 呼叫 setInitData 後再開啟此，不會 trigger 重抓
+    func setInitData(_ addr: VerseRange, _ vers: [String]) {
+        self.addr = addr
+        self.vers = vers.isEmpty ? ["unv"] : vers
+    }
+
+    var addrFirst: DAddress? { addr.verses.first }
+    var titleAddr: String {
+        if addr.verses.isEmpty { return "" }
+        return VerseRangeToString().main(addr.verses, ManagerLangSet.s.curTpBookNameLang)
+    }
+    /// 當譯本不含 和合本、和合本2010、KJV 時，SN 無法顯示
+    var isSnAvailable: Bool { vers.ijnAny({ ["unv","kjv","rcuv"].contains($0) }) }
+    /// 底部「譯本」鈕上的文字
+    var versSummary: String {
+        let names = vers.map { BibleVersionConvertor().na2cna($0) }
+        if names.count <= 1 { return names.first ?? "" }
+        return "\(names[0]) +\(names.count - 1)"
+    }
+
+    // MARK: 換位置、譯本
+
+    /// 換章節。`isFromGoBack` 是「上一頁」造成的，不要再寫進閱讀記錄，否則會一直往前
+    func setAddr(_ a: VerseRange, isFromGoBack: Bool = false) {
+        addr = a
+        ManagerAddress.s.updateCur(a)
+        if !isFromGoBack {
+            addToReadHistory()
+            idxGoBack = 0
+        }
+        reload()
+    }
+    func goNext() { setAddr(addr.goNext()) }
+    func goPrev() { setAddr(addr.goPrev()) }
+    func clickGoBack() {
+        let r1 = ManagerHistoryOfRead.s.cur
+        if idxGoBack + 1 >= r1.count { return }
+        idxGoBack += 1
+        setAddr(VerseRange(StringToVerseRange().main(r1[idxGoBack])), isFromGoBack: true)
+    }
+    func setVers(_ newVers: [String]) {
+        if newVers == vers { return }
+        vers = newVers
+        ManagerBibleVersions.s.updateCur(newVers)
+        reload()
+    }
+    func toggleSn() {
+        isSnVisible.toggle()
+        ManagerIsSnVisible.s.updateCur(isSnVisible)
+        generation += 1
+    }
+    /// nil 的時候，會用目前位置
+    func addToReadHistory() {
+        if addr.verses.isEmpty { return }
+        let addr2 = VerseRangeToString().main(addr.verses, ManagerLangSet.s.curTpBookNameLang)
         var r2 = ManagerHistoryOfRead.s.cur
-        
+
         // 防止重複，但又不用 remove where 是提高效率
-        let r2a = r2.ijnIndexOf(addr2)
-        if r2a != nil { r2.remove(at: r2a!) }
-        
+        if let r2a = r2.ijnIndexOf(addr2) { r2.remove(at: r2a) }
+
         r2.insert(addr2, at: 0)
         ManagerHistoryOfRead.s.updateCur(r2)
     }
-    
-    /// 因為原本的 doMore 已經是變成 2 種可能，把原本的程式搬到 doMore
-    private func _doMore(){
-        let vc = VCReadMore()
-        vc.onPicker$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            if pData == "book" {
-                self.pickBookChap()
-            } else if pData == "prev" {
-                self.goPrev()
-            } else if pData == "next" {
-                self.goNext()
-            } else if pData == "back" {
-                self.clickGoBack()
-            } else if pData == "history" {
-                self.pickFromHistory()
-            } else if pData == "audiobible" {
-                let addr = self._addrsCurFirst!
-                let vc = VCAudioBible(book: addr.book, chap: addr.chap)
-                self.navigationController?.pushViewController(vc, animated: true)
-            } else if pData == "audiobibletext" {
-                let vc = VCAudioTextBible(addr: self._addrsCur!, vers: self._vers)
-                self.navigationController?.pushViewController(vc, animated: true)
-            } else if pData == "generatePhoto" {
-                generate_and_save_and_msgbox_image_of_scrollview(viewOfImage: v2.viewTable, vc: self)
+
+    // MARK: 資料
+
+    /// 用 addr、vers 重抓。快速連續換章或換譯本時，舊的回應（requestId 不同）會被丟掉。
+    func reload() {
+        requestId += 1
+        let id = requestId
+        let vers = self.vers
+        endSelection()
+        rows = []
+        isLoading = true
+
+        let dataQ: IVCReadDataQ = ReadDataQ()
+        dataQ.qDataForRead$.addCallback {[weak self] sender, pData in
+            guard let pData = pData else { return }
+            DispatchQueue.main.async {
+                guard let self = self, self.requestId == id else { return }
+                self.setRows(vers, pData.1)
             }
         }
-
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = vc
-
-        present(vc,animated: true,completion: nil)
+        dataQ.qDataForReadAsync(titleAddr, vers)
     }
-    func generateSelectionDataForLongPressView()->DSelections{
-        func getAddressFromDTexts(dtexts: [DText])->[DAddress]{
-            return StringToVerseRange().main(  dtexts.map{ $0.w ?? "" }.joined() )
+    private func setRows(_ vers: [String], _ data: [ViewDisplayTable2.OneRow]) {
+        let isOpenHans = BibleVersionFonts().mainIsOpenHanBibleTCs(vers)
+        let alignments = getTpTextAlignmentsViaBibleVersions(vers)
+        columns = vers.indices.map { i in
+            ReadColumn(ver: vers[i],
+                       name: BibleVersionConvertor().na2cna(vers[i]),
+                       isFontOpenHan: isOpenHans[i],
+                       alignment: alignments[i])
         }
-        
+
+        let addresses = data.map { $0.header.map { $0.w ?? "" }.joined() }
+        let parsed = addresses.map { StringToVerseRange().main($0, nil).first }
+        // 整頁都是同一章，節的標示就只要節號
+        let chaps = Set(parsed.compactMap { $0 }.map { $0.book * 1000 + $0.chap })
+        let isSingleChap = chaps.count == 1 && parsed.allSatisfy { $0 != nil }
+
+        rows = data.indices.map { i in
+            let s = addresses[i]
+            var label = s
+            if isSingleChap, let r = s.range(of: ":", options: .backwards) {
+                label = String(s[r.upperBound...])
+            }
+            return ReadRow(id: i, address: s, addr: parsed[i], label: label, cells: data[i].datas)
+        }
+        generation += 1
+        isLoading = false
+    }
+
+    // MARK: 複選
+
+    /// 從「更多」選單進入，一開始都沒選
+    func beginSelecting() {
+        selected = []
+        isSelecting = true
+    }
+    /// 長按某一格進入，那一格先選起來
+    func startSelecting(row: Int, col: Int) {
+        beginSelecting()
+        toggle(row: row, col: col)
+    }
+    func endSelection() {
+        isSelecting = false
+        selected = []
+    }
+    func toggle(row: Int, col: Int) {
+        let k = ReadCellKey(row: row, col: col)
+        if selected.contains(k) { selected.remove(k) } else { selected.insert(k) }
+    }
+    /// 此節所有譯本；已經全選就全部取消
+    func toggleRow(_ row: Int) {
+        let keys = vers.indices.map { ReadCellKey(row: row, col: $0) }
+        if keys.allSatisfy({ selected.contains($0) }) {
+            keys.forEach { selected.remove($0) }
+        } else {
+            keys.forEach { selected.insert($0) }
+        }
+    }
+    func isRowSelected(_ row: Int) -> Bool {
+        !vers.isEmpty && vers.indices.allSatisfy { selected.contains(ReadCellKey(row: row, col: $0)) }
+    }
+    var isAllSelected: Bool {
+        !rows.isEmpty && rows.allSatisfy { isRowSelected($0.id) }
+    }
+    func toggleSelectAll() {
+        if isAllSelected {
+            selected = []
+        } else {
+            selected = Set(rows.flatMap { r in vers.indices.map { ReadCellKey(row: r.id, col: $0) } })
+        }
+    }
+    /// 給「複製、產生圖片」畫面 (VCWhenLongPress) 的資料
+    func makeSelections() -> DSelections {
         let selections = DSelections()
         selections.data = [:]
-        guard let data = self._data else {
-            return selections
-        }
-        
-        let rows = data.data.count
-        let cols = self._vers.count
-        
-        var isVersionExist:[Bool] = _vers.map{_ in return false }
-        var addresses:[[DAddress]] = []
-        
-        for row in 0..<rows {
-            for col in 0..<cols {
-                let isOn = self._isOnOfSwitchs.isOns[row+1][col+1]
-                lazy var addressesThisRow = getAddressFromDTexts(dtexts: data.data[row].header)
-                if isOn {
-                    let dtexts = data.data[row].datas[col]
-                    
-                    if selections.data[addressesThisRow] == nil {
-                        selections.data[addressesThisRow] = [:]
-                        addresses.append(addressesThisRow)
-                    }
-                    selections.data[addressesThisRow]![self._vers[col]] = dtexts
-                    isVersionExist[col] = true
+
+        var isVersionExist: [Bool] = vers.map { _ in false }
+        var addresses: [[DAddress]] = []
+
+        for row in rows {
+            lazy var addressesThisRow = StringToVerseRange().main(row.address)
+            for col in vers.indices where selected.contains(ReadCellKey(row: row.id, col: col)) {
+                guard row.cells.indices.contains(col) else { continue }
+                if selections.data[addressesThisRow] == nil {
+                    selections.data[addressesThisRow] = [:]
+                    addresses.append(addressesThisRow)
                 }
+                selections.data[addressesThisRow]![vers[col]] = row.cells[col]
+                isVersionExist[col] = true
             }
         }
-        
-        selections.vers = []
-        for i in 0..<cols{
-            if isVersionExist[i] {
-                selections.vers.append(self._vers[i])
-            }
-        }
-        
+
+        selections.vers = vers.indices.filter { isVersionExist[$0] }.map { vers[$0] }
         selections.addrs = addresses
         return selections
     }
-    @IBAction func doMore(){
-        // 此按鈕，已經共用，目前2個功能。 1 正常閱讀情境 2 複選過程的確認
-        if self._isSelectingState {
-            _isSelectingState = false
-            self.drawData() // redraw
-            
-            let vc = self.gVCWhenLongPress()
-            vc.dataSelections = generateSelectionDataForLongPressView()
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        } else {
-            // 正常閱讀情境
-            self._doMore()
+}
+
+// MARK: - View
+
+/// View 要作的事，由 `VCRead` 實作 (需要 push 其它畫面)
+struct ReadActions {
+    var pickBookChap: () -> Void = { }
+    var pickVers: () -> Void = { }
+    var search: () -> Void = { }
+    var history: () -> Void = { }
+    var audioBible: () -> Void = { }
+    var audioText: () -> Void = { }
+    var makeImage: () -> Void = { }
+    var confirmSelection: () -> Void = { }
+    var tap: (ReadRow, Int, DText) -> Void = { _, _, _ in }
+    var verseAction: (ReadRow, VerseAction) -> Void = { _, _ in }
+}
+
+/// 閱讀畫面：一節一列，多個譯本在同一節內上下排 (寬螢幕改左右並排)。
+/// 上方：書卷章節 (點了選聖經目錄)、搜尋、SN、更多；下方：譯本、上一章、下一章。
+struct ReadView: View {
+    let model: ReadModel
+    let actions: ReadActions
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
+    var body: some View {
+        VStack(spacing: 0) {
+            list
+            bottomBar
         }
-    }
-    
-    @IBAction func switchSnVisible(){
-        if _isSnVisible {
-            _isSnVisible = false
-            _isSnOnChanged$.trigger()
-        } else {
-            _isSnVisible = true
-            _isSnOnChanged$.trigger()
-        }
-    }
-    lazy var _isSnVisible : Bool = ManagerIsSnVisible.s.cur
-    var _isSnOnChanged$: IjnEventAny = IjnEvent()
-    
-    /**
-     開始選擇時，是以 long click 觸發，這時候想記下當時的 row 與 col，作為 select 初始化時用。
-     - row col 值是 0，表示是 header。
-     */
-    var _idxClickEvent: (row:Int,col:Int) = (-1,-1)
-    @IBAction func goNext(){
-        _addrsCur = _addrsCur!.goNext()
-        _addrsCurChanged$.trigger(nil, nil)
-    }
-    @IBAction func goPrev(){
-        _addrsCur = _addrsCur!.goPrev()
-        _addrsCurChanged$.trigger(nil, nil)
-    }
-    
-    var _addrsCur: VerseRange? = nil
-    var _addrsCurChanged$: IjnEventAny = IjnEvent()
-    fileprivate var _addrsCurFirst: DAddress? {
-        if _addrsCur == nil || _addrsCur!.verses.count == 0 {
-            return nil
-        }
-        return _addrsCur!.verses.first!
-    }
-    fileprivate var _titleAddr: String {
-        if _addrsCur == nil || _addrsCur!.verses.count == 0 { return ""}
-        return VerseRangeToString().main(_addrsCur!.verses, ManagerLangSet.s.curTpBookNameLang)
-    }
-    
-    /// _addrsCurChanged$
-    private func drawTitle(){
-        btnTitle.setTitle(_titleAddr, for: .normal)
-        btnTitle.accessibilityLabel = _titleAddr
-        updateTitleViewLayout()
-    }
-    
-    var _vers: [String] = ["unv","kjv"]
-    var _versChanged$:IjnEventAny = IjnEvent()
-    
-    typealias TpOneRow = ViewDisplayTable2.OneRow
-    /// 中繼資料, addr 改變時, versions 改變時, 都要去改變
-    fileprivate var _data: (title: TpOneRow, data: [TpOneRow])?
-    fileprivate var _dataChanged$: IjnEvent<Any,Any> = IjnEvent()
-    /// 當 addr 或 versions 改變後, 呼叫此
-    /// 此，也會 trigger 中繼資料 _data Changed$
-    fileprivate func updateData(){
-        // 顯示，取得資料中。當網路慢的時候，很重要
-        let iQQueryingState: IVCReadDataQ = ReadDataDataQuerying()
-        iQQueryingState.qDataForRead$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            self._data = (pData!.0, pData!.1)
-            self._dataChanged$.trigger()
-        }
-        iQQueryingState.qDataForReadAsync(_titleAddr, _vers)
-        
-        // 正式抓資料
-        let iDataQ: IVCReadDataQ = ReadDataQ()
-        iDataQ.qDataForRead$.addCallback {[weak self] sender, pData in
-            guard let self = self, let pData = pData else { return }
-            
-            let rowTitle: TpOneRow = pData.0
-            let rowsData: [TpOneRow] = pData.1
-            self._data = (title: rowTitle, data: rowsData)
-            self._dataChanged$.trigger(nil, nil)
-        }
-        iDataQ.qDataForReadAsync(_titleAddr, _vers)
-    }
-    fileprivate func drawData(){
-        if _isSelectingState {
-            // 複製前，要複選
-            self.btnSearch.isHidden = true
-            self.btnMore.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        } else {
-            self.btnSearch.isHidden = false
-            self.btnMore.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-        }
-        
-        let isOpenHanBibleTCs = BibleVersionFonts().mainIsOpenHanBibleTCs(_vers)
-        let tpTextAlignment = getTpTextAlignmentsViaBibleVersions(_vers)
-        
-        self.v2.set(_data!.title, _data!.data, _isSnVisible, isOpenHanBibleTCs, tpTextAlignment,
-                    isOnOfSwitchs: _isOnOfSwitchs.isOns, isVisibleSwitch: _isSelectingState)
-        
-    }
-    
-    
-    private func getAddrCur()->DAddress? {
-        if _addrsCur != nil {
-            if _addrsCur!.verses.count != 0 {
-                return _addrsCur?.verses.first!
-            }
-        }
-        return nil
-    }
-    var v2: ViewDisplayTable2 { viewDisplayTable as! ViewDisplayTable2}
-    var iVCRead: IVCRead { VCReadImplementEvents(v2, getVersion) }
-    /// 按 GoBack 時，考慮連續按的時候，它就是一直往前
-    /// 還需要配一個參數 isTriggerByGoBack，不然 trigger addr change 時，會遞迴
-    var _idxGoBack = 0
-    var _isTriggerByGoBack = false
-    @IBAction func clickGoBack(){
-        let r1 = ManagerHistoryOfRead.s.cur
-        _idxGoBack = _idxGoBack + 1
-        if _idxGoBack >= r1.count {
-            _idxGoBack = _idxGoBack - 1
-        } else {
-            _addrsCur = VerseRange( StringToVerseRange().main(r1[_idxGoBack]) )
-            _isTriggerByGoBack = true
-            _addrsCurChanged$.trigger()
-        }
-    }
-    func getVersion()->[String]{
-        return _vers
+        .sensoryFeedback(.selection, trigger: model.selected.count)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(model.isSelecting)
+        .toolbar { toolbarContent }
     }
 
-    @IBAction func pickBookChap(){
-        // 準備「目前的」給 dialog 初始參數
-        var fnCurAddr:(Int,Int) {
-            if _addrsCur == nil || _addrsCur!.verses.isEmpty {
-                return (1,1)
-            } else {
-                let r1 = _addrsCur!.verses.first!
-                return (r1.book,r1.chap)
+    private var list: some View {
+        List {
+            ForEach(model.rows) { row in
+                ReadRowView(model: model, row: row, actions: actions, isWide: sizeClass == .regular)
+                    .listRowSeparator(model.columns.count > 1 ? .visible : .hidden)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
             }
         }
-        let curAddr = fnCurAddr
-        
-        // 開始 push 到 dialog
-        let r1 = self.gVCBookChapPicker()
-        r1.initBeforePushVC(curAddr.0, curAddr.1)
-        r1.onClick$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            let r2 = VerseRange()
-            r2.verses = DAddress(book: pData!.idBook, chap: pData!.idChap, verse: 1).generateEntireThisChap()
-            self._addrsCur = r2
-            self._addrsCurChanged$.trigger(nil, nil)
-            //let r2 = BibleBookNames.getBookName(pData!.idBook, .太)
-            //self.btnTitle.setTitle("\(r2) \(pData!.idChap)", for: .normal)
-        }
-        navigationController?.pushViewController(r1, animated: false)
-    }
-    @IBAction func pickFromHistory(){
-        let vc1 = VCReadHistory()
-        vc1.onClickAddr$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            if pData != nil {
-                let r1 = VerseRange(StringToVerseRange().main(pData!))
-                self._addrsCur = r1
-                self._addrsCurChanged$.trigger()
+        .listStyle(.plain)
+        // 預設一列至少 44pt，單行的節會多出一大塊空白
+        .environment(\.defaultMinListRowHeight, 1)
+        .overlay {
+            if model.isLoading {
+                ProgressView(NSLocalizedString("取得資料中...", comment: ""))
             }
         }
-        navigationController?.pushViewController(vc1, animated: false)
     }
-    @IBAction func doSearching(){
-        let vc2 = self.gVCSearching()
-        vc2.onClickSearching$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            let vc3 = self.gVCSearchResult() // pData '天使'
-            vc3.setInitData(pData!.w!, self._vers, self._addrsCurFirst!)
-            self.navigationController?.pushViewController(vc3, animated: false)
-        }
-        self.navigationController?.pushViewController(vc2, animated: false)
-    }
-    
-    /// 於 dialog 結束, 並且不是按取消 #譯本
-    fileprivate func onFinishVersionPickor(_ vers:[String]){
-        self._vers = vers
-        self._versChanged$.trigger(nil, nil)
-    }
-    /// call by listenEventsWhenInit #譯本
-    fileprivate func addListenForVersionsPicker(){
-        iVCRead.onClickVersions$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            // 情境: 雖然按 okay, 但其實版本沒變, (順序、內容), 就不要再取一次
-            let verOld = self._vers
-            func isChanged(_ vers:[String])->Bool {
-                if vers.count != verOld.count {
-                    return true
+
+    /// 底部：目前的譯本 (點了換譯本)、上一章、下一章。
+    /// 不用 .toolbar(.bottomBar)：SwiftUI 畫面放在 UINavigationController (UIHostingController) 時，要自己 setToolbarHidden(false)，
+    /// 各系統版本的行為也不一定一樣。直接用 VStack 排在清單下面，所有版本都一樣。
+    private var bottomBar: some View {
+        HStack(spacing: 8) {
+            if model.isSelecting {
+                Button(model.isAllSelected ? NSLocalizedString("取消全選", comment: "") : NSLocalizedString("全選", comment: "")) {
+                    model.toggleSelectAll()
                 }
-                return ijnRange(0, vers.count).ijnAny({verOld[$0] != vers[$0]})
-            }
-            
-            // 原流程
-            if pData != nil {
-                let vc1 = self.gVCVersionsPicker()
-                vc1.setInitData(self._vers)
-                vc1.onClickOkay$.addCallback {[weak self] sender, pData in
-                    guard let self = self else { return }
-                    if pData != nil {
-                        if isChanged(pData!) {
-                            self.onFinishVersionPickor(pData!)
-                        }
+                Spacer()
+            } else {
+                Button(action: actions.pickVers) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "books.vertical")
+                        Text(model.versSummary).lineLimit(1)
                     }
                 }
-                self.navigationController?.pushViewController(vc1, animated: false)
+                .accessibilityLabel(NSLocalizedString("選擇譯本", comment: ""))
+                Spacer()
+                Button { model.goPrev() } label: {
+                    Image(systemName: "chevron.left").frame(width: 44, height: 44)
+                }
+                .accessibilityLabel(NSLocalizedString("上一章", comment: ""))
+                Button { model.goNext() } label: {
+                    Image(systemName: "chevron.right").frame(width: 44, height: 44)
+                }
+                .accessibilityLabel(NSLocalizedString("下一章", comment: ""))
             }
         }
+        .padding(.horizontal, 16)
+        .frame(minHeight: 44)
+        .background(.bar, ignoresSafeAreaEdges: .bottom)
     }
-    
-    private func addListenForClickedAddr(){
-        v2.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            if pData != nil && pData!.col == -1 && pData!.dtext != nil && pData!.dtext!.w != nil {
-                
-//                self.logger.debug("\(pData!.dtext!.w!)")
-                
-                let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addrsCurFirst, vers: self._vers)
-                flow.mainAsync(pData!.dtext)
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        if model.isSelecting {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(NSLocalizedString("取消", comment: "")) { model.endSelection() }
+            }
+            ToolbarItem(placement: .principal) {
+                Text(String(format: NSLocalizedString("已選取 %d 項", comment: ""), model.selected.count))
+                    .font(.headline)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(NSLocalizedString("完成", comment: ""), action: actions.confirmSelection)
+                    .fontWeight(.semibold)
+                    .disabled(model.selected.isEmpty)
+            }
+        } else {
+            ToolbarItem(placement: .principal) {
+                Button(action: actions.pickBookChap) {
+                    HStack(spacing: 4) {
+                        Text(model.titleAddr)
+                            .font(.headline)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                        Image(systemName: "chevron.down")
+                            .font(.caption2.weight(.bold))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(model.titleAddr)
+                .accessibilityHint(NSLocalizedString("聖經目錄", comment: ""))
+            }
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button(action: actions.search) {
+                    Label(NSLocalizedString("搜尋", comment: ""), systemImage: "magnifyingglass")
+                }
+                Toggle(isOn: Binding(get: { model.isSnVisible }, set: { _ in model.toggleSn() })) {
+                    Text("SN")
+                }
+                .toggleStyle(.button)
+                .disabled(!model.isSnAvailable)
+                moreMenu
             }
         }
     }
 
-    /// IEventsHelperOfTableOfRead
-    var pTable: ViewDisplayTable2 { v2 }
-    /// IEventsHelperOfTableOfRead
-    var pVers: [String] { self._vers }
-    /// IEventsHelperOfTableOfRead
-    var pDatas: (title: ViewDisplayTable2.OneRow, data: [ViewDisplayTable2.OneRow])? {
-        self._data
-    }
-    /// IEventsHelperOfTableOfRead
-    var eventsTableHelper: EventsHelperOfTableOfRead!
-    private func doWhenSnDTextClickedForDicts(){
-            if eventsTableHelper.pDText != nil {
-                let vcSnDict = self.gVCSnDict()
-                vcSnDict.setInitData(eventsTableHelper.pDText!, self._addrsCurFirst!, self._vers)
-                self.navigationController?.pushViewController(vcSnDict, animated: false)
+    private var moreMenu: some View {
+        Menu {
+            Button { model.beginSelecting() } label: {
+                Label(NSLocalizedString("選取經文", comment: ""), systemImage: "checkmark.circle")
             }
+            .disabled(model.rows.isEmpty)
+            Button(action: actions.makeImage) {
+                Label(NSLocalizedString("圖片產生", comment: ""), systemImage: "photo")
+            }
+            .disabled(model.rows.isEmpty)
+            Divider()
+            Button(action: actions.history) {
+                Label(NSLocalizedString("閱讀記錄", comment: ""), systemImage: "clock.arrow.circlepath")
+            }
+            Button { model.clickGoBack() } label: {
+                Label(NSLocalizedString("上一頁", comment: ""), systemImage: "arrowshape.turn.up.left")
+            }
+            Divider()
+            Button(action: actions.audioBible) {
+                Label(NSLocalizedString("有聲聖經", comment: ""), systemImage: "speaker.wave.3")
+            }
+            Button(action: actions.audioText) {
+                Label(NSLocalizedString("有聲文字", comment: ""), systemImage: "text.bubble")
+            }
+        } label: {
+            Label(NSLocalizedString("更多", comment: ""), systemImage: "ellipsis.circle")
         }
-    private func _doWhenSnDTextClickedForList(_ dtext:DText){
-        
-        // 不可直接用 dtext.w! 因為可能會是 <G3212> 而非 G3212
-        let keyword = dtext.tp! + dtext.sn!
-        
-        let vcSnSearch = self.gVCSearchResult()
-        vcSnSearch.setInitData(keyword, _vers, _addrsCurFirst!)
-        self.navigationController?.pushViewController(vcSnSearch, animated: false)
     }
+}
 
-    private func addListenForSnDTextClick(){
-        v2.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            // 判斷, 是 sn 嗎
-            if pData != nil {
-                let dtext = pData!.dtext
-                if dtext != nil && dtext!.sn != nil {
-                    // 準備參數 row 對應的 addr (取得此 row 比直接用 第 1 個 addr 還正確，考慮複合型 read，即 羅1:2;創1:3
-                    let addr = self._getAddrThisRow(pData!.row)
-                    if addr == nil { return }
-                    
-                    let r1 = SnDTextClickFlow(vc: self, addr: addr!, vers: self._vers)
-                    r1.mainAsync(dtext!)
+/// 一節：左邊節號 (點了選功能，複選中是整節選取)，右邊每個譯本一塊經文
+struct ReadRowView: View {
+    let model: ReadModel
+    let row: ReadRow
+    let actions: ReadActions
+    let isWide: Bool
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 8) {
+            if !row.label.isEmpty {
+                Button {
+                    if model.isSelecting {
+                        model.toggleRow(row.id)
+                    } else {
+                        model.verseActionRow = row.id
+                    }
+                } label: {
+                    Text(row.label)
+                        .font(.footnote.weight(.semibold).monospacedDigit())
+                        .foregroundStyle(.tint)
+                        .frame(minWidth: 28, maxHeight: .infinity, alignment: .topTrailing)
+                        .padding(.top, 10)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(row.address)
+                // 掛在節號上，選單才會從被點的那一節冒出來
+                .confirmationDialog(row.address,
+                                    isPresented: Binding(get: { model.verseActionRow == row.id },
+                                                         set: { if !$0 { model.verseActionRow = nil } }),
+                                    titleVisibility: .visible) {
+                    Button(NSLocalizedString("譯本比較", comment: "")) { actions.verseAction(row, .VersionsCompare) }
+                    Button("Parsing") { actions.verseAction(row, .InfoParsing) }
+                    Button(NSLocalizedString("註釋", comment: "")) { actions.verseAction(row, .InfoComment) }
+                    Button(NSLocalizedString("串珠", comment: "")) { actions.verseAction(row, .InfoTsk) }
                 }
             }
-        }
-    }
-    private func _getAddrThisRow(_ row:Int)->DAddress? {
-        let r1 =  eventsTableHelper.pAddrs
-        if r1 == nil { return nil }
-        if r1!.verses.count == 0 { return nil }
-        return r1!.verses.first!
-    }
-
-    private func addListenForReferenceDTextClick(){
-        v2.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            // 判斷, 是 ref 嗎
-            if pData != nil {
-                let dtext = pData!.dtext
-                if dtext != nil && dtext!.refDescription != nil && pData!.col != -1 {
-                    RefDTextClickFlow(vc: self, addr: self._addrsCurFirst!, vers: self._vers).mainAsync(dtext!)
+            if isWide && model.columns.count > 1 {
+                HStack(alignment: .top, spacing: 12) {
+                    ForEach(model.columns.indices, id: \.self) { col in
+                        cellView(col).frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
-            }
-        }
-    }
-    private func _getVerOfCol(_ c0based: Int)->String?{
-        let r1 = self._vers
-        if c0based >= r1.count {
-            return nil
-        }
-        
-        return r1[c0based]
-    }
-    private func addListenForFootDTextClick(){
-        v2.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else { return }
-            
-            if pData != nil {
-                let dtext = pData!.dtext
-                
-                let verse = self.eventsTableHelper.pAddrs
-                if verse == nil || verse!.verses.count == 0 { return }
-                
-                if dtext != nil && dtext!.foot != nil && pData!.col != -1 && pData!.row != -1{
-                    
-                    let addr = verse!.verses.first!
-                    let ver = self._vers[pData!.col]
-                    let r1 = FooterDTextClickFlow (vc: self, vers: self._vers)
-                    r1.mainAsync(dtext!, ver, addr)
-                }
-            }
-        }
-    }
-   
-    /// 初始化 viewDidLoad 時呼叫
-    private func listenEventsWhenInit(){
-        addListenForVersionsPicker()
-
-        addListenForClickedAddr()
-        
-        addListenForSnDTextClick()
-        
-        addListenForReferenceDTextClick()
-        
-        addListenForFootDTextClick()
-        
-        // 驗證
-        v2.onLongClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self, let pData = pData, pData.dtext != nil, self._addrsCur != nil else {
-                return
-            }
-            
-            // 保護，第二次長按觸發
-            if self._isSelectingState {
-                return
-            }
-            
-            self._isOnOfSwitchs.set_all(v: false)
-            self._idxClickEvent = (row: pData.row + 1, col: pData.col + 1)// + 1 因為 -1 是 header, 而 OnOff 0 是 header
-            self._isSelectingState = true
-            
-            self._isOnOfSwitchs.inverse(r: _idxClickEvent.row, c: _idxClickEvent.col)
-            self.drawData() // redraw
-
-        }
-        
-        v2.onSwitchChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self, let pData = pData else {
-                return
-            }
-            
-            let row = pData.row
-            let col = pData.col
-            let isOn = pData.isOn
-            
-            // 如果只有一個改變，那就不需要 reloadData，若一個以上，就需要
-            if row == 0 && col == 0 {
-                self._isOnOfSwitchs.set_all(v: isOn)
-            } else if row == 0 {
-                self._isOnOfSwitchs.set_all_of_col(v: isOn, col: col)
-            } else if col == 0{
-                self._isOnOfSwitchs.set_all_of_row(v: isOn, row: row)
             } else {
-                self._isOnOfSwitchs.inverse(r: row, c: col)
+                VStack(alignment: .leading, spacing: 4) {
+                    ForEach(model.columns.indices, id: \.self) { col in
+                        cellView(col)
+                    }
+                }
             }
+        }
+        .padding(.vertical, 4)
+    }
 
-            if row == 0 || col == 0 {
-                self.drawData()
+    @ViewBuilder
+    private func cellView(_ col: Int) -> some View {
+        if row.cells.indices.contains(col) {
+            let column = model.columns[col]
+            let isSelected = model.selected.contains(ReadCellKey(row: row.id, col: col))
+            VStack(alignment: .leading, spacing: 2) {
+                if model.columns.count > 1 {
+                    Text(column.name)
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+                DTextContentView(dtexts: row.cells[col],
+                                 generation: model.generation,
+                                 isVisibleSn: model.isSnVisible,
+                                 onTapRef: { _ in },
+                                 isFontOpenHan: column.isFontOpenHan,
+                                 alignment: column.alignment,
+                                 onTapAny: { dtext in actions.tap(row, col, dtext) },
+                                 onLongPress: { model.startSelecting(row: row.id, col: col) })
+            }
+            .padding(.leading, 4)
+            // 複選中，右邊留位置給勾選圈，免得蓋到文字
+            .padding(.trailing, model.isSelecting ? 32 : 4)
+            .background(isSelected ? Color.accentColor.opacity(0.15) : Color.clear, in: RoundedRectangle(cornerRadius: 8))
+            .overlay(alignment: .topTrailing) {
+                if model.isSelecting {
+                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                        .foregroundStyle(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
+                        .padding(6)
+                }
+            }
+            .overlay {
+                // 複選中，整塊都是「選取」，不再是點文字
+                if model.isSelecting {
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture { model.toggle(row: row.id, col: col) }
+                        .accessibilityAddTraits(.isButton)
+                }
             }
         }
     }
 }
 
+// MARK: - 產生圖片
 
-/// 這個是查詢前，把 data 設為 查詢資料中 ... 若網路慢的時候，要有這個
-fileprivate class ReadDataDataQuerying : NSObject, IVCReadDataQ {
-    func qDataForReadAsync(_ addr: String, _ vers: [String]) {
-        // 版本.
-        let r2 = vers.map({ BibleVersionConvertor().na2cna($0)})
-        let r2a = r2.map({[DText($0,isParenthesesHW: true)]})
-        let r5 = (header:[DText()],datas:r2a)
-        
-        // 資料.
-        
-        // 特例，所選的版本們，都沒有這裡的經文
-        let r6 = self._gNoData(vers.count)
-        self.qDataForRead$.triggerAndCleanCallback(nil, (r5, r6))        
-    }
-    
-    private func _gNoData(_ cntVer:Int) -> [([DText],[[DText]])]{
-        let r1 = [DText()]
-        let r2 = ijnRange(0, cntVer).map({ _ in [DText(NSLocalizedString("取得資料中...", comment: ""))]})
-        
-        return [(r1,r2)]
-    }
-    var qDataForRead$: IjnEventOnce<Any, (ViewDisplayTable2.OneRow, [ViewDisplayTable2.OneRow])> = IjnEventOnce()
-}
+/// 把閱讀的內容畫成一張圖：標題 + 每節 (節的位置、每個譯本的經文)。
+/// 用 `ViewDisplayCell` 畫，所以字型、SN 顯示都與畫面一致；固定淺色，方便當筆記或分享。
+fileprivate struct ReadSnapshotRenderer {
+    let model: ReadModel
+    let width: CGFloat
+    let scale: CGFloat
 
-/// VCRead 整合所需功能，需要的東西
-protocol IVCRead {
-    /// 按下「節-表格中最左邊 col 那些」，以致進行 選取功能 「VCVerseActionPicker」
-    var onClickAddr$: IjnEvent<UIView,DText> { get }
-    var onClickVersions$: IjnEvent<UIView,DText> { get }
-    var onClickContentDText$: IjnEvent<UIView,(dtext:DText,ver:String)> {get}
-}
+    func render() -> UIImage? {
+        if model.rows.isEmpty { return nil }
+        let pad: CGFloat = 16
 
-class VCReadTest1 : IVCRead {
-    var onClickContentDText$: IjnEvent<UIView, (dtext: DText, ver: String)> = IjnEvent()
-    
-    var onClickAddr$: IjnEvent<UIView, DText> = IjnEvent()
-    var onClickVersions$: IjnEvent<UIView, DText> = IjnEvent ()
-    init(){
-//        DispatchQueue.main.async {
-//            sleep(2)
-//            self.onClickAddr$.trigger(UIView(), DText("羅1:1"))
-//        }
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.spacing = 6
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        func addLabel(_ text: String, _ font: UIFont, _ color: UIColor, spaceBefore: CGFloat = 0) {
+            let l = UILabel()
+            l.numberOfLines = 0
+            l.text = text
+            l.font = font
+            l.textColor = color
+            stack.addArrangedSubview(l)
+            if spaceBefore > 0 { stack.setCustomSpacing(spaceBefore, after: stack.arrangedSubviews[stack.arrangedSubviews.count - 2]) }
+        }
+
+        addLabel(model.titleAddr, .preferredFont(forTextStyle: .title2), .black)
+        for row in model.rows {
+            if !row.address.isEmpty {
+                addLabel(row.address, .preferredFont(forTextStyle: .footnote), .systemBlue, spaceBefore: 12)
+            }
+            for (col, dtexts) in row.cells.enumerated() where model.columns.indices.contains(col) {
+                let column = model.columns[col]
+                if model.columns.count > 1 {
+                    addLabel(column.name, .preferredFont(forTextStyle: .caption2), .darkGray)
+                }
+                let cell = ViewDisplayCell()
+                cell.overrideUserInterfaceStyle = .light
+                cell.set(dtexts: dtexts, isVisibleSn: model.isSnVisible, isFontNameOpenHanBibleTC: column.isFontOpenHan, tpTextAlignment: column.alignment, isSwitchOn: false, isSwitchVisible: false)
+                stack.addArrangedSubview(cell)
+            }
+        }
+
+        let container = UIView()
+        container.overrideUserInterfaceStyle = .light
+        container.backgroundColor = .white
+        container.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: container.topAnchor, constant: pad),
+            stack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: pad),
+            stack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -pad),
+            stack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -pad),
+        ])
+
+        // 寬度固定，量需要的高度
+        let fit = container.systemLayoutSizeFitting(CGSize(width: width, height: UIView.layoutFittingCompressedSize.height),
+                                                    withHorizontalFittingPriority: .required,
+                                                    verticalFittingPriority: .fittingSizeLevel)
+        container.frame = CGRect(x: 0, y: 0, width: width, height: fit.height)
+        container.layoutIfNeeded()
+
+        // 太長的章節 (詩篇119) 圖片會超過系統上限，降低倍率
+        let s = min(scale, max(1, 16000 / max(fit.height, 1)))
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = s
+        return UIGraphicsImageRenderer(size: container.bounds.size, format: format).image { ctx in
+            container.layer.render(in: ctx.cgContext)
+        }
     }
 }
 

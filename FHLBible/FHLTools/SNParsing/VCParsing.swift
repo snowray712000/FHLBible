@@ -135,8 +135,7 @@ class VCParsing : UIViewController {
     }
     @IBAction func goSelectBook(){
         if _cur != nil {
-            let vc2 = self.gVCBookChapPicker()
-            vc2.initBeforePushVC(_cur!.book, _cur!.chap)
+            let vc2 = BookChapPickerViewController(book: _cur!.book, chap: _cur!.chap)
             vc2.onClick$.addCallback { sender, pData in
                 self._cur = DAddress(book: pData!.idBook, chap: pData!.idChap, verse: 1)
                 self.reloadDataAsync(self._cur!)

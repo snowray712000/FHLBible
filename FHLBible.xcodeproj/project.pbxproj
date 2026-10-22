@@ -82,7 +82,6 @@
 		574599AB273C1B05005635D0 /* VCComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599AA273C1B05005635D0 /* VCComment.swift */; };
 		574599AE273C2482005635D0 /* FhlScCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599AD273C2482005635D0 /* FhlScCore.swift */; };
 		574599B0273C38E7005635D0 /* NextPrevVerse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599AF273C38E7005635D0 /* NextPrevVerse.swift */; };
-		574599B2273CAEAE005635D0 /* EventsHelperOfTableOfRead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599B1273CAEAE005635D0 /* EventsHelperOfTableOfRead.swift */; };
 		574599B6273D01B8005635D0 /* FhlSdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599B5273D01B8005635D0 /* FhlSdTests.swift */; };
 		574599BF273D288C005635D0 /* _EmptyFileA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599BE273D288C005635D0 /* _EmptyFileA.swift */; };
 		574599C1273D28A6005635D0 /* SnDictDataTwcbQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574599C0273D28A6005635D0 /* SnDictDataTwcbQ.swift */; };
@@ -128,7 +127,6 @@
 		578AE3B92F5556B900E138A5 /* gcode2_test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578AE3B82F5556B600E138A5 /* gcode2_test.swift */; };
 		578AE3BB2F55586600E138A5 /* gcode2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578AE3BA2F55586300E138A5 /* gcode2.swift */; };
 		578B2543274635C400EF2705 /* ManagerIsSnVisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B2542274635C400EF2705 /* ManagerIsSnVisible.swift */; };
-		57A21A82276A574B0022212D /* VCReadMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A21A81276A574B0022212D /* VCReadMore.swift */; };
 		57A21A84276A59D70022212D /* VCSnDictMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A21A83276A59D70022212D /* VCSnDictMore.swift */; };
 		57A21A86276A61280022212D /* SwipeHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A21A85276A61280022212D /* SwipeHelp.swift */; };
 		57AD73B5274CFA7500CA9BA8 /* SSForFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AD73B4274CFA7500CA9BA8 /* SSForFooter.swift */; };
@@ -203,7 +201,6 @@
 		57F22C69272BF5EA00526631 /* ViewDisplayTable2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F22C68272BF5EA00526631 /* ViewDisplayTable2.xib */; };
 		57F22C6B272BF60100526631 /* ViewDisplayTable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F22C6A272BF60100526631 /* ViewDisplayTable2.swift */; };
 		57F22C6F272C3A4B00526631 /* VCSnDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F22C6E272C3A4B00526631 /* VCSnDict.swift */; };
-		57F22C71272C50CB00526631 /* VCReadImplementEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F22C70272C50CB00526631 /* VCReadImplementEvents.swift */; };
 		57F826802773407A0077A807 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F8267E2773407A0077A807 /* Localizable.strings */; };
 		57F82683277341C10077A807 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F82681277341C10077A807 /* InfoPlist.strings */; };
 		57F826842773633C0077A807 /* ViewVersionsPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F826862773633C0077A807 /* ViewVersionsPicker.xib */; };
@@ -384,7 +381,6 @@
 		574599AA273C1B05005635D0 /* VCComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCComment.swift; sourceTree = "<group>"; };
 		574599AD273C2482005635D0 /* FhlScCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FhlScCore.swift; sourceTree = "<group>"; };
 		574599AF273C38E7005635D0 /* NextPrevVerse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPrevVerse.swift; sourceTree = "<group>"; };
-		574599B1273CAEAE005635D0 /* EventsHelperOfTableOfRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsHelperOfTableOfRead.swift; sourceTree = "<group>"; };
 		574599B5273D01B8005635D0 /* FhlSdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FhlSdTests.swift; sourceTree = "<group>"; };
 		574599BE273D288C005635D0 /* _EmptyFileA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _EmptyFileA.swift; sourceTree = "<group>"; };
 		574599C0273D28A6005635D0 /* SnDictDataTwcbQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnDictDataTwcbQ.swift; sourceTree = "<group>"; };
@@ -433,7 +429,6 @@
 		578AE3B82F5556B600E138A5 /* gcode2_test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gcode2_test.swift; sourceTree = "<group>"; };
 		578AE3BA2F55586300E138A5 /* gcode2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gcode2.swift; sourceTree = "<group>"; };
 		578B2542274635C400EF2705 /* ManagerIsSnVisible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerIsSnVisible.swift; sourceTree = "<group>"; };
-		57A21A81276A574B0022212D /* VCReadMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCReadMore.swift; sourceTree = "<group>"; };
 		57A21A83276A59D70022212D /* VCSnDictMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSnDictMore.swift; sourceTree = "<group>"; };
 		57A21A85276A61280022212D /* SwipeHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeHelp.swift; sourceTree = "<group>"; };
 		57AD73B4274CFA7500CA9BA8 /* SSForFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSForFooter.swift; sourceTree = "<group>"; };
@@ -505,7 +500,6 @@
 		57F22C68272BF5EA00526631 /* ViewDisplayTable2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewDisplayTable2.xib; sourceTree = "<group>"; };
 		57F22C6A272BF60100526631 /* ViewDisplayTable2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDisplayTable2.swift; sourceTree = "<group>"; };
 		57F22C6E272C3A4B00526631 /* VCSnDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSnDict.swift; sourceTree = "<group>"; };
-		57F22C70272C50CB00526631 /* VCReadImplementEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCReadImplementEvents.swift; sourceTree = "<group>"; };
 		57F8267327732A510077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		57F8267427732A510077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		57F8267527732A540077A807 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -1065,7 +1059,6 @@
 				C88D234026EB06C60088BCF5 /* DataGetter */,
 				574598462CDA5DA10000DF34 /* Read.md */,
 				57395B312728D4350067F699 /* VCRead.swift */,
-				57A21A81276A574B0022212D /* VCReadMore.swift */,
 				57AD73C1274FB58600CA9BA8 /* SnDTextClickFlow.swift */,
 				577CEF9927513FC6003014A8 /* RefDTextClickFlow.swift */,
 				574BE54827577D5200F5DC85 /* OneVerseFunctionsClickFlow.swift */,
@@ -1073,8 +1066,6 @@
 				C85A0F212689D4130020CD94 /* IDataGetter.swift */,
 				57395B49272A4C980067F699 /* VCPickerBaseOnTableView.swift */,
 				57395B47272A45EA0067F699 /* VCVerseActionPicker.swift */,
-				57F22C70272C50CB00526631 /* VCReadImplementEvents.swift */,
-				574599B1273CAEAE005635D0 /* EventsHelperOfTableOfRead.swift */,
 				574BE5462757673400F5DC85 /* ReadDataQ.swift */,
 				574ED05F2B04CB7F00BEC0D8 /* isOnOfSelectionsSwitch.swift */,
 			);
@@ -1502,7 +1493,6 @@
 				57FBC0112A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift in Sources */,
 				574599AE273C2482005635D0 /* FhlScCore.swift in Sources */,
 				57AD73C527508BAE00CA9BA8 /* VCVersionsCompareInOneVerse.swift in Sources */,
-				57F22C71272C50CB00526631 /* VCReadImplementEvents.swift in Sources */,
 				572D9A9C29CAD912008DF7BF /* VCAudioBible.swift in Sources */,
 				571F95BA29C38F09007A9268 /* SNParsingDealProXForm.swift in Sources */,
 				57F22C64272B6F3900526631 /* FindWordInTextViewWhenTapGesture.swift in Sources */,
@@ -1591,10 +1581,8 @@
 				C8089F27267030D9004FA377 /* DTextString.swift in Sources */,
 				572589702732D20900E42DEF /* ConvertorQp2VCParsingData.swift in Sources */,
 				57543DAE2779A2DC00587B40 /* SplitByNewLines.swift in Sources */,
-				57A21A82276A574B0022212D /* VCReadMore.swift in Sources */,
 				57AD73C0274FA25600CA9BA8 /* TextAlignmentsViaBibleVersionGetter.swift in Sources */,
 				57395B4E272A73C70067F699 /* VCIndex.swift in Sources */,
-				574599B2273CAEAE005635D0 /* EventsHelperOfTableOfRead.swift in Sources */,
 				57395B4A272A4C980067F699 /* VCPickerBaseOnTableView.swift in Sources */,
 				57BBC77B290C43FD001DC3FE /* VCData.swift in Sources */,
 				57395B362728E3B70067F699 /* ViewDisplayTable.swift in Sources */,

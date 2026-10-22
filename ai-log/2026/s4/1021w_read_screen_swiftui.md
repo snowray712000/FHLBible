@@ -1,0 +1,76 @@
+# Read screen ("閱讀", `VCRead`) rewritten in SwiftUI with a redesign; removed from Main.storyboard
+
+- Date: 2026-10-21
+- Project: FHLBible
+- Type: refactor (UI technology change + redesign)
+- Related logs: 1021j_min_ios_17_and_swiftui_direction.md (this screen was explicitly "stay in UIKit" there; the maintainer now asked for it), 1021o_tsk_screen_swiftui.md (`DTextContentView`), 1021t_versions_compare_screen_swiftui.md, 1021u_book_chap_picker_screen_swiftui.md, 1021q_read_history_screen_swiftui.md
+- Cross-project: none (FHLCommon untouched; FHLBibleTW has its own reader and was not built)
+- Commit: not committed (working tree also holds earlier uncommitted 1021u/1021v work and the Xcode 27 storyboard rewrite)
+
+## Goal / why
+The maintainer (version label 4.12.13) asked for the Read screen to become SwiftUI, "not necessarily looking the same; if there is a better design, especially one closer to iOS guidelines, change that too". `VCRead` was a storyboard `UIViewController` hosting `ViewDisplayTable2` (a UIKit table: first row = translation names as column headers, left column = verse address, one column per translation, UISwitch cells for multi-select).
+
+## Starting state (old behavior that had to be kept)
+- `VCRead` events: `_addrsCurChanged$` -> `ManagerAddress.s.updateCur`, add to history (unless triggered by "go back"), reload; `_versChanged$` -> `ManagerBibleVersions.s.updateCur`, reload; `_isSnOnChanged$` -> `ManagerIsSnVisible.s.updateCur`, redraw.
+- Data: `ReadDataQ().qDataForReadAsync(titleAddrString, vers)` -> `qDataForRead$(sender, (titleRow, [OneRow]))`; `OneRow = (header: [DText], datas: [[DText]])`, header is the address (e.g. `創1:1`, refDescription set), `datas[col]` is that translation's `[DText]`. When no translation has the verses it returns one row with header `[DText()]` and "(此譯本無)" cells. Callback arrives on a background thread.
+- Gestures (`SwipeHelp`): left 1 finger = next chapter, left 3 = book picker, right 1 = prev chapter, right 2 = go back (history), right 3 = history picker.
+- Taps: address cell -> `VCVerseActionPicker` (譯本比較 / Parsing / 註釋 / 串珠); SN word -> `SnDTextClickFlow`; reference -> `RefDTextClickFlow` (push a new VCRead); footnote -> `FooterDTextClickFlow`; header row (translation names) -> `VCVersionsPicker`.
+- Long press on a cell -> multi-select mode with a UISwitch per cell + header switches (all / column / row); "..." button becomes a checkmark that pushes `VCWhenLongPress` with a `DSelections`. "..." normally presented the modal list `VCReadMore` (聖經目錄, 上一章, 下一章, 上一頁, 閱讀記錄, 有聲聖經, 有聲文字, 圖片產生, two hint rows).
+- 圖片產生 captured the table via `UIScrollView.capture` (scrolls to the bottom, renders layer) and saved it with `SaveToPhotoHelper`.
+- SN button was disabled (alpha .2) unless a selected translation is one of unv/kjv/rcuv.
+
+## What changed (behavior level)
+- `Read/VCRead.swift` rewritten (old UIKit code removed). `class VCRead: UIHostingController<ReadView>`, created with `VCRead()` then `setInitData(VerseRange, [String])` (same signature as before; empty vers -> `["unv"]`). Pushed onto the existing `UINavigationController`. `title` = 「閱讀」 so pushed screens show it as the back-button text.
+- `@Observable ReadModel`: `addr: VerseRange`, `vers`, `columns: [ReadColumn]` (ver, Chinese name via `BibleVersionConvertor().na2cna`, `isFontOpenHan` via `BibleVersionFonts().mainIsOpenHanBibleTCs`, `alignment` via `getTpTextAlignmentsViaBibleVersions`), `rows: [ReadRow]`, `isLoading`, `generation`, `isSnVisible`, selection state, `verseActionRow`, `idxGoBack`. Methods: `setAddr(_:isFromGoBack:)` (updates `ManagerAddress`, writes history unless from go-back, resets `idxGoBack`, reloads), `goNext/goPrev` (`VerseRange.goNext/goPrev`), `clickGoBack` (walks `ManagerHistoryOfRead.s.cur` by `idxGoBack`, stops at the end, `isFromGoBack: true`), `setVers` (ignores unchanged list, updates `ManagerBibleVersions`), `toggleSn` (updates `ManagerIsSnVisible`, bumps `generation`), `reload()` (see below), selection helpers, `makeSelections()`.
+- `reload()`: `requestId += 1`; clears selection and rows; `isLoading = true`; `ReadDataQ` callback -> `DispatchQueue.main.async` -> ignored if `requestId` changed (stale-response guard) -> `setRows`. `setRows` builds `columns` and `rows`; each `ReadRow` has `address` (header DTexts joined), `addr` (`StringToVerseRange().main(address, nil).first`), `label` (if every row parses and all rows are the same book+chapter, the label is only the text after the last ":" i.e. the verse number, e.g. "1" or "1-2"; otherwise the full address), `cells`. `generation += 1`.
+- The old "取得資料中..." placeholder rows (`ReadDataDataQuerying`) are gone; the screen shows `ProgressView("取得資料中...")` over an empty list while loading.
+- UI (`ReadView`, `VStack { List; bottomBar }`):
+  - one `List` row per verse: left a verse-number `Button` (tap = verse action dialog; in selection mode = toggle whole verse), right the translations. One translation = one block; several = stacked vertically each with a small caption of the translation name; on regular horizontal size class (iPad) with several translations they sit side by side. Separators hidden for a single translation, visible for several. `.environment(\.defaultMinListRowHeight, 1)` (default 44pt made one-line verses look too airy), row insets 12pt.
+  - each block is `DTextContentView` (UIViewRepresentable around `ViewDisplayCell`, keeps per-character hit testing). It got a new optional `onLongPress` (`ViewDisplayCell.onLongClicked$`) in `FHLTools/Tsk/VCTsk.swift`, and its `sizeThatFits` now ignores nil/0/infinite proposed widths (falls back to `max(bounds.width, 320)`) because measuring with width 0 produced huge heights and scroll-position jumps in lazily sized lists.
+  - toolbar (top): principal = tappable title (`創1` + chevron) -> book/chapter picker (`BookChapPickerViewController(book:chap:)`, `onClick$` builds `VerseRange` of the whole chapter via `DAddress(book:chap:verse:1).generateEntireThisChap()`); trailing = search (`gVCSearching`/`gVCSearchResult`), `Toggle(.button)` "SN" (disabled unless unv/kjv/rcuv in `vers`), "..." `Menu`: 選取經文, 圖片產生, —, 閱讀記錄, 上一頁, —, 有聲聖經, 有聲文字. `VCReadMore` is no longer used. The two "小技巧" hint rows were dropped (gestures still work).
+  - bottom bar: current translations (`FHLxxx +N`, tap = `VCVersionsPicker`, same `setInitData(vers)`/`onClickOkay$` contract; unchanged list is ignored by `setVers`), previous chapter, next chapter. Implemented as a plain `VStack` child with `.background(.bar, ignoresSafeAreaEdges: .bottom)` (see Gotchas).
+  - verse action: `confirmationDialog` attached to the verse-number button of the tapped row (so it is anchored there): 譯本比較, Parsing, 註釋, 串珠 -> pushes `VCVersionsCompareInOneVerse(addr:)`, `gVCParsing().set(addr, vers)`, `VCComment(addr:)`, `VCTsk(addr:)` (row address, else first address of the page). `OneVerseFunctionsClickFlow` + `VCVerseActionPicker` are untouched (still used by Search results).
+  - content taps (`VCRead.doWhenContentClicked`): SN -> `SnDTextClickFlow(addr: rowAddr)`, reference -> `RefDTextClickFlow(addr: first page addr)`, footnote -> `FooterDTextClickFlow(...).mainAsync(dtext, vers[col], rowAddr)`; checked in this order.
+  - multi-select: starts from the menu (`beginSelecting`, nothing selected) or by long-pressing a block (that block selected). Selection is a `Set<ReadCellKey(row, col)>` (col = translation index). In selection mode: top bar shows 取消 / 「已選取 N 項」 / 完成 (disabled with 0), back button hidden, each block gets a checkmark circle and accent highlight, a transparent overlay turns any tap on a block into a toggle, tapping the verse number toggles all translations of that verse, bottom bar shows 全選/取消全選, swipes are ignored. 完成 -> `makeSelections()` (same shape as before: `data[[DAddress]][ver] = [DText]`, `addrs` in reading order, `vers` in column order, only versions that have a selected cell) -> `gVCWhenLongPress()` push. Haptic: `.sensoryFeedback(.selection, trigger: selected.count)`.
+  - 圖片產生 (`ReadSnapshotRenderer`): off-screen `UIStackView` (title label, then per verse a blue address label, translation caption labels, and `ViewDisplayCell`s configured like on screen incl. SN visibility), forced light appearance, white background, fixed width = view width; size measured with `systemLayoutSizeFitting`; rendered with `UIGraphicsImageRenderer`, scale = `min(displayScale, max(1, 16000 / height))` so very long chapters stay below ~16000 px; then `SaveToPhotoHelper` (kept alive in `VCRead.saver`). The old scroll-and-capture is not used for Read any more (`UIScrollView.capture` is still used by `VCWhenLongPress`).
+- `VCEasyFunctions.swift`: `gVCRead()` now returns `VCRead()`; `FHLTools/Tsk/VCTsk.swift` creates `VCRead()` directly. `Base.lproj/Main.storyboard`: removed the `VCRead` scene (`Qf1-Ym-GSe`), its orphan `Navigation Controller` scene (`f6v-5Q-akx`) and a stray `doMore` action on VCSnDict's button that pointed at VCRead (`s49-hj-ue4`); 20 -> 18 scenes, XML parses. Removed the 11/10 dead entries (ids from the removed scene) from `zh-Hans.lproj/Main.strings` and `zh-Hant.lproj/Main.strings`.
+- `zh-Hans.lproj/Localizable.strings`: added 閱讀, 搜尋, 更多, 選取經文, "已選取 %d 項", 全選, 取消全選, 完成, 取消, 上一章, 下一章 (zh-Hant uses the keys as is).
+- `Helps/app_versions.md`: added `## 4.12.13 (2026.10.21m)`.
+
+## Design and decisions
+- Stacked translations instead of table columns: columns were unreadable on a phone with 3+ translations; stacking is how reading apps do it, and iPad keeps side-by-side. The header row of translation names is replaced by per-block captions plus the bottom-bar button.
+- Per-cell selection kept (not only per-verse) because the old screen allowed copying one translation of a verse; column-level "select all of translation X" was dropped (only select-all).
+- Kept the UIKit text view for the verses (per-character taps / long press) per the rule in CLAUDE.md; only the screen around it is SwiftUI. `ViewDisplayTable2`, `ViewDisplayRow`, `ViewDisplayCell` stay (Search results still use the table).
+- Kept `IVCReadDataQ`, `drawSnButtonState` (Search uses it) and `IVCRead` in `VCRead.swift`.
+- Rejected `.toolbar(.bottomBar)`: inside a `UINavigationController` it needs `setToolbarHidden(false)` and relies on version-specific SwiftUI behavior; rejected `.safeAreaInset(edge: .bottom)` only out of caution (no evidence it was broken, see Gotchas). Plain `VStack` is the same on every OS.
+- Native `Menu` replaces `VCReadMore`; `confirmationDialog` replaces the presented `VCVerseActionPicker` for Read only.
+
+## Key files / types / functions
+- `Read/VCRead.swift` — `VCRead`, `ReadModel`, `ReadRow/ReadColumn/ReadCellKey`, `ReadActions`, `ReadView`, `ReadRowView`, `ReadSnapshotRenderer`, `IVCReadDataQ`, `IVCRead`, `drawSnButtonState`.
+- `FHLTools/Tsk/VCTsk.swift` — `DTextContentView` (+ `onLongPress`, width fallback).
+- Now unused but still compiled (deletion was blocked in this session, maintainer may delete): `Read/VCReadMore.swift`, `Read/VCReadImplementEvents.swift` (needs `IVCRead`, kept for that reason), `Read/EventsHelperOfTableOfRead.swift`.
+
+## Gotchas
+- **Simulator tool coordinates**: iPhone 13 mini is 375x812 pt (renders 1125x2436, downsampled to a 1080x2340 screenshot) but the tool reports 360x780. Taps are in real points (the SwiftUI global tap location printed exactly the tapped values), so screenshot pixels (923-wide preview) must be multiplied by 375/923 = 0.406, not 360/923. Using 0.39 makes taps near the bottom miss by ~20pt; this cost a long false "bottom bar buttons don't respond" investigation. The UI was never broken.
+- Screenshots from the tool often show the state before the last tap; wait ~2 s or take a second one.
+- `goRead` waits for `AutoLoadDUiabv` (network) before pushing; the first tap on 閱讀 can appear to do nothing for several seconds.
+- Title/`List` scroll position jumped when row heights were measured with a 0 width (see `DTextContentView.sizeThatFits`).
+- `.background(Color)` extends into safe areas, so debug tints misrepresent hit frames.
+- `ToolbarContentBuilder` accepts `if/else` over `ToolbarItem`s (iOS 17 OK).
+- A declined Photos "add" permission shows the old alert 「儲存影像失敗: Unknown error」 (existing `SaveToPhotoHelper` behavior).
+
+## Verification
+- `xcodebuild -workspace FHLWorkSpace.xcworkspace -scheme FHLBible` for iPhone 17 (iOS 27.0) and for iPhone 15 Pro (iOS 17.4 destination): BUILD SUCCEEDED, no warnings from Read/VCRead.swift.
+- Ran on the iPhone 13 mini simulator (iOS 27.0) with real data: open 閱讀 -> 創 1 loads at top; tap verse number -> dialog 創1:1 with 4 actions -> 譯本比較 pushes correctly (and the bottom bar is not shown there); "..." menu content; 選取經文 -> select verse -> 完成 pushes `VCWhenLongPress` with 創1:5 content; long press selects the block and shows the selection UI; cancel; translation picker -> two translations -> stacked layout with captions and bottom summary; SN toggle shows H-numbers and persists across relaunch; previous/next chapter buttons and 1-finger left swipe change chapter (創1->2->3, scrolls to top); title -> book picker -> 出埃及記 -> chapter 3 loads; tapping an H-number opens the SN action sheet; 圖片產生 produced a correct 781x16000 px image of 創 2 with captions, SN text and light background (inspected via a temporary file dump, removed afterwards); the Photos permission was declined, so saving to the library itself was not exercised.
+- NOT verified: iOS 17.4 was only compiled for (the 17.4 simulator was not granted to Claude, so it was never run); iPad / regular size class side-by-side layout; dark mode; Dynamic Type; reference (`refDescription`) and footnote taps; Parsing / 註釋 / 串珠 from the dialog; go-back (2 fingers) and history (3 fingers) swipes; history/"上一頁" menu item; search button flow; gb (simplified) strings; Hebrew (`bhs`) right-aligned text; very long chapters scrolling performance; VoiceOver; FHLBibleTW (not touched).
+
+## Open issues / next steps
+- Delete the three dead files above (and `IVCRead`) after maintainer approval (done, see Addendum); update `FHLBible/FHLBible/Read/Read.md` (still describes the UIKit flow).
+- `VCSearchResult` still uses the UIKit table; it could get the same row design later.
+- Checkmark circle sits at the top-right of each block; consider moving it left of the text if long verses feel crowded.
+
+## Addendum (2026-10-21, same day): dead files removed
+- Deleted `Read/VCReadMore.swift`, `Read/VCReadImplementEvents.swift`, `Read/EventsHelperOfTableOfRead.swift` and removed the `IVCRead` protocol from `Read/VCRead.swift` (maintainer approved). The "Open issues" item about them is done.
+- These three files were NOT covered by a synchronized group: `FHLBible.xcodeproj/project.pbxproj` listed each one explicitly. Deleting only the files fails with "Build input files cannot be found". The 12 lines (PBXBuildFile, PBXFileReference, group child and Sources entry for each file) were removed with a line delete, nothing else in pbxproj was touched.
+- `xcodebuild -scheme FHLBible` (iPhone 17, iOS 27.0 simulator) after the removal: BUILD SUCCEEDED. Not re-run in the simulator (no behavior change; the removed code had no remaining references).
+- Still open: update `Read/Read.md` (describes the old UIKit flow).

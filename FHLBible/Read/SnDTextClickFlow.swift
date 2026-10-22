@@ -54,9 +54,7 @@ public class SnDTextClickFlow {
         _push(vcSnSearch)
     }
     private func _doWhenSnDTextClickedForDicts(_ dtext:DText){
-        let vcSnDict = _vc.gVCSnDict()
-        vcSnDict.setInitData(dtext, _addr, _vers)
-        _push(vcSnDict)
+        _push(VCSnDict(dtext: dtext, addr: _addr, vers: _vers))
     }
     private func _doWhenUsingParsing(){
         let vc2 = _vc.gVCParsing()

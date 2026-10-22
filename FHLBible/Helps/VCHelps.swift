@@ -32,7 +32,7 @@ struct HelpTopic {
             "helps_02translation_03a",
             "helps_02translation_04a",
         ]),
-        HelpTopic(titleTw: "注釋", titleGb: "注释", imageNames: [
+        HelpTopic(titleTw: "註釋", titleGb: "注释", imageNames: [
             "helps_03comment_01a",
             "helps_03comment_01b",
             "helps_03comment_02a",

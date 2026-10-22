@@ -14,7 +14,7 @@ class FhlScCore {
     /// 當第1個參數是 nil, 表示正確
     /// 當第1個參數有值, 會包含錯誤訊息的 [DText(w)]
     var apiFinished$: IjnEventOnce<[DText],DApiSc> = IjnEventOnce()
-    /// bookId: 3，注釋；4，串珠
+    /// bookId: 3，註釋；4，串珠
     func main(_ addr:DAddress,_ tpBook:TpBook){
         self.addr = addr
         self.tpBook = tpBook

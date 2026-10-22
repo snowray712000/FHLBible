@@ -24,8 +24,7 @@ class FooterDTextClickFlow : NSObject {
         _ver = ver
         
         // 主流程
-        let vc = _vc.gVCFooter()
-        vc.setInitData(dtext, _ver, _addr! ,_vers)
+        let vc = VCFooter(dtext: dtext, ver: _ver, addr: _addr!, vers: _vers)
         _vc.navigationController?.pushViewController(vc, animated: false)
     }
     

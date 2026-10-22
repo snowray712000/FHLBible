@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 不要動 `../FHLBible_Temp`、`../IJNSwift_Temp`（過時／實驗副本）。搜尋程式碼時排除它們。
 - **最低支援版本：17.0（2026-10-21 起，使用者決定）**：實測 `xcodebuild -showBuildSettings` 為 17.0；pbxproj 內所有 `IPHONEOS_DEPLOYMENT_TARGET` 皆已明確寫成 `17.0` 並 commit（使用者 2026-10-21 確認），不要再寫成 `$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)`。**不要自行調整 `IPHONEOS_DEPLOYMENT_TARGET`、不要手改 pbxproj、不要接受 Xcode 的「Update to recommended settings」**，要動先問使用者，也不要還原使用者未 commit 的設定。可直接用 iOS 17 以前的 API（含 SwiftUI、`NavigationStack`、`@Observable`）；iOS 18 以後必須 `if #available` 並保留退路。新增第三方套件前先問。此環境有 iOS 17.4 與 27.0 模擬器，回報時說明實際驗證的版本。三個專案現況見 `../CLAUDE.md`。
 - **用詞（2026-10-21 使用者決定）**：UI 文字一律稱「譯本」（translation），不要用「版本」，因為「版本」會和 App 版本搞混（「版本資訊」指 App 版本，沒問題）。程式裡的 `version`／`vers`（FHL API 的譯本代碼）維持原樣。
-- **UI 技術（2026-10-21 起）**：UIKit 為主；簡單畫面**逐個**改 SwiftUI（以 `UIHostingController` push 進現有導覽），不再新增 storyboard scene。已改：「版本資訊」（`Helps/VCVersionInfo.swift` 內的 `VersionInfoView`）、「設定」（`VCSetting/VCSettings.swift` 內的 `SettingsView`）、「教學」（`Helps/VCHelps.swift` 內的 `HelpsView`／`HelpPagesView`）、「資料」（`Download/VCData.swift` 內的 `DataListView`，只換畫面層，下載邏輯維持原樣）、「串珠」（`FHLTools/Tsk/VCTsk.swift` 內的 `TskView`；經文內容用 `UIViewRepresentable` 包 `ViewDisplayCell`，已從 `Main.storyboard` 移除，改以 `VCTsk(addr:)` 建立）、「有聲文字速度」（`VCAudioTextBible/VCAudioTextSpeed.swift` 內的 `AudioTextSpeedView`，已從 `Main.storyboard` 移除，改以 `VCAudioTextSpeed()` 建立）、「閱讀記錄」（`History/VCReadHistory.swift` 內的 `ReadHistoryView`，已從 `Main.storyboard` 移除，改以 `VCReadHistory()` 建立）、「有聲文字」（`VCAudioTextBible/VCAudioTextBible.swift` 內的 `AudioTextBibleView`，已從 `Main.storyboard` 移除，改以 `VCAudioTextBible(addr:vers:)` 建立；播放核心 `AudioTextBibleTTSCore` 不變）、「有聲聖經」（`VCAudioBible/VCAudioBible.swift` 內的 `AudioBibleView`，已從 `Main.storyboard` 移除，改以 `VCAudioBible(book:chap:)` 建立；播放核心 `EasyAVPlayer`／`AudioBibleSetter`／`DAudioBible` 不變）、「譯本比較」（`VCVersionsCompareInOneVerse/VCVersionsCompareInOneVerse.swift` 內的 `VersionsCompareView`，已從 `Main.storyboard` 移除，改以 `VCVersionsCompareInOneVerse(addr:)` 建立；類別／檔名沿用舊名以免動 pbxproj；經文用 `DTextContentView`）；`VCVersionInfo`／`VCSettings`／`VCHelps`／`VCData`／`VCTsk`／`VCAudioTextSpeed`／`VCReadHistory`／`VCAudioTextBible`／`VCAudioBible`／`VCVersionsCompareInOneVerse` 是包它們的 `UIHostingController`。首頁那顆「教學」按鈕本身仍在 `Main.storyboard`。`VCRead`／`ViewDisplayTable2`／`ViewDisplayCell`（`UITextView` 逐字點擊）留在 UIKit。SwiftUI 的 `Menu` 在父 view 重畫時會自己關閉：每 0.5～1 秒更新的值（進度、倒數）要放在獨立的子 view 讀取（範例：`AudioBibleProgressView`、`AudioTimerTile`）。既有可運作的 UIKit／`IjnEvent` 程式一次改一個、先問使用者。
+- **UI 技術（2026-10-21 起）**：UIKit 為主；簡單畫面**逐個**改 SwiftUI（以 `UIHostingController` push 進現有導覽），不再新增 storyboard scene。已改：「版本資訊」（`Helps/VCVersionInfo.swift` 內的 `VersionInfoView`）、「設定」（`VCSetting/VCSettings.swift` 內的 `SettingsView`）、「教學」（`Helps/VCHelps.swift` 內的 `HelpsView`／`HelpPagesView`）、「資料」（`Download/VCData.swift` 內的 `DataListView`，只換畫面層，下載邏輯維持原樣）、「串珠」（`FHLTools/Tsk/VCTsk.swift` 內的 `TskView`；經文內容用 `UIViewRepresentable` 包 `ViewDisplayCell`，已從 `Main.storyboard` 移除，改以 `VCTsk(addr:)` 建立）、「有聲文字速度」（`VCAudioTextBible/VCAudioTextSpeed.swift` 內的 `AudioTextSpeedView`，已從 `Main.storyboard` 移除，改以 `VCAudioTextSpeed()` 建立）、「閱讀記錄」（`History/VCReadHistory.swift` 內的 `ReadHistoryView`，已從 `Main.storyboard` 移除，改以 `VCReadHistory()` 建立）、「有聲文字」（`VCAudioTextBible/VCAudioTextBible.swift` 內的 `AudioTextBibleView`，已從 `Main.storyboard` 移除，改以 `VCAudioTextBible(addr:vers:)` 建立；播放核心 `AudioTextBibleTTSCore` 不變）、「有聲聖經」（`VCAudioBible/VCAudioBible.swift` 內的 `AudioBibleView`，已從 `Main.storyboard` 移除，改以 `VCAudioBible(book:chap:)` 建立；播放核心 `EasyAVPlayer`／`AudioBibleSetter`／`DAudioBible` 不變）、「譯本比較」（`VCVersionsCompareInOneVerse/VCVersionsCompareInOneVerse.swift` 內的 `VersionsCompareView`，已從 `Main.storyboard` 移除，改以 `VCVersionsCompareInOneVerse(addr:)` 建立；類別／檔名沿用舊名以免動 pbxproj；經文用 `DTextContentView`）、「書卷選擇」（`BookChapPicker/VCBookChapPicker.swift` 內的 `BookChapPickerView`，已從 `Main.storyboard` 移除，改以 `BookChapPickerViewController(book:chap:)` 建立、`onClick$` 契約不變；**只依賴 FHLCommon 公開 API，預定整份搬進 FHLCommon 給 FHLBibleTW 共用**，搬移清單見 `ai-log/2026/s4/1021u_*`；檔名沿用舊名以免動 pbxproj）；「註釋」（`FHLTools/Comment/VCComment.swift` 內的 `CommentView`／`CommentModel`，已從 `Main.storyboard` 移除，改以 `VCComment(addr:)` 建立；UI 一律寫「註釋」，不要寫「注釋」；`IReloadData` 等資料型別仍在 `VCComment*IReloadData*.swift`，串珠共用）；`VCVersionInfo`／`VCSettings`／`VCHelps`／`VCData`／`VCTsk`／`VCAudioTextSpeed`／`VCReadHistory`／`VCAudioTextBible`／`VCAudioBible`／`VCVersionsCompareInOneVerse`／`BookChapPickerViewController`／`VCComment` 是包它們的 `UIHostingController`。首頁那顆「教學」按鈕本身仍在 `Main.storyboard`。「閱讀」（`Read/VCRead.swift` 內的 `ReadView`／`ReadModel`，已從 `Main.storyboard` 移除，改以 `VCRead()` + `setInitData(addr, vers)` 建立；一節一列、多譯本上下排、底部列放譯本與上下章、`Menu` 取代 `VCReadMore`、複選以 `ReadCellKey` 逐格記錄；細節見 `ai-log/2026/s4/1021w_*`）；`VCRead` 也是包它的 `UIHostingController`。「注腳」（`Read/Footer/VCFooter.swift` 內的 `FootnoteView`／`FootnoteModel`，已從 `Main.storyboard` 移除，改以 `VCFooter(dtext:ver:addr:vers:)` 建立；細節見 `ai-log/2026/s4/1021x_*`）也是 `UIHostingController`。「字典」（`FHLTools/SNDict/VCSnDict.swift` 內的 `SnDictView`／`SnDictModel`，已從 `Main.storyboard` 移除，改以 `VCSnDict(dtext:addr:vers:)` 建立；上方 CBOL／浸宣分段選單、工具列彙編與上下一字；`VCSnDictMore.swift` 已不用但仍在 pbxproj，留空殼；細節見 `ai-log/2026/s4/1021y_*`）也是 `UIHostingController`。`ViewDisplayTable2`／`ViewDisplayRow`／`ViewDisplayCell`（`UITextView` 逐字點擊）留在 UIKit（搜尋結果 `VCSearchResult` 仍用它），經文內容在 SwiftUI 以 `DTextContentView` 包 `ViewDisplayCell`。SwiftUI 的 `Menu` 在父 view 重畫時會自己關閉：每 0.5～1 秒更新的值（進度、倒數）要放在獨立的子 view 讀取（範例：`AudioBibleProgressView`、`AudioTimerTile`）。既有可運作的 UIKit／`IjnEvent` 程式一次改一個、先問使用者。
 - **與 FHLCommon 有約 25 個同名重複檔**（`DAddress`、`DText`、`BibleText2DText`、`IjnEvent`、`StringToVerseRange`、`VCBookChapPicker`、`SN_DICT` 相關…，內容已不同）。遷移進行中：改之前先確認 target 實際用哪一份（本地型別會遮蔽 import 進來的）；新的共用邏輯放 FHLCommon（標 `public`）；不要擅自刪除／合併重複檔。
 - 其他共通守則（改動最小化、不手改 `project.pbxproj`、UI 回主執行緒、沿用繁中註解與 `$` 事件命名、回報時說明是否真的編譯／測試過）見 `../CLAUDE.md`。
 - 建置可用 workspace（`xcodebuild -workspace ../FHLWorkSpace.xcworkspace -scheme <scheme> …`），改了 FHLCommon 後兩個 App 都要能編譯。
@@ -56,14 +56,16 @@ Some tests in `FHLBibleTests/fhlwh_bug/` require a local server at `192.168.0.11
 
 ```
 User picks address (DAddress/VerseRange)
-  → VCRead._addrsCurChanged$ event fires
-  → BibleReadDataGetter.queryAsync()
+  → ReadModel.setAddr()  (ManagerAddress, history, reload)
+  → ReadDataQ.qDataForReadAsync()  → BibleReadDataGetter.queryAsync()
       ├─ parallel: one thread per Bible version
       ├─ BibleGetterViaSQLiteOrApi decides: SQLite file OR FHL API
       └─ merges results → BibleText2DText.main() → [DOneLine]
-  → VCRead._dataChanged$ event fires → drawData()
-  → ViewDisplayTable2 renders TpOneRow[] as UITableView
+  → main thread: ReadModel.rows (stale responses dropped by requestId)
+  → ReadView (SwiftUI List) → DTextContentView → ViewDisplayCell (UITextView)
 ```
+
+(`ViewDisplayTable2` and `TpOneRow` are now only used by the Search result screen.)
 
 ### Key Types
 
@@ -73,19 +75,15 @@ User picks address (DAddress/VerseRange)
 | `DAddress` | Single verse with multilingual book name support |
 | `DOneLine` | One verse from one translation; contains `DText[]` |
 | `DText` | Rich text node — may carry Strong's number, notes, or plain text |
-| `TpOneRow` | Row for `ViewDisplayTable2`; first row = translation labels (title), rest = verse content |
+| `TpOneRow` | Row for `ViewDisplayTable2` (Search); `ReadRow` is the SwiftUI Read screen's row |
 
 ### Event System
 
-`VCRead` uses `IjnEventOnce`-based callbacks wired in `viewDidLoad`:
-- `_addrsCurChanged$` → `updateData()` (fetch new data)
-- `_dataChanged$` → `drawData()` (re-render table)
-- `_versChanged$` → `updateData()` (translation selection changed)
-- `_isSnOnChanged$` → `drawData()` (Strong's numbers toggle)
+The Read screen no longer uses `IjnEvent`; `ReadModel` (`@Observable`) holds the state and `VCRead` handles pushes. `IjnEvent` is still used by pickers (`onClick$`, `onClickOkay$`, `onClickAddr$`) and `ViewDisplayTable2` (Search).
 
 ### Shared Display Core
 
-`ViewDisplayTable2` (`v2` in `VCRead`) is reused by both **Read** and **Search** modes (`.ModeOrig` vs search mode). The key method is `_tryQueryDataThenUpdate` — it batch-queries multiple verses when cells come into view. Data is passed via a `DataForDrawTable` instance (`iQ`).
+`ViewDisplayTable2` is now used only by **Search** results (Read moved to SwiftUI, see `ai-log/2026/s4/1021w_*`; `.ModeOrig` is no longer used by any screen). The key method is `_tryQueryDataThenUpdate` — it batch-queries multiple verses when cells come into view. Data is passed via a `DataForDrawTable` instance (`iQ`).
 
 ### Data Sources
 
