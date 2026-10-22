@@ -72,9 +72,8 @@ class VCSnDict: UIHostingController<SnDictView> {
     }
     /// 「彙編」: 此原文出現在哪些章節
     private func doSnList() {
-        let vc = self.gVCSearchResult()
         // 不可直接用 dtext.w! 因為可能會是 <G3212> 而非 G3212
-        vc.setInitData(model.key, model.vers, model.addr)
+        let vc = VCSearchResult(keyword: model.key, vers: model.vers, addr: model.addr)
         self.navigationController?.pushViewController(vc, animated: false)
     }
 }

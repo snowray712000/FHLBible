@@ -145,13 +145,11 @@ class VCRead : UIHostingController<ReadView> {
         push(vc1, animated: false)
     }
     private func doSearching(){
-        let vc2 = self.gVCSearching()
+        let vc2 = VCSearching()
         vc2.onClickSearching$.addCallback {[weak self] sender, pData in
             guard let self = self, let w = pData?.w, let addr = self.model.addrFirst else { return }
 
-            let vc3 = self.gVCSearchResult() // pData '天使'
-            vc3.setInitData(w, self.model.vers, addr)
-            self.push(vc3, animated: false)
+            self.push(VCSearchResult(keyword: w, vers: self.model.vers, addr: addr), animated: false) // pData '天使'
         }
         push(vc2, animated: false)
     }

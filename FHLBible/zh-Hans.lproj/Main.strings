@@ -36,12 +36,6 @@
 "qEE-8F-g9L.text" = "Title";
 
 
-/* Class = "UINavigationItem"; title = "搜尋結果"; ObjectID = "tYV-Dm-MWI"; */
-"tYV-Dm-MWI.title" = "搜寻结果";
-
-/* Class = "UINavigationItem"; title = "搜尋ing"; ObjectID = "Udp-LO-4sa"; */
-"Udp-LO-4sa.title" = "搜寻ing";
-
 /* Class = "UILabel"; text = "1.0.2"; ObjectID = "vYz-Zn-qjI"; */
 "vYz-Zn-qjI.text" = "1.0.2";
 

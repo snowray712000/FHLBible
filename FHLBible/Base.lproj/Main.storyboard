@@ -250,107 +250,6 @@
             </objects>
             <point key="canvasLocation" x="-1968.75" y="-1170"/>
         </scene>
-        <!--搜尋結果-->
-        <scene sceneID="t6j-Ac-jf4">
-            <objects>
-                <viewController storyboardIdentifier="VCSearchResult" id="hEn-Yo-H1w" customClass="VCSearchResult" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="q70-9d-I2A">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="593"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gY4-Px-svQ" customClass="ViewSearchFilter" customModule="FHLBible" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="5" id="ykf-fb-V9e"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eUM-PH-ru3" customClass="ViewDisplayTable2" customModule="FHLBible" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="33" width="375" height="570"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="W5s-Z4-LJy"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="W5s-Z4-LJy" firstAttribute="trailing" secondItem="gY4-Px-svQ" secondAttribute="trailing" id="4Fh-bc-a1I"/>
-                            <constraint firstItem="eUM-PH-ru3" firstAttribute="leading" secondItem="W5s-Z4-LJy" secondAttribute="leading" id="9Cp-Wi-qBB"/>
-                            <constraint firstItem="W5s-Z4-LJy" firstAttribute="trailing" secondItem="eUM-PH-ru3" secondAttribute="trailing" id="P7W-FC-REC"/>
-                            <constraint firstItem="gY4-Px-svQ" firstAttribute="top" secondItem="W5s-Z4-LJy" secondAttribute="top" id="Tp6-gL-jNB"/>
-                            <constraint firstItem="gY4-Px-svQ" firstAttribute="leading" secondItem="W5s-Z4-LJy" secondAttribute="leading" id="bCa-wc-mq1"/>
-                            <constraint firstItem="W5s-Z4-LJy" firstAttribute="bottom" secondItem="eUM-PH-ru3" secondAttribute="bottom" id="e0m-Ly-oDR"/>
-                            <constraint firstItem="eUM-PH-ru3" firstAttribute="top" secondItem="gY4-Px-svQ" secondAttribute="bottom" id="fYT-8W-G1l"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="搜尋結果" id="tYV-Dm-MWI">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="6Ev-WS-ayW">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="45Q-qC-E3c">
-                                <rect key="frame" x="319" y="5" width="36" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="SN">
-                                    <color key="titleColor" systemColor="systemBlueColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="doSwitchSn" destination="hEn-Yo-H1w" eventType="primaryActionTriggered" id="ap7-HV-P5G"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <connections>
-                        <outlet property="btnSN" destination="45Q-qC-E3c" id="qf2-xj-R0w"/>
-                        <outlet property="viewSearchData" destination="eUM-PH-ru3" id="dkg-dW-mHA"/>
-                        <outlet property="viewSearchFilter" destination="gY4-Px-svQ" id="08Y-Az-VII"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hzi-f8-Hii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2049.375" y="-2640"/>
-        </scene>
-        <!--搜尋ing-->
-        <scene sceneID="f9P-oA-n42">
-            <objects>
-                <viewController storyboardIdentifier="VCSearching" id="djp-8m-TFZ" customClass="VCSearching" customModule="FHLBible" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sV1-jg-80v">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PC5-cj-qzU" customClass="ViewSearching" customModule="FHLBible" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="30" width="375" height="637"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="rjv-mf-wCN"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="rjv-mf-wCN" firstAttribute="bottom" secondItem="PC5-cj-qzU" secondAttribute="bottom" id="7tJ-bw-Yuz"/>
-                            <constraint firstItem="rjv-mf-wCN" firstAttribute="top" secondItem="PC5-cj-qzU" secondAttribute="top" constant="44" id="Ioe-dc-Mo8"/>
-                            <constraint firstItem="rjv-mf-wCN" firstAttribute="trailing" secondItem="PC5-cj-qzU" secondAttribute="trailing" id="T2k-GW-Adt"/>
-                            <constraint firstItem="PC5-cj-qzU" firstAttribute="leading" secondItem="rjv-mf-wCN" secondAttribute="leading" id="X7i-9g-NDf"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="搜尋ing" id="Udp-LO-4sa">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="ZXC-X0-xGD">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="COw-LC-ReE" userLabel="trash">
-                                <rect key="frame" x="319" y="10.5" width="36" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="trash" catalog="system"/>
-                                <connections>
-                                    <action selector="doCleanSearchHistory" destination="djp-8m-TFZ" eventType="primaryActionTriggered" id="w9r-OQ-Ep8"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="viewSearching" destination="PC5-cj-qzU" id="5v9-BM-vf8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iNw-Ed-DuJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3909.375" y="-2700"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="T3d-rb-4Ri">
             <objects>
@@ -368,24 +267,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="em1-5e-MCv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4084" y="-3425"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="DtT-SN-xBq">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WbL-QO-LL7" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LKr-Hr-YMu">
-                        <rect key="frame" x="0.0" y="20" width="375" height="54"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="hEn-Yo-H1w" kind="relationship" relationship="rootViewController" id="U6s-VB-h1c"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nfT-eW-elk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2124" y="-2709.8950524737634"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bCW-BG-qtS">
@@ -528,24 +409,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ccm-Ni-3Gd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3010.4000000000001" y="-4236.4317841079464"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="yfb-LW-4rL">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YqI-gA-HbX" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJv-FV-Tab">
-                        <rect key="frame" x="0.0" y="20" width="375" height="54"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="djp-8m-TFZ" kind="relationship" relationship="rootViewController" id="0GS-vA-7h6"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6hh-BT-zJC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4003" y="-2670"/>
         </scene>
         <!--Parsing-->
         <scene sceneID="2oP-Wd-Wep">

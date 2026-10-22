@@ -7,360 +7,585 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 import FHLCommon
 
-class VCSearchResult : UIViewController {
-    func setInitData(_ keyword: String,_ vers:[String],_ addr:DAddress!){
-        self._keyword = keyword
-        self._vers = vers
-        self._addr = addr
-        
-        // search result 的 sn 設定，不要用到全域，全域的用在 read
-        self._isSn =  { let r1 = SnHelper()
-            r1.main(keyword)
-            return r1.sn != nil
-        } ()
-        
-        self._resize_OnOff_Switch()
+/// 搜尋結果。畫面是 SwiftUI (`SearchResultView`)，經文內容仍用 `ViewDisplayCell` (UITextView，點到 SN、參照、注腳要逐字判定)。
+/// 以 `VCSearchResult(keyword:vers:addr:)` 建立後 push，不再經由 storyboard。
+/// `addr` 是從哪一節進來搜尋的：決定一開始建議篩選哪個書卷／分類，也是點到參照時的預設章。
+class VCSearchResult : UIHostingController<SearchResultView> {
+    private let model: SearchResultModel
+
+    init(keyword: String, vers: [String], addr: DAddress) {
+        let m = SearchResultModel(keyword: keyword, vers: vers, addr: addr)
+        self.model = m
+        super.init(rootView: SearchResultView(model: m, actions: SearchResultActions()))
+        var a = SearchResultActions()
+        a.tap = { [weak self] row, col, dtext in self?.doWhenContentClicked(row, col, dtext) }
+        a.verseAction = { [weak self] row, act in self?.doVerseAction(row, act) }
+        a.retry = { [weak m] in m?.search() }
+        rootView = SearchResultView(model: m, actions: a)
     }
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        let m = SearchResultModel(keyword: "", vers: ["unv"], addr: DAddress(1,1,1))
+        self.model = m
+        super.init(coder: aDecoder, rootView: SearchResultView(model: m, actions: SearchResultActions()))
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 繪圖
-        _onSearchResultChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else {return}
-            
-            self._resize_OnOff_Switch()
-            self._drawTitle() // 前一刻變「搜尋中...」了
-            self._cvtForFilters()
-            self._drawFilterView()
-            self._updateDataForTableWhenOptCurChanged() //
-            self._drawDataView()
-        }
-        _isSnOnChanged$.addCallback {[weak self] sender, pData in
-            guard let self = self else {return}
-            self._drawDataView()
-        }
-        // 進度列目前沒有實作
-        //_onSearchTick$.addCallback { sender, pData in
-        //    print (pData)
-        //    print ( sender!.progress )
-        //} 
-        self.viewSearchFilter.onClickFilterOption$.addCallback {[weak self] sender, pData in
-            guard let self = self else {return}
-            self._resize_OnOff_Switch()
-            
-            self._optCur = pData!.na
-            self._groupCur = pData!.na2
-            self._updateDataForTableWhenOptCurChanged()
-            self._drawDataView()
-        }
-        
-        /// 點擊內容時 (內容有可能有交互參照，又或著是 SN)
-        let isNotNil = { (pData: ViewDisplayTable2.OneEvent?)-> Bool in
-            return pData != nil && pData!.dtext != nil
-        }
-        // 點擊 SN 時
-        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else {return}
-            
-            if isNotNil(pData) && pData!.dtext!.sn != nil {
-                let addr = self._getAddrOfThisRow(pData!.row)
-                if addr == nil { return }
-                SnDTextClickFlow(vc: self, addr: addr!, vers: self._vers).mainAsync(pData!.dtext!)
-            }
-        }
-        // 點擊 Ref 時
-        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else {return}
-            
-            if isNotNil(pData) && pData!.dtext!.refDescription != nil && pData!.col != -1 {
-                RefDTextClickFlow(vc: self, addr: self._addr, vers: self._vers).mainAsync(pData!.dtext!)
-            }
-        }
-        // 點擊到 【231】注腳時
-        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else {return}
-            
-            if isNotNil(pData) && pData!.dtext!.foot != nil && pData!.col != -1 && pData!.row != -1 && self._dataForTable != nil{
-                // 預備參數, 某 row 的 addr
-                let addr = self._getAddrOfThisRow(pData!.row)
-                if addr == nil { return }
-                
-                // 預備參數, 某 col 的 ver
-                let col = pData!.col
-                let ver = self._vers[col]
-                
-                let flow =  FooterDTextClickFlow(vc: self, vers: self._vers)
-                flow.mainAsync(pData!.dtext!, ver, addr!)
-            }
-        }
-        
-        // 點擊 節 時
-        self.viewSearchData.onClickDatas$.addCallback {[weak self] sender, pData in
-            guard let self = self else {return}
-            
-            if isNotNil(pData) && pData!.col == -1 {
-                let flow = OneVerseFunctionsClickFlow(vc: self, addrThisPageFirst: self._addr, vers: self._vers)
-                flow.mainAsync(pData!.dtext)
-            }
-        }
-        
-        self._resize_OnOff_Switch()
-        self._drawTitle()
-        self._drawFilterView()
-        _searchAsync()
-        
-        self._drawButtonSNState()
+        model.search()
     }
-    @IBOutlet var viewSearchFilter: ViewSearchFilter!
-    @IBOutlet var viewSearchData: ViewDisplayTable2!
-    /// 為了作，「當版本不含 和合本、和合本2010、KJV」時，將其 disalbe
-    @IBOutlet var btnSN: UIButton!
-    func _drawButtonSNState(){
-        drawSnButtonState(btn: self.btnSN, vers: self._vers)
-    }
-    var _isSn: Bool! = false // 隨便一個變數，當 set 時會設定
-    @IBAction func doSwitchSn(){
-        _isSn = !_isSn
-        self._isSnOnChanged$.trigger()
-    }
-    var _isSnOnChanged$: IjnEventAny = IjnEvent()
-    var _isOnOfSwitchs = IsOnOfSelectionsOfSwitch()
-    var _isVisibleSwitch:Bool = false
-    var _keyword: String!
-    func _drawTitle(){ self.title = _keyword }
-    var _vers: [String]!
-    func _versGenerateForDTexts()->[DText] {
-        return _vers.map({DText(BibleVersionConvertor().na2cna($0))})
-        
-    }
-    var _addr: DAddress!
-    
-    func _gOneISearchQ( )-> ISearchQ { SearchQ() }
-    
-    var _searchResult: DSearchResult?
-    var _onSearchResultChanged$: IjnEventAny = IjnEvent()
-    var _onSearchTick$: IjnEvent<ISearchQ,Any> = IjnEvent()
-    
-    /// 某書卷或分類 (可能是簡體) 在 search 後會設定的，用此繪圖 viewFilter
-    var _optCur:String?
-    /// 書卷|分類, 在 search 後會設定的，用此繪圖 viewFilter
-    var _groupCur:String?
-    /// 在 search 後會設定的，用此繪圖 viewFilter
-    var _filtersOptions: [SearchData.Filter]?
-    
-    private func _resize_OnOff_Switch(){
-        let col = _vers.count + 1
-        let row = _searchResult == nil ? 1 :  _searchResult!.datas.count + 1
-        self._isOnOfSwitchs.resize(row: row, col: col)
-    }
-    func _searchAsync(){
-        // 搜尋中 訊息
-        self.title = "搜尋中..."
-        
-        // 開始搜尋
-        let pa = DSearchParameters ()
-        pa.keywords = _keyword
-        pa.addr = _addr
-        pa.vers = _vers
-        
-        let se = _gOneISearchQ()
-        se.onSearchResultFinished$.addCallback { sender, pData in
-            if se.status == .parameter_error {
-                fatalError("搜尋參數錯誤")
-            } else {
-                self._searchResult = se.searchResult
-                self._onSearchResultChanged$.trigger()
-            }
-        }
-        se.onProgressChanged$.addCallback { sender, pData in
-            self._onSearchTick$.trigger(se,(ver:sender, cnt:pData))
-        }
-        se.mainAsync(pa)
-    }
-    func _drawFilterView(){
-        viewSearchFilter.setInitData(self._filtersOptions, self._optCur, self._groupCur)
-    }
-    
-    func _drawDataView(){
-        let r1 = _versGenerateForDTexts()
-        let r1a = r1.map({[$0]})
-       
-        // _vers 是 [String]!，要明確 ! 才會用 Array.map；否則部署目標 >= iOS 16 時會改走 Optional.map，變成 Bool?
-        let isOpenHanBibleTCs: [Bool] = _vers!.map({["ttvh","thv12h","ttvhl2021"].contains($0)})
-        let tpTextAlignment = getTpTextAlignmentsViaBibleVersions(_vers)
-        
-        viewSearchData.setInitData(_dataForTable!, ([],r1a), _isSn, isOpenHanBibleTCs, tpTextAlignment,isOnOffOfSwitchs: _isOnOfSwitchs.isOns,isVisibleSwitch: _isVisibleSwitch)
-    }
-    func _cvtForFilters(){
-        let r1 = _searchResult!
-        
-        let r2a: BookNameLang = ManagerLangSet.s.curTpBookNameLang
-        let r2 = BibleBookNames.getBookNames(r2a)
-        
-        // for filters parameter
-        // var re: [String:Int] = [:]
-        
-        var reFilters = r1.cntBook.sorted { a1, a2 in
-            return a1.key < a2.key
-        }.map { (key: Int, value: Int) -> SearchData.Filter in
-            let na = r2[key-1] // bookId - 1
-            return SearchData.Filter(na, value, "書卷")
-        }
-        
-        let re2 = ManagerLangSet.s.curBookClassorNaOrder.map { a1 -> SearchData.Filter in
-            let r2 = r1.cntClassor[a1]
-            return SearchData.Filter(a1, r2 ?? 0, "分類")
-        }.filter({$0.cnt > 0})
-        
-        reFilters.append(contentsOf: re2)
-        
-        let reGp = r1.suggestClassor == nil ? "書卷" : "分類"
-        let opt = r1.suggestClassor == nil ? r2[r1.suggestBook! - 1] : r1.suggestClassor!
-        
-        // output this function
-        self._optCur = opt
-        self._groupCur = reGp
-        self._filtersOptions = reFilters
-    }
-    
-    /// --> _searchResult
-    var _addressAll: [DAddress] { _searchResult!.datas }
-    /// --> _searchResult
-    var _datasCache: [DAddress: [[DText]]]? = [:]
-    var _dataForTable: DataForDrawTable?
-    func _updateDataForTableWhenOptCurChanged(){
-        func getFilterAddress ()->[DAddress] {
-            func getBookCase()->[DAddress]{
-                let tp = ManagerLangSet.s.curTpBookNameLang
-                let idbook = BibleBookNameToId().main1based(tp, self._optCur!)
-                return _searchResult!.datas.filter({$0.book == idbook})
-            }
-            func getClassorCase() ->[DAddress]{
-                let r1 = ManagerLangSet.s.curBookClassor
-                let r2 = r1.first(where: {$0.key == self._optCur!})
-                if r2 == nil { return [] }
-                
-                return _searchResult!.datas.filter({r2!.value.contains($0.book)})
-            }
-            // 函式主體 getFilterAddress
-            if self._groupCur == "分類" {
-                return getClassorCase()
-            } else {
-                return getBookCase()
-            }
-        }
-        
-        // 函式主體 _updateDataForTableWhenOptCurChanged
-        if _dataForTable != nil {
-            _dataForTable!.isAlreadyNoUse = true
-        }
-        
-        _dataForTable =  DataForDrawTable(_vers, getFilterAddress(),_colorKeyword)
-    }
-    func _colorKeyword(_ dataOneRow: ViewDisplayTable2.OneRow) {
-        let snHelper = SnHelper()
-        
-        func doWhenSn(){
-            func doDts(_ dts:[DText]){
-                for a1 in dts{
-                    if a1.children != nil {
-                        doDts(a1.children!)
-                    } else {
-                        if a1.sn == snHelper.sn && a1.tp == snHelper.snTp {
-                            a1.keyIdx0based = 0
-                        }
-                    }
-                }
-            }
-            for i in 0..<_vers.count {
-                if i >= dataOneRow.datas.count{
-                    continue
-                }
-                
-                let r1 = dataOneRow.datas[i]
-                if ["unv","kjv"].contains(_vers[i]){
-                    // 只有這2個版本才會有 sn
-                    doDts(r1)
-                }
-            }
-        }
-        func doWhenKeywork() throws {
-            // 核心，可看 testSearchKeyword
-            let r1 = snHelper.keyword.split(separator: " ")
-            let r2 = r1.map({"(\($0))"}).joined(separator: "|")
-            let r3 = try NSRegularExpression(pattern: r2, options: [.caseInsensitive])
-            
-            func doDtext(_ dt: DText){
-                // assert ( dt.children == nil )
-                if dt.isCantSplit() { return }
-                
-                let r1 = SplitByRegex().main(str: dt.w!, reg: r3)
-                if r1 == nil { return }
-                
-                func gDts()->[DText] {
-                    var re:[DText] = []
-                    for a1 in r1! {
-                        if a1.isMatch() == false {
-                            let r2 = dt.clone()
-                            r2.w = String(a1.w)
-                            re.append(r2)
-                        } else {
-                            var idx: Int {
-                                for i in 1..<a1.exec.count {
-                                    if a1.exec[i] != nil { return i }
-                                }
-                                return 0 // 雖然不可能，但還是給它一個預設值吧
-                            }
-                            
-                            let r2 = dt.clone()
-                            r2.w = String(a1.w)
-                            re.append(r2)
-                            
-                            r2.keyIdx0based = idx - 1
-                            if r2.keyIdx0based == -1 { r2.keyIdx0based = 0}
-                        }
-                    }
-                    return re
-                }
-                
-                dt.children = gDts()
-                dt.w = nil
-                dt.tpContain = ""
-            }
-            func doDTexts(_ dts:[DText]){
-                for a1 in dts {
-                    if a1.children != nil {
-                        doDTexts(a1.children!)
-                    } else {
-                        doDtext(a1)
-                    }
-                }
-            }
-            
-            for a1 in dataOneRow.datas {
-                doDTexts(a1)
-            }
-        }
-        
-        snHelper.main(_keyword)
-        if snHelper.sn != nil {
-            doWhenSn()
-        } else {
-            try! doWhenKeywork()
+
+    /// 點擊內容：SN 跳選單、參照開閱讀、注腳開 Footer
+    private func doWhenContentClicked(_ row: SearchRow, _ col: Int, _ dtext: DText) {
+        let vers = model.vers
+        if dtext.sn != nil {
+            SnDTextClickFlow(vc: self, addr: row.addr, vers: vers).mainAsync(dtext)
+        } else if dtext.refDescription != nil {
+            RefDTextClickFlow(vc: self, addr: model.addr, vers: vers).mainAsync(dtext)
+        } else if dtext.foot != nil, vers.indices.contains(col) {
+            FooterDTextClickFlow(vc: self, vers: vers).mainAsync(dtext, vers[col], row.addr)
         }
     }
-    private func _getAddrOfThisRow(_ row:Int)->DAddress?{
-        // 預備參數, 某 row 的 addr
-        let dataT = self._dataForTable!
-        let r1 = dataT._datas // dict
-        let r2 = r1[row]
-        if r2 == nil { return nil }
-        let r3 = r2!.0.map({$0.w ?? "" }).joined(separator: "")
-        let r4 = StringToVerseRange().main(r3, (self._addr.book, self._addr.chap))
-        if r4.count == 0 { return nil }
-        return r4.first!
+    /// 點節的位置後，選了要作什麼功能
+    private func doVerseAction(_ row: SearchRow, _ act: VerseAction) {
+        let push = { (vc: UIViewController) in
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        switch act {
+        case .InfoTsk:
+            push(VCTsk(addr: row.addr))
+        case .InfoComment:
+            push(VCComment(addr: row.addr))
+        case .VersionsCompare:
+            push(VCVersionsCompareInOneVerse(addr: row.addr))
+        case .InfoParsing:
+            let vc2 = self.gVCParsing()
+            vc2.set(row.addr, model.vers)
+            push(vc2)
+        }
     }
 }
 
+// MARK: - Model
+
+/// 篩選的組別。rawValue 同時是 `SearchData.Filter.na2` 的值（程式內部用，不是畫面文字，畫面文字要走 NSLocalizedString）
+enum SearchFilterGroup: String {
+    case classor = "分類"
+    case book = "書卷"
+}
+
+/// 一個譯本（一欄）
+struct SearchColumn {
+    /// 譯本中文名，例如 和合本
+    let name: String
+    /// 台語、客語漢字需要特殊字型
+    let isFontOpenHan: Bool
+    /// 希伯來文靠右、英文靠左、其它左右對齊
+    let alignment: NSTextAlignment
+}
+
+/// 一節搜尋結果（一列）。`cells` 是 nil 表示經文還沒取到
+struct SearchRow: Identifiable {
+    let id: Int
+    let addr: DAddress
+    /// 例如 創 1:3
+    let address: String
+    /// 每個譯本一個 `[DText]`，已經把關鍵字上色
+    var cells: [[DText]]?
+}
+
+/// View 要作的事，由 `VCSearchResult` 實作 (需要 push 其它畫面)
+struct SearchResultActions {
+    var tap: (SearchRow, Int, DText) -> Void = { _, _, _ in }
+    var verseAction: (SearchRow, VerseAction) -> Void = { _, _ in }
+    var retry: () -> Void = { }
+}
+
+/// 搜尋結果的狀態：搜尋進度、篩選、目前篩選下的每一節（經文捲到才取）、SN 開關
+///
+/// 資料流：api (`SearchQ`) -> `searchResult` (全部位置與統計) -> 依目前篩選轉成 `rows` (只有位置)
+/// -> 列出現在畫面上時，用 `DataForDrawTable` 一次取附近的 40 節 -> 回主執行緒補進 `rows[i].cells`。
+/// 換篩選要重新 new `DataForDrawTable`（舊的標成不再使用，晚回來的資料就會被丟掉）。
+@Observable
+final class SearchResultModel {
+    enum Phase { case searching, done }
+
+    let keyword: String
+    let vers: [String]
+    /// 從哪一節進來搜尋
+    let addr: DAddress
+    let columns: [SearchColumn]
+
+    var phase: Phase = .searching
+    /// 搜尋中，目前各譯本累計找到的筆數
+    var foundCount = 0
+    /// 全部找到幾節（不分篩選）
+    var totalCount = 0
+
+    // 篩選：filters 是全部標籤；group 是畫面上目前顯示哪一組；selected* 是真正套用的那一個
+    var filters: [SearchData.Filter] = []
+    var group: SearchFilterGroup = .classor
+    var selectedGroup: SearchFilterGroup = .classor
+    var selectedOpt: String = ""
+
+    /// 目前篩選下的每一節
+    var rows: [SearchRow] = []
+    /// 換一次篩選加 1，讓清單回到最上面
+    var filterToken = 0
+
+    /// 搜尋結果的 SN 開關，不要用到全域的（全域的是閱讀用的）。搜的是原文編號時預設開
+    var isSnVisible: Bool
+    /// SN 開關變了就加 1，讓 UIKit 內容重畫
+    var snGeneration = 0
+
+    /// 點了節的位置，要跳功能選單的那一列
+    var verseActionRow: Int?
+
+    @ObservationIgnored private var searchResult: DSearchResult?
+    @ObservationIgnored private var table: DataForDrawTable?
+    /// 已經要求取得的列與時間；太久沒回來（失敗）的才會再要一次
+    @ObservationIgnored private var requested: [Int: Date] = [:]
+    @ObservationIgnored private var progress: [String: Int] = [:]
+    @ObservationIgnored private var searchId = 0
+
+    init(keyword: String, vers: [String], addr: DAddress) {
+        self.keyword = keyword
+        self.vers = vers
+        self.addr = addr
+        let isOpenHans = BibleVersionFonts().mainIsOpenHanBibleTCs(vers)
+        let alignments = getTpTextAlignmentsViaBibleVersions(vers)
+        columns = vers.indices.map { i in
+            SearchColumn(name: BibleVersionConvertor().na2cna(vers[i]),
+                         isFontOpenHan: isOpenHans[i],
+                         alignment: alignments[i])
+        }
+        let sn = SnHelper()
+        sn.main(keyword)
+        isSnVisible = sn.sn != nil
+    }
+
+    /// 當譯本不含 和合本、KJV、和合本2010 時，SN 無法顯示
+    var isSnAvailable: Bool { vers.ijnAny({ ["unv","kjv","rcuv"].contains($0) }) }
+    func toggleSn() {
+        isSnVisible.toggle()
+        snGeneration += 1
+    }
+    var visibleFilters: [SearchData.Filter] { filters.filter { $0.na2 == group.rawValue } }
+    func isSelected(_ f: SearchData.Filter) -> Bool {
+        f.na2 == selectedGroup.rawValue && f.na == selectedOpt
+    }
+
+    // MARK: 搜尋
+
+    func search() {
+        searchId += 1
+        let id = searchId
+        phase = .searching
+        foundCount = 0
+        progress = [:]
+        rows = []
+        table?.isAlreadyNoUse = true
+        table = nil
+
+        let pa = DSearchParameters()
+        pa.keywords = keyword
+        pa.addr = addr
+        pa.vers = vers
+
+        let se: ISearchQ = SearchQ()
+        se.onSearchResultFinished$.addCallback { [weak self] _, _ in
+            // 在主執行緒觸發 (SearchQ 用 DispatchGroup.notify(queue: .main))
+            guard let self = self, self.searchId == id else { return }
+            self.searchResult = se.searchResult
+            self.finishSearch()
+        }
+        // 各譯本分開抓，callback 不在主執行緒。sender 是譯本代碼，pData 是該譯本累計筆數
+        se.onProgressChanged$.addCallback { [weak self] ver, cnt in
+            guard let ver = ver, let cnt = cnt else { return }
+            DispatchQueue.main.async {
+                guard let self = self, self.searchId == id else { return }
+                self.progress[ver] = cnt
+                self.foundCount = self.progress.values.reduce(0, +)
+            }
+        }
+        se.mainAsync(pa)
+    }
+
+    private func finishSearch() {
+        guard let result = searchResult else {
+            totalCount = 0
+            filters = []
+            rows = []
+            phase = .done
+            return
+        }
+        totalCount = result.datas.count
+        makeFilters(result)
+        applyFilter()
+        phase = .done
+    }
+
+    /// 統計結果轉成標籤：每卷書一個、每個分類一個；並套用建議的篩選（進來搜尋的那卷書、或包含它的分類）
+    private func makeFilters(_ r: DSearchResult) {
+        let names = BibleBookNames.getBookNames(ManagerLangSet.s.curTpBookNameLang)
+
+        var all = r.cntBook.sorted { $0.key < $1.key }
+            .compactMap { (key, value) -> SearchData.Filter? in
+                guard names.indices.contains(key - 1) else { return nil }
+                return SearchData.Filter(names[key - 1], value, SearchFilterGroup.book.rawValue)
+            }
+        let classors = ManagerLangSet.s.curBookClassorNaOrder.map { a1 -> SearchData.Filter in
+            SearchData.Filter(a1, r.cntClassor[a1] ?? 0, SearchFilterGroup.classor.rawValue)
+        }.filter { $0.cnt > 0 }
+        all.append(contentsOf: classors)
+        filters = all
+
+        if let cls = r.suggestClassor {
+            selectedGroup = .classor
+            selectedOpt = cls
+        } else if let bk = r.suggestBook, names.indices.contains(bk - 1) {
+            selectedGroup = .book
+            selectedOpt = names[bk - 1]
+        } else {
+            selectedGroup = .classor
+            selectedOpt = ""
+        }
+        group = selectedGroup
+    }
+
+    func select(_ f: SearchData.Filter) {
+        guard let g = SearchFilterGroup(rawValue: f.na2) else { return }
+        if isSelected(f) { return }
+        selectedGroup = g
+        selectedOpt = f.na
+        applyFilter()
+    }
+
+    /// 依目前篩選，列出要顯示的節（只有位置，經文捲到才取）
+    private func applyFilter() {
+        table?.isAlreadyNoUse = true
+        requested = [:]
+        filterToken += 1
+
+        let addrs = filteredAddresses()
+        let t = DataForDrawTable(vers, addrs, SearchKeywordColorer(keyword: keyword, vers: vers).colorIt)
+        t.onDatasGetter$.addCallback { [weak self, weak t] _, _ in
+            // 不一定在主執行緒
+            guard let t = t, !t.isAlreadyNoUse else { return }
+            DispatchQueue.main.async {
+                guard let self = self, self.table === t else { return }
+                self.absorb(t)
+            }
+        }
+        table = t
+
+        let tp = ManagerLangSet.s.curTpBookNameLang
+        rows = addrs.enumerated().map { SearchRow(id: $0.offset, addr: $0.element, address: $0.element.toString(tp), cells: nil) }
+    }
+
+    private func filteredAddresses() -> [DAddress] {
+        guard let r = searchResult else { return [] }
+        switch selectedGroup {
+        case .classor:
+            // 找不到對應的分類（例如沒有任何結果時）就是空的
+            guard let books = ManagerLangSet.s.curBookClassor.first(where: { $0.key == selectedOpt })?.value else { return [] }
+            return r.datas.filter { books.contains($0.book) }
+        case .book:
+            let idbook = BibleBookNameToId().main1based(ManagerLangSet.s.curTpBookNameLang, selectedOpt)
+            return r.datas.filter { $0.book == idbook }
+        }
+    }
+
+    // MARK: 經文（捲到才取）
+
+    /// 某一列出現在畫面上。一次取附近的幾十節，比一節一節取有效率
+    func rowAppeared(_ index: Int) {
+        guard let t = table, rows.indices.contains(index) else { return }
+        let lo = max(0, index - 10)
+        let hi = min(rows.count, index + 30)
+        let now = Date()
+        let need = (lo..<hi).filter { i in
+            if rows[i].cells != nil { return false }
+            if let at = requested[i], now.timeIntervalSince(at) < 15 { return false }
+            return true
+        }
+        if need.isEmpty { return }
+        need.forEach { requested[$0] = now }
+        t.queryDataAsync(need)
+    }
+    /// 把 DataForDrawTable 取到的經文補進 rows
+    private func absorb(_ t: DataForDrawTable) {
+        let datas = t.datas
+        for i in Array(requested.keys) where rows.indices.contains(i) && rows[i].cells == nil {
+            if let cells = datas[i]?.1 {
+                rows[i].cells = cells
+                requested.removeValue(forKey: i)
+            }
+        }
+    }
+}
+
+/// 把關鍵字（或 SN）在取到的經文裡上色。`DataForDrawTable` 每取到一節就呼叫一次，不一定在主執行緒。
+private struct SearchKeywordColorer {
+    let keyword: String
+    let vers: [String]
+
+    func colorIt(_ dataOneRow: ViewDisplayTable2.OneRow) {
+        let snHelper = SnHelper()
+        snHelper.main(keyword)
+        if snHelper.sn != nil {
+            colorSn(dataOneRow, snHelper)
+        } else {
+            colorKeywords(dataOneRow, snHelper)
+        }
+    }
+
+    private func colorSn(_ dataOneRow: ViewDisplayTable2.OneRow, _ snHelper: SnHelper) {
+        func doDts(_ dts: [DText]) {
+            for a1 in dts {
+                if a1.children != nil {
+                    doDts(a1.children!)
+                } else if a1.sn == snHelper.sn && a1.tp == snHelper.snTp {
+                    a1.keyIdx0based = 0
+                }
+            }
+        }
+        for i in 0..<vers.count {
+            if i >= dataOneRow.datas.count { continue }
+            // 只有這2個譯本才會有 sn
+            if ["unv","kjv"].contains(vers[i]) {
+                doDts(dataOneRow.datas[i])
+            }
+        }
+    }
+
+    private func colorKeywords(_ dataOneRow: ViewDisplayTable2.OneRow, _ snHelper: SnHelper) {
+        // 核心，可看 testSearchKeyword。關鍵字以空格分開，每個一組括號，才知道比對到的是第幾個關鍵字（顏色不同）
+        let r1 = snHelper.keyword.split(separator: " ")
+        let r2 = r1.map({"(\($0))"}).joined(separator: "|")
+        // 關鍵字若含括號等符號，組出來的規則式可能不合法；不合法就只是不上色，不要當掉
+        guard let r3 = try? NSRegularExpression(pattern: r2, options: [.caseInsensitive]) else { return }
+
+        func doDtext(_ dt: DText) {
+            // assert ( dt.children == nil )
+            if dt.isCantSplit() { return }
+
+            let r1 = SplitByRegex().main(str: dt.w!, reg: r3)
+            if r1 == nil { return }
+
+            var re: [DText] = []
+            for a1 in r1! {
+                let r2 = dt.clone()
+                r2.w = String(a1.w)
+                re.append(r2)
+                if a1.isMatch() {
+                    var idx: Int {
+                        for i in 1..<a1.exec.count {
+                            if a1.exec[i] != nil { return i }
+                        }
+                        return 0 // 雖然不可能，但還是給它一個預設值吧
+                    }
+                    r2.keyIdx0based = idx - 1
+                    if r2.keyIdx0based == -1 { r2.keyIdx0based = 0 }
+                }
+            }
+            dt.children = re
+            dt.w = nil
+            dt.tpContain = ""
+        }
+        func doDTexts(_ dts: [DText]) {
+            for a1 in dts {
+                if a1.children != nil {
+                    doDTexts(a1.children!)
+                } else {
+                    doDtext(a1)
+                }
+            }
+        }
+        for a1 in dataOneRow.datas {
+            doDTexts(a1)
+        }
+    }
+}
+
+// MARK: - View
+
+/// 搜尋結果畫面：上方篩選列（分類／書卷），下面一節一列：位置（點了選功能）+ 每個譯本的經文（寬螢幕左右並排）。
+/// 搜尋中顯示進度，沒有結果時說明並可重試。
+struct SearchResultView: View {
+    let model: SearchResultModel
+    let actions: SearchResultActions
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
+    var body: some View {
+        content
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VStack(spacing: 0) {
+                        Text(model.keyword)
+                            .font(.headline)
+                            .lineLimit(1)
+                        Text(subtitle)
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .monospacedDigit()
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityAddTraits(.isHeader)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Toggle(isOn: Binding(get: { model.isSnVisible }, set: { _ in model.toggleSn() })) {
+                        Text("SN")
+                    }
+                    .toggleStyle(.button)
+                    .disabled(!model.isSnAvailable)
+                }
+            }
+    }
+
+    private var subtitle: String {
+        switch model.phase {
+        case .searching:
+            return NSLocalizedString("搜尋中...", comment: "")
+        case .done:
+            return String(format: NSLocalizedString("共 %@ 筆", comment: ""), model.totalCount.formatted())
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch model.phase {
+        case .searching:
+            VStack(spacing: 12) {
+                ProgressView()
+                Text(NSLocalizedString("搜尋中...", comment: ""))
+                    .foregroundStyle(.secondary)
+                if model.foundCount > 0 {
+                    Text(String(format: NSLocalizedString("已找到 %@ 筆", comment: ""), model.foundCount.formatted()))
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .done:
+            if model.totalCount == 0 {
+                ContentUnavailableView {
+                    Label(String(format: NSLocalizedString("找不到「%@」", comment: ""), model.keyword), systemImage: "magnifyingglass")
+                } description: {
+                    Text(NSLocalizedString("沒有符合的經文。請換個關鍵字，或確認網路連線後再試一次。", comment: ""))
+                } actions: {
+                    Button(NSLocalizedString("重試", comment: ""), action: actions.retry)
+                        .buttonStyle(.bordered)
+                }
+            } else {
+                list
+            }
+        }
+    }
+
+    private var list: some View {
+        List {
+            ForEach(model.rows) { row in
+                SearchRowView(model: model, row: row, actions: actions, isWide: sizeClass == .regular)
+                    .onAppear { model.rowAppeared(row.id) }
+                    .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
+            }
+        }
+        .listStyle(.plain)
+        // 換篩選要回到最上面
+        .id(model.filterToken)
+        .overlay {
+            if model.rows.isEmpty {
+                ContentUnavailableView(NSLocalizedString("此篩選沒有結果", comment: ""), systemImage: "line.3.horizontal.decrease.circle")
+            }
+        }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            SearchFilterBar(model: model)
+        }
+    }
+}
+
+/// 一節：上方是位置（點了選功能），下面是每個譯本一塊經文；還沒取到經文時顯示轉圈
+struct SearchRowView: View {
+    let model: SearchResultModel
+    let row: SearchRow
+    let actions: SearchResultActions
+    let isWide: Bool
+
+    var body: some View {
+        // 經文的 UITextView 自己就有上方內距，這裡不再加間距
+        VStack(alignment: .leading, spacing: 0) {
+            Button {
+                model.verseActionRow = row.id
+            } label: {
+                HStack(spacing: 4) {
+                    Text(row.address)
+                        .font(.subheadline.weight(.semibold))
+                    Image(systemName: "chevron.down")
+                        .font(.caption2.weight(.bold))
+                        .foregroundStyle(.secondary)
+                }
+                .foregroundStyle(.tint)
+                .padding(.vertical, 4)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(row.address)
+            // 掛在位置上，選單才會從被點的那一節冒出來
+            .confirmationDialog(row.address,
+                                isPresented: Binding(get: { model.verseActionRow == row.id },
+                                                     set: { if !$0 { model.verseActionRow = nil } }),
+                                titleVisibility: .visible) {
+                Button(NSLocalizedString("譯本比較", comment: "")) { actions.verseAction(row, .VersionsCompare) }
+                Button("Parsing") { actions.verseAction(row, .InfoParsing) }
+                Button(NSLocalizedString("註釋", comment: "")) { actions.verseAction(row, .InfoComment) }
+                Button(NSLocalizedString("串珠", comment: "")) { actions.verseAction(row, .InfoTsk) }
+            }
+
+            if let cells = row.cells {
+                if isWide && model.columns.count > 1 {
+                    HStack(alignment: .top, spacing: 12) {
+                        ForEach(model.columns.indices, id: \.self) { col in
+                            cellView(cells, col).frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                } else {
+                    VStack(alignment: .leading, spacing: 4) {
+                        ForEach(model.columns.indices, id: \.self) { col in
+                            cellView(cells, col)
+                        }
+                    }
+                }
+            } else {
+                ProgressView()
+                    .frame(maxWidth: .infinity, minHeight: 44)
+            }
+        }
+        .padding(.vertical, 2)
+    }
+
+    @ViewBuilder
+    private func cellView(_ cells: [[DText]], _ col: Int) -> some View {
+        if cells.indices.contains(col) {
+            let column = model.columns[col]
+            VStack(alignment: .leading, spacing: 2) {
+                if model.columns.count > 1 {
+                    Text(column.name)
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+                DTextContentView(dtexts: cells[col],
+                                 generation: model.snGeneration,
+                                 isVisibleSn: model.isSnVisible,
+                                 onTapRef: { _ in },
+                                 isFontOpenHan: column.isFontOpenHan,
+                                 alignment: column.alignment,
+                                 onTapAny: { dtext in actions.tap(row, col, dtext) })
+            }
+        }
+    }
+}

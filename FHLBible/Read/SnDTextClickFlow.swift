@@ -49,9 +49,7 @@ public class SnDTextClickFlow {
         // 不可直接用 dtext.w! 因為可能會是 <G3212> 而非 G3212
         let keyword = dtext.tp! + dtext.sn!
         
-        let vcSnSearch = _vc.gVCSearchResult()
-        vcSnSearch.setInitData(keyword, _vers, _addr)
-        _push(vcSnSearch)
+        _push(VCSearchResult(keyword: keyword, vers: _vers, addr: _addr))
     }
     private func _doWhenSnDTextClickedForDicts(_ dtext:DText){
         _push(VCSnDict(dtext: dtext, addr: _addr, vers: _vers))

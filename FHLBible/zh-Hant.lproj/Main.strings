@@ -19,9 +19,6 @@
 
 /* Class = "UINavigationItem"; title = "譯本選擇"; ObjectID = "LEr-kf-SpF"; */
 
-/* Class = "UINavigationItem"; title = "搜尋ing"; ObjectID = "Udp-LO-4sa"; */
-"Udp-LO-4sa.title" = "搜尋ing";
-
 /* Class = "UIButton"; normalTitle = "彙編"; ObjectID = "bdH-Xf-63A"; */
 "bdH-Xf-63A.normalTitle" = "彙編";
 
@@ -32,9 +29,6 @@
 /* Class = "UILabel"; text = "Title"; ObjectID = "qEE-8F-g9L"; */
 "qEE-8F-g9L.text" = "Title";
 
-
-/* Class = "UINavigationItem"; title = "搜尋結果"; ObjectID = "tYV-Dm-MWI"; */
-"tYV-Dm-MWI.title" = "搜尋結果";
 
 /* Class = "UILabel"; text = "1.0.2"; ObjectID = "vYz-Zn-qjI"; */
 "vYz-Zn-qjI.text" = "1.0.2";
