@@ -33,6 +33,10 @@ class FHLUserDefaults : NSObject {
         case AudioBibleLoopMode = "AudioBibleLoopMode"
         case AudioTextSpeed = "AudioTextSpeed"
         case FootnoteLoadMode = "FootnoteLoadMode"
+        /// 閱讀多譯本的排列：0 交錯、1 並排 (沒有這個 key = 還沒選過)
+        case ReadArrangement = "ReadArrangement"
+        /// 閱讀並排時各欄寬度比例，依譯本組合記 { "cnet,unv": { "unv": 1.2, "cnet": 0.8 } }
+        case ReadColumnWeights = "ReadColumnWeights"
     }
 }
 

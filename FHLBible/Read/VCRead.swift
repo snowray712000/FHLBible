@@ -58,6 +58,8 @@ class VCRead : UIHostingController<ReadView> {
             guard let self = self, let pData = pData else { return }
             // 複選中，手勢不換章，避免選到一半被換掉
             if self.model.isSelecting { return }
+            // 並排放不下、正在橫向捲動時，一指左右滑是在捲動，不換章 (用上下章按鈕，或二、三指)
+            if self.model.isHScrollable && pData.numberOfTouchesRequired == 1 { return }
 
             if pData.direction == .left {
                 if pData.numberOfTouchesRequired == 1 {
@@ -235,6 +237,101 @@ struct ReadColumn {
     let alignment: NSTextAlignment
 }
 
+/// 多個譯本時，經文怎麼排 (參考 FHLNUI 的顯示模式：併排／交錯；之後還會有「分段」，是另一個維度，不要塞進這裡)
+enum ReadArrangement: Int {
+    /// 一節之內，譯本上下輪流 (每個譯本前有小標)
+    case interleaved = 0
+    /// 一個譯本一欄，上方是譯本名 (可拖曳調整欄寬)，同一節左右對齊
+    case sideBySide = 1
+
+    /// nil = 使用者還沒選過 (預設：手機交錯、平板並排)
+    static func loadSaved() -> ReadArrangement? {
+        let k = FHLUserDefaults.keys.ReadArrangement.rawValue
+        guard UserDefaults.standard.object(forKey: k) != nil else { return nil }
+        return ReadArrangement(rawValue: UserDefaults.standard.integer(forKey: k))
+    }
+    func save() {
+        UserDefaults.standard.set(rawValue, forKey: FHLUserDefaults.keys.ReadArrangement.rawValue)
+    }
+}
+
+/// 使用者自訂的欄寬比例，依「譯本組合」記 (順序換了算同一組，與 FHLNUI 一致)。沒有 = 自動
+enum ReadColumnWeightsStore {
+    private static var key: String { FHLUserDefaults.keys.ReadColumnWeights.rawValue }
+    private static func comboKey(_ vers: [String]) -> String { vers.sorted().joined(separator: ",") }
+
+    /// 依 vers 的順序
+    static func load(_ vers: [String]) -> [Double]? {
+        guard let all = UserDefaults.standard.dictionary(forKey: key) as? [String: [String: Double]],
+              let byVer = all[comboKey(vers)] else { return nil }
+        let w = vers.compactMap { byVer[$0] }
+        return w.count == vers.count && w.allSatisfy({ $0 > 0 }) ? w : nil
+    }
+    /// weights 是 nil：回到自動
+    static func save(_ vers: [String], _ weights: [Double]?) {
+        var all = (UserDefaults.standard.dictionary(forKey: key) as? [String: [String: Double]]) ?? [:]
+        if let weights, weights.count == vers.count {
+            all[comboKey(vers)] = Dictionary(zip(vers, weights.map { ($0 * 1000).rounded() / 1000 }), uniquingKeysWith: { a, _ in a })
+        } else {
+            all[comboKey(vers)] = nil
+        }
+        UserDefaults.standard.set(all, forKey: key)
+    }
+}
+
+/// 並排時的版面：節號欄 + 各譯本一欄。欄寬 = 比例 × 可用寬度；
+/// 每欄至少 `minColumn`，放不下就讓整體比畫面寬 (橫向捲動)，而不是把欄擠窄
+struct ReadColumnsLayout {
+    /// List 的 listRowInsets 左右各一個
+    static let rowInset: CGFloat = 12
+    /// 節號欄與第一欄的間距
+    static let labelGap: CGFloat = 8
+    /// 一欄最窄 (含左右內距)
+    static let minColumn: CGFloat = 130
+
+    /// 要橫向捲動時，平均一欄的寬度
+    static let scrollColumn: CGFloat = 160
+
+    let labelWidth: CGFloat
+    /// 各欄寬度 (含左右內距)
+    let colWidths: [CGFloat]
+    /// 整個內容 (含 listRowInsets) 的寬度
+    let frameWidth: CGFloat
+    /// 內容比畫面寬，要橫向捲動
+    let scrolls: Bool
+
+    init(viewWidth: CGFloat, labelWidth: CGFloat, weights: [Double]) {
+        let n = CGFloat(weights.count)
+        let fixed = 2 * Self.rowInset + labelWidth + Self.labelGap
+        let viewAvail = max(viewWidth - fixed, 0)
+        // 放得下：用滿畫面寬；放不下：平均一欄 scrollColumn，整體比畫面寬，橫向捲動。
+        // 總寬只和欄數有關，所以拖曳分隔線 (相鄰兩欄總寬不變) 時整體寬度不會跳動
+        let isFit = viewAvail >= Self.minColumn * n
+        let avail = isFit ? viewAvail : Self.scrollColumn * n
+        // 依比例分，太窄的欄補到 minColumn，多出來的由其它欄扣
+        self.labelWidth = labelWidth
+        self.colWidths = Self.distribute(weights, avail)
+        self.frameWidth = avail + fixed
+        self.scrolls = !isFit
+    }
+
+    /// 依比例分 `total`，但每欄至少 `minColumn`：太窄的先定在 minColumn，剩下的再依比例分給其它欄，直到沒有欄太窄
+    private static func distribute(_ weights: [Double], _ total: CGFloat) -> [CGFloat] {
+        var widths = [CGFloat](repeating: 0, count: weights.count)
+        var isFixed = [Bool](repeating: false, count: weights.count)
+        while true {
+            let free = weights.indices.filter { !isFixed[$0] }
+            let rest = total - CGFloat(weights.count - free.count) * minColumn
+            let sum = max(free.reduce(0.0) { $0 + weights[$1] }, 0.0001)
+            for i in free { widths[i] = rest * CGFloat(weights[i] / sum) }
+            let tooNarrow = free.filter { widths[$0] < minColumn }
+            if tooNarrow.isEmpty { break }
+            for i in tooNarrow { isFixed[i] = true; widths[i] = minColumn }
+        }
+        return widths
+    }
+}
+
 /// 一節經文 (一列)
 struct ReadRow: Identifiable {
     let id: Int
@@ -259,6 +356,17 @@ final class ReadModel {
     /// 每載入一次、或 SN 開關變了就加 1，讓 UIKit 內容只在真的要重畫時才重畫
     var generation: Int = 0
     var isSnVisible: Bool = ManagerIsSnVisible.s.cur
+
+    /// 多譯本的排列。nil = 還沒選過 (手機交錯、平板並排)
+    var arrangementSetting: ReadArrangement? = ReadArrangement.loadSaved()
+    /// 節號欄寬：整頁同一章只有節號 (窄)，否則是完整位置 (羅1:2，寬)
+    var labelWidth: CGFloat = 34
+    /// 並排各欄寬度比例，優先順序：拖曳中 > 使用者自訂 > 依文字長度自動
+    var dragWeights: [Double]?
+    var customWeights: [Double]?
+    var autoWeights: [Double] = []
+    /// 並排時內容比畫面寬 (由畫面回報)，此時一指左右滑不換章，免得和橫向捲動打架
+    @ObservationIgnored var isHScrollable = false
 
     /// 複選
     var isSelecting = false
@@ -291,6 +399,61 @@ final class ReadModel {
         return "\(names[0]) +\(names.count - 1)"
     }
 
+    // MARK: 排列、欄寬
+
+    /// 單一譯本沒有「並排」可言，一律當交錯 (沒有表頭、不用分欄)
+    func arrangement(isRegular: Bool) -> ReadArrangement {
+        if columns.count < 2 { return .interleaved }
+        return arrangementSetting ?? (isRegular ? .sideBySide : .interleaved)
+    }
+    func setArrangement(_ a: ReadArrangement) {
+        arrangementSetting = a
+        a.save()
+    }
+    /// 各欄比例 (數量一定等於 columns.count)
+    var weights: [Double] {
+        let n = columns.count
+        for w in [dragWeights, customWeights, autoWeights] {
+            if let w, w.count == n, w.allSatisfy({ $0 > 0 }) { return w }
+        }
+        return Array(repeating: 1, count: n)
+    }
+    var isCustomWidth: Bool { customWeights != nil }
+    /// 拖曳放開：`px` 是各欄目前的寬度。存成相對比例 (平均 1)，所以換螢幕寬度也適用
+    func commitWidths(_ px: [Double]) {
+        dragWeights = nil
+        guard px.count == columns.count, px.allSatisfy({ $0 > 0 }) else { return }
+        let mean = px.reduce(0, +) / Double(px.count)
+        let w = px.map { $0 / mean }
+        customWeights = w
+        ReadColumnWeightsStore.save(vers, w)
+    }
+    /// 回到自動 (依文字長度)
+    func resetWidths() {
+        dragWeights = nil
+        customWeights = nil
+        ReadColumnWeightsStore.save(vers, nil)
+    }
+    /// 自動欄寬：量每個譯本整章文字排成一行的長度 (含目前的 SN 開關、字型)，欄寬與它成正比，
+    /// 各欄差不多一樣高、空白最少。不用字數推算：中、英、希伯來文字寬差很多，隱藏的 SN 也不該算。
+    /// 限制在平均的 0.6～1.8 倍，免得短的譯本被擠成一條 (與 FHLNUI 的 ColWidth 一樣)
+    private func updateAutoWeights() {
+        let n = columns.count
+        guard n > 1 else { autoWeights = []; return }
+        let lens: [Double] = columns.indices.map { col in
+            let conv = DTextDrawToAttributeString(isSnVisible, columns[col].isFontOpenHan)
+            var sum = 0.0
+            for row in rows where row.cells.indices.contains(col) {
+                let s = NSMutableAttributedString()
+                for (a, _) in conv.mainConvertWithSource(row.cells[col]) { s.append(a) }
+                sum += Double(s.size().width)
+            }
+            return sum
+        }
+        let mean = lens.reduce(0, +) / Double(n)
+        autoWeights = mean <= 0 ? Array(repeating: 1, count: n) : lens.map { min(max($0 / mean, 0.6), 1.8) }
+    }
+
     // MARK: 換位置、譯本
 
     /// 換章節。`isFromGoBack` 是「上一頁」造成的，不要再寫進閱讀記錄，否則會一直往前
@@ -320,6 +483,7 @@ final class ReadModel {
     func toggleSn() {
         isSnVisible.toggle()
         ManagerIsSnVisible.s.updateCur(isSnVisible)
+        updateAutoWeights() // SN 顯示與否會改變文字長度
         generation += 1
     }
     /// nil 的時候，會用目前位置
@@ -380,6 +544,10 @@ final class ReadModel {
             }
             return ReadRow(id: i, address: s, addr: parsed[i], label: label, cells: data[i].datas)
         }
+        labelWidth = isSingleChap ? 34 : 84
+        dragWeights = nil
+        customWeights = ReadColumnWeightsStore.load(vers)
+        updateAutoWeights()
         generation += 1
         isLoading = false
     }
@@ -476,9 +644,11 @@ struct ReadView: View {
     let actions: ReadActions
     @Environment(\.horizontalSizeClass) private var sizeClass
 
+    private var arrangement: ReadArrangement { model.arrangement(isRegular: sizeClass == .regular) }
+
     var body: some View {
         VStack(spacing: 0) {
-            list
+            GeometryReader { geo in content(geo.size) }
             bottomBar
         }
         .sensoryFeedback(.selection, trigger: model.selected.count)
@@ -487,12 +657,32 @@ struct ReadView: View {
         .toolbar { toolbarContent }
     }
 
-    private var list: some View {
+    /// 並排時，表頭 + 清單放進橫向的 ScrollView：手機放不下各欄的最小寬度時可以左右捲 (表頭一起動)；
+    /// 放得下時內容寬度 = 畫面寬度，不會動。交錯時也走同一條路 (寬度 = 畫面寬度)，這樣切換排列清單不會被重建、不會跳回頂端。
+    @ViewBuilder
+    private func content(_ size: CGSize) -> some View {
+        let isSide = arrangement == .sideBySide
+        let layout = ReadColumnsLayout(viewWidth: size.width, labelWidth: model.labelWidth, weights: model.weights)
+        let scrolls = isSide && layout.scrolls
+        ScrollView(.horizontal, showsIndicators: scrolls) {
+            VStack(spacing: 0) {
+                if isSide {
+                    ReadColumnHeader(model: model, layout: layout, actions: actions)
+                }
+                list(isSide ? layout : nil)
+            }
+            .frame(width: isSide ? layout.frameWidth : size.width, height: size.height)
+        }
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+        .onChange(of: scrolls, initial: true) { _, v in model.isHScrollable = v }
+    }
+
+    private func list(_ layout: ReadColumnsLayout?) -> some View {
         List {
             ForEach(model.rows) { row in
-                ReadRowView(model: model, row: row, actions: actions, isWide: sizeClass == .regular)
+                ReadRowView(model: model, row: row, actions: actions, layout: layout)
                     .listRowSeparator(model.columns.count > 1 ? .visible : .hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                    .listRowInsets(EdgeInsets(top: 0, leading: ReadColumnsLayout.rowInset, bottom: 0, trailing: ReadColumnsLayout.rowInset))
             }
         }
         .listStyle(.plain)
@@ -596,6 +786,19 @@ struct ReadView: View {
             }
             .disabled(model.rows.isEmpty)
             Divider()
+            // 單一譯本沒有排列可選
+            Picker(NSLocalizedString("經文排列", comment: ""), selection: Binding(get: { arrangement }, set: { model.setArrangement($0) })) {
+                Label(NSLocalizedString("交錯", comment: ""), systemImage: "rectangle.grid.1x2").tag(ReadArrangement.interleaved)
+                Label(NSLocalizedString("並排", comment: ""), systemImage: "rectangle.split.2x1").tag(ReadArrangement.sideBySide)
+            }
+            .pickerStyle(.inline)
+            .disabled(model.columns.count < 2)
+            if arrangement == .sideBySide && model.isCustomWidth {
+                Button { model.resetWidths() } label: {
+                    Label(NSLocalizedString("自動欄寬", comment: ""), systemImage: "arrow.left.and.right")
+                }
+            }
+            Divider()
             Button(action: actions.history) {
                 Label(NSLocalizedString("閱讀記錄", comment: ""), systemImage: "clock.arrow.circlepath")
             }
@@ -615,67 +818,169 @@ struct ReadView: View {
     }
 }
 
-/// 一節：左邊節號 (點了選功能，複選中是整節選取)，右邊每個譯本一塊經文
+/// 並排時的表頭：節號欄留白，之後每欄一個譯本名 (點了選譯本)，欄與欄之間有可拖曳的分隔線。
+/// 拖曳：只改相鄰兩欄 (總寬不變)，放開才存；長按分隔線回到自動欄寬 (平板沒有雙擊，所以用長按，與 FHLNUI 一致)
+struct ReadColumnHeader: View {
+    let model: ReadModel
+    let layout: ReadColumnsLayout
+    let actions: ReadActions
+
+    var body: some View {
+        HStack(spacing: 0) {
+            Color.clear.frame(width: ReadColumnsLayout.rowInset + layout.labelWidth + ReadColumnsLayout.labelGap, height: 1)
+            ForEach(model.columns.indices, id: \.self) { i in
+                if i < layout.colWidths.count {
+                    Button(action: actions.pickVers) {
+                        Text(model.columns[i].name)
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                            .padding(.leading, 6)
+                            .padding(.trailing, 14)
+                            .frame(width: layout.colWidths[i], alignment: .leading)
+                            .frame(minHeight: 32)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .overlay(alignment: .trailing) {
+                        if i < model.columns.count - 1 {
+                            ReadColumnHandle(model: model, layout: layout, index: i)
+                        }
+                    }
+                }
+            }
+            Spacer(minLength: 0)
+        }
+        .background(.bar)
+        .overlay(alignment: .bottom) { Divider() }
+    }
+}
+
+/// 兩欄之間的分隔線把手：看得到的是一條細線，可按的範圍 28pt 寬。自訂過的欄寬用主題色
+struct ReadColumnHandle: View {
+    let model: ReadModel
+    let layout: ReadColumnsLayout
+    let index: Int
+    /// 開始拖曳時各欄的寬度；nil = 沒在拖
+    @State private var start: [CGFloat]?
+    @State private var resetCount = 0
+
+    var body: some View {
+        Capsule()
+            .fill(model.isCustomWidth ? AnyShapeStyle(.tint) : AnyShapeStyle(.tertiary))
+            .frame(width: 3, height: 18)
+            .padding(.trailing, 3) // 靠在欄與欄的分隔線上
+            .frame(width: 28, height: 32, alignment: .trailing)
+            .contentShape(Rectangle())
+            .gesture(DragGesture(minimumDistance: 2)
+                .onChanged { v in
+                    let s = start ?? layout.colWidths
+                    start = s
+                    let pair = s[index] + s[index + 1]
+                    let a = min(max(s[index] + v.translation.width, ReadColumnsLayout.minColumn), pair - ReadColumnsLayout.minColumn)
+                    var px = s
+                    px[index] = a
+                    px[index + 1] = pair - a
+                    model.dragWeights = px.map(Double.init)
+                }
+                .onEnded { _ in
+                    // 長按已經還原成自動時 (dragWeights 被清掉)，放手不要又存回去
+                    if start != nil, let w = model.dragWeights { model.commitWidths(w) }
+                    start = nil
+                })
+            .simultaneousGesture(LongPressGesture(minimumDuration: 0.6, maximumDistance: 8)
+                .onEnded { _ in
+                    resetCount += 1
+                    model.resetWidths()
+                })
+            .sensoryFeedback(.impact, trigger: resetCount)
+            .accessibilityLabel(NSLocalizedString("調整欄寬", comment: ""))
+            .accessibilityHint(NSLocalizedString("拖曳調整，長按回到自動欄寬", comment: ""))
+    }
+}
+
+/// 一節：左邊節號 (點了選功能，複選中是整節選取)，右邊每個譯本一塊經文。
+/// `layout` 是 nil：交錯 (譯本上下排，每塊有小標)；有值：並排 (一欄一個譯本，欄寬由 layout 決定，欄間有細線)
 struct ReadRowView: View {
     let model: ReadModel
     let row: ReadRow
     let actions: ReadActions
-    let isWide: Bool
+    let layout: ReadColumnsLayout?
 
     var body: some View {
-        HStack(alignment: .top, spacing: 8) {
-            if !row.label.isEmpty {
-                Button {
-                    if model.isSelecting {
-                        model.toggleRow(row.id)
-                    } else {
-                        model.verseActionRow = row.id
-                    }
-                } label: {
-                    Text(row.label)
-                        .font(.footnote.weight(.semibold).monospacedDigit())
-                        .foregroundStyle(.tint)
-                        .frame(minWidth: 28, maxHeight: .infinity, alignment: .topTrailing)
-                        .padding(.top, 10)
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel(row.address)
-                // 掛在節號上，選單才會從被點的那一節冒出來
-                .confirmationDialog(row.address,
-                                    isPresented: Binding(get: { model.verseActionRow == row.id },
-                                                         set: { if !$0 { model.verseActionRow = nil } }),
-                                    titleVisibility: .visible) {
-                    Button(NSLocalizedString("譯本比較", comment: "")) { actions.verseAction(row, .VersionsCompare) }
-                    Button("Parsing") { actions.verseAction(row, .InfoParsing) }
-                    Button(NSLocalizedString("註釋", comment: "")) { actions.verseAction(row, .InfoComment) }
-                    Button(NSLocalizedString("串珠", comment: "")) { actions.verseAction(row, .InfoTsk) }
+        if let layout {
+            HStack(alignment: .top, spacing: 0) {
+                labelButton(width: layout.labelWidth)
+                    .padding(.trailing, ReadColumnsLayout.labelGap)
+                ForEach(model.columns.indices, id: \.self) { col in
+                    cellView(col, showCaption: false)
+                        .padding(.vertical, 4)
+                        .frame(width: col < layout.colWidths.count ? layout.colWidths[col] : 0, alignment: .topLeading)
+                        .frame(maxHeight: .infinity, alignment: .top)
+                        .overlay(alignment: .leading) {
+                            if col > 0 { Rectangle().fill(Color(.separator)).frame(width: 0.5) }
+                        }
                 }
             }
-            if isWide && model.columns.count > 1 {
-                HStack(alignment: .top, spacing: 12) {
-                    ForEach(model.columns.indices, id: \.self) { col in
-                        cellView(col).frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
-            } else {
+        } else {
+            HStack(alignment: .top, spacing: 8) {
+                labelButton(width: nil)
                 VStack(alignment: .leading, spacing: 4) {
                     ForEach(model.columns.indices, id: \.self) { col in
-                        cellView(col)
+                        cellView(col, showCaption: true)
                     }
                 }
             }
+            .padding(.vertical, 4)
         }
-        .padding(.vertical, 4)
+    }
+
+    /// `width` 是 nil：節號靠右、至少 28pt 寬；有值：固定寬度 (並排時要與表頭對齊)
+    @ViewBuilder
+    private func labelButton(width: CGFloat?) -> some View {
+        if !row.label.isEmpty {
+            Button {
+                if model.isSelecting {
+                    model.toggleRow(row.id)
+                } else {
+                    model.verseActionRow = row.id
+                }
+            } label: {
+                Text(row.label)
+                    .font(.footnote.weight(.semibold).monospacedDigit())
+                    .foregroundStyle(.tint)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
+                    .frame(minWidth: width == nil ? 28 : nil, maxHeight: .infinity, alignment: .topTrailing)
+                    .frame(width: width, alignment: .topTrailing)
+                    .padding(.top, 10)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(row.address)
+            // 掛在節號上，選單才會從被點的那一節冒出來
+            .confirmationDialog(row.address,
+                                isPresented: Binding(get: { model.verseActionRow == row.id },
+                                                     set: { if !$0 { model.verseActionRow = nil } }),
+                                titleVisibility: .visible) {
+                Button(NSLocalizedString("譯本比較", comment: "")) { actions.verseAction(row, .VersionsCompare) }
+                Button("Parsing") { actions.verseAction(row, .InfoParsing) }
+                Button(NSLocalizedString("註釋", comment: "")) { actions.verseAction(row, .InfoComment) }
+                Button(NSLocalizedString("串珠", comment: "")) { actions.verseAction(row, .InfoTsk) }
+            }
+        } else if let width {
+            // 沒有節號 (例如沒有經文的提示列)，並排時仍要佔位，欄才對得齊
+            Color.clear.frame(width: width, height: 1)
+        }
     }
 
     @ViewBuilder
-    private func cellView(_ col: Int) -> some View {
+    private func cellView(_ col: Int, showCaption: Bool) -> some View {
         if row.cells.indices.contains(col) {
             let column = model.columns[col]
             let isSelected = model.selected.contains(ReadCellKey(row: row.id, col: col))
             VStack(alignment: .leading, spacing: 2) {
-                if model.columns.count > 1 {
+                if showCaption && model.columns.count > 1 {
                     Text(column.name)
                         .font(.caption2.weight(.semibold))
                         .foregroundStyle(.secondary)
