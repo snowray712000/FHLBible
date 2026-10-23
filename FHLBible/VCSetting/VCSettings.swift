@@ -20,9 +20,19 @@ struct SettingsView: View {
     @Environment(\.openURL) private var openURL
     @State private var isResetDone = false
     @State private var isAskOpenSupport = false
+    @State private var footnoteMode = ManagerFootnoteLoadMode.s.cur
 
     var body: some View {
         List {
+            Section {
+                Picker(NSLocalizedString("注腳載入方式", comment: ""), selection: $footnoteMode) {
+                    Text(NSLocalizedString("直接載入", comment: "")).tag(FootnoteLoadMode.direct)
+                    Text(NSLocalizedString("點擊載入", comment: "")).tag(FootnoteLoadMode.onTap)
+                }
+                .onChange(of: footnoteMode) { _, v in ManagerFootnoteLoadMode.s.updateCur(v) }
+            } footer: {
+                Text(NSLocalizedString("直接載入：讀經時就把注腳內容放在【註n：…】裡，不用再點；需要網路，取不到的注腳仍是藍色【n】。點擊載入：只顯示藍色【n】，點了才開啟注腳畫面。下次載入經文時生效。", comment: ""))
+            }
             Button { doReset() } label: {
                 row(NSLocalizedString("當機重置", comment: ""),
                     NSLocalizedString("程式總是有Bug，當「閱讀」總是閃退，可能是某譯本、某章、某節、我沒處理好。按此功能，嘗試重置為「和合本，創世記1」", comment: ""),

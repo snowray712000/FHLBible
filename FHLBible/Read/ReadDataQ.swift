@@ -15,30 +15,40 @@ class ReadDataQ : NSObject, IVCReadDataQ {
     
     // var _tp: BookNameLang = .太
     var _tp: BookNameLang { ManagerLangSet.s.curTpBookNameLang }
+    /// 設定為「直接載入」時，是否把注腳內容內嵌進經文（見 `FootnoteExpander`）。
+    /// 閱讀、搜尋結果、譯本比較都要；有聲文字會把內容唸出來，不要內嵌，所以它設為 false。
+    var isExpandFootnotes = true
     func qDataForReadAsync(_ addr: String, _ vers: [String]) {
         
         // 核心是用 BibleReadDataGetter class
         BibleReadDataGetter().queryAsync(vers, addr) { _, datas in
-            
-            let r2 = self.getVersionTitle(vers)
-            let r2a = r2.map({[DText($0,isParenthesesHW: true)]})
-            let r5 = (header:[DText()],datas:r2a)
-            
-            let r1 = self.getAddressListEachRowHeader(datas) // 也就是，有 r1 row 資料
-            if r1.count == 0 {
-                // 特例，所選的版本們，都沒有這裡的經文
-                self.qDataForRead$.triggerAndCleanCallback(nil, (r5, self._gNoData(vers.count)))
+            if self.isExpandFootnotes && ManagerFootnoteLoadMode.s.cur == .direct {
+                // 先把注腳一起取回（失敗的注腳維持 【n】），再往下
+                FootnoteExpander.s.expand(datas) { self.finishQuery(vers, datas) }
             } else {
-                let r1a = r1.map({[DText($0, refDescription: $0,isInTitle: false)]})
-                let r4 = ijnRange(0, r1a.count).map { i-> OneRow in
-                    let r3a = r1a[i]
-                    let r3b = datas[i].map({$0.children ?? [DText("(此譯本無)")]})
-                    return (header: r3a, datas: r3b)
-                }
-                
-                let re = (r5, r4)
-                self.qDataForRead$.triggerAndCleanCallback(nil, re)
+                self.finishQuery(vers, datas)
             }
+        }
+    }
+    private func finishQuery(_ vers: [String], _ datas: [[DOneLine]]) {
+        let r2 = self.getVersionTitle(vers)
+        let r2a = r2.map({[DText($0,isParenthesesHW: true)]})
+        let r5 = (header:[DText()],datas:r2a)
+        
+        let r1 = self.getAddressListEachRowHeader(datas) // 也就是，有 r1 row 資料
+        if r1.count == 0 {
+            // 特例，所選的版本們，都沒有這裡的經文
+            self.qDataForRead$.triggerAndCleanCallback(nil, (r5, self._gNoData(vers.count)))
+        } else {
+            let r1a = r1.map({[DText($0, refDescription: $0,isInTitle: false)]})
+            let r4 = ijnRange(0, r1a.count).map { i-> OneRow in
+                let r3a = r1a[i]
+                let r3b = datas[i].map({$0.children ?? [DText("(此譯本無)")]})
+                return (header: r3a, datas: r3b)
+            }
+            
+            let re = (r5, r4)
+            self.qDataForRead$.triggerAndCleanCallback(nil, re)
         }
     }
     typealias OneRow = ViewDisplayTable2.OneRow

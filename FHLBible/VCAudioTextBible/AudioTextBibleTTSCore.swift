@@ -264,6 +264,7 @@ class AudioTextBibleTTSCore : NSObject, AVSpeechSynthesizerDelegate {
         
         // 取得資料 Async
         dataReader = ReadDataQ()
+        dataReader.isExpandFootnotes = false // 注腳內容不要唸出來
         dataReader.qDataForRead$.addCallback {[weak self] sender, pData in
             if let pData = pData {
                 self?.setDataAndResetRowColumnIndex(cvtData2Speech(pData.1))
