@@ -217,6 +217,8 @@ struct DTextContentView: UIViewRepresentable {
     /// 文字視圖不可捲動，高度由內容決定：寬度給多少就用多少，再量需要的高度
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: ViewDisplayCell, context: Context) -> CGSize? {
         // List 剛建立列時，寬度可能還沒決定 (nil、0 或無限大)，用 0 去量會得到極大的高度，造成捲動位置跳動
+        // 寬度 0 是父 view 在問「最窄可以多窄」：回 320 會讓 HStack 以為這個 view 不能縮，把同一列其他東西 (節號) 的寬度算錯
+        if proposal.width == 0 { return CGSize(width: 0, height: 0) }
         let w = (proposal.width.flatMap { $0.isFinite && $0 > 0 ? $0 : nil }) ?? max(uiView.bounds.width, 320)
         let fit = uiView.systemLayoutSizeFitting(CGSize(width: w, height: UIView.layoutFittingCompressedSize.height),
                                                  withHorizontalFittingPriority: .required,
