@@ -13,15 +13,22 @@ import SwiftUI
 import UIKit
 
 struct VersionInfoView: View {
-    private let sections: [DVersionInfoSection]
+    private let allSections: [DVersionInfoSection]
+    /// 是否顯示開發過程的小版本（4.12.* 這類，見 DVersionInfoSection.isDetail）。預設不顯示。
+    @AppStorage("VersionInfoShowDetail") private var showDetail = false
+
+    private var hasDetail: Bool { allSections.contains { $0.isDetail } }
+    private var sections: [DVersionInfoSection] {
+        showDetail ? allSections : allSections.filter { !$0.isDetail }
+    }
 
     init() {
         let loaded = VersionInfoParser.loadFromBundle()
         if loaded.isEmpty {
-            sections = [DVersionInfoSection(title: NSLocalizedString("版本資訊", comment: ""), date: nil,
+            allSections = [DVersionInfoSection(title: NSLocalizedString("版本資訊", comment: ""), date: nil,
                                             items: [NSLocalizedString("找不到版本資訊", comment: "")])]
         } else {
-            sections = loaded
+            allSections = loaded
         }
     }
 
@@ -41,6 +48,17 @@ struct VersionInfoView: View {
         .listStyle(.insetGrouped)
         .navigationTitle(NSLocalizedString("版本資訊", comment: ""))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if hasDetail {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Toggle(NSLocalizedString("顯示開發過程的小版本", comment: ""), isOn: $showDetail)
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+        }
     }
 
     private func header(of s: DVersionInfoSection) -> String {

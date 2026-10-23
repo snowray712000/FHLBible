@@ -15,6 +15,14 @@ struct DVersionInfoSection {
     var date: String?
     var items: [String]
     var isToDo: Bool { title.lowercased().replacingOccurrences(of: " ", with: "") == "todo" }
+    /// 開發過程的小版本：版本號 主.次.修 的「次」是偶數（4.12.1、4.12.2…；4.14.* 也一樣）。
+    /// 正式版的「次」是奇數（4.11.1、4.13.1），它的說明已把前面的小版本整理在一起，
+    /// 所以版本資訊畫面預設隱藏小版本，使用者可選擇顯示。To Do 與無法解析的標題都不算。
+    var isDetail: Bool {
+        let parts = title.split(separator: ".")
+        guard parts.count == 3, parts.allSatisfy({ Int($0) != nil }), let minor = Int(parts[1]) else { return false }
+        return minor % 2 == 0
+    }
 }
 
 enum VersionInfoParser {

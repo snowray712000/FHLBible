@@ -199,8 +199,8 @@ class VCIndex : UIHostingController<HomeView> {
 
     // 發版本 (供 關鍵字搜尋，提醒 發版本要改什麼)
     // 版本資訊內容在 Helps/app_versions.md，發版本時一併更新
-    private static let labelDate = "2026.04.13a"
-    private static let labelVer = "4.11.1" //version
+    private static let labelDate = "2026.10.23d"
+    private static let labelVer = "4.13.1" //version
 
     init() {
         let m = HomeModel()
