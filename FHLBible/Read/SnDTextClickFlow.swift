@@ -20,22 +20,18 @@ public class SnDTextClickFlow {
     public func mainAsync(_ dtext:DText){
         if dtext.sn == nil { return }
         
-        let r1 = _vc.gVCSnActionPicker()
-        r1.onPicker$.addCallback { sender, pDataAction in
-            if pDataAction != nil {
-                // 選了 action 後, 開啟對應的功能
-                dtext.snAction = pDataAction
-                
-                if dtext.snAction == .list {
-                    self._doWhenSnDTextClickedForList(dtext)
-                } else if dtext.snAction == .parsing {
-                    self._doWhenUsingParsing()
-                } else if dtext.snAction != nil {
-                    self._doWhenSnDTextClickedForDicts(dtext)
-                }
-            } else { } // 按下 cancel
+        // 選 action 後, 開啟對應的功能；按取消不會呼叫
+        _vc.presentSnActionPicker(sn: (dtext.tp ?? "") + dtext.sn!) { [self] action in
+            dtext.snAction = action
+
+            if action == .list {
+                _doWhenSnDTextClickedForList(dtext)
+            } else if action == .parsing {
+                _doWhenUsingParsing()
+            } else {
+                _doWhenSnDTextClickedForDicts(dtext)
+            }
         }
-        r1.presentMe(_vc)
     }
     
     private var _vc: UIViewController!

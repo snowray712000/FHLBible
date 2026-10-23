@@ -16,37 +16,23 @@ public enum VerseAction {
     case VersionsCompare // 譯本比較
 }
 
-
-class VCVerseActionPicker : VCPickerBaseOnTableView<VerseAction> {
-    override func getSelected(_ i: Int) -> VerseAction? {
-        switch i {
-        case 0:
-            return .VersionsCompare
-        case 1:
-            return .InfoParsing
-        case 2:
-            return .InfoComment
-        case 3:
-            return .InfoTsk
-        default:
-            return nil
-        }
-    }
-    override var _ovTitle1: [String] {
-        return [NSLocalizedString("譯本比較", comment: ""),"Parsing",NSLocalizedString("註釋", comment: ""),NSLocalizedString("串珠", comment: "")]
-    }
-    override var _ovTitle2: [String]? {
-        return [NSLocalizedString("此節，比較多個譯本", comment: ""),
-                NSLocalizedString("原文分析工具；時態、單複數、陽性、陰性等原文分析", comment: ""),
-                NSLocalizedString("查經班查經後資料整理，完整可見 https://a2z.fhl.net/bible/，或 google 'a2z fhl' 即可。", comment: ""),
-                NSLocalizedString("串珠聖經工具。每一節經文旁，標注相關經文，它也是一種註釋，不是聖經本身", comment: ""),
-                ""
+extension UIViewController {
+    /// 點到經文位置時，跳出的選單 (畫面與 SN 選單共用 `ActionPickerView`)。`title` 例如 "創 1:1"；取消時不呼叫 `onPick`。
+    func presentVerseActionPicker(title: String?, onPick: @escaping (VerseAction) -> Void) {
+        let items: [ActionPickerItem<VerseAction>] = [
+            ActionPickerItem(title: NSLocalizedString("譯本比較", comment: ""),
+                             detail: NSLocalizedString("此節，比較多個譯本", comment: ""),
+                             systemImage: "rectangle.split.2x1", action: .VersionsCompare),
+            ActionPickerItem(title: "Parsing",
+                             detail: NSLocalizedString("原文分析工具；時態、單複數、陽性、陰性等原文分析", comment: ""),
+                             systemImage: "text.magnifyingglass", action: .InfoParsing),
+            ActionPickerItem(title: NSLocalizedString("註釋", comment: ""),
+                             detail: NSLocalizedString("查經班查經後資料整理，完整可見 https://a2z.fhl.net/bible/，或 google 'a2z fhl' 即可。", comment: ""),
+                             systemImage: "text.bubble", action: .InfoComment),
+            ActionPickerItem(title: NSLocalizedString("串珠", comment: ""),
+                             detail: NSLocalizedString("串珠聖經工具。每一節經文旁，標注相關經文，它也是一種註釋，不是聖經本身", comment: ""),
+                             systemImage: "link", action: .InfoTsk),
         ]
+        presentActionPicker(title: title, items: items, onPick: onPick)
     }
-    override var _ovIsLastRedForCancel: Bool { false }
-    var types : [DText.SnAction] = [
-        .list, .dict, .cbol, .cbole, .twcb
-    ]
-    var data : [String] = [NSLocalizedString("彙編", comment: ""),NSLocalizedString("字典(全)", comment: ""),"CBOL","CBOL(En)",NSLocalizedString("浸宣", comment: ""),"Cancel"]
-    var data2 : [String] = ["",NSLocalizedString("同時顯示 CBOL、浸宣、CBOL(En)的字典", comment: ""),NSLocalizedString("中文線上聖經計畫 (Chinese bible on-line project) CBOL", comment: "") , "English Ver" ,NSLocalizedString("浸宣出版社原文字典", comment: ""),""]
 }

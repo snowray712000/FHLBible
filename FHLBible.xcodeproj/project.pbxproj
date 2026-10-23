@@ -134,8 +134,6 @@
 		57BA21E72B6CBC2E00E5638D /* FHLCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57BA21E52B6CBC2E00E5638D /* FHLCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57BA22682B7A301700E5638D /* SQUiabv.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BA22672B7A301700E5638D /* SQUiabv.swift */; };
 		57BBB17B2B20B73D001F54D3 /* DSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBB17A2B20B73D001F54D3 /* DSelections.swift */; };
-		57BBB17D2B20B7B0001F54D3 /* LongPressFuncCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBB17C2B20B7B0001F54D3 /* LongPressFuncCell.swift */; };
-		57BBB17F2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBB17E2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift */; };
 		57BBC7532902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7522902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift */; };
 		57BBC7552902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7542902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift */; };
 		57BBC7582907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7572907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift */; };
@@ -164,7 +162,6 @@
 		57BBC78F29128EDF001DC3FE /* SwiftFileManager_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC78E29128EDF001DC3FE /* SwiftFileManager_Extensions.swift */; };
 		57BBC7912912AE4E001DC3FE /* messageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBC7902912AE4E001DC3FE /* messageBox.swift */; };
 		57C08F032B23130B0065D553 /* ScrollViewCaptureImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C08F022B23130B0065D553 /* ScrollViewCaptureImage.swift */; };
-		57C08F072B263B650065D553 /* add_fns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C08F062B263B650065D553 /* add_fns.swift */; };
 		57C08F092B29F9A30065D553 /* SaveToPhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C08F082B29F9A30065D553 /* SaveToPhotoHelper.swift */; };
 		57D4928A2935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D492892935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift */; };
 		57D4928C2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D4928B2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift */; };
@@ -244,7 +241,6 @@
 		C8A7083A2636DEE500B9175D /* IjnDTextTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A708392636DEE500B9175D /* IjnDTextTextView.swift */; };
 		C8AD1D4C2624243C0046C8EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AD1D4B2624243C0046C8EE /* AppDelegate.swift */; };
 		C8AD1D4E2624243C0046C8EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AD1D4D2624243C0046C8EE /* SceneDelegate.swift */; };
-		C8AD1D532624243C0046C8EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8AD1D512624243C0046C8EE /* Main.storyboard */; };
 		C8AD1D582624243D0046C8EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8AD1D572624243D0046C8EE /* Assets.xcassets */; };
 		C8AD1D5B2624243D0046C8EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8AD1D592624243D0046C8EE /* LaunchScreen.storyboard */; };
 		C8AD1D662624243D0046C8EE /* FHLBibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AD1D652624243D0046C8EE /* FHLBibleTests.swift */; };
@@ -420,8 +416,6 @@
 		57BA21E52B6CBC2E00E5638D /* FHLCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FHLCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57BA22672B7A301700E5638D /* SQUiabv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQUiabv.swift; sourceTree = "<group>"; };
 		57BBB17A2B20B73D001F54D3 /* DSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSelections.swift; sourceTree = "<group>"; };
-		57BBB17C2B20B7B0001F54D3 /* LongPressFuncCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressFuncCell.swift; sourceTree = "<group>"; };
-		57BBB17E2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOneLongPressCellSetting.swift; sourceTree = "<group>"; };
 		57BBC7522902CD45001DC3FE /* SQLSelectBibleTextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleTextGenerator.swift; sourceTree = "<group>"; };
 		57BBC7542902D69F001DC3FE /* SQLSelectBibleTextGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleTextGeneratorTests.swift; sourceTree = "<group>"; };
 		57BBC7572907F3A0001DC3FE /* BibleGetterViaSQLiteFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleGetterViaSQLiteFile.swift; sourceTree = "<group>"; };
@@ -450,7 +444,6 @@
 		57BBC78E29128EDF001DC3FE /* SwiftFileManager_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFileManager_Extensions.swift; sourceTree = "<group>"; };
 		57BBC7902912AE4E001DC3FE /* messageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageBox.swift; sourceTree = "<group>"; };
 		57C08F022B23130B0065D553 /* ScrollViewCaptureImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewCaptureImage.swift; sourceTree = "<group>"; };
-		57C08F062B263B650065D553 /* add_fns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = add_fns.swift; sourceTree = "<group>"; };
 		57C08F082B29F9A30065D553 /* SaveToPhotoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveToPhotoHelper.swift; sourceTree = "<group>"; };
 		57D492892935F2F60099DC86 /* SQLSelectBibleCommentsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleCommentsGenerator.swift; sourceTree = "<group>"; };
 		57D4928B2935F5940099DC86 /* SQLSelectBibleCommentsGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLSelectBibleCommentsGeneratorTests.swift; sourceTree = "<group>"; };
@@ -475,9 +468,7 @@
 		57F22C68272BF5EA00526631 /* ViewDisplayTable2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewDisplayTable2.xib; sourceTree = "<group>"; };
 		57F22C6A272BF60100526631 /* ViewDisplayTable2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDisplayTable2.swift; sourceTree = "<group>"; };
 		57F22C6E272C3A4B00526631 /* VCSnDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCSnDict.swift; sourceTree = "<group>"; };
-		57F8267327732A510077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		57F8267427732A510077A807 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		57F8267527732A540077A807 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		57F8267627732A820077A807 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		57F8267F2773407A0077A807 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		57F82682277341C10077A807 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -536,7 +527,6 @@
 		C8AD1D482624243C0046C8EE /* FHLBible.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHLBible.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8AD1D4B2624243C0046C8EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8AD1D4D2624243C0046C8EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C8AD1D522624243C0046C8EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C8AD1D552624243C0046C8EE /* FHLBible.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHLBible.xcdatamodel; sourceTree = "<group>"; };
 		C8AD1D572624243D0046C8EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8AD1D5A2624243D0046C8EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -722,9 +712,6 @@
 			children = (
 				573958562AEC9F53005A92F8 /* VCWhenLongPress.swift */,
 				57BBB17A2B20B73D001F54D3 /* DSelections.swift */,
-				57BBB17C2B20B7B0001F54D3 /* LongPressFuncCell.swift */,
-				57BBB17E2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift */,
-				57C08F062B263B650065D553 /* add_fns.swift */,
 			);
 			path = VCWhenLongPress;
 			sourceTree = "<group>";
@@ -1114,7 +1101,6 @@
 				C8AD1D4B2624243C0046C8EE /* AppDelegate.swift */,
 				C85A0F262689D4280020CD94 /* _EmptyFile.swift */,
 				C8AD1D4D2624243C0046C8EE /* SceneDelegate.swift */,
-				C8AD1D512624243C0046C8EE /* Main.storyboard */,
 				C8AD1D572624243D0046C8EE /* Assets.xcassets */,
 				57AD73BC274DC21500CA9BA8 /* open_han31.ttf */,
 				C8AD1D592624243D0046C8EE /* LaunchScreen.storyboard */,
@@ -1339,7 +1325,6 @@
 				57F826802773407A0077A807 /* Localizable.strings in Resources */,
 				574598472CDA5DAB0000DF34 /* Read.md in Resources */,
 				5711206B272FCD1800D64A6E /* ViewButtons.xib in Resources */,
-				C8AD1D532624243C0046C8EE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1423,7 +1408,6 @@
 				C88D236026EB0D110088BCF5 /* BibleGetterViaFhlApiQsb.swift in Sources */,
 				57BBC78B290FE357001DC3FE /* Download_asv_darby_bbe_erv_web_esv.swift in Sources */,
 				577CEF9C27514337003014A8 /* FooterDTextClickFlow.swift in Sources */,
-				57BBB17D2B20B7B0001F54D3 /* LongPressFuncCell.swift in Sources */,
 				C87F196B2687DC660083C647 /* BookNameAndId.swift in Sources */,
 				57D49290293A00360099DC86 /* VCCommentIReloadDataViaScApi.swift in Sources */,
 				57395B46272A36290067F699 /* VCSnActionPicker.swift in Sources */,
@@ -1479,8 +1463,6 @@
 				575AD92129ED1A49006FD6E0 /* IVCAudioBibleEvents.swift in Sources */,
 				573CB9032744FB3F00AEEC9B /* ManagerSearchHistory.swift in Sources */,
 				577CEF9A27513FC6003014A8 /* RefDTextClickFlow.swift in Sources */,
-				57BBB17F2B20B7EE001F54D3 /* DOneLongPressCellSetting.swift in Sources */,
-				57C08F072B263B650065D553 /* add_fns.swift in Sources */,
 				57BBC76C290BCB45001DC3FE /* Download_unv_gb.swift in Sources */,
 				57BBC789290F745E001DC3FE /* BibleGetterViaSQLiteOrApi.swift in Sources */,
 				573CB8FF27427E7900AEEC9B /* ManagerLangSet.swift in Sources */,
@@ -1647,16 +1629,6 @@
 				57F82690277370110077A807 /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C8AD1D512624243C0046C8EE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C8AD1D522624243C0046C8EE /* Base */,
-				57F8267327732A510077A807 /* zh-Hant */,
-				57F8267527732A540077A807 /* zh-Hans */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		C8AD1D592624243D0046C8EE /* LaunchScreen.storyboard */ = {

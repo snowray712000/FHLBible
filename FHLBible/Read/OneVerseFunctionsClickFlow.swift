@@ -35,16 +35,11 @@ public class OneVerseFunctionsClickFlow : NSObject {
         _addr = addr
         
         // 選擇功能，選擇後，去作對應的事
-        let vc1 = _vc.gVCVerseActionPicker()
-        vc1.onPicker$.addCallback { sender, pData in
-            if pData != nil {
-                self._verseAction = pData!
-                // 去作對應的事
-                self._doWhenClickedVerseAddressCell()
-            }
+        _vc.presentVerseActionPicker(title: VerseRangeToString().main([addr], ManagerLangSet.s.curTpBookNameLang)) { [self] act in
+            _verseAction = act
+            // 去作對應的事
+            _doWhenClickedVerseAddressCell()
         }
-        vc1.presentMe(_vc)
-        
     }
     
     private var _vc: UIViewController!

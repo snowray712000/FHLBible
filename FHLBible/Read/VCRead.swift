@@ -197,8 +197,7 @@ class VCRead : UIHostingController<ReadView> {
 
     /// 複選後按「完成」，開啟複製、產生圖片等功能的畫面
     private func confirmSelection(){
-        let vc = self.gVCWhenLongPress()
-        vc.dataSelections = model.makeSelections()
+        let vc = VCWhenLongPress(dataSelections: model.makeSelections())
         model.endSelection()
         push(vc, animated: false)
     }
