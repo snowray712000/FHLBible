@@ -190,9 +190,7 @@ class VCRead : UIHostingController<ReadView> {
         case .VersionsCompare:
             push(VCVersionsCompareInOneVerse(addr: addr), animated: false)
         case .InfoParsing:
-            let vc2 = self.gVCParsing()
-            vc2.set(addr, model.vers)
-            push(vc2, animated: false)
+            push(VCParsing(addr: addr, vers: model.vers), animated: false)
         }
     }
 

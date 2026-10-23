@@ -55,8 +55,6 @@ public class SnDTextClickFlow {
         _push(VCSnDict(dtext: dtext, addr: _addr, vers: _vers))
     }
     private func _doWhenUsingParsing(){
-        let vc2 = _vc.gVCParsing()
-        vc2.set(_addr, _vers)
-        _push(vc2)
+        _push(VCParsing(addr: _addr, vers: _vers))
     }
 }

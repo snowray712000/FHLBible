@@ -61,9 +61,7 @@ class VCSearchResult : UIHostingController<SearchResultView> {
         case .VersionsCompare:
             push(VCVersionsCompareInOneVerse(addr: row.addr))
         case .InfoParsing:
-            let vc2 = self.gVCParsing()
-            vc2.set(row.addr, model.vers)
-            push(vc2)
+            push(VCParsing(addr: row.addr, vers: model.vers))
         }
     }
 }

@@ -8,13 +8,31 @@
 import Foundation
 import FHLCommon
 
+/// Parsing 一個原文字的分析資料（SN、原文字、原型、分析、簡義、備註）
+final class ParsingWord: Identifiable {
+    let id = UUID()
+    var sn: DText = DText()
+    var word: DText = DText()
+    var orig: DText = DText()
+    var wform: [DText] = []
+    var exp: [DText] = []
+    var remark: [DText] = []
+}
+/// Parsing 一個分句：原文一行、中文一行，以及此分句內每個字的分析
+struct ParsingClause: Identifiable {
+    let id = UUID()
+    var w: [DText]
+    var cht: [DText]
+    var words: [ParsingWord]
+}
+
 class ConvertorQp2VCParsingData {
     init(_ data: DData){
         self.data = data
     }
     var data: DData
     
-    func main() -> ([ViewParsing.OneSet],isHebrew:Bool){
+    func main() -> (clauses: [ParsingClause], isHebrew: Bool){
         if data.isOldTestment() {
             mainOldTestment()
             return (dataResult,data.isOldTestment())
@@ -24,12 +42,12 @@ class ConvertorQp2VCParsingData {
         }
         // return ([],data.isOldTestment())
     }
-    var dataResult: [ViewParsing.OneSet] {
+    var dataResult: [ParsingClause] {
         get {
             assert(words?.count == exps?.count)
             assert(words?.count == dicts?.count)
             return ijnRange(0, words!.count).map({ i in
-                return (words![i],exps![i],dicts![i])
+                return ParsingClause(w: words![i], cht: exps![i], words: dicts![i])
             })
         }
     }
@@ -44,13 +62,14 @@ class ConvertorQp2VCParsingData {
         self.words = r2b
         self.exps = r4
         
-        var r6 = ijnRange(1, data.record.count - 1).map({ i -> ViewParsingDict.OneData in
+        var r6 = ijnRange(1, data.record.count - 1).map({ i -> ParsingWord in
             let a2 = data.record[i]
             
-            let r5 = ViewParsingDict.OneData()
+            let r5 = ParsingWord()
             r5.word = DText(a2.word!)
             r5.exp = [DText(a2.exp!)]
-            r5.sn = DText("G\(a2.sn!)", sn: "\(a2.sn!)", tp: "G", tp2: "WG")
+            let sn = trimLeadingZeros(a2.sn!)
+            r5.sn = DText("G\(sn)", sn: sn, tp: "G", tp2: "WG")
             r5.wform = [DText(a2.pro),DText(a2.wform!)]
             r5.remark = [DText(a2.remark!)]
             r5.orig = DText(a2.orig!)
@@ -62,9 +81,9 @@ class ConvertorQp2VCParsingData {
         // 但記得 希伯來文資料行與顯示順序是反的
         let r7 = r1.map({countSpaceAndDash(String($0))})
         
-        var r8:[[ViewParsingDict.OneData]] = []
+        var r8:[[ParsingWord]] = []
         for (i1,a1) in r7.enumerated() {
-            var r8a: [ViewParsingDict.OneData] = []
+            var r8a: [ParsingWord] = []
             for _ in ijnRange(0, a1 + 1){
                 if r6.count == 0 {
                     break
@@ -89,13 +108,14 @@ class ConvertorQp2VCParsingData {
         self.words = r2.reversed()
         self.exps = r4
         
-        var r6 = ijnRange(1, data.record.count - 1).map({ i -> ViewParsingDict.OneData in
+        var r6 = ijnRange(1, data.record.count - 1).map({ i -> ParsingWord in
             let a2 = data.record[i]
             
-            let r5 = ViewParsingDict.OneData()
+            let r5 = ParsingWord()
             r5.word = DText(a2.word!)
             r5.exp = [DText(a2.exp!)]
-            r5.sn = DText("H\(a2.sn!)", sn: "\(a2.sn!)", tp: "H", tp2: "WH")
+            let sn = trimLeadingZeros(a2.sn!)
+            r5.sn = DText("H\(sn)", sn: sn, tp: "H", tp2: "WH")
             r5.wform = [DText(a2.pro),DText(a2.wform!)]
             r5.remark = [DText(a2.remark!)]
             r5.orig = DText(a2.orig!)
@@ -107,9 +127,9 @@ class ConvertorQp2VCParsingData {
         // 但記得 希伯來文資料行與顯示順序是反的
         let r7 = r1.map({countSpaceAndDash(String($0))})
         
-        var r8:[[ViewParsingDict.OneData]] = []
+        var r8:[[ParsingWord]] = []
         for (i1,a1) in r7.reversed().enumerated() {
-            var r8a: [ViewParsingDict.OneData] = []
+            var r8a: [ParsingWord] = []
             for _ in ijnRange(0, a1 + 1){
                 if r6.count == 0 {
                     break
@@ -124,6 +144,11 @@ class ConvertorQp2VCParsingData {
         self.dicts = r8
         
     }
+    /// 離線資料庫的 SN 帶前導 0（02532），去掉後才是字典、彙編查得到的編號 2532（全 0 時保留一個 0）
+    private func trimLeadingZeros(_ sn: String) -> String {
+        let r1 = sn.drop(while: { $0 == "0" })
+        return r1.isEmpty ? String(sn.suffix(1)) : String(r1)
+    }
     func countSpaceAndDash(_ str:String)->Int{
         let trimmed = str.trimmingCharacters(in: .whitespaces)
         let regSpace = try! NSRegularExpression(pattern: "[ -]+", options: [])
@@ -131,7 +156,7 @@ class ConvertorQp2VCParsingData {
     }
     var words: [[DText]]? = nil
     var exps: [[DText]]? = nil
-    var dicts: [[ViewParsingDict.OneData]]? = nil
+    var dicts: [[ParsingWord]]? = nil
 }
 extension ConvertorQp2VCParsingData {
     public class DData {

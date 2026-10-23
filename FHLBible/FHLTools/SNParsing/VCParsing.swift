@@ -7,177 +7,264 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 import FHLCommon
 import OSLog
 
-/// 使用 set
-class VCParsing : UIViewController {
-    static var logger = Logger(subsystem: "com.FHLBible", category: "VCParsing")
-    typealias FnCallback = (_ dataSet:[ViewParsing.OneSet],_ isHebrew: Bool) -> Void
-    @IBOutlet weak var viewParsing: ViewParsing!
-    @IBOutlet weak var btnTitle: UIButton!
-    private var titleViewWidthConstraint: NSLayoutConstraint?
-    var _vers: [String] = []
-    lazy var eventKey: String = {
-        return "VCParsing\(ObjectIdentifier(self).hashValue)"
-    }()
-    /// 這個較好用. set 後, 然後在 inited 時, 就會開始查詢資料
-    /// vers 是加入 btnSnClicked 後，才需要的
-    func set(_ addr: DAddress,_ vers:[String]){
-        self._cur = addr
-        self._vers = vers
+/// Parsing（原文逐字分析）。畫面是 SwiftUI (`ParsingView`)，內容仍用 `ViewDisplayCell` (希伯來文、中文要用 App 的字型設定)。
+/// 以 `VCParsing(addr:vers:)` 建立後 push，不再經由 storyboard。
+/// vers 是因為按了某個 SN 後（彙編、字典），有時會需要，而非 Parsing 真的需要
+class VCParsing: UIHostingController<ParsingView> {
+    private let model: ParsingModel
+
+    init(addr: DAddress, vers: [String]) {
+        let m = ParsingModel(addr: addr, vers: vers)
+        self.model = m
+        super.init(rootView: ParsingView(model: m, onTapSn: { _ in }, onPickBook: {}))
+        rootView = ParsingView(model: m,
+                               onTapSn: { [weak self] dtext in self?.doWhenSnClicked(dtext) },
+                               onPickBook: { [weak self] in self?.doPickBook() })
     }
-    /// 這個是以界面為概念的寫法
-    func set(_ dataSets:[ViewParsing.OneSet]) {
-        viewParsing._datas = dataSets
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        let m = ParsingModel(addr: DAddress(1, 1, 1), vers: [])
+        self.model = m
+        super.init(coder: aDecoder, rootView: ParsingView(model: m, onTapSn: { _ in }, onPickBook: {}))
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTitleView()
-        
-        if _cur != nil {
-            self.reloadDataAsync(self._cur!)
+        // 這裡刻意不用 SwipeHelp：
+        // 舊版為了避免「字型放大時要左右捲動卻誤切換上下節」，把左右滑改成什麼都不做，結果連系統的「右滑返回」都被停用。
+        // 新版內容會自動換行，不需要左右捲動，所以不再攔截手勢，右滑可以直接返回。
+
+        // 開始動作
+        model.reload()
+    }
+
+    /// 點了某個 SN：跳出選單（彙編、Parsing、字典…）
+    private func doWhenSnClicked(_ dtext: DText) {
+        guard dtext.sn != nil else { return }
+        SnDTextClickFlow(vc: self, addr: model.addr, vers: model.vers).mainAsync(dtext)
+    }
+    /// 點了標題：選其它書卷、章。選了之後以該章第 1 節重新查詢
+    private func doPickBook() {
+        let r1 = BookChapPickerViewController(book: model.addr.book, chap: model.addr.chap)
+        r1.onClick$.addCallback { [weak self] sender, pData in
+            guard let self = self, let pData = pData else { return }
+            self.model.go(DAddress(book: pData.idBook, chap: pData.idChap, verse: 1))
         }
-        
-        _swipeHelp.addSwipe(dir: .left)
-        _swipeHelp.addSwipe(dir: .right)
-        _swipeHelp.onSwipe$.addCallback { sender, pData in
-            // 在 Parsing 界面，不要單指切換章節。
-            // 因為，考慮字型放大的時候，很多 table 或字，可能需要左右卷軸。若要滾動卷軸，卻切換到上一章或下一章，就會讓人覺得難用。
-            // 承上，並且，Parsing 通常是一節一節進行，所以上面已經有方便快速按下一章與上一章的，所以少這個快速鍵沒關係。
-            if pData?.direction == .right {
-                // self.goPrev()
-            } else if pData?.direction == .left {
-                // self.goNext()
+        navigationController?.pushViewController(r1, animated: false)
+    }
+}
+
+/// Parsing 畫面：一個分句（原文一行、中文一行）一個區段，其下是逐字分析的卡片；
+/// 標題是目前的節（點了選書卷），右上角是上一節、下一節
+struct ParsingView: View {
+    let model: ParsingModel
+    let onTapSn: (DText) -> Void
+    let onPickBook: () -> Void
+
+    var body: some View {
+        content
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Button(action: onPickBook) {
+                        HStack(spacing: 4) {
+                            Text(model.title)
+                                .font(.headline)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.7)
+                            Image(systemName: "chevron.down")
+                                .font(.caption2.weight(.bold))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(model.title)
+                    .accessibilityHint(NSLocalizedString("聖經目錄", comment: ""))
+                }
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button { model.goPrev() } label: {
+                        Label(NSLocalizedString("上一節", comment: ""), systemImage: "arrow.left")
+                            .labelStyle(.iconOnly)
+                    }
+                    Button { model.goNext() } label: {
+                        Label(NSLocalizedString("下一節", comment: ""), systemImage: "arrow.right")
+                            .labelStyle(.iconOnly)
+                    }
+                }
+            }
+    }
+
+    @ViewBuilder private var content: some View {
+        switch model.phase {
+        case .loading:
+            ProgressView(NSLocalizedString("取得資料中...", comment: ""))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        case .failed:
+            ContentUnavailableView {
+                Label(NSLocalizedString("沒有 Parsing 資料", comment: ""), systemImage: "text.magnifyingglass")
+            } description: {
+                Text(NSLocalizedString("這一節沒有原文分析資料，或需要確認網路連線後再試一次。", comment: ""))
+            } actions: {
+                Button(NSLocalizedString("重試", comment: "")) { model.reload() }
+                    .buttonStyle(.borderedProminent)
+            }
+        case .loaded:
+            List {
+                ForEach(model.clauses) { clause in
+                    Section {
+                        ParsingClauseRow(clause: clause,
+                                         isRightToLeft: model.isRightToLeft,
+                                         generation: model.generation)
+                        ForEach(clause.words) { word in
+                            ParsingWordRow(word: word, onTapSn: onTapSn)
+                        }
+                    }
+                }
+            }
+            .listStyle(.insetGrouped)
+        }
+    }
+}
+
+/// 一個分句：原文在上，中文翻譯在下。希伯來文由右往左，靠右對齊
+private struct ParsingClauseRow: View {
+    let clause: ParsingClause
+    let isRightToLeft: Bool
+    let generation: Int
+
+    var body: some View {
+        let align: NSTextAlignment = isRightToLeft ? .right : .left
+        VStack(alignment: .leading, spacing: 8) {
+            DTextContentView(dtexts: clause.w, generation: generation, isVisibleSn: true,
+                             onTapRef: { _ in }, alignment: align)
+            DTextContentView(dtexts: clause.cht, generation: generation, isVisibleSn: true,
+                             onTapRef: { _ in }, alignment: align)
+        }
+        .padding(.horizontal, -5) // UITextView 左右各有 5pt 的 lineFragmentPadding，扣掉才會和下面的卡片對齊
+        .padding(.vertical, 4)
+    }
+}
+
+/// 一個原文字的分析：SN 按鈕、原文字，下面依序是 原型、簡義、分析、備註（空的不顯示）
+private struct ParsingWordRow: View {
+    let word: ParsingWord
+    let onTapSn: (DText) -> Void
+    /// 左邊小標題的寬度，隨 Dynamic Type 放大
+    @ScaledMetric(relativeTo: .footnote) private var labelWidth: CGFloat = 36
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                Button { onTapSn(word.sn) } label: {
+                    Text(word.sn.w ?? "").monospacedDigit()
+                }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+                .controlSize(.small)
+                Text(word.word.w ?? "")
+                    .font(.headline)
+                Spacer(minLength: 0)
+            }
+            if let orig = word.orig.w, !orig.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                field(Text("原型")) { Text(orig).textSelection(.enabled) }
+            }
+            if !isBlank(word.exp) {
+                field(Text("簡義")) { plain(word.exp) }
+            }
+            if !isBlank(word.wform) {
+                field(Text("分析")) { plain(word.wform) }
+            }
+            if !isBlank(word.remark) {
+                field(Text("備註")) { plain(word.remark) }
             }
         }
-        
-        viewParsing.evBtnSnClicked$.addCallback(self.eventKey){[weak self] sender, pData in
-            if self == nil { return }
-            
-            // 判斷, 是 sn 嗎 (這段 code 參考 VCRead 中，當按下是 Sn 時的 callback
-            if pData != nil && pData!.sn != nil {
-                let addr = self?._cur
-                if addr == nil { return }
-                
-                let r1 = SnDTextClickFlow(vc: self!, addr: addr!, vers: self!._vers)
-                r1.mainAsync(pData!)
-            }
+        .padding(.vertical, 4)
+    }
+
+    private func field<C: View>(_ title: Text, @ViewBuilder _ body: () -> C) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+            title
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .frame(width: labelWidth, alignment: .leading)
+            body()
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        updateTitleViewLayout()
+    /// 簡義、分析、備註都是純文字（沒有可點的參照），用原生 Text，字型隨 Dynamic Type、也能長按選取
+    private func plain(_ dtexts: [DText]) -> some View {
+        Text(dtexts.compactMap { $0.w }.joined()
+            .trimmingCharacters(in: .whitespacesAndNewlines))
+            .textSelection(.enabled)
+    }
+    private func isBlank(_ dtexts: [DText]) -> Bool {
+        dtexts.allSatisfy { ($0.w ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    }
+}
+
+/// Parsing 的狀態：目前的節、載入階段、分句（原文、中文、逐字分析）
+@Observable
+final class ParsingModel {
+    enum Phase { case loading, loaded, failed }
+
+    private static let logger = Logger(subsystem: "com.FHLBible", category: "VCParsing")
+
+    private(set) var addr: DAddress
+    let vers: [String]
+    private(set) var phase: Phase = .loading
+    private(set) var clauses: [ParsingClause] = []
+    /// 舊約（希伯來文）由右往左
+    private(set) var isRightToLeft = false
+    /// 每載入一次加 1，讓 UIKit 內容只在真的換資料時才重畫
+    private(set) var generation = 0
+
+    @ObservationIgnored private var requestId = 0
+
+    init(addr: DAddress, vers: [String]) {
+        self.addr = addr
+        self.vers = vers
     }
 
-    private func configureTitleView() {
-        guard let titleView = navigationItem.titleView else { return }
-
-        btnTitle.contentHorizontalAlignment = .center
-        btnTitle.contentVerticalAlignment = .center
-        btnTitle.titleLabel?.lineBreakMode = .byTruncatingTail
-        btnTitle.titleLabel?.numberOfLines = 1
-        btnTitle.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-
-        if let existingConstraint = titleView.constraints.first(where: {
-            $0.firstAttribute == .width && $0.secondItem == nil
-        }) {
-            titleViewWidthConstraint = existingConstraint
-        } else {
-            let constraint = titleView.widthAnchor.constraint(equalToConstant: 130)
-            constraint.isActive = true
-            titleViewWidthConstraint = constraint
-        }
+    /// 例 羅1:1
+    var title: String {
+        "\(BibleBookNames.getBookName(addr.book, .太))\(addr.chap):\(addr.verse)"
     }
 
-    private func updateTitleViewLayout() {
-        guard let titleView = navigationItem.titleView else { return }
+    func goNext() { go(addr.goNextVerse()) }
+    func goPrev() { go(addr.goPrevVerse()) }
+    func go(_ newAddr: DAddress) {
+        addr = newAddr
+        reload()
+    }
 
-        let navigationBarWidth = navigationController?.navigationBar.bounds.width ?? view.bounds.width
-        let reservedWidth: CGFloat = 140
-        let maxWidth = max(96, min(240, navigationBarWidth - reservedWidth))
-        let fittingSize = btnTitle.systemLayoutSizeFitting(
-            CGSize(width: UIView.layoutFittingCompressedSize.width, height: 44),
-            withHorizontalFittingPriority: .fittingSizeLevel,
-            verticalFittingPriority: .required
-        )
-        let targetWidth = min(max(96, ceil(fittingSize.width)), maxWidth)
+    /// 重抓目前節。有離線資料庫就用離線的，否則用 qp API。
+    /// 快速連續換節時，舊的回應（requestId 不同）會被丟掉。
+    func reload() {
+        requestId += 1
+        let id = requestId
+        phase = .loading
 
-        titleViewWidthConstraint?.constant = targetWidth
-        if titleView.bounds.width != targetWidth {
-            titleView.bounds.size = CGSize(width: targetWidth, height: 44)
-        }
-    }
-    deinit{
-        viewParsing.evBtnSnClicked$.clearCallback(eventKey)
-    }
-    lazy var _swipeHelp = SwipeHelp(view: self.view, viewController: self)
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        _swipeHelp.onViewWillAppear()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        _swipeHelp.onViewWillDisappear()
-    }
-    
-    @IBAction func goNext(){
-        if _next != nil {
-            _cur = _next
-            self.reloadDataAsync(_next!)
-        }
-    }
-    @IBAction func goPrev(){
-        if _prev != nil {
-            _cur = _prev
-            self.reloadDataAsync(_prev!)
-        }
-    }
-    @IBAction func goSelectBook(){
-        if _cur != nil {
-            let vc2 = BookChapPickerViewController(book: _cur!.book, chap: _cur!.chap)
-            vc2.onClick$.addCallback { sender, pData in
-                self._cur = DAddress(book: pData!.idBook, chap: pData!.idChap, verse: 1)
-                self.reloadDataAsync(self._cur!)
-            }
-            self.navigationController?.pushViewController(vc2, animated: false)
-        }
-    }
-    var _cur: DAddress? = nil {
-        didSet{
-            if _cur != nil {
-                let r1 = BibleBookNames.getBookName(_cur!.book, .太)
-                let r2 = "\(r1)\(_cur!.chap):\(_cur!.verse)"
-                btnTitle!.setTitle(r2, for: .normal)
-                btnTitle.accessibilityLabel = r2
-                updateTitleViewLayout()
-            }
-        }
-    }
-    var _prev: DAddress? = nil
-    var _next: DAddress? = nil
-
-
-    
-    private func updateNextPrevWhenGetQpResult(_ data: DReloadData){
-        self._prev = data.addrPrev
-        self._next = data.addrNext
-    }
-    func reloadDataAsync(_ addr: DAddress){
-        //let reloader: IReloadData = ReloadDataViaScApi()
-        //let reloader: IReloadData = ReloadDataViaOfflineDatabase()
-        let reloader: IReloadData = ReloadDataAutoUseOfflineOrScApi()
-        
-        reloader.apiFinished$.addCallback { sender, pData in
+        let reloader: VCParsing.IReloadData = VCParsing.ReloadDataAutoUseOfflineOrScApi()
+        reloader.apiFinished$.addCallback { [weak self] sender, pData in
+            var result: (clauses: [ParsingClause], isHebrew: Bool)? = nil
             if sender != nil {
-                // error message. show sender message.
-            } else {
-                let re = ConvertorQp2VCParsingData(pData!.data!).main()
-                DispatchQueue.main.async {
-                    self.viewParsing._isRightToLeft = re.isHebrew
-                    self.viewParsing._datas = re.0
-                    
-                    self.updateNextPrevWhenGetQpResult(pData!)
+                Self.logger.error("parsing failed: \(sender?.first?.w ?? "")")
+            } else if let data = pData?.data, !data.record.isEmpty {
+                result = ConvertorQp2VCParsingData(data).main()
+            }
+            DispatchQueue.main.async {
+                guard let self = self, self.requestId == id else { return }
+                if let result = result, !result.clauses.isEmpty {
+                    self.isRightToLeft = result.isHebrew
+                    self.clauses = result.clauses
+                    self.generation += 1
+                    self.phase = .loaded
+                } else {
+                    self.clauses = []
+                    self.phase = .failed
                 }
             }
         }
