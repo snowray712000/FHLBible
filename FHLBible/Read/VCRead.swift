@@ -135,8 +135,7 @@ class VCRead : UIHostingController<ReadView> {
         push(vc1, animated: false)
     }
     private func pickVersions(){
-        let vc1 = self.gVCVersionsPicker()
-        vc1.setInitData(model.vers)
+        let vc1 = VCVersionsPicker(vers: model.vers)
         vc1.onClickOkay$.addCallback {[weak self] sender, pData in
             guard let self = self, let pData = pData else { return }
             // 情境: 雖然按 okay, 但其實譯本沒變, (順序、內容), 就不要再取一次

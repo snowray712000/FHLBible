@@ -22,9 +22,6 @@
 /* Class = "UINavigationItem"; title = "閱讀記錄"; ObjectID = "KkQ-jI-AOE"; */
 "KkQ-jI-AOE.title" = "阅读记录";
 
-/* Class = "UINavigationItem"; title = "譯本選擇"; ObjectID = "LEr-kf-SpF"; */
-"LEr-kf-SpF.title" = "译本选择";
-
 
 /* Class = "UILabel"; text = "信望愛聖經工具"; ObjectID = "Oke-au-QTe"; */
 "Oke-au-QTe.text" = "信望爱圣经工具";
@@ -50,7 +47,6 @@
 
 // 书卷选择相关
 
-"LEr-kf-SpF.title" = "译本选择";
 
 // 複製功能相關
 "0fd-eQ-MsQ.normalTitle" = "复制";

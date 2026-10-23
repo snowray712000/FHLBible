@@ -71,8 +71,7 @@ class VCVersionsCompareInOneVerse : UIHostingController<VersionsCompareView> {
     }
     /// 選擇要比較的譯本。比較用的譯本自己維護 (`ManagerBibleVersionsForCompare`)，不要連動閱讀用的 cur
     fileprivate func doPickVersions() {
-        let vc = self.gVCVersionsPicker()
-        vc.setInitData(model.vers, isUpdateCurVersWhenOkay: false)
+        let vc = VCVersionsPicker(vers: model.vers, updatesCurWhenDone: false)
         vc.onClickOkay$.addCallback {[weak self] sender, pData in
             if let vers = pData {
                 self?.model.setVers(vers)

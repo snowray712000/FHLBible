@@ -24,7 +24,6 @@ extension UIViewController {
     func gVCRead()->VCRead {
         VCRead()
     }
-    func gVCVersionsPicker()->VCVersionsPicker { self.gEasyGetViewCtrlFromXibCore("VCVersionsPicker")}
     /// 按下某個 SN 的字的時候，跳出的選單
     func gVCSnActionPicker() -> VCSnActionPicker { self.gEasyGetViewCtrlFromXibCore("VCSnActionPicker")}
     /// 按下 經文顯示 左側 時，會用到的 ctrl
