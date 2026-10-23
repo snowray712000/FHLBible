@@ -170,6 +170,12 @@ class VCRead : UIHostingController<ReadView> {
         // 以「該節」的位置為準，因為可能是複合型 read，即 羅1:2;創1:3
         guard let addrThisRow = row.addr ?? model.addrFirst else { return }
 
+        // 分段時，文字裡的節號：開那一節的功能選單
+        if let a = row.verseMarks[ObjectIdentifier(dtext)] {
+            model.verseActionAddr = a
+            model.verseActionRow = row.id
+            return
+        }
         if dtext.sn != nil {
             SnDTextClickFlow(vc: self, addr: addrThisRow, vers: vers).mainAsync(dtext)
         } else if dtext.refDescription != nil {
@@ -255,6 +261,62 @@ enum ReadArrangement: Int {
     }
 }
 
+/// 一列是什麼：單節 (一節一列) 或段落 (依段落分組，一段一列，節號放在文字裡，上方有段落標題)。
+/// 與 `ReadArrangement` (多譯本怎麼排) 是兩個獨立的維度 (FHLNUI 的 show_mode 1..4 = 單節/段落 × 併排/交錯)
+enum ReadGrouping: Int {
+    case verse = 0
+    case paragraph = 1
+
+    static func loadSaved() -> ReadGrouping {
+        ReadGrouping(rawValue: UserDefaults.standard.integer(forKey: FHLUserDefaults.keys.ReadGrouping.rawValue)) ?? .verse
+    }
+    func save() {
+        UserDefaults.standard.set(rawValue, forKey: FHLUserDefaults.keys.ReadGrouping.rawValue)
+    }
+}
+
+/// 段落資料 (新譯本的分段與標題，與 FHLNUI `paragraphs_ncv.json.gz` 同一份，這裡存成未壓縮的 `paragraphs_ncv.json`)。
+/// 格式 `{"paragraphs":[[book, chap, sec, "標題"], …]}`，依 (書, 章, 節) 排序，每一筆是一段的起點，到下一筆之前都屬於它。
+/// 所有譯本共用這一份 (與 FHLNUI 一樣)。檔案是 App 資源；沒有這個檔案時 `isAvailable` 為 false，閱讀就不提供「段落」
+final class ReadParagraphData {
+    static let s = ReadParagraphData()
+
+    /// 每一段起點的 hash (book * 1_000_000 + chap * 1_000 + sec)，遞增
+    private(set) var starts: [Int] = []
+    private(set) var titles: [String] = []
+    var isAvailable: Bool { !starts.isEmpty }
+
+    private init() {
+        guard let url = Bundle.main.url(forResource: "paragraphs_ncv", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
+              let list = json["paragraphs"] as? [[Any]] else { return }
+        for p in list where p.count >= 4 {
+            guard let b = p[0] as? Int, let c = p[1] as? Int, let s = p[2] as? Int, let t = p[3] as? String else { continue }
+            starts.append(Self.hash(b, c, s))
+            titles.append(t)
+        }
+    }
+    static func hash(_ book: Int, _ chap: Int, _ sec: Int) -> Int { book * 1_000_000 + chap * 1_000 + sec }
+
+    /// 這一節屬於第幾段；在第一段之前是 -1
+    func index(_ book: Int, _ chap: Int, _ sec: Int) -> Int {
+        let h = Self.hash(book, chap, sec)
+        var lo = 0, hi = starts.count - 1, found = -1
+        while lo <= hi {
+            let mid = (lo + hi) / 2
+            if starts[mid] <= h { found = mid; lo = mid + 1 } else { hi = mid - 1 }
+        }
+        return found
+    }
+    /// 簡體 (GB) 設定時，標題也轉簡體
+    func title(_ i: Int) -> String? {
+        guard titles.indices.contains(i), !titles[i].isEmpty else { return nil }
+        if ManagerLangSet.s.curIsGb, let s = titles[i].applyingTransform(StringTransform("Hant-Hans"), reverse: false) { return s }
+        return titles[i]
+    }
+}
+
 /// 使用者自訂的欄寬比例，依「譯本組合」記 (順序換了算同一組，與 FHLNUI 一致)。沒有 = 自動
 enum ReadColumnWeightsStore {
     private static var key: String { FHLUserDefaults.keys.ReadColumnWeights.rawValue }
@@ -284,15 +346,18 @@ enum ReadColumnWeightsStore {
 struct ReadColumnsLayout {
     /// List 的 listRowInsets 左右各一個
     static let rowInset: CGFloat = 12
-    /// 節號欄與第一欄的間距
-    static let labelGap: CGFloat = 8
+    /// 節號欄與第一欄的間距 (沒有節號欄時 = 0)
+    static let labelGapWhenLabel: CGFloat = 8
     /// 一欄最窄 (含左右內距)
     static let minColumn: CGFloat = 130
 
     /// 要橫向捲動時，平均一欄的寬度
     static let scrollColumn: CGFloat = 160
 
+    /// 畫面寬度 (並排內容比它寬時，段落標題要在畫面寬度內換行，不要跟著整個內容拉長)
+    let viewWidth: CGFloat
     let labelWidth: CGFloat
+    var labelGap: CGFloat { labelWidth > 0 ? Self.labelGapWhenLabel : 0 }
     /// 各欄寬度 (含左右內距)
     let colWidths: [CGFloat]
     /// 整個內容 (含 listRowInsets) 的寬度
@@ -302,8 +367,9 @@ struct ReadColumnsLayout {
 
     init(viewWidth: CGFloat, labelWidth: CGFloat, weights: [Double]) {
         let n = CGFloat(weights.count)
-        let fixed = 2 * Self.rowInset + labelWidth + Self.labelGap
+        let fixed = 2 * Self.rowInset + labelWidth + (labelWidth > 0 ? Self.labelGapWhenLabel : 0)
         let viewAvail = max(viewWidth - fixed, 0)
+        self.viewWidth = viewWidth
         // 放得下：用滿畫面寬；放不下：平均一欄 scrollColumn，整體比畫面寬，橫向捲動。
         // 總寬只和欄數有關，所以拖曳分隔線 (相鄰兩欄總寬不變) 時整體寬度不會跳動
         let isFit = viewAvail >= Self.minColumn * n
@@ -343,6 +409,15 @@ struct ReadRow: Identifiable {
     let label: String
     /// 每個譯本一個 `[DText]`
     let cells: [[DText]]
+    /// 段落標題 (分段時才有，在這一列最上面)
+    var title: String? = nil
+    /// 分段時，文字裡的節號 DText (藍色，點了開該節的功能選單) → 那一節的位置。用物件本身辨識
+    var verseMarks: [ObjectIdentifier: DAddress] = [:]
+
+    /// 換成指定的節 (分段時，點到某一節的節號)
+    func with(addr newAddr: DAddress?) -> ReadRow {
+        ReadRow(id: id, address: address, addr: newAddr, label: label, cells: cells, title: title, verseMarks: verseMarks)
+    }
 }
 
 /// 閱讀的狀態：目前位址、譯本、資料、SN 開關、複選
@@ -351,12 +426,21 @@ final class ReadModel {
     var addr: VerseRange = VerseRange()
     var vers: [String] = ["unv"]
     var columns: [ReadColumn] = []
+    /// 畫面上的列：單節時一節一列，分段時一段一列 (由 `verseRows` 組出來)
     var rows: [ReadRow] = []
+    /// 每節一列的原始資料 (ReadDataQ 的結果)
+    @ObservationIgnored private(set) var verseRows: [ReadRow] = []
+    /// 整頁都是同一章 (複合型 read 如 羅1:2;創1:3 不是)；分段只在這時有意義
+    @ObservationIgnored private var isSingleChap = false
     var isLoading = false
     /// 每載入一次、或 SN 開關變了就加 1，讓 UIKit 內容只在真的要重畫時才重畫
     var generation: Int = 0
     var isSnVisible: Bool = ManagerIsSnVisible.s.cur
 
+    /// 單節／段落 (多譯本的排列另有 `arrangementSetting`)
+    var groupingSetting: ReadGrouping = ReadGrouping.loadSaved()
+    /// 點了分段文字裡的節號，要跳功能選單的那一節
+    var verseActionAddr: DAddress?
     /// 多譯本的排列。nil = 還沒選過 (手機交錯、平板並排)
     var arrangementSetting: ReadArrangement? = ReadArrangement.loadSaved()
     /// 節號欄寬：整頁同一章只有節號 (窄)，否則是完整位置 (羅1:2，寬)
@@ -397,6 +481,97 @@ final class ReadModel {
         let names = vers.map { BibleVersionConvertor().na2cna($0) }
         if names.count <= 1 { return names.first ?? "" }
         return "\(names[0]) +\(names.count - 1)"
+    }
+
+    // MARK: 分段
+
+    /// 要有段落資料 (App 資源)、只有一章、而且有經文，才能分段
+    var canGroup: Bool { ReadParagraphData.s.isAvailable && isSingleChap && !verseRows.isEmpty }
+    var isGroupedByParagraph: Bool { groupingSetting == .paragraph && canGroup }
+    func setGrouping(_ g: ReadGrouping) {
+        groupingSetting = g
+        g.save()
+        rebuildRows()
+    }
+    /// 由 `verseRows` 與分段設定組出畫面上的 `rows`。換章、換譯本、換分段、SN 開關改變文字長度時都會呼叫
+    private func rebuildRows() {
+        endSelection()
+        verseActionRow = nil
+        verseActionAddr = nil
+        rows = isGroupedByParagraph ? buildParagraphRows() : verseRows
+        labelWidth = isGroupedByParagraph ? 0 : (isSingleChap ? 34 : 84)
+        dragWeights = nil
+        updateAutoWeights()
+        generation += 1
+    }
+    /// 併入上節：資料是 "a"，轉出來是單一個 "(併入上節)"
+    /// 轉出來的 "(併入上節)" 已經過括號處理，可能被拆成好幾個 DText (括號與內文分開、帶 children)，所以比對全部文字接起來
+    private static func plainText(_ d: [DText]) -> String {
+        d.map { ($0.w ?? "") + ($0.children.map { plainText($0) } ?? "") }.joined()
+    }
+    private static func isMergedPlaceholder(_ d: [DText]) -> Bool {
+        let t = plainText(d)
+        return t.count <= 8 && t.contains("併入上節")
+    }
+    private static func isNoVersePlaceholder(_ d: [DText]) -> Bool { plainText(d) == "(此譯本無)" }
+
+    /// 依段落資料，把連續、同一段的節併成一列。每個譯本的一格 = 該段每一節「節號 + 內容」接在一起 (節號是藍色 DText，點了開該節的功能選單)。
+    /// 併入上節 (例如和合本 西2:21 併入 20)：該譯本不產生這一節，上一節的節號改成 20-21 (上一節即使在前一段也照改，因為 DText 是物件)；
+    /// 這要在分段時處理，否則段落一格裡跨不過去 (FHLNUI docs/z260930d)
+    private func buildParagraphRows() -> [ReadRow] {
+        let data = ReadParagraphData.s
+        let n = columns.count
+        let pIdx = verseRows.map { r -> Int in r.addr.map { data.index($0.book, $0.chap, $0.verse) } ?? -1 }
+        var groups: [[Int]] = []
+        for i in verseRows.indices {
+            if let last = groups.last?.last, pIdx[last] == pIdx[i] {
+                groups[groups.count - 1].append(i)
+            } else {
+                groups.append([i])
+            }
+        }
+        var cells = [[[DText]]](repeating: [[DText]](repeating: [], count: n), count: groups.count)
+        var marks = [[ObjectIdentifier: DAddress]](repeating: [:], count: groups.count)
+        for col in 0..<n {
+            var lastNumber: DText?
+            var lastFirstVerse = 0
+            for (g, idxs) in groups.enumerated() {
+                var out: [DText] = []
+                var hasMerged = false
+                for i in idxs {
+                    let row = verseRows[i]
+                    guard row.cells.indices.contains(col), let addr = row.addr else { continue }
+                    let dtexts = row.cells[col]
+                    if Self.isNoVersePlaceholder(dtexts) { continue }
+                    if Self.isMergedPlaceholder(dtexts), let last = lastNumber {
+                        last.w = "\(lastFirstVerse)-\(addr.verse) "
+                        hasMerged = true
+                        continue
+                    }
+                    let num = DText("\(addr.verse) ")
+                    num.refDescription = row.address // 只為了畫成藍色；點擊由 verseMarks 攔下
+                    marks[g][ObjectIdentifier(num)] = addr
+                    lastNumber = num
+                    lastFirstVerse = addr.verse
+                    out.append(num)
+                    out.append(contentsOf: dtexts)
+                }
+                // 整段都沒有 (且不是因為併入上節)：與單節一樣顯示「此譯本無」
+                if out.isEmpty && !hasMerged { out = [DText("(此譯本無)")] }
+                cells[g][col] = out
+            }
+        }
+        return groups.enumerated().map { g, idxs in
+            let verses = idxs.compactMap { verseRows[$0].addr }
+            let p = pIdx[idxs[0]]
+            return ReadRow(id: g,
+                           address: VerseRangeToString().main(verses, ManagerLangSet.s.curTpBookNameLang),
+                           addr: verseRows[idxs[0]].addr,
+                           label: "",
+                           cells: cells[g],
+                           title: p >= 0 ? data.title(p) : nil,
+                           verseMarks: marks[g])
+        }
     }
 
     // MARK: 排列、欄寬
@@ -508,6 +683,7 @@ final class ReadModel {
         let vers = self.vers
         endSelection()
         rows = []
+        verseRows = []
         isLoading = true
 
         let dataQ: IVCReadDataQ = ReadDataQ()
@@ -536,7 +712,7 @@ final class ReadModel {
         let chaps = Set(parsed.compactMap { $0 }.map { $0.book * 1000 + $0.chap })
         let isSingleChap = chaps.count == 1 && parsed.allSatisfy { $0 != nil }
 
-        rows = data.indices.map { i in
+        verseRows = data.indices.map { i in
             let s = addresses[i]
             var label = s
             if isSingleChap, let r = s.range(of: ":", options: .backwards) {
@@ -544,11 +720,9 @@ final class ReadModel {
             }
             return ReadRow(id: i, address: s, addr: parsed[i], label: label, cells: data[i].datas)
         }
-        labelWidth = isSingleChap ? 34 : 84
-        dragWeights = nil
+        self.isSingleChap = isSingleChap
         customWeights = ReadColumnWeightsStore.load(vers)
-        updateAutoWeights()
-        generation += 1
+        rebuildRows()
         isLoading = false
     }
 
@@ -793,6 +967,14 @@ struct ReadView: View {
             }
             .pickerStyle(.inline)
             .disabled(model.columns.count < 2)
+            Divider()
+            // 分段要有段落資料，且只在單一章時 (串珠等複合型的位置不分段)
+            Picker(NSLocalizedString("分段", comment: ""), selection: Binding(get: { model.isGroupedByParagraph ? ReadGrouping.paragraph : .verse }, set: { model.setGrouping($0) })) {
+                Label(NSLocalizedString("單節", comment: ""), systemImage: "list.number").tag(ReadGrouping.verse)
+                Label(NSLocalizedString("段落", comment: ""), systemImage: "text.alignleft").tag(ReadGrouping.paragraph)
+            }
+            .pickerStyle(.inline)
+            .disabled(!model.canGroup)
             if arrangement == .sideBySide && model.isCustomWidth {
                 Button { model.resetWidths() } label: {
                     Label(NSLocalizedString("自動欄寬", comment: ""), systemImage: "arrow.left.and.right")
@@ -827,7 +1009,7 @@ struct ReadColumnHeader: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            Color.clear.frame(width: ReadColumnsLayout.rowInset + layout.labelWidth + ReadColumnsLayout.labelGap, height: 1)
+            Color.clear.frame(width: ReadColumnsLayout.rowInset + layout.labelWidth + layout.labelGap, height: 1)
             ForEach(model.columns.indices, id: \.self) { i in
                 if i < layout.colWidths.count {
                     Button(action: actions.pickVers) {
@@ -908,10 +1090,45 @@ struct ReadRowView: View {
     let layout: ReadColumnsLayout?
 
     var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            if let title = row.title {
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                    .frame(width: layout.map { max($0.viewWidth - 2 * ReadColumnsLayout.rowInset, 0) }, alignment: .leading)
+                    .padding(.top, 10)
+                    .padding(.bottom, 2)
+            }
+            content
+        }
+        // 分段時沒有節號鈕，點文字裡的節號後，選單掛在這一列
+        .confirmationDialog(verseActionTitle,
+                            isPresented: Binding(get: { row.label.isEmpty && model.verseActionRow == row.id },
+                                                 set: { if !$0 { model.verseActionRow = nil; model.verseActionAddr = nil } }),
+                            titleVisibility: .visible) {
+            verseActionButtons
+        }
+    }
+
+    private var verseActionTitle: String {
+        guard let a = model.verseActionAddr else { return row.address }
+        return VerseRangeToString().main([a], ManagerLangSet.s.curTpBookNameLang)
+    }
+    /// 節號按下去的功能。分段時是被點的那一節 (`verseActionAddr`)，單節時是這一列
+    @ViewBuilder
+    private var verseActionButtons: some View {
+        let r = row.with(addr: model.verseActionAddr ?? row.addr)
+        Button(NSLocalizedString("譯本比較", comment: "")) { actions.verseAction(r, .VersionsCompare) }
+        Button("Parsing") { actions.verseAction(r, .InfoParsing) }
+        Button(NSLocalizedString("註釋", comment: "")) { actions.verseAction(r, .InfoComment) }
+        Button(NSLocalizedString("串珠", comment: "")) { actions.verseAction(r, .InfoTsk) }
+    }
+
+    @ViewBuilder
+    private var content: some View {
         if let layout {
             HStack(alignment: .top, spacing: 0) {
                 labelButton(width: layout.labelWidth)
-                    .padding(.trailing, ReadColumnsLayout.labelGap)
+                    .padding(.trailing, layout.labelGap)
                 ForEach(model.columns.indices, id: \.self) { col in
                     cellView(col, showCaption: false)
                         .padding(.vertical, 4)
@@ -963,10 +1180,7 @@ struct ReadRowView: View {
                                 isPresented: Binding(get: { model.verseActionRow == row.id },
                                                      set: { if !$0 { model.verseActionRow = nil } }),
                                 titleVisibility: .visible) {
-                Button(NSLocalizedString("譯本比較", comment: "")) { actions.verseAction(row, .VersionsCompare) }
-                Button("Parsing") { actions.verseAction(row, .InfoParsing) }
-                Button(NSLocalizedString("註釋", comment: "")) { actions.verseAction(row, .InfoComment) }
-                Button(NSLocalizedString("串珠", comment: "")) { actions.verseAction(row, .InfoTsk) }
+                verseActionButtons
             }
         } else if let width {
             // 沒有節號 (例如沒有經文的提示列)，並排時仍要佔位，欄才對得齊
@@ -976,7 +1190,8 @@ struct ReadRowView: View {
 
     @ViewBuilder
     private func cellView(_ col: Int, showCaption: Bool) -> some View {
-        if row.cells.indices.contains(col) {
+        // 分段時，某譯本這一段是空的 (全都併入上一節)：交錯就不顯示這一塊
+        if row.cells.indices.contains(col), showCaption ? !row.cells[col].isEmpty : true {
             let column = model.columns[col]
             let isSelected = model.selected.contains(ReadCellKey(row: row.id, col: col))
             VStack(alignment: .leading, spacing: 2) {
@@ -1049,8 +1264,11 @@ fileprivate struct ReadSnapshotRenderer {
 
         addLabel(model.titleAddr, .preferredFont(forTextStyle: .title2), .black)
         for row in model.rows {
+            if let title = row.title {
+                addLabel(title, .preferredFont(forTextStyle: .headline), .black, spaceBefore: 12)
+            }
             if !row.address.isEmpty {
-                addLabel(row.address, .preferredFont(forTextStyle: .footnote), .systemBlue, spaceBefore: 12)
+                addLabel(row.address, .preferredFont(forTextStyle: .footnote), .systemBlue, spaceBefore: row.title == nil ? 12 : 2)
             }
             for (col, dtexts) in row.cells.enumerated() where model.columns.indices.contains(col) {
                 let column = model.columns[col]

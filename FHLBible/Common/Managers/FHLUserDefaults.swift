@@ -37,6 +37,8 @@ class FHLUserDefaults : NSObject {
         case ReadArrangement = "ReadArrangement"
         /// 閱讀並排時各欄寬度比例，依譯本組合記 { "cnet,unv": { "unv": 1.2, "cnet": 0.8 } }
         case ReadColumnWeights = "ReadColumnWeights"
+        /// 閱讀分段：0 單節 (一節一列)、1 段落 (依段落分組，一段一列)
+        case ReadGrouping = "ReadGrouping"
     }
 }
 

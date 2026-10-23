@@ -193,6 +193,7 @@
 		57FBC00F2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */; };
 		57FBC0112A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */; };
 		57FBC0132A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */; };
+		8011160B308B5E4700B6132A /* paragraphs_ncv.json in Resources */ = {isa = PBXBuildFile; fileRef = 8011160A308B5E4700B6132A /* paragraphs_ncv.json */; };
 		C8089F27267030D9004FA377 /* DTextString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F26267030D9004FA377 /* DTextString.swift */; };
 		C8089F2C267030E5004FA377 /* DTextTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F2B267030E5004FA377 /* DTextTestData.swift */; };
 		C8089F312670311B004FA377 /* EventOneRowForDTextClick.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8089F302670311B004FA377 /* EventOneRowForDTextClick.swift */; };
@@ -478,6 +479,7 @@
 		57FBC00E2A24A96C002E9DF7 /* AudioTextBibleTTSCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTextBibleTTSCore.swift; sourceTree = "<group>"; };
 		57FBC0102A2A0FFD002E9DF7 /* VCAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAudioTextSpeed.swift; sourceTree = "<group>"; };
 		57FBC0122A2A4EDA002E9DF7 /* ManagerAudioTextSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerAudioTextSpeed.swift; sourceTree = "<group>"; };
+		8011160A308B5E4700B6132A /* paragraphs_ncv.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = paragraphs_ncv.json; sourceTree = "<group>"; };
 		C8089F26267030D9004FA377 /* DTextString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextString.swift; sourceTree = "<group>"; };
 		C8089F2B267030E5004FA377 /* DTextTestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTextTestData.swift; sourceTree = "<group>"; };
 		C8089F302670311B004FA377 /* EventOneRowForDTextClick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventOneRowForDTextClick.swift; sourceTree = "<group>"; };
@@ -1000,6 +1002,7 @@
 		C84402062631584D00AD0CE9 /* Read */ = {
 			isa = PBXGroup;
 			children = (
+				8011160A308B5E4700B6132A /* paragraphs_ncv.json */,
 				576992BD274BB84000717E8C /* Footer */,
 				57F22C65272BC75200526631 /* ViewDisplayTable */,
 				C88D234026EB06C60088BCF5 /* DataGetter */,
@@ -1312,6 +1315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8011160B308B5E4700B6132A /* paragraphs_ncv.json in Resources */,
 				C8AD1D5B2624243D0046C8EE /* LaunchScreen.storyboard in Resources */,
 				C840BA6927082A8500766C7C /* Empty.xib in Resources */,
 				C8AD1D582624243D0046C8EE /* Assets.xcassets in Resources */,
